@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICLR 2026 — UW Math AI Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Space+Mono&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <canvas id="math-canvas"></canvas>
+
+  <header>
+    <img src="logo2.jpg" alt="UW Math AI Lab Logo" class="header-logo">
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="http://ai.math.uw.edu/">Home</a></li>
+      <li class="dropdown">
+        <a class="dropbtn">Projects</a>
+        <div class="dropdown-content">
+          <a href="spring2026.html">Spring 2026</a>
+          <a href="winter2026.html">Winter 2026</a>
+          <a href="fall2025.html">Fall 2025</a>
+          <a href="spring2025.html">Spring 2025</a>
+          <a href="winter2025.html">Winter 2025</a>
+          <a href="fall2024.html">Fall 2024</a>
+          <a href="winter2024.html">Winter 2024</a>
+          <a href="fall2023.html">Fall 2023</a>
+          <a href="spring2023.html">Spring 2023</a>
+          <a href="winter2023.html">Winter 2023</a>
+          <a href="fall2022.html">Fall 2022</a>
+          <a href="spring2022.html">Spring 2022</a>
+        </div>
+      </li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="seminars.html">Seminars</a></li>
+      <li><a href="iclr.html" class="iclr-btn">ICLR 2026</a></li>
+      <li><a href="https://uw2026leanhackathon.github.io/" class="hackathon-btn" target="_blank">Lean Hackathon</a></li>
+      <li><a href="https://www.washington.edu/giving/make-a-gift/?source_typ=3&source=DSC-152346&code=DSC-152346&fastForward=yes&page=make"
+             class="support-btn" target="_blank">Support Us</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <div class="iclr-hero">
+    <div class="iclr-badge">ICLR 2026 &nbsp;·&nbsp; Rio de Janeiro, Brazil</div>
+    <h1>UW Math AI Lab at ICLR 2026</h1>
+    <p>
+      Five papers from UW Math AI Lab researchers were presented at the International
+      Conference on Learning Representations in Rio de Janeiro, Brazil — showcasing
+      world-class work at the frontier of AI for mathematics.
+    </p>
+    <div class="spotlight-banner">
+      <span class="spotlight-icon">🏆</span>
+      <div class="spotlight-text">
+        <strong>ICML 2026 Spotlight — Top 2.2%</strong>
+        Vasily Ilin's work also earned acceptance as a main-conference spotlight paper
+        at ICML 2026, one of the most competitive venues in machine learning.
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Papers ── -->
+  <div class="iclr-papers">
+    <h2>Five Papers at ICLR 2026</h2>
+    <div class="papers-grid">
+
+      <div class="paper-card reveal">
+        <div class="paper-number">Paper 01 &nbsp;·&nbsp; ICLR 2026</div>
+        <div class="paper-title">Semantic Search over 9 Million Mathematical Theorems</div>
+        <div class="paper-authors">
+          Luke Alexander, Eric Leonen, Sophie Szeto, Artemii Remizov,
+          Ignacio Tejeda, Giovanni Inchiostro, Vasily Ilin, Jarod Alper
+        </div>
+        <p class="paper-abstract">
+          Searching for mathematical results remains difficult: most existing tools retrieve
+          entire papers, while mathematicians and theorem-proving agents often seek a specific
+          theorem. We introduce semantic theorem retrieval across a unified corpus of
+          9.2 million theorem statements — the largest publicly available collection of
+          human-authored, research-level theorems.
+        </p>
+        <a href="https://openreview.net/forum?id=4dyJvwEyaT" target="_blank" class="paper-link">OpenReview</a>
+      </div>
+
+      <div class="paper-card reveal">
+        <div class="paper-number">Paper 02 &nbsp;·&nbsp; ICLR 2026</div>
+        <div class="paper-title">Learning to Repair Lean Proofs from Compiler Feedback</div>
+        <div class="paper-authors">
+          Evan Wang, Simon Chess, Daniel Lee, Siyuan Ge, Ajit Mallavarapu, Vasily Ilin
+        </div>
+        <p class="paper-abstract">
+          As neural theorem provers become increasingly agentic, the ability to interpret
+          and act on compiler feedback is critical. Existing Lean datasets consist almost
+          exclusively of correct proofs, offering little supervision for understanding and
+          repairing failures. We address this gap with a fine-tuned repair model trained
+          on erroneous proofs paired with compiler diagnostics and corrections.
+        </p>
+        <a href="https://openreview.net/forum?id=fF46jVTjS8" target="_blank" class="paper-link">OpenReview</a>
+      </div>
+
+      <div class="paper-card reveal">
+        <div class="paper-number">Paper 03 &nbsp;·&nbsp; ICLR 2026</div>
+        <div class="paper-title">CircuitBuilder: From Polynomials to Circuits via Reinforcement Learning</div>
+        <div class="paper-authors">
+          Weikun Zhang, Rohan Pandey, Bhaumik Mehta, Kaijie Jin, Naomi Morato,
+          Archit Ganapule, Michael Ruofan Zeng, Jarod Alper
+        </div>
+        <p class="paper-abstract">
+          Motivated by auto-proof generation and Valiant's VP vs. VNP conjecture,
+          we study the problem of discovering efficient arithmetic circuits to compute
+          polynomials using addition and multiplication gates. We formulate this as a
+          single-player game where an RL agent builds the circuit within a fixed number
+          of operations.
+        </p>
+        <a href="https://openreview.net/forum?id=JNsTWIukjQ" target="_blank" class="paper-link">OpenReview</a>
+      </div>
+
+      <div class="paper-card reveal">
+        <div class="paper-number">Paper 04 &nbsp;·&nbsp; ICLR 2026</div>
+        <div class="paper-title">A Neural Score-Based Method for Deterministic Collisional Plasma Simulation</div>
+        <div class="paper-authors">Vasily Ilin, Jingwei Hu</div>
+        <p class="paper-abstract">
+          Plasma modeling is central to the design of nuclear fusion reactors, yet
+          simulating collisional plasma kinetics from first principles remains a formidable
+          computational challenge. The Vlasov-Maxwell-Landau equations couple
+          six-dimensional phase-space transport to self-consistent electromagnetic fields
+          through the nonlinear, nonlocal Landau collision operator. We introduce a
+          neural score-based approach that sidesteps this bottleneck.
+        </p>
+        <a href="https://openreview.net/forum?id=0wp8jxxxGT" target="_blank" class="paper-link">OpenReview</a>
+      </div>
+
+      <div class="paper-card reveal">
+        <div class="paper-number">Paper 05 &nbsp;·&nbsp; ICLR 2026</div>
+        <div class="paper-title">DiScoFormer: Plug-In Density and Score Estimation with Transformers</div>
+        <div class="paper-authors">Vasily Ilin, Petr Sushko</div>
+        <p class="paper-abstract">
+          Estimating probability density and its score from samples remains a core problem
+          in generative modeling, Bayesian inference, and kinetic theory. Existing approaches
+          are split between classical kernel methods that scale poorly with dimension and
+          neural score models that require retraining per distribution. DiScoFormer bridges
+          this gap with a plug-in transformer-based estimator.
+        </p>
+        <a href="https://openreview.net/forum?id=ZuqbPd7xTy" target="_blank" class="paper-link">OpenReview</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Presenters ── -->
+  <div class="presenters-section">
+    <h2>Lab Members Who Presented</h2>
+    <div class="presenters-grid">
+
+      <a href="https://www.linkedin.com/in/vasilyilin/" target="_blank" class="presenter-card reveal">
+        <div class="presenter-avatar">VI</div>
+        <span class="presenter-name">Vasily Ilin</span>
+        <span class="presenter-role">Math PhD · Lab Director</span>
+        <span class="presenter-li">LinkedIn →</span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/lukealexanderluke/" target="_blank" class="presenter-card reveal">
+        <div class="presenter-avatar">LA</div>
+        <span class="presenter-name">Luke Alexander</span>
+        <span class="presenter-role">Undergraduate</span>
+        <span class="presenter-li">LinkedIn →</span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/rohanpandeymath/" target="_blank" class="presenter-card reveal">
+        <div class="presenter-avatar">RP</div>
+        <span class="presenter-name">Rohan Pandey</span>
+        <span class="presenter-role">Undergraduate</span>
+        <span class="presenter-li">LinkedIn →</span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/simon-chess-065457328/" target="_blank" class="presenter-card reveal">
+        <div class="presenter-avatar">SC</div>
+        <span class="presenter-name">Simon Chess</span>
+        <span class="presenter-role">Undergraduate</span>
+        <span class="presenter-li">LinkedIn →</span>
+      </a>
+
+      <div class="presenter-card reveal">
+        <div class="presenter-avatar" style="background: linear-gradient(135deg, #312e81 0%, #4c1d95 100%);">EW</div>
+        <span class="presenter-name">Evan Wang</span>
+        <span class="presenter-role">Undergraduate</span>
+        <span class="presenter-li" style="color: var(--text-dim);">—</span>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>Department of Mathematics, University of Washington &copy;2026</p>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
