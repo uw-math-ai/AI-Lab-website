@@ -1,32 +1,32 @@
 /* ================================================================
-   UW Math AI Lab — Futuristic Dark Theme
+   UW Math AI Lab — Deep Navy + Gold Academic Theme
    ================================================================ */
 
 /* --- Design Tokens --- */
 :root {
-  --bg:            #05040f;
-  --bg-2:          #0d0a1a;
-  --bg-3:          #130f24;
-  --bg-card:       rgba(124, 58, 237, 0.07);
-  --bg-card-hover: rgba(124, 58, 237, 0.14);
-  --accent:        #7c3aed;
-  --accent-light:  #a78bfa;
-  --accent-glow:   rgba(124, 58, 237, 0.45);
-  --cyan:          #22d3ee;
-  --cyan-glow:     rgba(34, 211, 238, 0.30);
+  --bg:            #080d1a;
+  --bg-2:          #0d1429;
+  --bg-3:          #121c36;
+  --bg-card:       rgba(217, 119, 6, 0.06);
+  --bg-card-hover: rgba(217, 119, 6, 0.12);
+  --accent:        #d97706;
+  --accent-light:  #fbbf24;
+  --accent-glow:   rgba(217, 119, 6, 0.40);
+  --cyan:          #10b981;
+  --cyan-glow:     rgba(16, 185, 129, 0.28);
   --gold:          #f59e0b;
   --gold-glow:     rgba(245, 158, 11, 0.35);
-  --text:          #ede9fe;
-  --text-muted:    #9b8cc4;
-  --text-dim:      #5c4f78;
-  --border:        rgba(124, 58, 237, 0.22);
-  --border-bright: rgba(124, 58, 237, 0.55);
-  --glow-sm:  0 0 14px rgba(124, 58, 237, 0.38);
-  --glow-md:  0 0 28px rgba(124, 58, 237, 0.32), 0 0 56px rgba(124, 58, 237, 0.12);
-  --glow-lg:  0 0 48px rgba(124, 58, 237, 0.5),  0 0 96px rgba(124, 58, 237, 0.18);
+  --text:          #f0e8d0;
+  --text-muted:    #a89470;
+  --text-dim:      #5a4e38;
+  --border:        rgba(217, 119, 6, 0.20);
+  --border-bright: rgba(217, 119, 6, 0.52);
+  --glow-sm:  0 0 14px rgba(217, 119, 6, 0.32);
+  --glow-md:  0 0 28px rgba(217, 119, 6, 0.26), 0 0 56px rgba(217, 119, 6, 0.10);
+  --glow-lg:  0 0 48px rgba(217, 119, 6, 0.42), 0 0 96px rgba(217, 119, 6, 0.15);
   --radius:    12px;
   --radius-lg: 20px;
-  --font-display: 'Syne', 'Montserrat', sans-serif;
+  --font-display: 'Playfair Display', 'Syne', serif;
   --font-body:    'Montserrat', sans-serif;
   --font-mono:    'Space Mono', 'Courier New', monospace;
   --nav-h: 60px;
@@ -55,24 +55,26 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 65% 55% at 12% 55%, rgba(124, 58, 237, 0.16) 0%, transparent 68%),
-    radial-gradient(ellipse 50% 40% at 88% 12%, rgba(99, 102, 241, 0.11) 0%, transparent 60%),
-    radial-gradient(ellipse 45% 60% at 58% 95%, rgba(139, 84, 250, 0.09) 0%, transparent 62%);
+    radial-gradient(ellipse 65% 55% at 12% 55%, rgba(217, 119, 6, 0.11) 0%, transparent 68%),
+    radial-gradient(ellipse 50% 40% at 88% 12%, rgba(16, 185, 129, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 60% at 58% 95%, rgba(217, 119, 6, 0.07) 0%, transparent 62%);
   pointer-events: none;
   z-index: 0;
   animation: meshDrift 22s ease-in-out infinite alternate;
 }
 
-/* Subtle dot grid */
+/* Graph-paper grid */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(124, 58, 237, 0.18) 1px, transparent 1px);
-  background-size: 64px 64px;
+  background-image:
+    linear-gradient(rgba(217, 119, 6, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(217, 119, 6, 0.08) 1px, transparent 1px);
+  background-size: 52px 52px;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 0.55;
 }
 
 @keyframes meshDrift {
@@ -103,7 +105,7 @@ header, nav, section, main, footer,
    HEADER
    ================================================================ */
 header {
-  background: linear-gradient(160deg, var(--bg-2) 0%, #0e0b1e 100%);
+  background: linear-gradient(160deg, var(--bg-2) 0%, #0b1120 100%);
   border-bottom: 1px solid var(--border);
   padding: 44px 5% 36px;
   text-align: center;
@@ -118,7 +120,7 @@ header::after {
   bottom: -50px; left: 50%;
   transform: translateX(-50%);
   width: 560px; height: 100px;
-  background: radial-gradient(ellipse, rgba(124, 58, 237, 0.3) 0%, transparent 70%);
+  background: radial-gradient(ellipse, rgba(217, 119, 6, 0.26) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -128,7 +130,7 @@ header::after {
   max-width: 460px;
   max-height: 110px;
   object-fit: contain;
-  filter: brightness(1.15) drop-shadow(0 0 22px rgba(124, 58, 237, 0.55));
+  filter: brightness(1.15) drop-shadow(0 0 22px rgba(217, 119, 6, 0.48));
   animation: logoFloat 7s ease-in-out infinite;
 }
 
@@ -144,7 +146,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(5, 4, 15, 0.82);
+  background: rgba(8, 13, 26, 0.88);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid var(--border);
@@ -187,7 +189,7 @@ nav .dropbtn {
 nav ul li a:hover,
 nav .dropbtn:hover {
   color: var(--text);
-  background: rgba(124, 58, 237, 0.16);
+  background: rgba(217, 119, 6, 0.14);
   text-shadow: none;
 }
 
@@ -205,7 +207,7 @@ nav .dropbtn:hover {
   top: calc(100% + 6px);
   left: 0;
   min-width: 175px;
-  background: rgba(10, 8, 22, 0.97);
+  background: rgba(5, 10, 20, 0.97);
   backdrop-filter: blur(20px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -238,7 +240,7 @@ nav .dropbtn:hover {
 
 .dropdown-content a:hover {
   color: var(--text);
-  background: rgba(124, 58, 237, 0.18);
+  background: rgba(217, 119, 6, 0.16);
   padding-left: 22px;
   text-shadow: none;
 }
@@ -256,21 +258,21 @@ nav .hackathon-btn:hover {
 
 nav .iclr-btn {
   color: var(--cyan) !important;
-  border: 1px solid rgba(34, 211, 238, 0.32);
-  background: rgba(34, 211, 238, 0.06) !important;
+  border: 1px solid rgba(16, 185, 129, 0.32);
+  background: rgba(16, 185, 129, 0.06) !important;
 }
 nav .iclr-btn:hover {
-  background: rgba(34, 211, 238, 0.14) !important;
+  background: rgba(16, 185, 129, 0.14) !important;
   box-shadow: 0 0 14px var(--cyan-glow);
 }
 
 nav .support-btn {
   color: var(--accent-light) !important;
   border: 1px solid var(--border);
-  background: rgba(124, 58, 237, 0.09) !important;
+  background: rgba(217, 119, 6, 0.08) !important;
 }
 nav .support-btn:hover {
-  background: rgba(124, 58, 237, 0.2) !important;
+  background: rgba(217, 119, 6, 0.18) !important;
   box-shadow: var(--glow-sm);
 }
 
@@ -572,8 +574,8 @@ footer {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 0%,   rgba(34, 211, 238, 0.11) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 55% at 50% 100%,  rgba(124, 58, 237, 0.13) 0%, transparent 70%);
+    radial-gradient(ellipse 70% 55% at 50% 0%,   rgba(16, 185, 129, 0.11) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 55% at 50% 100%,  rgba(217, 119, 6, 0.11) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -581,8 +583,8 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(34, 211, 238, 0.07);
-  border: 1px solid rgba(34, 211, 238, 0.32);
+  background: rgba(16, 185, 129, 0.07);
+  border: 1px solid rgba(16, 185, 129, 0.32);
   border-radius: 100px;
   padding: 6px 22px;
   font-family: var(--font-mono);
@@ -654,7 +656,7 @@ footer {
 .iclr-papers h2 {
   text-align: center;
   color: var(--cyan);
-  border-bottom-color: rgba(34, 211, 238, 0.2);
+  border-bottom-color: rgba(16, 185, 129, 0.20);
   margin-bottom: 2.5rem;
 }
 
@@ -737,7 +739,7 @@ footer {
   font-size: 0.74rem;
   color: var(--cyan);
   text-decoration: none;
-  border: 1px solid rgba(34, 211, 238, 0.28);
+  border: 1px solid rgba(16, 185, 129, 0.28);
   border-radius: 7px;
   padding: 7px 13px;
   transition: all 0.2s var(--ease);
@@ -746,7 +748,7 @@ footer {
 }
 
 .paper-link:hover {
-  background: rgba(34, 211, 238, 0.1);
+  background: rgba(16, 185, 129, 0.10);
   border-color: var(--cyan);
   box-shadow: 0 0 12px var(--cyan-glow);
   color: var(--cyan);
@@ -807,7 +809,7 @@ footer {
   font-weight: 800;
   color: #fff;
   margin: 0 auto 1rem;
-  border: 2px solid rgba(124, 58, 237, 0.5);
+  border: 2px solid rgba(217, 119, 6, 0.42);
   box-shadow: var(--glow-sm);
 }
 

@@ -42,7 +42,7 @@
       particles.forEach(function (p, i) {
         ctx.save();
         ctx.globalAlpha = p.alpha;
-        ctx.fillStyle   = '#a78bfa';
+        ctx.fillStyle   = '#fbbf24';
         ctx.font        = p.size + 'px "Space Mono", monospace';
         ctx.fillText(p.sym, p.x, p.y);
         ctx.restore();
