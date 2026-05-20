@@ -60,7 +60,55 @@
     draw();
   }
 
-  /* ── 2. Scroll-reveal ── */
+  /* ── 2. Grain texture overlay ── */
+  var grain = document.createElement('div');
+  grain.id = 'grain';
+  document.body.appendChild(grain);
+
+  /* ── 3. Mobile hamburger nav ── */
+  var navEl = document.querySelector('nav');
+  var navUl = document.querySelector('nav ul');
+  if (navEl && navUl) {
+    var top  = document.createElement('div');
+    top.className = 'nav-top';
+
+    var brand = document.createElement('span');
+    brand.className = 'nav-brand';
+    brand.textContent = 'UW Math AI Lab';
+
+    var btn = document.createElement('button');
+    btn.className = 'nav-hamburger';
+    btn.setAttribute('aria-label', 'Toggle navigation');
+    btn.innerHTML = '<span></span><span></span><span></span>';
+
+    top.appendChild(brand);
+    top.appendChild(btn);
+    navEl.insertBefore(top, navUl);
+
+    btn.addEventListener('click', function () {
+      var isOpen = navUl.classList.toggle('nav-open');
+      btn.classList.toggle('open', isOpen);
+    });
+
+    /* Close menu when a link is tapped */
+    navUl.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        navUl.classList.remove('nav-open');
+        btn.classList.remove('open');
+      });
+    });
+  }
+
+  /* ── 4. Current quarter dot in dropdown ── */
+  document.querySelectorAll('.dropdown-content a').forEach(function (a) {
+    if (a.textContent.trim() === 'Spring 2026') {
+      var dot = document.createElement('span');
+      dot.className = 'nav-current-dot';
+      a.insertBefore(dot, a.firstChild);
+    }
+  });
+
+  /* ── 5. Scroll-reveal ── */
   var revealObs = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) {
