@@ -74,7 +74,7 @@
 
     var brand = document.createElement('span');
     brand.className = 'nav-brand';
-    brand.textContent = 'UW M∀TH ∀I L∀B';
+    brand.textContent = 'UW M∀TH AI L∀B';
 
     var btn = document.createElement('button');
     btn.className = 'nav-hamburger';
