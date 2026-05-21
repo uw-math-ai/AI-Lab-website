@@ -1086,17 +1086,24 @@ a.presenter-card.linkable:hover {
 }
 
 .member-group {
+  display: block;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-left: 3px solid var(--accent);
   border-radius: var(--radius);
   padding: 16px 20px;
+  text-decoration: none !important;
   transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
 }
 
 .member-group:hover {
   border-color: var(--border-bright);
   background: var(--bg-card-hover);
+}
+
+a.member-group:hover {
+  border-left-color: var(--cyan);
+  box-shadow: var(--glow-sm);
 }
 
 .member-group-title {
@@ -1114,6 +1121,30 @@ a.presenter-card.linkable:hover {
   font-size: 0.85rem;
   line-height: 1.75;
 }
+
+/* People page — lab photo grid (small tiles) */
+.lab-photos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 1.5rem;
+  align-items: start;
+}
+
+.lab-photo { margin: 0; }
+
+.lab-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s var(--ease);
+}
+
+.lab-photo:hover img { border-color: var(--border-bright); }
+
+.lab-photo figcaption { margin-top: 0.5rem; }
 
 /* ================================================================
    RESPONSIVE
