@@ -131,12 +131,6 @@ header::after {
   max-height: 110px;
   object-fit: contain;
   filter: brightness(1.15) drop-shadow(0 0 22px rgba(217, 119, 6, 0.48));
-  animation: logoFloat 7s ease-in-out infinite;
-}
-
-@keyframes logoFloat {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-7px); }
 }
 
 /* ================================================================
@@ -793,6 +787,22 @@ footer {
   box-shadow: var(--glow-sm);
 }
 
+.presenter-photo {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 1rem;
+  border: 2px solid rgba(217, 119, 6, 0.42);
+  box-shadow: var(--glow-sm);
+}
+
+a.presenter-card.linkable:hover {
+  border-color: var(--border-bright);
+  box-shadow: var(--glow-md);
+}
+
 .presenter-name {
   font-weight: 700;
   font-size: 0.92rem;
@@ -1019,62 +1029,6 @@ footer {
 .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-/* ================================================================
-   MAILING-LIST CALLOUT (homepage)
-   ================================================================ */
-.mailing-callout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1.4rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--accent);
-  border-radius: var(--radius);
-  padding: 22px 26px;
-  margin: 2.2rem 0;
-  box-shadow: var(--glow-sm);
-}
-
-.mailing-callout-text { flex: 1; min-width: 240px; }
-
-.mailing-callout-title {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.18rem;
-  font-weight: 700;
-  color: var(--accent-light);
-  margin-bottom: 0.35rem;
-}
-
-.mailing-callout-text p { margin: 0; font-size: 0.9rem; }
-
-.mailing-btn {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--bg) !important;
-  background: var(--accent-light);
-  border: 1px solid var(--accent-light);
-  border-radius: 8px;
-  padding: 11px 24px;
-  text-decoration: none !important;
-  transition: background 0.2s var(--ease), box-shadow 0.2s var(--ease);
-}
-
-.mailing-btn:hover {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff !important;
-  box-shadow: var(--glow-sm);
-  text-shadow: none !important;
-}
 
 /* ================================================================
    SEMINAR TALK & COURSE LIST
