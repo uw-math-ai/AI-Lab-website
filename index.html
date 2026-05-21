@@ -37,11 +37,11 @@
           <a href="spring2022.html">Spring 2022</a>
         </div>
       </li>
-      <li><a href="resources.html">Resources</a></li>
+      <li><a href="people.html">People</a></li>
       <li><a href="courses.html">Courses</a></li>
       <li><a href="seminars.html">Seminars</a></li>
-      <li><a href="research.html" class="iclr-btn">Research</a></li>
-      <li><a href="https://uw2026leanhackathon.github.io/" class="hackathon-btn" target="_blank">Lean Hackathon</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="https://uw2026leanhackathon.github.io/" target="_blank">Lean Hackathon</a></li>
       <li><a href="https://www.washington.edu/giving/make-a-gift/?source_typ=3&source=DSC-152346&code=DSC-152346&fastForward=yes&page=make"
              class="support-btn" target="_blank">Support Us</a></li>
     </ul>
@@ -103,15 +103,16 @@
       Use the dropdown above for projects from previous quarters.
     </p>
 
-    <div class="lean-snippet reveal">
-<span class="lean-cm">-- UW Math AI Lab · Lean formalization + AI for math</span>
-<span class="lean-kw">theorem</span> <span class="lean-fn">CLT.convergesInDistribution</span>
-    <span class="lean-op">{</span><span class="lean-id">μ σ</span> <span class="lean-op">:</span> <span class="lean-ty">ℝ</span><span class="lean-op">}</span> <span class="lean-op">(</span><span class="lean-id">hσ</span> <span class="lean-op">:</span> <span class="lean-num">0</span> <span class="lean-op">&lt;</span> <span class="lean-id">σ</span><span class="lean-op">)</span>
-    <span class="lean-op">(</span><span class="lean-id">X</span> <span class="lean-op">:</span> <span class="lean-ty">ℕ</span> <span class="lean-op">→</span> <span class="lean-id">Ω</span> <span class="lean-op">→</span> <span class="lean-ty">ℝ</span><span class="lean-op">)</span> <span class="lean-op">(</span><span class="lean-id">h</span> <span class="lean-op">:</span> <span class="lean-fn">IID</span> <span class="lean-id">X μ</span> <span class="lean-op">(</span><span class="lean-id">σ</span><span class="lean-op">^</span><span class="lean-num">2</span><span class="lean-op">))</span> <span class="lean-op">:</span>
-    <span class="lean-op">(</span><span class="lean-kw">fun</span> <span class="lean-id">n</span> <span class="lean-op">=&gt;</span> <span class="lean-fn">√</span><span class="lean-id">n</span> <span class="lean-op">•</span> <span class="lean-op">(</span><span class="lean-fn">mean</span> <span class="lean-id">X n</span> <span class="lean-op">-</span> <span class="lean-id">μ</span><span class="lean-op">)</span> <span class="lean-op">/</span> <span class="lean-id">σ</span><span class="lean-op">)</span> <span class="lean-op">→ᵈ</span> <span class="lean-fn">𝒩</span><span class="lean-op">(</span><span class="lean-num">0</span><span class="lean-op">,</span> <span class="lean-num">1</span><span class="lean-op">)</span> <span class="lean-op">:=</span> <span class="lean-kw">by</span>
-  <span class="lean-id">exact</span> <span class="lean-fn">centralLimitTheorem</span> <span class="lean-id">hσ h</span>
-<span class="lean-cm">
--- Verified by Lean's kernel · contributed to mathlib4</span>
+    <div class="mailing-callout reveal">
+      <div class="mailing-callout-text">
+        <span class="mailing-callout-title">Join our mailing list</span>
+        <p>
+          Subscribe to the Math AI Seminar mailing list to hear about upcoming talks,
+          seminars, and lab events.
+        </p>
+      </div>
+      <a href="https://lists.uw.edu/postorius/lists/math_ai_seminar.lists.uw.edu/"
+         target="_blank" class="mailing-btn">Subscribe →</a>
     </div>
 
     <h2 class="reveal">Links</h2>
@@ -122,26 +123,8 @@
       <li>HuggingFace: <a href="https://huggingface.co/uw-math-ai">uw-math-ai</a></li>
       <li>Lab docs: <a href="https://github.com/uw-math-ai/math-ai-docs">math-ai-docs</a></li>
       <li><a href="courses.html">Courses</a> and <a href="seminars.html">seminars</a></li>
-      <li>Email list math_ai_seminar@lists.uw.edu:
-        <a href="https://lists.uw.edu/postorius/lists/math_ai_seminar.lists.uw.edu/">subscribe/unsubscribe</a>
-      </li>
+      <li>Mailing list: <a href="https://lists.uw.edu/postorius/lists/math_ai_seminar.lists.uw.edu/">math_ai_seminar@lists.uw.edu</a></li>
     </ul>
-
-    <h2 class="reveal">Preprints</h2>
-    <div class="preprint-cards reveal">
-      <a href="https://huggingface.co/papers/2602.05216" target="_blank" class="preprint-card">
-        <span class="preprint-card-title">Semantic Search over 9 Million Mathematical Theorems</span>
-        <span class="preprint-card-meta">arXiv:2602.05216 &nbsp;·&nbsp; ICLR 2026</span>
-      </a>
-      <a href="https://huggingface.co/papers/2602.02990" target="_blank" class="preprint-card">
-        <span class="preprint-card-title">Learning to Repair Lean Proofs from Compiler Feedback</span>
-        <span class="preprint-card-meta">arXiv:2602.02990 &nbsp;·&nbsp; ICLR 2026</span>
-      </a>
-      <a href="https://arxiv.org/abs/2603.17075" target="_blank" class="preprint-card">
-        <span class="preprint-card-title">CircuitBuilder: From Polynomials to Circuits via Reinforcement Learning</span>
-        <span class="preprint-card-meta">arXiv:2603.17075 &nbsp;·&nbsp; ICLR 2026</span>
-      </a>
-    </div>
 
     <p class="reveal">
       The Math AI Lab was formerly called the

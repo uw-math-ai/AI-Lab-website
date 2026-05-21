@@ -245,27 +245,7 @@ nav .dropbtn:hover {
   text-shadow: none;
 }
 
-/* Special nav buttons */
-nav .hackathon-btn {
-  color: #fbbf24 !important;
-  border: 1px solid rgba(251, 191, 36, 0.32);
-  background: rgba(251, 191, 36, 0.07) !important;
-}
-nav .hackathon-btn:hover {
-  background: rgba(251, 191, 36, 0.16) !important;
-  box-shadow: 0 0 14px rgba(251, 191, 36, 0.22);
-}
-
-nav .iclr-btn {
-  color: var(--cyan) !important;
-  border: 1px solid rgba(16, 185, 129, 0.32);
-  background: rgba(16, 185, 129, 0.06) !important;
-}
-nav .iclr-btn:hover {
-  background: rgba(16, 185, 129, 0.14) !important;
-  box-shadow: 0 0 14px var(--cyan-glow);
-}
-
+/* Special nav button — Support Us */
 nav .support-btn {
   color: var(--accent-light) !important;
   border: 1px solid var(--border);
@@ -1041,6 +1021,147 @@ footer {
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ================================================================
+   MAILING-LIST CALLOUT (homepage)
+   ================================================================ */
+.mailing-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+  margin: 2.2rem 0;
+  box-shadow: var(--glow-sm);
+}
+
+.mailing-callout-text { flex: 1; min-width: 240px; }
+
+.mailing-callout-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: var(--accent-light);
+  margin-bottom: 0.35rem;
+}
+
+.mailing-callout-text p { margin: 0; font-size: 0.9rem; }
+
+.mailing-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--bg) !important;
+  background: var(--accent-light);
+  border: 1px solid var(--accent-light);
+  border-radius: 8px;
+  padding: 11px 24px;
+  text-decoration: none !important;
+  transition: background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.mailing-btn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff !important;
+  box-shadow: var(--glow-sm);
+  text-shadow: none !important;
+}
+
+/* ================================================================
+   SEMINAR TALK & COURSE LIST
+   ================================================================ */
+.talk-list,
+.course-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 2rem;
+}
+
+.talk,
+.course {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.talk:hover,
+.course:hover {
+  border-color: var(--border-bright);
+  background: var(--bg-card-hover);
+}
+
+.talk-title,
+.course-title {
+  display: block;
+  font-weight: 700;
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 0.3rem;
+}
+
+.talk-meta,
+.course-meta {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+}
+
+/* ================================================================
+   PEOPLE PAGE — member groups
+   ================================================================ */
+.member-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 14px;
+}
+
+.member-group {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.member-group:hover {
+  border-color: var(--border-bright);
+  background: var(--bg-card-hover);
+}
+
+.member-group-title {
+  display: block;
+  font-weight: 700;
+  color: var(--accent-light);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.member-group-people {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.75;
+}
+
+/* ================================================================
    RESPONSIVE
    ================================================================ */
 @media (max-width: 768px) {
@@ -1088,6 +1209,7 @@ footer {
   .papers-grid { grid-template-columns: 1fr; }
   .presenters-grid { grid-template-columns: repeat(2, 1fr); }
   .preprint-cards { grid-template-columns: 1fr; }
+  .member-groups { grid-template-columns: 1fr; }
   .header-logo { max-width: 260px; }
 
   section { padding: 44px 4%; }
