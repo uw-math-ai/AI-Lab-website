@@ -160,6 +160,14 @@ nav ul {
 
 nav ul li { position: relative; }
 
+/* The Projects tab fills the full nav height so its dropdown opens flush
+   against the bar — no gap for the mouse to fall through. */
+nav ul li.dropdown {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+}
+
 nav ul li a,
 nav .dropbtn {
   display: inline-flex;
@@ -198,7 +206,7 @@ nav .dropbtn:hover {
 .dropdown-content {
   display: none;
   position: absolute;
-  top: calc(100% + 6px);
+  top: 100%;
   left: 0;
   min-width: 175px;
   background: rgba(5, 10, 20, 0.97);
@@ -1175,6 +1183,7 @@ a.member-group:hover {
   }
 
   nav ul li { width: 100%; }
+  nav ul li.dropdown { display: block; }
 
   nav ul li a,
   nav .dropbtn { width: 100%; padding: 9px 12px; font-size: 0.82rem; }
