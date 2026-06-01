@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta
+			name="description"
+			content="University of Washington Math AI Lab: research and education at the intersection of mathematics, AI, and formalization."
+		/>
+		<link rel="icon" href="../../logos/math-ai-mark.svg" />
+		<link href="../../_app/immutable/entry/start.BbU8hT8E.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/C6nnueIv.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/pvBJVa5d.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/-UyI9lYi.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/CNwMT7Ee.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/Bb95oKaX.js" rel="modulepreload">
+		<link href="../../_app/immutable/entry/app.pBl1o_JD.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/CZMTnMqI.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/CO4MkgjQ.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/BDn8pJdl.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/Co5Ojc3i.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/DD8yxutp.js" rel="modulepreload">
+		<link href="../../_app/immutable/nodes/0.CeVgVipH.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/oOlH4oiU.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/-_9kz4ul.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/CwUe3nIn.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/wwuoL7YO.js" rel="modulepreload">
+		<link href="../../_app/immutable/nodes/7.CLXcz5DO.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/lfoncXbL.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/DPOtaUPu.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/B6JnVhR5.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/DAp6N3C0.js" rel="modulepreload">
+		<!--gygcht--><!----><title>Winter 2023 Projects | Math AI Lab</title>
+		<link href="../../_app/immutable/assets/0.J31vXsUh.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/LegacyContent.D7n1K2dL.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/7.C-dryBhM.css" rel="stylesheet">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[0--><!--[--><!----> <div class="ambient-field svelte-lvqok6" aria-hidden="true"></div> <canvas class="math-canvas svelte-lvqok6" aria-hidden="true"></canvas> <div class="grain svelte-lvqok6" aria-hidden="true"></div><!----> <header class="site-header svelte-a8kxe2"><a class="brand svelte-a8kxe2" href="../.." aria-label="Math AI Lab home"><img src="../../logos/math-ai-mark.svg" alt="" class="svelte-a8kxe2"/> <span class="svelte-a8kxe2"><strong class="svelte-a8kxe2">Math AI Lab</strong> <small class="svelte-a8kxe2">University of Washington</small></span></a> <button class="menu-button svelte-a8kxe2" type="button" aria-expanded="false"><span class="svelte-a8kxe2"></span> <span class="svelte-a8kxe2"></span> <span class="svelte-a8kxe2"></span> Mobile navigation</button> <nav aria-label="Primary navigation" class="svelte-a8kxe2"><a href="../.." class="svelte-a8kxe2">Home</a> <a href="../../projects" class="svelte-a8kxe2">Projects</a> <!--[--><a href="../../people" class="svelte-a8kxe2">People</a><a href="../../research" class="svelte-a8kxe2">Research</a><a href="../../events" class="svelte-a8kxe2">Events</a><a href="../../resources" class="svelte-a8kxe2">Resources</a><!--]--> <a class="accent svelte-a8kxe2" href="https://uw2026leanhackathon.github.io/" target="_blank" rel="noreferrer">Lean Hackathon</a> <a class="support svelte-a8kxe2" href="https://www.washington.edu/giving/make-a-gift/?source_typ=3&amp;source=DSC-152346&amp;code=DSC-152346&amp;fastForward=yes&amp;page=make" target="_blank" rel="noreferrer">Support us</a></nav></header><!----> <main><!--[--><section class="page-shell hero quarter-hero svelte-gygcht"><div><span class="eyebrow">Winter 2023</span> <h1 class="svelte-gygcht">Winter 2023 Projects</h1> <div class="actions"><a class="button" href="../../projects">All projects</a></div></div> <div class="code-panel"><pre><code>theorem mgf_of_iid
+{Y : ℕ → Ω → ℝ}
+{Z : ℕ → Ω → ℝ}
+(h_meas : ∀ (i : ℕ), Measurable (Y i))
+(h_indep : ProbabilityTheory.iIndepFun (fun (i : ℕ) => inferInstance) Y μ)
+(hident : ∀ (i j : ℕ), ProbabilityTheory.IdentDistrib (Y i) (Y j) μ μ)
+(Z_def : ∀ n : ℕ, Z n = (Real.sqrt n)⁻¹ • (∑ i ∈ Finset.range n, Y i)) :
+  ∀ n : ℕ, n > 0 →
+    ∀ t : ℝ, mgf (Z n) μ t = (mgf (Y 0) μ ((√n)⁻¹ * t)) ^ n := by
+  intro n hn t
+  rw [Z_def]
+  rw [ProbabilityTheory.mgf_smul_left]</code></pre> <a class="snippet-source" href="https://github.com/uw-math-ai/central_limit_theorem/blob/master/CentralLimitTheorem/main.lean#L102-L122" target="_blank" rel="noreferrer">Source: uw-math-ai/central_limit_theorem, CentralLimitTheorem/main.lean</a></div><!----></section> <section class="page-shell section project-content svelte-gygcht"><div class="content-layout svelte-1sp4e2o project-mode"><!--[-1--><!--]--> <article class="legacy-content svelte-1sp4e2o"><!---->
+    
+
+    
+
+    <section>
+        
+
+
+
+        
+        <ul>
+            <li><b>Faculty mentor:</b> Jarod Alper</li>
+            <li><b>Graduate student mentors:</b> Vasily Ilin, Leopold Mayer</li>
+            <li><b>Student participants:</b> Gregory Baimetov, Zachary Banken, William Dudarov, Griffin Golias, Raymond
+                Guo, Eva Hu, Luca Li, Lawrence Lin, Alex Sanchez</li>
+            <li> <a href="https://github.com/Vilin97/LLL">Github repository</a></li>
+        </ul>
+
+        <h3 id="projects">Projects:</h3>
+        <ul>
+            <li><b>Identities of the Fibonacci sequence Fₙ</b> (Lawrence Lin): <br>
+                <ul>
+                    <li>F₍ₙ₎F₍ₙ₊₂₎-F₍ₙ₊₁₎² = (-1)^(n+1)</li>
+                    <li>F₍ₙ₎F₍ₘ₊ₙ₎ = F₍ₙ₊₁₎F₍ₘ₎ + F₍ₙ₎F₍ₘ₋₁₎</li>
+                    <li>m | n ⟹ F₍ₘ₎ | F₍ₙ₎</li>
+                    <li>Binet's Formula: F₍ₙ₎ = (1/√5)((1+√5)/2)^n - ((1-√5)/2)^n</li>
+                </ul>
+            </li>
+            <br>
+            <li><b>Group theory exercises from Herstein <em>Abstract Algebra</em></b> (Alex Sanchez):
+                <ul>
+                    <li>Let G be an abelian group, and let h₁, h₂ ∈ G be elements. Prove that there exists an element h
+                        ∈ G whose order is the least common multiple of the orders of h₁ and h₂.</li>
+                    <li>Let G be an abelian group, and let H₁, and H₂ be subgroups. Prove that there exists a subgroup
+                        of G whose order is the least common multiple of the orders of H₁ and H₂.</li>
+                </ul>
+            </li>
+            <br>
+            <li><b>Topology</b> (Zilu Li):
+                <ul>
+                    <li>If f : X → Y is a quotient map, then for each y ∈ Y the set f⁻¹({y}) is connected. If Y is
+                        connected, then so is X.</li>
+                    <li>If a set is connected, then so is its closure.</li>
+                    <li>In a metric space (X,d), the following are equivalent: (a) X is compact, (b) Every infinite
+                        subset of X has a cluster point, (c) Every sequence in X has a convergent subsequence, (d) X is
+                        complete and totally bounded, (e) X is totally bounded and has the Lebesgue property.
+                    </li>
+                </ul>
+            </li>
+            <br>
+            <li><b>Commutative algebra</b> (Raymond Guo):
+                <ul>
+                    <li>An integral domain is a PID if and only if every prime ideal is principal.</li>
+                </ul>
+            </li>
+            <br>
+            <li>
+                <b>Sequences</b> (Zachary Banken, Gregory Baimetov):
+                <ul>
+                    <li>Beatty's Theorem (aka Rayleigh's Theorem): see <a
+                            href="https://en.wikipedia.org/wiki/Beatty_sequence">wikipedia</a>.</li>
+                    <li>Uspensky's Theorem: it is not possible to partition the natural numbers using 3 or more Beatty
+                        sequences.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    
+<!----></article></div><!----></section><!--]--><!----></main> <footer class="site-footer svelte-4jwo3w"><div class="svelte-4jwo3w"><strong>Math AI Lab</strong> <span class="svelte-4jwo3w">Department of Mathematics, University of Washington © 2026</span> <small class="svelte-4jwo3w">Report a bug to zengrf at uw dot edu</small></div> <div class="footer-links svelte-4jwo3w"><a href="https://github.com/uw-math-ai" target="_blank" rel="noreferrer" class="svelte-4jwo3w">GitHub</a> <a href="https://huggingface.co/uw-math-ai" target="_blank" rel="noreferrer" class="svelte-4jwo3w">HuggingFace</a> <button type="button" aria-expanded="false" aria-label="Open site settings" class="svelte-4jwo3w">⚙</button></div> <button class="drawer-backdrop svelte-4jwo3w" type="button" aria-label="Close site settings"></button> <div class="settings-drawer svelte-4jwo3w"><div class="svelte-4jwo3w"><div class="drawer-title svelte-4jwo3w"><h2 class="svelte-4jwo3w">Site settings</h2> <button type="button" aria-label="Close site settings" class="svelte-4jwo3w">Close</button></div> <p class="svelte-4jwo3w">Theme defaults to light from 7am to 6:59pm and dark from 7pm to 6:59am.</p></div> <div class="theme-buttons svelte-4jwo3w" role="group" aria-label="Theme mode"><!--[--><button type="button" class="svelte-4jwo3w">Auto</button><button type="button" class="svelte-4jwo3w">Light</button><button type="button" class="svelte-4jwo3w">Dark</button><!--]--></div></div></footer><!----><!--]--><!--]--> <!--[-1--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_535anr = {
+						base: new URL("../..", location).pathname.slice(0, -1),
+						assets: "/AI-Lab-website"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.BbU8hT8E.js"),
+						import("../../_app/immutable/entry/app.pBl1o_JD.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 7],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>

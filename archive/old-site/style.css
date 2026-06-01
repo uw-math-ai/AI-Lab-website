@@ -1,0 +1,282 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f1f8;
+}
+
+header {
+    background-color: #8b54fa;
+    color: white;
+    text-align: center;
+    padding: 40px;
+}
+
+.header-logo {
+  height: auto; 
+  width: 75%;
+  max-width: fit-content;
+  padding: 15px;
+}
+
+h1, h2 {
+  color: #5a37a5;
+}
+
+a:hover {
+    background-color: #e9dff9;
+    transition: background-color 0.3s ease; /* Smooth transition for background-color */
+}
+nav ul {
+    list-style: none;
+    padding: 10px;
+    text-align: left;
+    background: #5a37a5;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+    position: relative;
+}
+
+nav ul li a {
+    padding: 15px;
+    display: inline-block; 
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: #8b54fa;
+    border-radius: 5px;
+}
+
+nav ul li  {
+    color: white;
+    text-decoration: none;
+}
+
+section {
+    padding: 40px;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.title-quote {
+  display: flex;
+  align-items: flex-end; 
+    justify-content: space-between; 
+    gap: 2em; 
+}
+
+.home-content {
+  padding-left: 5%;
+}
+
+li {
+    margin-bottom: 1%;
+}
+footer {
+    background-color: #8b54fa;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    bottom: 0;
+    flex: 0 0 50px;/*or just height:50px;*/
+    margin-top: auto;
+}
+
+#projects-title {
+    text-align: center;
+    color: #6c14c4;
+    font-size: 40px;
+}
+
+a {
+    color: inherit;
+}
+
+.dropbtn {
+  cursor: default; /* Change the cursor to indicate it's not clickable */
+  color: inherit; /* Keep the text color consistent with other links */
+  text-decoration: none; /* Remove underline */
+}
+
+
+.dropdown .dropbtn::after {
+  content: ' ▼';
+  font-size: 0.8em;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #e9dff9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: calc(100% + 15px); /* Aligns the dropdown with the bottom of the Projects tab */
+  left: 0; /* Aligns the dropdown with the left side of the Projects tab */
+  border-radius: 5px
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.epigraph {
+  padding: 1em;
+  font-style: italic;
+  color: #555;
+  /* display: inline-block; */
+  max-width: 40%;
+  /* border-left: 3px solid #8b54fa; */
+  background-color: #e9dff9;
+  float: right;
+  border-radius: 10%;
+  
+}
+
+.epigraph blockquote {
+  position: relative;
+  text-align: left;
+  margin: 0;
+}
+
+.winter2025photo {
+  max-width: 50%;
+}
+
+.page-content {
+  max-width: 70%;
+  padding: 0.5% 2%;
+  line-height: 1.5;
+}
+
+.resources-content {
+  max-width: 70%;
+  padding: 2%;
+}
+
+.seminar-content {
+  max-width: 70%;
+  padding: 0.5% 2%;
+  line-height: 1.5;
+}
+
+.spring2025 {
+  max-width: 70%;
+  padding: 0.5% 2%;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .epigraph {
+    max-width: 100%;
+    float: none;
+    margin: 1em 0;
+  }
+  
+  .winter2025photo {
+    max-width: 100%;
+  }
+
+  header {
+    padding: 3%;
+  }
+
+  nav ul li {
+    margin: 0 1.5%;
+  }
+}
+
+/* --- content links --- */
+section a {
+  color: #5a37a5;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  background: linear-gradient(transparent 60%, #e9dff9 60%);
+  padding: 0 0.15em;
+  border-radius: 3px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+section a:hover {
+  background-color: #d6c8f3;
+}
+
+/* --- keep nav links unchanged --- */
+nav a,
+.dropdown-content a {
+  background: none;
+  text-decoration: none;
+}
+
+/* --- hackathon button --- */
+nav .hackathon-btn {
+  background-color: rgba(255, 200, 50, 0.25);
+  border: 1px solid rgba(255, 200, 50, 0.5);
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+nav .hackathon-btn:hover {
+  background-color: rgba(255, 200, 50, 0.45);
+}
+
+/* --- support button --- */
+nav .support-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+nav .support-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+/* .epigraph blockquote:before {
+  content: "“";
+  position: absolute;
+  top: -0.5em;
+  left: -0.5em;
+  font-size: 4em;
+  color: #ddd;
+}
+
+.epigraph blockquote:after {
+  content: "”";
+  position: absolute;
+  bottom: -0.5em;
+  right: -0.5em;
+  font-size: 4em;
+  color: #ddd;
+} */
+
+/* .epigraph footer {
+  text-align: right;
+  font-size: 0.9em;
+  margin-top: 0.5em;
+} */
