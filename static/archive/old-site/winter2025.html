@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winter 2025 Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="logo2.jpg" alt="AI UW Logo" class="header-logo">
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="http://ai.math.uw.edu/">Home</a></li>
+            <li class="dropdown">
+                <a class="dropbtn">Projects</a>
+                <div class="dropdown-content">
+                    <a href="spring2026.html">Spring 2026</a>
+                    <a href="winter2026.html">Winter 2026</a>
+                    <a href="fall2025.html">Fall 2025</a>
+                    <a href="spring2025.html">Spring 2025</a>
+                    <a href="winter2025.html">Winter 2025</a>
+                    <a href="fall2024.html">Fall 2024</a>
+                    <a href="winter2024.html">Winter 2024</a>
+                    <a href="fall2023.html">Fall 2023</a>
+                    <a href="spring2023.html">Spring 2023</a>
+                    <a href="winter2023.html">Winter 2023</a>
+                    <a href="fall2022.html">Fall 2022</a>
+                    <a href="spring2022.html">Spring 2022</a>
+                </div>
+            </li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="seminars.html">Seminars</a></li>
+            <li><a href="https://uw2026leanhackathon.github.io/" class="hackathon-btn" target="_blank">Lean Hackathon 2026</a></li>
+            <li><a href="https://www.washington.edu/giving/make-a-gift/?source_typ=3&source=DSC-152346&code=DSC-152346&fastForward=yes&page=make"
+                    class="support-btn" target="_blank">Support Us</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <h2>Winter 2025 Undergraduate Research Projects</h2>
+            <ul>
+
+                <li><b>Formalizing Central Limit Theorem</b></li>
+                    <ul>
+                        <li><b>Mentors:</b> Vasily Ilin (lead)</li>
+                        <li><b>Students:</b> Siyuan Ge</li>
+                        <li><b>Description:</b>Formalize the Central Limit Theorem in Lean 4.</li>
+                        <li><b>Code:</b><a href="https://github.com/uw-math-ai/central_limit_theorem">github</a></li>
+                    </ul>
+                <li><b>Examples and Counterexamples in Commutative Algebra</b></li>
+                    <ul>
+                        <li><b>Mentors:</b> Jarod Alper (lead), Arkamouli Debnath</li>
+                        <li><b>Students:</b> Kaira N</li>
+                        <li><b>Description:</b> Construct various examples of commutative rings in Lean. To start, construct an example of a ring that is not an integral domain. (Tricky question: is the zero ring an integral domain and can you formalize it?) How about a ring that is not a PID or not a UFD? Or a non-noetherian ring? Or a noetherian local ring that is not regular. Once we construct together a few basic examples, we will pursue further examples depending on the interests of the students.
+                        </li>
+                        <li><b>Presentation:</b><a href="slides/winter2025/Examples in commutative algebra.pdf">slides</a></li>
+                    </ul>
+                <li><b>Formalizing Polyhedral Geometry</b></li>
+                    <ul>
+                        <li><b>Mentors:</b> Caelan Ritter (lead),  Freda Zhang</li>
+                        <li><b>Students:</b> Seven Lewis</li>
+                        <li><b>Description:</b> A polyhedron is a generalization of a polygon to n dimensions. We can define it either as an intersection of finitely many half-spaces (i.e., the closure of one "side" of a hyperplane) or, if it is bounded, as the "convex hull" of finitely many points. The goal of this project is to formalize enough of the basic definitions and results in polyhedral geometry so that we can write down the equivalence of the two definitions above. We will follow the proof outline in chapter 1 of Gaku Liu's notes.</li>
+                        <li><b>Code:</b><a href="https://github.com/uw-math-ai/lean-polyhedral-geometry">github</a></li>
+                        <li><b>Presentation:</b><a href="slides/winter2025/Formalizing Polyhedral Geometry.pdf">slides</a></li>
+                    </ul>
+                </li>
+                <li><b>Metaprogramming and Writing New Tactics</b></li>
+                    <ul>
+                        <li><b>Mentors:</b> Dhruv Bhatia (lead)</li>
+                        <li><b>Students:</b> Dhruv Ashok and Joseph Qian </li>
+                        <li><b>Description:</b> Learn Lean's metaprogramming framework for tactic writing. Use this to write new tactics. The current task at hand is to write a tactic that can, given a set of hypotheses of the form a < b where a and b come from a partially ordered type, prove a goal of the same form by chaining together relevant hypotheses. If we are able to finish this project, we will move on to other tactics/help with the metaprogramming groundwork for Vas's Auto-formalization project.</li>
+                    </ul>
+                </li>
+                <li><b>Reinforcement Learning for Efficiently Compute Polynomials Generation</b>
+                    <ul>
+                        <li><b>Mentors:</b> Jarod Alper (lead), William Dudarov</li>
+                        <li><b>Students:</b> Hansel Lee, Hanson Mo, Weikun (Kyle) Zhang, Junbo (Niko) Huang 
+                        <li><b>Description:</b> We will attempt to use reinforcement learning to train computers to search for efficient arithmetic circuits computing specific polynomials.  In some sense, this is a simplified version of proof generation, where computers are trained to search for proofs of theorems, except that in this case the search space is smaller.  Our inspiration is the AlphaZero algorithm for two-players games, which we will adapt to a one-player game. The problem we will attack is to find efficient ways to compute a polynomial f(x_1, ..., x_n) using an arithmetic circuit consisting of + and x gates together with scalar multiplication. Our strategy is to use Monte Carlo Tree Search to train a deep neural network to learn an effective evaluation function (giving a score of how close the current state is from computing the polynomial) and a policy (a probability distribution over the next moves, with higher probability given to moves that simplify the expression).  The computer is rewarded when it finds efficient arithmetic circuits.
+                        </li>
+                        <li><b>Code:</b><a href="https://github.com/kyleAlexandad/RL-group-6Ver-new">github</a></li>
+                        <li><b>Presentation:</b><a href="slides/winter2025/WI 2025 Reinforcement Learning.pdf">slides</a></li>
+                    </ul>
+                </li>
+                <li><b>Auto-formalization with LLMs</b></li>
+                    <ul>
+                        <li><b>Mentors:</b> Vasily Ilin (lead), Zihong Lin</li>
+                        <li><b>Students:</b> Attila Jamilov , Henry Adams, Elizabeth Wang
+                        <li><b>Description:</b>Formalization is the process of translating human-written mathematical proofs into a form that can be verified by a computer. A popular tool for this is Lean, a proof assistant that represents proofs as code. However, the process of formalizing proofs in Lean can be slow and time-consuming. Our research explores neural theorem proving strategies, which aim to automate the generation of Lean proofs.
+
+                        We propose a tree-based search framework to formalize mathematical theorems in Lean using Language Models. This approach explores potential proof steps as branches in a tree, using AI models to suggest "tactics" at each node. This has the benefit of avoiding hallucinations by rigorously checking that AI suggestions represent valid Lean code. We employ both Large Language Models such as Claude Sonnet 3.5 and specialized fine-tuned Small Language Models such as Lean-Dojo. We use Pantograph to interact with Lean, leveraging its native support of Monte Carlo tree search. We assemble a small set of simple and medium-difficulty mathematical theorems to benchmark against, called nanoF2F. Additionally, we benchmark our system on the well-established miniF2F benchmark created by OpenAI.
+                        </li>
+                        <li><b>Code:</b><a href="https://github.com/uw-math-ai/autoformalization-with-llms">github</a></li>
+                        <li><b>Presentation:</b><a href="slides/winter2025/Auto-formalisations with LLMs - Math AI Lab.pdf">slides</a></li>
+                    </ul>
+                <li><b>What Mathematical Functions Can Neural Networks Learn?</b></li>
+                    <ul>
+                        <li><b>Mentors:</b> Jarod Alper (lead), Michael R. Zeng</li>
+                        <li><b>Students:</b> Claire Xu, Srishti Bakshi, Chileil Chen Yiqiao (Jeremy) Peng, Hilal Mufti
+                        <li><b>Description:</b> We will investigate to what extent certain mathematical functions can be efficiently learned by multilayered neural networks. Can a neural network be trained to compute modular arithmetic? Modular arithmetic is important in cryptography, and some cryptosystems use the fact that linear regression (i.e., given an integer N and pairs (x_i,y_i), find m and b such that y = mx+b (mod N) closely approximates (x_i, y_i)). Can certain number theoretic functions be computed such as the Mobius function \mu(n)? Can transformers be trained to make linear algebra computations?
+                        </li>
+                        <li><b>Code:</b><a href="https://github.com/hilalmufti/what-functions-can-nns-learn">github</a></li>
+                        <li><b>Presentation:</b><a href="slides/winter2025/Functions NN's Can Learn.pdf">slides</a></li>
+                    </ul>
+                </li>
+                <li><b>Formalizing Zariski Spaces</b></li>
+                <ul>
+                    <li><b>Mentors:</b> Leo Mayer (lead)</li>
+                    <li><b>Students:</b> Maria Berova (mberova@uw.edu)</li>
+                    <li><b>Description:</b>The goal is to formalize solutions Exercises II.3.18-19 from Robin Hartshorne's "Algebraic Geometry"</li>
+                    <li><b>Code:</b><a href="https://github.com/leomayer1/zariski_spaces">github</a></li>
+                    <li><b>Presentation:</b><a href="slides/winter2025/Topology for Algebraic Geometry in Lean.pdf">slides</a></li>
+                </ul>
+            </li>
+            </ul>
+
+
+    </section>
+    <figure class="image-container">
+        <img src="photos/winter2025.jpg" alt="Winter 2025 Math AI Lab" width="500">
+        <figcaption>Winter 2025 Math AI Lab Group Photo</figcaption>
+    </figure>
+    <footer>
+        <p>Department of Mathematics, University of Washington ©2026</p>
+    </footer>
+</body>
+</html>

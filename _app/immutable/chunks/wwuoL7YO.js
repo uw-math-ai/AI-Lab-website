@@ -1,1 +1,0 @@
-import{d as t}from"./CNwMT7Ee.js";function e(r="/"){const s=r.startsWith("/")?r:`/${r}`;return s==="/"?t||"/":`${t}${s}`}function n(r){return t&&r.startsWith(t)?r.slice(t.length)||"/":r||"/"}export{n as r,e as s};

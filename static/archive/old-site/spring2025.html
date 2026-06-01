@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring 2025 Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img src="logo2.jpg" alt="AI UW Logo" class="header-logo">
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="http://ai.math.uw.edu/">Home</a></li>
+            <li class="dropdown">
+                <a class="dropbtn">Projects</a>
+                <div class="dropdown-content">
+                    <a href="spring2026.html">Spring 2026</a>
+                    <a href="winter2026.html">Winter 2026</a>
+                    <a href="fall2025.html">Fall 2025</a>
+                    <a href="spring2025.html">Spring 2025</a>
+                    <a href="winter2025.html">Winter 2025</a>
+                    <a href="fall2024.html">Fall 2024</a>
+                    <a href="winter2024.html">Winter 2024</a>
+                    <a href="fall2023.html">Fall 2023</a>
+                    <a href="spring2023.html">Spring 2023</a>
+                    <a href="winter2023.html">Winter 2023</a>
+                    <a href="fall2022.html">Fall 2022</a>
+                    <a href="spring2022.html">Spring 2022</a>
+                </div>
+            </li>
+            <li><a href="resources.html">Resources</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="seminars.html">Seminars</a></li>
+            <li><a href="https://uw2026leanhackathon.github.io/" class="hackathon-btn" target="_blank">Lean Hackathon 2026</a></li>
+            <li><a href="https://www.washington.edu/giving/make-a-gift/?source_typ=3&source=DSC-152346&code=DSC-152346&fastForward=yes&page=make"
+                    class="support-btn" target="_blank">Support Us</a></li>
+        </ul>
+    </nav>
+
+    <section class="spring2025">
+        <h2>Spring 2025 Undergraduate Research Projects</h2>
+        <li><b><font size="4">Formalizing Polyhedral Geometry</font></b>
+            <ul>
+                <li><b>Mentors:</b> Caelan Ritter and Freda Zheng, Mathematics</li>
+                <li><b>Students: Seven Lewis and George Peykanu</b></li> 
+                <li><b>Description:</b> 
+                    In this project, the goal is to formalize the basic results in polyhedral geometry, up to the equivalence of definitions of a polyhedron in terms of halfspaces and convex hulls.
+                    A polyhedron is a generalization of a polygon to n dimensions.  We can define it either as an intersection of finitely many half-spaces (i.e., the closure of one “side” of a hyperplane) or, if it is bounded, as the “convex hull” of finitely many points.  An explicit goal of this project is to formalize enough of the basic definitions and results in polyhedral geometry so that we can write down the equivalence of the two definitions above.  We will follow the proof outline in chapter 1 of Gaku Liu's 
+                    <a href="https://drive.google.com/file/d/1TRg7iQ0RpIRteF2IUiKIe3E-YagVnkH0/view?usp=sharing">notes</a>.    
+                </li>
+                <li>Github repo: <a href="https://github.com/uw-math-ai/lean-polyhedral-geometry">here</a></li> 
+            </ul>
+        </li>
+        <li><b><font size="4">Reinforcement Learning for Efficient Arithmetic Circuit Generation of Polynomials</font></b>
+            <ul>
+                <li><b>Students:</b> Alexandre Borentain, Hansel Lee, Claire Xu, and Weikun Zhang</li>
+                <li><b>Mentors:</b> Prof. Jarod Alper, Mathematics</li>
+                <li><b>Description:</b> We will attempt to use reinforcement learning to train computers to search for efficient arithmetic circuits computing specific polynomials.  In some sense, this is a simplified version of proof generation, where computers are trained to search for proofs of theorems, except that in this case the search space is smaller.  Our inspiration is the AlphaZero algorithm for two-players games, which we will adapt to a one-player game. The problem we will attack is to find efficient ways to compute a polynomial f(x_1, ..., x_n) using an arithmetic circuit consisting of + and x gates together with scalar multiplication. Our strategy is to use Monte Carlo Tree Search to train a deep neural network to learn an effective evaluation function (giving a score of how close the current state is from computing the polynomial) and a policy (a probability distribution over the next moves, with higher probability given to moves that simplify the expression).  The computer is rewarded when it finds efficient arithmetic circuits. </li>
+                <li>Github repo: <a href="https://github.com/uw-math-ai/PolyArithmeticCircuitsRL">here</a></li> 
+            </ul>
+        </li>
+        <li><b><font size="4">Metaprogramming and Writing New Tactics</font></b></li>
+            <ul>
+                <li><b>Mentors:</b> Dhruv Bhatia, Mathematics</li>
+                <li><b>Students:</b> Dowland Aiello, Joseph Qian, Veer Shukla, Annis Wu, </li>
+                <li><b>Description:</b> 
+                    Teaching a person a proof is one thing, but explaining it to a computer is another beast. The computer demands explicit precision, down to the tiniest of details. Thus, any good theorem prover needs tools, or "tactics", that make theorem proving less tedious, and more akin to the way people reason. Lean comes with a built-in "metaprogramming" framework that allows users to build custom tools for automatic proof generation of specific goals. In this project, students learn about functional programming and monads before tackling the basics of metaprogramming. At the end, they write their own tactics. The current task at hand is to write a tactic that can, given a set of hypotheses of the form "a < b" where a and b come from a partially ordered type, automatically prove a goal of the same form by chaining together relevant hypotheses. We use the book <a href="https://leanprover-community.github.io/lean4-metaprogramming-book/">Metaprogramming in Lean 4</a> as a reference.
+                </li>
+                <li>Github repo: <a href="https://github.com/dhruvashok/partial_order_tactic.git">here</a></li>
+            </ul>
+        </li>
+        <li><b><font size="4">Neural Theorem Proving</font></b></li>
+            <ul>
+                <li><b>Mentors:</b> Vasily Ilin, Mathematics</li>
+                <li><b>Students:</b>  Henry Adams, Siyuan Ge, Attila Jamilov, Elizabeth Wang.
+                <li><b>Description:</b>Formalization is the process of translating human-written mathematical proofs into a form that can be verified by a computer. A popular tool for this is Lean, a proof assistant that represents proofs as code. However, the process of formalizing proofs in Lean can be slow and time-consuming. Our research explores neural theorem proving strategies, which aim to automate the generation of Lean proofs.
+
+                    We propose a tree-based search framework to formalize mathematical theorems in Lean using Language Models. This approach explores potential proof steps as branches in a tree, using AI models to suggest "tactics" at each node. This has the benefit of avoiding hallucinations by rigorously checking that AI suggestions represent valid Lean code. We employ both Large Language Models such as Claude Sonnet 3.5 and specialized fine-tuned Small Language Models such as Lean-Dojo. We use Pantograph to interact with Lean, leveraging its native support of Monte Carlo tree search. We assemble a small set of simple and medium-difficulty mathematical theorems to benchmark against, called nanoF2F. Additionally, we benchmark our system on the well-established miniF2F benchmark created by OpenAI.
+                </li>
+                <li>Github repo: <a href="https://github.com/uw-math-ai/autoformalization-with-llms">here</a></li>
+            </ul>
+        </li>
+        <li><b><font size="4">Matrix Manipulation and Linear Algebra in Lean</font></b>
+            <ul>
+                <li><b>Mentors:</b> Prof. Eric Klavins, Electrical and Computer Engineering and Haoming Ning</li>
+                <li><b>Students:</b> David Bataresh and Hemkesh Bandi</li>
+                <li><b>Description:</b>
+                    Lean is a proof assistant that can be used to encode and check mathematical results in machine readable code and could one day be used to assist in the development of complex engineering systems. First, however, we need to teach it the foundations of engineering mathematics. In this project, students will contribute to a Lean library of basic results and tactics involving matrices and linear algebra. The overall goal is to support reasoning about a variety of engineering areas that depend on linear algebra, including control systems, quantum computing, and machine learning. Thus, sub-projects will begin with a result in one of these areas and work backwards to the basic results needed to support that result. 
+                </li>
+                <li>Github repo: <a href="https://github.com/HemkeshB/relations-linAlg-SP25-LEAN">here</a></li>
+            </ul>
+        </li>
+
+        <h2>Final projects for Math 480: Introduction to Mathematical Formalization</h2>
+
+
+        <li><b><font size="4">Proving Strong Normalization of the Calculus of Constructions</font></b>
+            <ul>
+                <li><b>Student:</b> Dowland Aiello</li>
+                <li><b>Mentors:</b> Jarod Alper and Vasily Ilin</li>
+                <li><b>Description:</b>
+                    Proofs of strong normalization of the simply-typed lambda calculus have been exhaustively enumerated in the literature. A common strategy invented by W. W. Tait known as "Tait's method," (Robert Harper, 2022) interprets types as sets of "well-behaving" terms which are known to be strongly normalizing and composed of expressions in some such set. Strong normalization of the typed SK combinator calculus has been comparatively under-studied. Herein, I demonstrate that the typical proof of strong normalization using Tait's method holds for the typed SK combinator calculus. I also show that decomposition of the STLC into SK combinator expressions simplifies the typical proof of strong normalization.
+                </li>
+                <li>Github repo: <a href="https://github.com/dowlandaiello/coc-lean">here</a></li> 
+                <li>Book: <a href="https://dowlandaiello.com/sk-lean/">here</a></li>
+            </ul>
+        </li>
+        <li><b><font size="4">Formalizing Vizing’s Theorem in Lean</font></b>
+            <ul>
+                <li><b>Students:</b> Zayna Aarbi, Helinda He, and Manish Gatti</li>
+                <li><b>Mentors:</b> Jarod Alper and Vasily Ilin</li>
+                <li><b>Description:</b>
+                    The goal is to formalize Vizing’s Theorem: every simple, undirected graph may be properly edge colored using a number of colors that is at most one larger than the maximum degree of the graph.
+                </li>
+                <li>Github repo: <a href="https://github.com/ManishSaiGatti/Math480GroupProject"> here</a></li>
+                <li>Slides: <a href="https://docs.google.com/presentation/d/1N_uLORDeTjfh0iEFjjXzPVdvG6R7htz3ZhWcDOgj9-A/edit?usp=sharing">here</a></li>
+            </ul>
+        </li>
+        <li><b><font size="4">The six-color theorem</font></b>
+            <ul>
+                <li><b>Students:</b> Sravani Panuganti, Jeb Song, and Taylor Woodward</li>
+                <li><b>Mentors:</b> Jarod Alper and Vasily Ilin</li>
+                <li><b>Description:</b>
+                    Every simple planar graph can be properly colored with six colors.  The motivation is that this a stepping stone to the more general "fiver-color theorem", which in turn is a stepping stone to the "four-color theorem".  
+                </li>
+                <li>Github repo: <a href="https://github.com/SravaniPanu/25sp-6color">here</a></li>
+                <li>Slides: <a href="https://docs.google.com/presentation/d/1iIT73WHGqPq3Ekz5saI8R2yKzsFDOWWNuSBbs1ZqcqU">here</a></li>
+            </ul>
+        </li>
+        <li><b><font size="4">Formalizing using LLMs</font></b>
+            <ul>
+                <li><b>Students:</b> Drew Bladek, Simon Chess, and Evan Wang </li>
+                <li><b>Mentors:</b> Jarod Alper and Vasily Ilin</li>
+                <li><b>Description:</b>
+                    Large language models (LLMs) have demonstrated fairly impressive results in mathematical reasoning and proof generation. 
+                    However, when applied to the LEAN proof assistant, these models tend to generate code with subtle syntax errors, limiting their practical utility in auto formalization without human intervention. In this work, we will focus on improving the syntactic fluency of LLMs when generating Lean code, without targeting the correctness of mathematical content itself. We curate a small but diverse dataset of Lean code snippets and fine-tune an open-source LLM, and evaluate the syntactic validity of the model's outputs using automated Lean parsers. 
+                </li>
+                <li>Github repo: <a href="https://github.com/aurasoph/lean-dataset">here</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>AG Group Formalization Project</h2>
+    <ul>
+        <li><b><font size="4">Regular Local Rings</font></b>
+            <ul>
+                <li><b>Contributors:</b> Jarod Alper and Brian Nugent</li>
+                <li><b>Description:</b>
+                    We have formalized the definition and some of the first properties of regular local rings.  Specifically, we have proved that regular local rings are domains and that one dimensonal regular local rings are PIDs.  We hope to further formalize (1) relationships between regular local rings and regular sequences, (2) Koszul complex, (3) regular local rings are Cohen-Macaulay, (5) characterization of regularity in terms of projective dimension (Auslander-Buchsbaum-Serre), and (6) regular local rings are UFDs (Auslander-Buchsbaum).
+                </li>
+                <li>Github repo: <a href="https://github.com/JarodUW/RegularLocalRings">here</a></li>
+            </ul>
+        </li>
+    </ul>
+    </section>
+
+    <footer>
+        <p>Department of Mathematics, University of Washington ©2026</p>
+    </footer>
+</body>
+</html>
