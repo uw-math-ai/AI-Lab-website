@@ -31,6 +31,9 @@ npm run build:ai-lab
 Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the Svelte app and deploys the
 generated `build/` directory through GitHub Pages. Do not commit generated `build/` files.
 
+GitHub Pages must be configured with **Source: GitHub Actions** in the repository Pages settings.
+If it is left on branch/root publishing, GitHub will render this README instead of the Svelte app.
+
 The Lean Hackathon site is maintained separately at `https://uw2026leanhackathon.github.io/`; this
 repo links to it but does not build that app.
 
