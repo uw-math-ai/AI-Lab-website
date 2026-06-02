@@ -5,17 +5,47 @@ export type LabEvent = {
 	startTime: string;
 	endTime: string;
 	location: string;
-	type: 'Seminar' | 'Workshop' | 'Poster Session' | 'Final Exam' | 'Information Session' | 'Colloquium';
-	sourceUrl: string;
+	type:
+		| 'Seminar'
+		| 'Workshop'
+		| 'Poster Session'
+		| 'Final Exam'
+		| 'Information Session'
+		| 'Colloquium'
+		| 'Social';
+	sourceUrl?: string;
 	abstract?: string;
 };
 
 // Event source of truth for the site.
 //
 // To add an event, append one object with ISO date, 24-hour times, location,
-// speaker, type, and the UW Math source URL. Use the exact UW abstract when
-// one is published; omit abstract rather than summarizing unpublished text.
+// speaker, type, and, when available, the UW Math source URL. Use the exact UW
+// abstract when one is published; omit abstract rather than summarizing
+// unpublished text.
 export const labEvents = ([
+	{
+		title: 'Math AI Lab social day',
+		speaker: 'Math AI Lab',
+		date: '2026-06-03',
+		startTime: '16:00',
+		endTime: '17:30',
+		location: 'Odegaard 136',
+		type: 'Social',
+		abstract:
+			'Join us for a Math AI Lab social day with board games, pizza, and time to celebrate the Lab\'s spring achievements, including ICLR publications, undergraduate research symposium posters, and mathlib contributions.'
+	},
+	{
+		title: 'Spring quarter poster session',
+		speaker: 'Math AI Lab',
+		date: '2026-06-08',
+		startTime: '17:30',
+		endTime: '19:00',
+		location: 'Odegaard 136 & 141',
+		type: 'Poster Session',
+		abstract:
+			'The spring quarter poster session will bring together every Math AI Lab team, with each team represented through a poster or interactive demo.'
+	},
 	{
 		title: 'Lean: Machine-Checked Mathematics and AI Collaboration',
 		speaker: 'Leonardo de Moura, Senior Principal Applied Scientist in the Automated Reasoning Group at AW and creator of Lean FRO',

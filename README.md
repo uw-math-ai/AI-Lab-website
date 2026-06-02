@@ -47,7 +47,7 @@ The event calendar is repo-owned data in `src/lib/data/events.ts`. To add an eve
 - `startTime` and `endTime` as 24-hour `HH:mm`
 - `location`
 - `type`
-- `sourceUrl`
+- optional `sourceUrl`
 - optional `abstract`
 
 Use UW Math event pages as the source URL whenever possible.

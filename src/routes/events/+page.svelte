@@ -128,7 +128,9 @@
 						{#if event.abstract}
 							<p class="abstract">{event.abstract}</p>
 						{/if}
-						<a class="button" href={event.sourceUrl} target="_blank" rel="noreferrer">UW Math source</a>
+						{#if event.sourceUrl}
+							<a class="button" href={event.sourceUrl} target="_blank" rel="noreferrer">UW Math source</a>
+						{/if}
 					</div>
 				</article>
 			{:else}

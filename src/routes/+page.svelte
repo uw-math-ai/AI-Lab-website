@@ -6,18 +6,38 @@
 	import { featuredResearch } from '$lib/data/research';
 	import { sitePath } from '$lib/paths';
 
+	const featuredEventTitles = new Set(['Math AI Lab social day', 'Spring quarter poster session']);
+	const featuredHomeEvents = labEvents
+		.filter((event) => featuredEventTitles.has(event.title))
+		.sort((a, b) => a.date.localeCompare(b.date) || a.startTime.localeCompare(b.startTime));
 	const upcoming = labEvents
-		.filter((event) => new Date(`${event.date}T${event.startTime}:00`) >= new Date())
+		.filter(
+			(event) =>
+				new Date(`${event.date}T${event.startTime}:00`) >= new Date() &&
+				!featuredEventTitles.has(event.title)
+		)
 		.sort((a, b) => a.date.localeCompare(b.date) || a.startTime.localeCompare(b.startTime))
-		.slice(0, 3);
+		.slice(0, 2);
 
 	const latestProjects = projectQuarters.slice(0, 3);
+
+	function eventHref(event: { sourceUrl?: string }) {
+		return event.sourceUrl ?? sitePath('/events');
+	}
 
 	function formatDate(value: string) {
 		return new Date(`${value}T00:00:00`).toLocaleDateString('en-US', {
 			month: 'short',
 			day: 'numeric',
 			year: 'numeric'
+		});
+	}
+
+	function formatTime(value: string) {
+		const [hour, minute] = value.split(':').map(Number);
+		return new Date(2026, 0, 1, hour, minute).toLocaleTimeString('en-US', {
+			hour: 'numeric',
+			minute: '2-digit'
 		});
 	}
 </script>
@@ -109,8 +129,25 @@
 					<strong>UW 2026 Lean Hackathon</strong>
 					<small>We hosted a Lean hackathon bringing together formalization, math, and AI communities.</small>
 				</a>
+				{#each featuredHomeEvents as event}
+					<a
+						class="event-card featured-event-card"
+						href={eventHref(event)}
+						target={event.sourceUrl ? '_blank' : undefined}
+						rel={event.sourceUrl ? 'noreferrer' : undefined}
+					>
+						<span>Featured · {formatDate(event.date)}</span>
+						<strong>{event.title}</strong>
+						<small>{formatTime(event.startTime)}-{formatTime(event.endTime)} · {event.location}</small>
+					</a>
+				{/each}
 				{#each upcoming as event}
-					<a class="event-card" href={event.sourceUrl} target="_blank" rel="noreferrer">
+					<a
+						class="event-card"
+						href={eventHref(event)}
+						target={event.sourceUrl ? '_blank' : undefined}
+						rel={event.sourceUrl ? 'noreferrer' : undefined}
+					>
 						<span>{formatDate(event.date)}</span>
 						<strong>{event.title}</strong>
 						<small>{event.speaker} · {event.location}</small>
@@ -355,6 +392,18 @@
 
 	.event-card small {
 		color: var(--muted);
+	}
+
+	.featured-event-card {
+		background:
+			linear-gradient(135deg, color-mix(in srgb, var(--gold) 16%, transparent), transparent 42%),
+			linear-gradient(132deg, color-mix(in srgb, var(--purple) 10%, transparent), transparent 50%),
+			var(--surface);
+		border-color: color-mix(in srgb, var(--gold) 42%, var(--line));
+	}
+
+	.featured-event-card span {
+		color: color-mix(in srgb, var(--gold) 78%, var(--purple));
 	}
 
 	.hackathon-home-card {
