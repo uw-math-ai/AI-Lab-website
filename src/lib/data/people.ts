@@ -107,7 +107,7 @@ export const members: PersonCard[] = [
 	{ name: 'Michael', role: 'Math2Vec' },
 	{ name: 'Nailin Guan', role: 'Commutative Algebra' },
 	{ name: 'Naomi Morato', role: 'RL for Polynomials' },
-	{ name: 'Naren Prabhu', role: 'LeanGCD' },
+	{ name: 'Naren P Ramakrishnan', role: 'LeanGCD' },
 	{ name: 'Nathan Pao', role: 'Geometric Measure Theory' },
 	{ name: 'Nhan Pham', role: 'LeanGCD' },
 	{ name: 'Nicole Ham', role: 'Teaching a Computer to Knot' },
