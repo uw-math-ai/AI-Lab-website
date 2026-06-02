@@ -28,7 +28,7 @@ npm run build:ai-lab
 `npm run build` builds for domain-root hosting. `npm run build:ai-lab` builds for
 `https://uw-math-ai.github.io/AI-Lab-website/`.
 
-Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the Svelte app and deploys the
+Pushing to `main` runs `.github/workflows/pages.yml`, which builds the Svelte app and deploys the
 generated `build/` directory through GitHub Pages. Do not commit generated `build/` files.
 
 GitHub Pages must be configured with **Source: GitHub Actions** in the repository Pages settings.
