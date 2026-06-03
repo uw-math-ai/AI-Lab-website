@@ -1,3 +1,6 @@
 .DS_Store
 ._*
 .smbdelete*
+node_modules
+.svelte-kit
+build

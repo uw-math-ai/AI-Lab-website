@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spring 2026 Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <img src="logo2.jpg" alt="AI UW Logo" class="header-logo" />
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="http://ai.math.uw.edu/">Home</a></li>
+      <li class="dropdown">
+        <a class="dropbtn">Projects</a>
+        <div class="dropdown-content">
+          <a href="spring2026.html">Spring 2026</a>
+          <a href="winter2026.html">Winter 2026</a>
+          <a href="fall2025.html">Fall 2025</a>
+          <a href="spring2025.html">Spring 2025</a>
+          <a href="winter2025.html">Winter 2025</a>
+          <a href="fall2024.html">Fall 2024</a>
+          <a href="winter2024.html">Winter 2024</a>
+          <a href="fall2023.html">Fall 2023</a>
+          <a href="spring2023.html">Spring 2023</a>
+          <a href="winter2023.html">Winter 2023</a>
+          <a href="fall2022.html">Fall 2022</a>
+          <a href="spring2022.html">Spring 2022</a>
+        </div>
+      </li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="seminars.html">Seminars</a></li>
+      <li><a href="https://uw2026leanhackathon.github.io/" class="hackathon-btn" target="_blank">Lean Hackathon 2026</a></li>
+      <li><a href="https://www.washington.edu/giving/make-a-gift/?source_typ=3&source=DSC-152346&code=DSC-152346&fastForward=yes&page=make"
+              class="support-btn" target="_blank">Support Us</a></li>
+    </ul>
+  </nav>
+
+  <section>
+    <h1>Spring 2026 Math AI Lab Projects</h1>
+
+    <p>
+      Project teams meet Mondays and Wednesdays from 4–5:30 pm in Odegaard 136.
+    </p>
+
+    <p>
+      The goal of projects is a <b>publication</b> or a <b>significant open-source contribution</b>, e.g. to
+      <a href="https://github.com/leanprover-community/mathlib4">mathlib4</a>.
+      Students are expected to commit at least 5 hours per week to their project outside of meeting times.
+    </p>
+
+    <h2>Autoformalization Projects</h2>
+
+    <p>
+      The goal of autoformalization projects is to use Lean-specific AI assistants such as Harmonic’s
+      <a href="https://aristotle.harmonic.fun/">Aristotle</a>
+      to formalize large chunks of mathematics, and contribute to
+      <a href="https://github.com/leanprover-community/mathlib4">mathlib4</a>.
+    </p>
+
+    <h3>OpenMath: autoformalizing undergraduate textbooks</h3>
+    <ul>
+      <li><b>Project Leader:</b> Vasily Ilin</li>
+      <li>
+        <b>Description:</b>
+        Most undergraduate mathematics is present in
+        <a href="https://leanprover-community.github.io/mathlib4_docs/">mathlib</a>, but several big gaps remain:
+        differential geometry, partial differential equations, numerical analysis. We will autoformalize undergraduate
+        textbooks on numerical analysis of differential equations, starting with Iserles’s
+        <em>A First Course in the Numerical Analysis of Differential Equations</em> and Butcher’s
+        <em>Numerical Methods for Ordinary Differential Equations</em>. Since manual formalization is time-consuming,
+        we will build a semi-autonomous AI agent along the way, automating more of the process as the project
+        progresses. <b>Goal:</b> workshop paper at the
+        <a href="https://ai4math2026.github.io/">AI for Math workshop</a> at ICML 2026 (deadline May 25).
+      </li>
+      <li><b>Code:</b> <a href="https://github.com/uw-math-ai/OpenMath">GitHub repo</a></li>
+      <li><b>Members:</b> Vasily Ilin, Theo Meek, Siyuan Ge, Saumi Joshi, Di Qiu Xiang</li>
+      <li><b>Prerequisites:</b> Lean, undergraduate analysis</li>
+    </ul>
+
+    <h3>Geometric Invariant Theory (GIT)</h3>
+    <ul>
+      <li><b>Project Leaders:</b> Arkamouli Debnath, Giovanni Inchiostro, Leo Mayer</li>
+      <li>
+        <b>Description:</b>
+        Geometric Invariant Theory (GIT) is the theory of taking quotients in algebraic geometry. At present,
+        there is almost no formalization of GIT in Lean on mathlib, and this presents the unique opportunity to
+        contribute in two different directions as follows:
+        <ol>
+          <li>
+            <b>Commutative algebra:</b> Our main goal is to formalize the definition of a linearly reductive
+            group and prove the theorem: "If a linearly reductive group <em>G</em> acts locally finitely on a
+            finitely generated <em>k</em>-algebra <em>R</em>, then the invariant ring <em>R<sup>G</sup></em> is
+            a finitely generated <em>k</em>-algebra." The fact that a finite group is linearly reductive
+            (Maschke's theorem) is already in mathlib, and that proof uses the existence of a "Reynolds
+            operator". As part of this formalization project, we define a Reynolds operator and prove its
+            existence (in Lean) for any linearly reductive group.
+          </li>
+          <li>
+            <b>Geometry:</b> The main content of GIT is to define a "good quotient". We aim to formalize the
+            definition.
+          </li>
+        </ol>
+      </li>
+      <li><b>Code:</b> <a href="https://github.com/uw-math-ai/Formalizing-geometric-invariant-theory-GIT-">GitHub repo</a></li>
+      <li><b>Members:</b> Xuanyu Yang, Emily Meng, Bohan Zhao, Jacob Boyce</li>
+      <li><b>Prerequisites:</b> Lean, commutative algebra or algebraic geometry</li>
+    </ul>
+
+    <h3>JAX in Lean</h3>
+    <ul>
+      <li><b>Project Leader:</b> Samuel Ainsworth</li>
+      <li>
+        <b>Description:</b>
+        The goal is to build a verified API for JAX in Lean.
+      </li>
+      <li><b>Code:</b> <a href="https://github.com/uw-math-ai/porcupine-hangover">GitHub repo</a></li>
+      <li><b>Members:</b> Jeremy Ma</li>
+      <li><b>Prerequisites:</b> Lean, JAX or similar autodiff framework</li>
+    </ul>
+
+    <h3>Geometric Measure Theory</h3>
+    <ul>
+      <li><b>Project Leader:</b> Ignacio Tejeda</li>
+      <li><b>Formalization target:</b> Theorem 4.2 in Falconer’s <em>Geometry of Fractal Sets</em>.</li>
+      <li><b>Code:</b> <a href="https://github.com/uw-math-ai/FormalizingGMT">GitHub repo</a></li>
+      <li>
+        <b>Mathlib PRs:</b>
+        <a href="https://github.com/leanprover-community/mathlib4/pull/32824">1</a>,
+        <a href="https://github.com/leanprover-community/mathlib4/pull/32851">2</a>
+      </li>
+      <li><b>Members:</b> Theo Meek, Nathan Pao, Annie Cao, Josh</li>
+      <li><b>Prerequisites:</b> Lean</li>
+    </ul>
+
+    <h3>Commutative Algebra: Auslander–Buchsbaum</h3>
+    <ul>
+      <li><b>Project Leaders:</b> Haoming Ning and Leo Mayer</li>
+      <li>
+        <b>Formalization target:</b>
+        The theorem that a regular local ring is a UFD, referred by some as the Auslander–Buchsbaum theorem.
+        See Stacks Project <a href="https://stacks.math.columbia.edu/tag/0AG0">0AG0</a>.
+      </li>
+      <li><b>Code:</b> <a href="https://github.com/uw-math-ai/auslander-buchsbaum">GitHub repo</a></li>
+      <li><b>Members:</b> Nailin Guan, Dora Kassabova</li>
+      <li><b>Prerequisites:</b> Lean</li>
+    </ul>
+
+    <h3>Algebraic Geometry</h3>
+    <ul>
+      <li><b>Project Leaders:</b> Bianca Viray and Bryan Boehnke</li>
+      <li>
+        <b>Formalization target:</b>
+        Monogenic extensions of regular local rings following
+        <a href="https://arxiv.org/abs/2503.07846">arXiv:2503.07846</a>, lemmas 3.1 and 3.2.
+      </li>
+      <li>
+        <b>Mathlib PRs:</b>
+        <a href="https://github.com/leanprover-community/mathlib4/pull/36421">#36421</a>,
+        <a href="https://github.com/leanprover-community/mathlib4/pull/37527">#37527</a>
+      </li>
+      <li><b>Members:</b> George Peykanu, Grant Yang</li>
+      <li><b>Prerequisites:</b> Lean</li>
+    </ul>
+
+    <h3>Formalization: zero-knowledge proofs</h3>
+    <ul>
+      <li><b>Project Leaders:</b> Eric Klavins and Alexandra Aiello</li>
+      <li>
+        <b>Description:</b>
+        We would outline a framework for verifying mathematical theorems while keeping the respective proofs secret by
+        leveraging dependent combinatory logic as a host language for Zero-Knowledge (ZK) proof circuits. Specifically,
+        we would interpret the axioms of the dependent SK combinator calculus as a universal ZK circuit capable of
+        checking mathematical proofs encodeable in the calculus. We would target ZK-STARKs as our ideal ZK scheme,
+        enabling quantum resistance of the proofs without trusted setup [Ben+18]. This would be a first-of-its kind
+        result, with wide applications. <b>Goal:</b> publication
+      </li>
+      <li><b>Prerequisites:</b> Lean, type theory</li>
+    </ul>
+
+    <h3>Metaprogramming: Provable Computation in Lean</h3>
+    <ul>
+      <li><b>Project Leader:</b> Dhruv Bhatia</li>
+      <li>
+        <b>Description:</b>
+        While Lean has seen extensive use as a theorem-proving assistant, its capabilities as a computational programming
+        language have been underutilized. The goal of this project is to begin filling that gap. Along the way, we will
+        learn the basics of functional programming, monads, and Lean’s metaprogramming framework to implement algorithms
+        that can both be run efficiently and be reasoned about. Our main goal is to implement basic algorithms with
+        applications to linear algebra while also proving (in Lean) correctness of said algorithms.
+      </li>
+      <li><b>Members:</b> Joseph Qian, Junye Ji, Veer Shukla, Alan Chang</li>
+      <li><b>Code:</b> <a href="https://github.com/uw-math-ai/provable_computation">GitHub repo</a></li>
+    </ul>
+
+    <h2>AI Projects</h2>
+
+    <p>
+      The goal of AI projects is to use AI and ML to advance mathematical research. For example, by helping
+      mathematicians find relevant theorems, or by training models to learn mathematical functions or by creating
+      math-specific datasets or models. AI projects are expected to result in a publication in a submission to a major
+      ML conference such as ICML, ICLR, EMNLP or Neurips.
+    </p>
+
+    <h3>LeanGCD: stabilizing Lean generation</h3>
+    <ul>
+      <li><b>Project Leaders:</b> Dean Light and Michael Theologitis</li>
+      <li>
+        <b>Description:</b>
+        LeanGCD aims to improve Lean proof generation by frontier large language models using inference-time
+        stabilization methods rather than retraining. The project adapts
+        <a href="https://arxiv.org/abs/2305.13971">grammar-constrained decoding techniques</a> with Lean’s
+        <a href="https://lean-lang.org/doc/reference/latest/Notations-and-Macros/Defining-New-Syntax/">syntax extensions</a>.
+        Planned contributions: a Lean-specific GCD implementation that plugs into HuggingFace/vLLM inference pipelines,
+        and empirical evaluation on MiniF2F, ProverBench, and PutnamBench.
+        <b>Goal:</b> ICML 2026 (October) or 2027 (January).
+      </li>
+      <li><b>Code:</b> <a href="https://github.com/DeanLight/LeanGCD">GitHub repo</a></li>
+      <li><b>Members:</b> Evan Wang, Ben Bioren, Naren P Ramakrishnan, Nhan Pham</li>
+      <li><b>Prerequisites:</b> Python, ML / LLM inference experience</li>
+    </ul>
+
+    <h3>Mathematician's copilot: Semantic Theorem Search</h3>
+    <ul>
+      <li><b>Project Leaders:</b> Giovanni Inchiostro and Vasily Ilin</li>
+      <li>
+        <b>Description:</b>
+        We help research mathematicians find relevant theorems quickly. We collected the dataset of all theorems on
+        ArXiv, Stacks Project and other sources, and built vectorized search over it. Goal: submit to ICML 2026 in
+        January.
+      </li>
+      <li><b>Demo:</b> <a href="https://huggingface.co/spaces/uw-math-ai/theorem-search">HF link</a></li>
+      <li><b>Members:</b> Eric Leonen, Sophie Szeto, Artemii Remizov, Luke Alexander</li>
+      <li><b>Code:</b> <a href="https://github.com/uw-math-ai/TheoremSearch">GitHub repo</a></li>
+    </ul>
+
+    <h3>Mathematician's copilot: Math2Vec</h3>
+    <ul>
+      <li><b>Project Leader:</b> Henry Kvinge (PNNL)</li>
+      <li><b>Members:</b> Saharsh Bhargava, Michael Cecilia, Jiahe Lu, Kedar Chintalapati, Rachit Jaiswal, Samarth Rao, Jared Darlington, Leo Carlin</li>
+      <li>
+        <b>Description:</b>
+        Train a text embedder that understands math, LaTeX and Lean. This will improve search over Lean, and natural
+        language theorem search. It can be used for RAG as well. Use arXiv, MathOverflow, mathlib, Lean Reservoir, and
+        possibly other sources. Create an evaluation benchmark as well. Goal: submit to EMNLP 2026 in May.
+      </li>
+    </ul>
+
+    <h3>CayleyPy: search on massive combinatorial graphs</h3>
+    <ul>
+      <li><b>Project Leaders:</b> Michael R. Zeng, Junaid Hasan, Vasily Ilin</li>
+      <li>
+        <b>Description:</b>
+        Optimize <a href="https://github.com/cayleypy/cayleypy">CayleyPy</a>, make a CLI, and use it on various combinatorial problems, such as estimating diameters of symmetric groups. Goal: submission to ICLR 2027 in September. See <a href="https://docs.google.com/document/d/1CkM2QaZUbJAflKCdj3qvHQaeTi0mSsUuhzZNSp17k08/edit?usp=sharing">project proposal document</a>.
+      </li>
+      <li><b>Continuation:</b> Continued through Spring 2026.</li>
+      <li><b>Members:</b> Merav Frank, Sambhu Ganesan,Gaurang Pendharkar, Rithikesh Muddana, Danny Zhang </li>
+      <li><b>Prerequisites:</b> solid Python, some group theory or combinatorics.</li>
+    </ul>
+
+    <h3>Mechanistic Interpretability beyond Groups</h3>
+    <ul>
+      <li><b>Project Leader:</b> Junaid Hasan </li>
+      <li>
+        <b>Description:</b>
+        Transformers can learn modular arithmetic, but prior mechanistic work focused on invertible operations like
+        cyclic addition and group composition: cases with clean, global algebraic structure. Modular multiplication over
+        composite moduli (a monoid) breaks this: zero-divisors make the operation non-invertible, and no single global
+        representation space suffices. The authors show that transformers handle this by partitioning inputs into local
+        hierarchical regions where group-like structure is preserved, enabling localized Fourier mechanisms.
+      </li>
+      <li><b>Members:</b> Andrew (Zitong) Chen, Akhil Srinivasan, Hemkesh Bandi</li>
+      <li><b>Paper:</b> <a href="https://junaidhasan.com/assets/interpreting-monoids.pdf">Draft PDF</a></li>
+    </ul>
+
+    <h3>Reinforcement Learning for Polynomials</h3>
+    <ul>
+      <li><b>Project Leader:</b> Michael R. Zeng, Jarod Alper</li>
+      <li><b>Description:</b> Use RL to find efficient arithmetic circuits for polynomials.</li>
+      <li><b>Continuation:</b> Continued through Spring 2026.</li>
+      <li><b>Paper:</b> <a href="https://arxiv.org/abs/2603.17075">CircuitBuilder: From Polynomials to Circuits via Reinforcement Learning</a></li>
+      <li><b>Members:</b> Kyle Zhang, Rohan Pandey, Kaijie Jin, Naomi Morato, Archit Ganapule, Bhaumik Mehta</li>
+      <li><b>Code:</b> <a href="https://github.com/uw-math-ai/PolyArithmeticCircuitsRL">GitHub repo</a></li>
+    </ul>
+
+    <h3>AI for Quantum Code Compilation</h3>
+    <ul>
+      <li><b>Project Leader:</b> Andres Paz</li>
+      <li>
+        <b>Description:</b>
+        Quantum error correction (QEC) codes are traditionally described using stabilizers, which define the subspace
+        preserved by the code. However, implementing these codes requires translating stabilizers into fault-tolerant
+        quantum circuits—an inherently nontrivial task that depends on the constraints and capabilities of the
+        underlying hardware architecture.
+        <br /><br />
+        This project aims to develop an AI agent capable of synthesizing such circuits in a way that:
+        <ol>
+          <li>
+            In the ideal (noiseless) setting, the resulting circuits implement the intended stabilizer structure of the
+            code on the target architecture.
+          </li>
+          <li>
+            In the noisy setting, the agent searches over circuit variations to optimize fidelity, taking into account
+            realistic noise models and architectural constraints.
+          </li>
+        </ol>
+        The outcome would be a toolchain bridging the gap between abstract QEC code design and concrete, high-performance
+        circuit implementations, enabling better exploration of architecture-specific tradeoffs in fault-tolerant quantum
+        computing.
+      </li>
+      <li>
+        <b>Preprint:</b>
+        <a href="https://arxiv.org/abs/2604.21287">StabilizerBench: A Benchmark for AI-Assisted Quantum Error Correction Circuit Synthesis</a>
+      </li>
+      <li><b>Members:</b> Christian Tarta, Sylvie Lausier, Mayee Sun, Sarju Patel</li>
+    </ul>
+
+    <h3>How good are LLMs at Lean?</h3>
+    <ul>
+      <li><b>Project Leader:</b> Tyson Klingner</li>
+      <li>
+        <b>Description:</b>
+        Design an evaluation procedure for various Lean tasks such as next step generation or entire proof generation.
+        Run our algorithms on frontier models to see which LLMs perform the best, providing guidance to the Lean
+        community on which LLMs to use. Use a scalable architecture so that our algorithms can be rerun when new models
+        are released.
+      </li>
+      <li><b>Code:</b> <a href="https://github.com/uw-math-ai/LLMsLean">GitHub repo</a></li>
+      <li><b>Members:</b> Escher Crawford, Drew Bladek</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>Department of Mathematics, University of Washington ©2026</p>
+  </footer>
+</body>
+</html>
