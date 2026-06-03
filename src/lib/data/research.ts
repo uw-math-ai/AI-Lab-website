@@ -96,7 +96,41 @@ export const researchSections: ResearchSection[] = [
 				abstract:
 					'A benchmark suite for evaluating AI systems on synthesizing quantum error-correcting stabilizer circuits, with systematic coverage of code families and circuit constraints relevant to near-term quantum hardware.',
 				url: 'https://arxiv.org/abs/2604.21287',
-				linkLabel: 'arXiv'
+				linkLabel: 'arXiv:2604.21287'
+			}
+		]
+	},
+	{
+		id: 'research-artifacts',
+		title: 'Research Artifacts',
+		description: 'Software, formalization contributions, and manuscripts connected to current lab projects.',
+		items: [
+			{
+				venue: 'Mathlib Contribution, 2026',
+				title: "mkOfAdjoinEqTop' for Adjoined Roots",
+				authors: 'UW Math AI Lab Algebraic Geometry group',
+				abstract:
+					'A mathlib contribution supporting the monogenic extensions project, generalizing an existing adjoined-root theorem by replacing an integrally closed hypothesis with a freeness hypothesis.',
+				url: 'https://github.com/leanprover-community/mathlib4/pull/36421',
+				linkLabel: 'Mathlib PR #36421'
+			},
+			{
+				venue: 'Mathlib Contribution, 2026',
+				title: 'Finite Étale Extensions of Local Rings Are Monogenic',
+				authors: 'UW Math AI Lab Algebraic Geometry group',
+				abstract:
+					'A formalization of finite étale local-ring monogenicity from arXiv:2503.07846, including supporting intermediate lemmas for broader monogenic extensions work.',
+				url: 'https://github.com/leanprover-community/mathlib4/pull/37527',
+				linkLabel: 'Mathlib PR #37527'
+			},
+			{
+				venue: 'Manuscript, 2026',
+				title: 'Multiplication Beyond Groups: Stratified Fourier Mechanisms in Transformer Circuits',
+				authors: 'Anonymous authors',
+				abstract:
+					'A mechanistic interpretability study of how small transformers learn modular multiplication over composite moduli, extending group-composition explanations to non-invertible monoid structure.',
+				url: 'https://junaidhasan.com/assets/interpreting-monoids.pdf',
+				linkLabel: 'PDF'
 			}
 		]
 	},
