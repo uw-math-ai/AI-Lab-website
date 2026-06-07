@@ -100,6 +100,7 @@
 		display: grid;
 		gap: 0.6rem;
 		align-self: end;
+		min-width: 0;
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
@@ -122,6 +123,7 @@
 	.research-index a {
 		color: var(--purple);
 		font-weight: 800;
+		overflow-wrap: anywhere;
 		text-decoration-thickness: 0.08em;
 		text-underline-offset: 0.18em;
 	}
@@ -162,6 +164,7 @@
 		display: grid;
 		gap: 0.75rem;
 		align-content: start;
+		min-width: 0;
 		min-height: 23rem;
 		background:
 			linear-gradient(132deg, color-mix(in srgb, var(--purple) 8%, transparent), transparent 48%),
@@ -237,6 +240,20 @@
 
 		.research-card {
 			min-height: 0;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.research-index {
+			padding: 1rem;
+		}
+
+		.research-index strong {
+			font-size: 2.4rem;
+		}
+
+		.research-card {
+			padding: 1rem;
 		}
 	}
 </style>

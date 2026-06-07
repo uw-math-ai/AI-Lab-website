@@ -227,6 +227,7 @@
 		align-items: center;
 		gap: clamp(0.8rem, 2vw, 1.4rem);
 		margin: 1.1rem 0;
+		min-width: 0;
 	}
 
 	.hero-title-lockup img {
@@ -240,6 +241,7 @@
 
 	.hero-title-lockup h1 {
 		margin: 0;
+		min-width: 0;
 		white-space: nowrap;
 		font-size: clamp(3rem, 7.6vw, 7rem);
 	}
@@ -461,6 +463,11 @@
 		.photo-panel {
 			grid-template-columns: 1fr;
 		}
+
+		.event-card,
+		.paper-card {
+			min-height: 0;
+		}
 	}
 
 	@media (min-width: 861px) and (max-width: 1120px) {
@@ -481,6 +488,27 @@
 
 		.hero-title-lockup h1 {
 			font-size: clamp(2.25rem, 13vw, 3.1rem);
+		}
+	}
+
+	@media (max-width: 390px) {
+		.hero-title-lockup {
+			gap: 0.55rem;
+		}
+
+		.hero-title-lockup img {
+			width: 4.1rem;
+			height: 4.1rem;
+		}
+
+		.hero-title-lockup h1 {
+			font-size: clamp(1.95rem, 10.5vw, 2.45rem);
+		}
+
+		.stats div,
+		.event-card,
+		.paper-card {
+			padding: 0.9rem;
 		}
 	}
 </style>

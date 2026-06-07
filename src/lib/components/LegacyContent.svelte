@@ -108,6 +108,7 @@
 		min-width: 0;
 		font-size: 1rem;
 		line-height: 1.72;
+		overflow-wrap: break-word;
 	}
 
 	.legacy-content :global(section),
@@ -158,6 +159,7 @@
 	.legacy-content :global(a) {
 		color: var(--purple);
 		font-weight: 650;
+		overflow-wrap: anywhere;
 		text-decoration-thickness: 0.09em;
 		text-underline-offset: 0.18em;
 	}
@@ -435,6 +437,17 @@
 		margin: 2rem 0 0;
 	}
 
+	.legacy-content :global(pre),
+	.legacy-content :global(code),
+	.legacy-content :global(table) {
+		max-width: 100%;
+	}
+
+	.legacy-content :global(pre),
+	.legacy-content :global(table) {
+		overflow-x: auto;
+	}
+
 	.legacy-content :global(img) {
 		max-width: 100%;
 		height: auto;
@@ -443,7 +456,9 @@
 	}
 
 	@media (max-width: 980px) {
-		.content-layout {
+		.content-layout,
+		.content-layout.with-toc,
+		.content-layout.project-mode.with-toc {
 			grid-template-columns: minmax(0, 1fr);
 		}
 
@@ -451,18 +466,48 @@
 			position: static;
 			order: 0;
 			display: flex;
+			align-items: center;
 			overflow-x: auto;
+			max-height: none;
 			gap: 0.8rem;
+			padding: 0.65rem;
+			scrollbar-width: thin;
+		}
+
+		.toc span {
+			flex: 0 0 auto;
+			align-self: center;
+			white-space: nowrap;
 		}
 
 		.toc a {
+			flex: 0 0 auto;
+			border: 1px solid var(--line);
+			border-radius: 999px;
+			background: var(--surface-strong);
+			padding: 0.45rem 0.7rem;
 			white-space: nowrap;
+		}
+
+		.toc a.h3 {
+			padding-left: 0.7rem;
+			border-left: 1px solid var(--line);
+			font-size: 0.86rem;
 		}
 	}
 
 	@media (max-width: 720px) {
+		.legacy-content {
+			font-size: 0.96rem;
+			line-height: 1.65;
+		}
+
 		.legacy-content :global(.title-quote) {
 			grid-template-columns: 1fr;
+		}
+
+		.legacy-content :global(h2) {
+			margin-top: 2rem;
 		}
 
 		.content-layout:not(.project-mode) .legacy-content :global(h3 + ul),
@@ -475,6 +520,16 @@
 		.content-layout.project-mode .legacy-content :global(section > ul > li:has(> ul)) {
 			padding-left: 0.95rem;
 			padding-right: 0.95rem;
+		}
+
+		.content-layout.project-mode .legacy-content :global(section > ul) {
+			padding-left: 0;
+		}
+
+		.content-layout.project-mode .legacy-content :global(h3 + ul ul),
+		.content-layout.project-mode .legacy-content :global(h3 + ul ol),
+		.content-layout.project-mode .legacy-content :global(section > ul > li:has(> ul) > ul) {
+			padding-left: 1rem;
 		}
 
 		.content-layout.flat .legacy-content :global(section > ul),

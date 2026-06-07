@@ -165,6 +165,7 @@
 
 	.presenter-card {
 		display: block;
+		min-width: 0;
 		min-height: 0;
 		padding: 30px 20px;
 		background: var(--surface);
@@ -290,6 +291,32 @@
 	@media (max-width: 800px) {
 		.lab-photo-pair {
 			flex-direction: column;
+		}
+	}
+
+	@media (max-width: 520px) {
+		.presenters-section {
+			width: min(100% - 1rem, 1120px);
+		}
+
+		.presenters-grid {
+			grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+			gap: 0.75rem;
+		}
+
+		.presenter-card {
+			padding: 1.15rem 0.75rem;
+		}
+
+		.presenter-photo {
+			width: 72px;
+			height: 72px;
+		}
+
+		.presenter-avatar {
+			width: 58px;
+			height: 58px;
+			font-size: 1.05rem;
 		}
 	}
 </style>

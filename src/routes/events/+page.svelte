@@ -219,6 +219,10 @@
 		flex: 1 1 18rem;
 	}
 
+	.calendar-toolbar select {
+		flex: 0 1 14rem;
+	}
+
 	.segmented {
 		display: inline-flex;
 		padding: 0.25rem;
@@ -313,8 +317,43 @@
 			flex-direction: column;
 		}
 
+		.hackathon-copy .actions,
+		.hackathon-copy .button {
+			width: 100%;
+		}
+
 		.event-row {
 			grid-template-columns: 1fr;
+		}
+	}
+
+	@media (max-width: 640px) {
+		.calendar-toolbar {
+			align-items: stretch;
+		}
+
+		.segmented,
+		.calendar-toolbar input,
+		.calendar-toolbar select {
+			width: 100%;
+		}
+
+		.segmented {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.segmented button {
+			padding: 0.52rem 0.45rem;
+		}
+
+		.date-block,
+		.event-body {
+			padding: 0.9rem;
+		}
+
+		.date-block {
+			gap: 0.2rem;
 		}
 	}
 </style>

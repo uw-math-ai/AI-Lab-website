@@ -207,4 +207,43 @@
 			transform: translateY(0);
 		}
 	}
+
+	@media (max-width: 480px) {
+		.site-header {
+			gap: 0.6rem;
+			padding: 0.7rem 0.75rem;
+		}
+
+		.brand {
+			min-width: 0;
+			gap: 0.55rem;
+		}
+
+		.brand img {
+			width: 2.25rem;
+			height: 2.25rem;
+		}
+
+		.brand strong {
+			font-size: 0.98rem;
+			white-space: nowrap;
+		}
+
+		.brand small {
+			display: none;
+		}
+
+		.menu-button {
+			flex: 0 0 auto;
+			width: 2.45rem;
+			height: 2.45rem;
+		}
+
+		nav {
+			top: 4rem;
+			right: 0.75rem;
+			left: 0.75rem;
+			max-height: calc(100vh - 5rem);
+		}
+	}
 </style>

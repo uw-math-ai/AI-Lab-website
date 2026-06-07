@@ -112,6 +112,7 @@
 	.quarter-card {
 		text-decoration: none;
 		min-height: 14rem;
+		min-width: 0;
 		transition:
 			transform 180ms ease,
 			box-shadow 180ms ease;
@@ -137,6 +138,10 @@
 	@media (max-width: 640px) {
 		.quarter-grid {
 			grid-template-columns: 1fr;
+		}
+
+		.quarter-card {
+			min-height: 0;
 		}
 	}
 </style>

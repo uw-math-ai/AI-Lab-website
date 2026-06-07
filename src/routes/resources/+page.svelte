@@ -162,6 +162,7 @@
 		background: color-mix(in srgb, var(--bg) 88%, transparent);
 		backdrop-filter: blur(16px);
 		border-bottom: 1px solid var(--line);
+		scrollbar-width: thin;
 	}
 
 	.resource-section-nav a {
@@ -210,10 +211,22 @@
 			top: 4.2rem;
 			overflow-x: auto;
 			padding-right: 1rem;
+			margin-top: 0;
 		}
 
 		.resource-section-nav a {
+			flex: 0 0 auto;
 			white-space: nowrap;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.featured-resource-card {
+			padding: 1rem;
+		}
+
+		.featured-link {
+			width: 100%;
 		}
 	}
 </style>
