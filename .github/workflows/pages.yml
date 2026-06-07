@@ -34,8 +34,31 @@ jobs:
       - name: Check Svelte project
         run: npm run check
 
-      - name: Build static site for repository Pages path
-        run: npm run build:ai-lab
+      - name: Detect Pages custom domain
+        id: pages
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          pages_json="$(curl -fsSL \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages" || true)"
+          custom_domain="$(printf '%s' "${pages_json}" | node -e "let s=''; process.stdin.on('data', d => s += d); process.stdin.on('end', () => { try { console.log(JSON.parse(s).cname || '') } catch { console.log('') } })")"
+          echo "custom_domain=${custom_domain}" >> "${GITHUB_OUTPUT}"
+          if [ "${custom_domain}" = "ai.math.uw.edu" ]; then
+            echo "Detected official custom domain: ${custom_domain}"
+          else
+            echo "No official custom domain detected; building for /AI-Lab-website."
+          fi
+
+      - name: Build static site
+        run: |
+          if [ "${{ steps.pages.outputs.custom_domain }}" = "ai.math.uw.edu" ]; then
+            npm run build
+          else
+            npm run build:ai-lab
+          fi
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

@@ -5,6 +5,7 @@
 	import { projectIndexLeanSnippet } from '$lib/data/leanSnippets';
 	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
 	import { sitePath } from '$lib/paths';
+	import { canonicalUrl } from '$lib/seo';
 
 	let query = $state('');
 
@@ -29,6 +30,9 @@
 
 <svelte:head>
 	<title>Projects | Math AI Lab</title>
+	<link rel="canonical" href={canonicalUrl('/projects/')} />
+	<meta property="og:title" content="Projects | Math AI Lab" />
+	<meta property="og:url" content={canonicalUrl('/projects/')} />
 </svelte:head>
 
 <section class="page-shell hero compact-hero">

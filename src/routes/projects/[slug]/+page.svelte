@@ -4,6 +4,7 @@
 	import { leanSnippetForQuarter } from '$lib/data/leanSnippets';
 	import type { ProjectQuarter } from '$lib/data/projects';
 	import { sitePath } from '$lib/paths';
+	import { canonicalUrl } from '$lib/seo';
 
 	let { data } = $props<{ data: { quarter: ProjectQuarter } }>();
 	let quarter = $derived(data.quarter);
@@ -11,6 +12,9 @@
 
 <svelte:head>
 	<title>{quarter.label} Projects | Math AI Lab</title>
+	<link rel="canonical" href={canonicalUrl(`/projects/${quarter.slug}/`)} />
+	<meta property="og:title" content={`${quarter.label} Projects | Math AI Lab`} />
+	<meta property="og:url" content={canonicalUrl(`/projects/${quarter.slug}/`)} />
 </svelte:head>
 
 <section class="page-shell hero quarter-hero">

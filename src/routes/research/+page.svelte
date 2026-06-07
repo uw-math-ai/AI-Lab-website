@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
 	import { researchSections } from '$lib/data/research';
+	import { canonicalUrl } from '$lib/seo';
 
 	let query = $state('');
 
@@ -24,6 +25,9 @@
 		name="description"
 		content="Publications and preprints from the University of Washington Math AI Lab."
 	/>
+	<link rel="canonical" href={canonicalUrl('/research/')} />
+	<meta property="og:title" content="Research | Math AI Lab" />
+	<meta property="og:url" content={canonicalUrl('/research/')} />
 </svelte:head>
 
 <section class="page-shell hero research-hero">

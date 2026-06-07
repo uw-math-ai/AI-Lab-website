@@ -5,6 +5,7 @@
 	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
 	import { featuredResearch } from '$lib/data/research';
 	import { sitePath } from '$lib/paths';
+	import { canonicalUrl } from '$lib/seo';
 
 	const featuredEventTitles = new Set(['Math AI Lab social day', 'Spring quarter poster session']);
 	const featuredHomeEvents = labEvents
@@ -44,6 +45,11 @@
 
 <svelte:head>
 	<title>Math AI Lab | University of Washington</title>
+	<link rel="canonical" href={canonicalUrl('/')} />
+	<meta property="og:title" content="Math AI Lab | University of Washington" />
+	<meta property="og:url" content={canonicalUrl('/')} />
+	<meta property="og:site_name" content="UW Math AI Lab" />
+	<meta property="og:type" content="website" />
 </svelte:head>
 
 <section class="page-shell hero home-hero">

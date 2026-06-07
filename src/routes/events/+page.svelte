@@ -4,6 +4,7 @@
 	import { eventsLeanSnippet } from '$lib/data/leanSnippets';
 	import { labEvents } from '$lib/data/events';
 	import { sitePath } from '$lib/paths';
+	import { canonicalUrl } from '$lib/seo';
 
 	let query = $state('');
 	let type = $state('all');
@@ -50,6 +51,9 @@
 
 <svelte:head>
 	<title>Events | Math AI Lab</title>
+	<link rel="canonical" href={canonicalUrl('/events/')} />
+	<meta property="og:title" content="Events | Math AI Lab" />
+	<meta property="og:url" content={canonicalUrl('/events/')} />
 </svelte:head>
 
 <section class="page-shell hero compact-hero">

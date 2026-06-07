@@ -2,6 +2,7 @@
 	import Reveal from '$lib/components/Reveal.svelte';
 	import { initials, labPhotos, leadership, members, projectLeaders } from '$lib/data/people';
 	import { sitePath } from '$lib/paths';
+	import { canonicalUrl } from '$lib/seo';
 
 	function sortKey(name: string) {
 		const parts = name.trim().split(/\s+/);
@@ -23,6 +24,9 @@
 		name="description"
 		content="People of the University of Washington Math AI Lab during the 2025-26 academic year."
 	/>
+	<link rel="canonical" href={canonicalUrl('/people/')} />
+	<meta property="og:title" content="People | Math AI Lab" />
+	<meta property="og:url" content={canonicalUrl('/people/')} />
 </svelte:head>
 
 <section class="presenters-section">

@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { sitePath } from '$lib/paths';
+	import { canonicalUrl } from '$lib/seo';
 </script>
 
 <svelte:head>
 	<title>Seminars | Math AI Lab</title>
 	<meta http-equiv="refresh" content={`0; url=${sitePath('/resources#seminars')}`} />
-	<link rel="canonical" href={sitePath('/resources#seminars')} />
+	<link rel="canonical" href={canonicalUrl('/resources/')} />
 </svelte:head>
 
 <section class="page-shell section redirect-page">

@@ -6,10 +6,14 @@
 	import coursesHtml from '$lib/legacy-html/courses.html?raw';
 	import resourcesHtml from '$lib/legacy-html/resources.html?raw';
 	import seminarsHtml from '$lib/legacy-html/seminars.html?raw';
+	import { canonicalUrl } from '$lib/seo';
 </script>
 
 <svelte:head>
 	<title>Resources | Math AI Lab</title>
+	<link rel="canonical" href={canonicalUrl('/resources/')} />
+	<meta property="og:title" content="Resources | Math AI Lab" />
+	<meta property="og:url" content={canonicalUrl('/resources/')} />
 </svelte:head>
 
 <section class="page-shell hero compact-hero">
