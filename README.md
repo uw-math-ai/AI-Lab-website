@@ -35,8 +35,11 @@ GitHub Pages must be configured with **Source: GitHub Actions** in the repositor
 If it is left on branch/root publishing, GitHub will render this README instead of the Svelte app.
 
 The Pages workflow automatically builds for the current GitHub project URL until GitHub Pages reports
-`ai.math.uw.edu` as the configured custom domain. After that, it builds for root-domain hosting. See
-`docs/custom-domain-checklist.md` for the DNS, GitHub Pages, and Google Search Console checklist.
+`ai.math.uw.edu` as the configured custom domain. After that, it builds for root-domain hosting. For
+the coordinated DNS cutover, the manual workflow dispatch includes a `force_root_domain` input so an
+admin can build root-domain output immediately after GitHub Pages is configured. See
+`docs/custom-domain-checklist.md` for the DNS, GitHub Pages, redirect, rollback, and Google Search
+Console checklist.
 
 The Lean Hackathon site is maintained separately at `https://uw2026leanhackathon.github.io/`; this
 repo links to it but does not build that app.

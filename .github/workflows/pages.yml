@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      force_root_domain:
+        description: Build for ai.math.uw.edu even if GitHub Pages settings have not propagated yet.
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -53,8 +59,13 @@ jobs:
           fi
 
       - name: Build static site
+        env:
+          FORCE_ROOT_DOMAIN: ${{ github.event_name == 'workflow_dispatch' && inputs.force_root_domain == true }}
         run: |
-          if [ "${{ steps.pages.outputs.custom_domain }}" = "ai.math.uw.edu" ]; then
+          if [ "${FORCE_ROOT_DOMAIN}" = "true" ]; then
+            echo "Manual root-domain build requested."
+            npm run build
+          elif [ "${{ steps.pages.outputs.custom_domain }}" = "ai.math.uw.edu" ]; then
             npm run build
           else
             npm run build:ai-lab
