@@ -13,18 +13,6 @@ export type LabPhoto = {
 
 export const leadership: PersonCard[] = [
 	{
-		name: 'Vasily Ilin',
-		role: 'Founding Director',
-		image: '/photos/people/vasily-ilin.jpg',
-		url: 'https://vilin97.github.io/'
-	},
-	{
-		name: 'Jarod Alper',
-		role: 'Founding Director',
-		image: '/photos/people/jarod-alper.jpg',
-		url: 'https://sites.math.washington.edu/~jarod/'
-	},
-	{
 		name: 'Michael R. Zeng',
 		role: 'Acting Director',
 		image: '/photos/people/michael-zeng.jpg',
@@ -35,6 +23,18 @@ export const leadership: PersonCard[] = [
 		role: 'Vice Director',
 		image: '/photos/people/dhruv-bhatia.jpg',
 		url: 'https://math.washington.edu/people/dhruv-bhatia'
+	},
+	{
+		name: 'Vasily Ilin',
+		role: 'Founding Director',
+		image: '/photos/people/vasily-ilin.jpg',
+		url: 'https://vilin97.github.io/'
+	},
+	{
+		name: 'Jarod Alper',
+		role: 'Founding Director',
+		image: '/photos/people/jarod-alper.jpg',
+		url: 'https://sites.math.washington.edu/~jarod/'
 	}
 ];
 

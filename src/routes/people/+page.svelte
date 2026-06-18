@@ -13,7 +13,6 @@
 
 	const byName = (a: { name: string }, b: { name: string }) =>
 		sortKey(a.name).localeCompare(sortKey(b.name));
-	const alphabeticalLeadership = [...leadership].sort(byName);
 	const alphabeticalProjectLeaders = [...projectLeaders].sort(byName);
 	const alphabeticalMembers = [...members].sort(byName);
 </script>
@@ -42,7 +41,7 @@
 	<Reveal>
 		<h2>Leadership</h2>
 		<div class="presenters-grid leadership-grid">
-			{#each alphabeticalLeadership as person}
+			{#each leadership as person}
 				<a class="presenter-card linkable" href={person.url} target="_blank" rel="noreferrer">
 					<img class="presenter-photo" src={sitePath(person.image)} alt={person.name} loading="lazy" decoding="async" />
 					<span class="presenter-name">{person.name}</span>
