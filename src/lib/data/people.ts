@@ -25,6 +25,12 @@ export const leadership: PersonCard[] = [
 		url: 'https://math.washington.edu/people/dhruv-bhatia'
 	},
 	{
+		name: 'Giovanni Inchiostro',
+		role: 'Faculty Advisor',
+		image: '/photos/people/giovanni-inchiostro.jpg',
+		url: 'https://sites.math.washington.edu/~ginchios/'
+	},
+	{
 		name: 'Vasily Ilin',
 		role: 'Founding Director',
 		image: '/photos/people/vasily-ilin.jpg',
@@ -47,7 +53,6 @@ export const projectLeaders: PersonCard[] = [
 	{ name: 'Bryan Boehnke', role: 'Algebraic Geometry', image: '/photos/people/bryan-boehnke.jpg', url: 'https://sites.google.com/view/bryanboehnke/' },
 	{ name: 'Dean Light', role: 'LeanGCD', image: '/photos/people/dean-light.jpg', url: 'https://github.com/DeanLight' },
 	{ name: 'Eric Klavins', role: 'Zero-Knowledge Proofs, Formalizing Stacks', image: '/photos/people/eric-klavins.jpg', url: 'https://klavinslab.org/' },
-	{ name: 'Giovanni Inchiostro', role: 'Semantic Theorem Search, GIT', image: '/photos/people/giovanni-inchiostro.jpg', url: 'https://sites.math.washington.edu/~ginchios/' },
 	{ name: 'Haocheng Cai', role: 'Monogenic Extensions', image: '/photos/people/haocheng-cai.jpg', url: 'https://math.washington.edu/people/haocheng-cai' },
 	{ name: 'Haoming Ning', role: 'Commutative Algebra', image: '/photos/people/haoming-ning.jpg', url: 'https://sites.google.com/uw.edu/haomingning' },
 	{ name: 'Henry Kvinge', role: 'Math2Vec', image: '/photos/people/henry-kvinge.jpg', url: 'https://hkvinge.github.io/' },

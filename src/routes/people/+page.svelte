@@ -163,7 +163,7 @@
 
 	.leadership-grid {
 		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-		max-width: 860px;
+		max-width: 1040px;
 		margin: 0 auto;
 	}
 
