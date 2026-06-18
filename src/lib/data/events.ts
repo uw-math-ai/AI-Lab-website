@@ -8,13 +8,16 @@ export type LabEvent = {
 	type:
 		| 'Seminar'
 		| 'Workshop'
+		| 'Conference'
 		| 'Poster Session'
 		| 'Final Exam'
 		| 'Information Session'
 		| 'Colloquium'
 		| 'Social';
 	sourceUrl?: string;
+	sourceLabel?: string;
 	abstract?: string;
+	details?: string[];
 };
 
 // Event source of truth for the site.
@@ -24,6 +27,28 @@ export type LabEvent = {
 // abstract when one is published; omit abstract rather than summarizing
 // unpublished text.
 export const labEvents = ([
+	{
+		title: 'ICML 2026',
+		speaker: 'Math AI Lab',
+		date: '2026-07-06',
+		startTime: '09:00',
+		endTime: '17:00',
+		location: 'COEX Convention & Exhibition Center, Seoul, South Korea',
+		type: 'Conference',
+		sourceUrl: 'https://icml.cc/Conferences/2026',
+		sourceLabel: 'ICML 2026',
+		abstract:
+			'Congratulations to the authors of the 7 papers from Math AI Lab projects, which got accepted by ICML 2026 Conference and Workshops!',
+		details: [
+			'Does My Embedding Reflect That A=B? Evaluating Mathematical Equivalence in Embedding Models',
+			"Learned Interventions Inside Lean 4's grind",
+			'Semi-Autonomous Formalization of the Vlasov–Maxwell–Landau Equilibrium',
+			'Sorries Are Not the Hard Part: An Expert-Review Case Study of a Semi-Autonomous Formalization',
+			'Formalizing Numerical Analysis: An Agent Pipeline and Quality Audit Beyond Kernel Acceptance',
+			'Multiplication Beyond Groups: Stratified Fourier Mechanisms in Transformer Circuits',
+			'FactorLibrary: From Polynomials to Circuits via Recursive Subgoals'
+		]
+	},
 	{
 		title: 'Math AI Lab social day',
 		speaker: 'Math AI Lab',

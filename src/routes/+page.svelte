@@ -7,7 +7,7 @@
 	import { sitePath } from '$lib/paths';
 	import { canonicalUrl } from '$lib/seo';
 
-	const featuredEventTitles = new Set(['Math AI Lab social day', 'Spring quarter poster session']);
+	const featuredEventTitles = new Set(['ICML 2026']);
 	const featuredHomeEvents = labEvents
 		.filter((event) => featuredEventTitles.has(event.title))
 		.sort((a, b) => a.date.localeCompare(b.date) || a.startTime.localeCompare(b.startTime));

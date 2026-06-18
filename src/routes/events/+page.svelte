@@ -39,7 +39,7 @@
 				const isUpcoming = eventTime(event) >= new Date();
 				const matchesMode = mode === 'all' || (mode === 'upcoming' ? isUpcoming : !isUpcoming);
 				const matchesType = type === 'all' || event.type === type;
-				const haystack = `${event.title} ${event.speaker} ${event.location} ${event.abstract ?? ''}`.toLowerCase();
+				const haystack = `${event.title} ${event.speaker} ${event.location} ${event.abstract ?? ''} ${(event.details ?? []).join(' ')}`.toLowerCase();
 				return matchesMode && matchesType && haystack.includes(query.toLowerCase());
 			})
 			.sort((a, b) => {
@@ -132,8 +132,15 @@
 						{#if event.abstract}
 							<p class="abstract">{event.abstract}</p>
 						{/if}
+						{#if event.details?.length}
+							<ul class="event-details">
+								{#each event.details as detail}
+									<li>{detail}</li>
+								{/each}
+							</ul>
+						{/if}
 						{#if event.sourceUrl}
-							<a class="button" href={event.sourceUrl} target="_blank" rel="noreferrer">UW Math source</a>
+							<a class="button" href={event.sourceUrl} target="_blank" rel="noreferrer">{event.sourceLabel ?? 'UW Math source'}</a>
 						{/if}
 					</div>
 				</article>
@@ -308,6 +315,17 @@
 
 	.event-body .abstract {
 		white-space: pre-line;
+	}
+
+	.event-body .event-details {
+		max-width: 78ch;
+		margin: 0.65rem 0 0;
+		padding-left: 1.2rem;
+		color: var(--muted);
+	}
+
+	.event-body .event-details li + li {
+		margin-top: 0.35rem;
 	}
 
 	.event-body .speaker {
