@@ -163,8 +163,32 @@
 	}
 
 	.leadership-grid {
-		max-width: 520px;
+		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+		max-width: 860px;
 		margin: 0 auto;
+	}
+
+	.leadership-grid .presenter-card {
+		padding-block: 34px;
+	}
+
+	.leadership-grid .presenter-role {
+		display: inline-flex;
+		justify-content: center;
+		max-width: 100%;
+		margin-top: 0.2rem;
+		padding: 0.32rem 0.65rem;
+		border: 1px solid color-mix(in srgb, var(--purple) 22%, var(--line));
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--soft) 72%, var(--surface));
+		color: var(--purple);
+		font-size: 0.78rem;
+		line-height: 1.2;
+	}
+
+	:root[data-theme='dark'] .leadership-grid .presenter-role {
+		border-color: color-mix(in srgb, var(--gold) 34%, var(--purple));
+		color: var(--gold);
 	}
 
 	.presenter-card {

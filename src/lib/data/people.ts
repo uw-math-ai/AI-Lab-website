@@ -14,15 +14,27 @@ export type LabPhoto = {
 export const leadership: PersonCard[] = [
 	{
 		name: 'Vasily Ilin',
-		role: 'Co-Director',
+		role: 'Founding Director',
 		image: '/photos/people/vasily-ilin.jpg',
 		url: 'https://vilin97.github.io/'
 	},
 	{
 		name: 'Jarod Alper',
-		role: 'Co-Director',
+		role: 'Founding Director',
 		image: '/photos/people/jarod-alper.jpg',
 		url: 'https://sites.math.washington.edu/~jarod/'
+	},
+	{
+		name: 'Michael R. Zeng',
+		role: 'Acting Director',
+		image: '/photos/people/michael-zeng.jpg',
+		url: 'https://zengrf.github.io/'
+	},
+	{
+		name: 'Dhruv Bhatia',
+		role: 'Vice Director',
+		image: '/photos/people/dhruv-bhatia.jpg',
+		url: 'https://math.washington.edu/people/dhruv-bhatia'
 	}
 ];
 
@@ -34,7 +46,6 @@ export const projectLeaders: PersonCard[] = [
 	{ name: 'Bianca Viray', role: 'Algebraic Geometry', image: '/photos/people/bianca-viray.jpg', url: 'https://sites.math.washington.edu/~bviray/' },
 	{ name: 'Bryan Boehnke', role: 'Algebraic Geometry', image: '/photos/people/bryan-boehnke.jpg', url: 'https://sites.google.com/view/bryanboehnke/' },
 	{ name: 'Dean Light', role: 'LeanGCD', image: '/photos/people/dean-light.jpg', url: 'https://github.com/DeanLight' },
-	{ name: 'Dhruv Bhatia', role: 'Provable Computation in Lean', image: '/photos/people/dhruv-bhatia.jpg', url: 'https://math.washington.edu/people/dhruv-bhatia' },
 	{ name: 'Eric Klavins', role: 'Zero-Knowledge Proofs, Formalizing Stacks', image: '/photos/people/eric-klavins.jpg', url: 'https://klavinslab.org/' },
 	{ name: 'Giovanni Inchiostro', role: 'Semantic Theorem Search, GIT', image: '/photos/people/giovanni-inchiostro.jpg', url: 'https://sites.math.washington.edu/~ginchios/' },
 	{ name: 'Haocheng Cai', role: 'Monogenic Extensions', image: '/photos/people/haocheng-cai.jpg', url: 'https://math.washington.edu/people/haocheng-cai' },
@@ -45,7 +56,6 @@ export const projectLeaders: PersonCard[] = [
 	{ name: 'Junaid Hasan', role: 'Deep Learning for Number Theory', image: '/photos/people/junaid-hasan.jpg', url: 'https://junaidhasan.com/' },
 	{ name: 'Leo Mayer', role: 'Geometric Invariant Theory, Commutative Algebra', image: '/photos/people/leo-mayer.jpg', url: 'https://math.washington.edu/people/leopold-mayer' },
 	{ name: 'Michael Theologitis', role: 'LeanGCD', image: '/photos/people/michael-theologitis.jpg', url: 'https://scholar.google.com/citations?user=zXsulEcAAAAJ&hl=en' },
-	{ name: 'Michael R. Zeng', role: 'Reinforcement Learning for Polynomials, CayleyPy', image: '/photos/people/michael-zeng.jpg', url: 'https://zengrf.github.io/' },
 	{ name: 'Nelson Niu', role: 'Category Theory', image: '/photos/people/nelson-niu.jpg', url: 'https://nelsonniu.com/' },
 	{ name: 'Samuel Ainsworth', role: 'JAX in Lean', image: '/photos/people/samuel-ainsworth.jpg', url: 'https://samlikes.pizza/' },
 	{ name: 'Tyson Klingner', role: 'How Good Are LLMs at Lean?', image: '/photos/people/tyson-klingner.jpg', url: 'https://math.washington.edu/people/tyson-klingner' }
