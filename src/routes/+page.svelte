@@ -65,7 +65,7 @@
 			<a href="https://sites.math.washington.edu/~jarod/">Jarod Alper</a> and <a href="https://vilin97.github.io/">Vasily Ilin</a>.
 		</p>
 		<div class="actions">
-			<a class="button primary" href={sitePath('/projects/spring-2026')}>Ongoing Projects</a>
+			<a class="button primary" href={sitePath('/projects/summer-2026')}>Ongoing Projects</a>
 			<a class="button" href={sitePath('/events')}>Event Calendar</a>
 			<a class="button" href="https://github.com/uw-math-ai" target="_blank" rel="noreferrer">GitHub</a>
 		</div>

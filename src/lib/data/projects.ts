@@ -1,3 +1,4 @@
+import summer2026 from '$lib/legacy-html/summer2026.html?raw';
 import spring2026 from '$lib/legacy-html/spring2026.html?raw';
 import winter2026 from '$lib/legacy-html/winter2026.html?raw';
 import fall2025 from '$lib/legacy-html/fall2025.html?raw';
@@ -23,16 +24,26 @@ export type ProjectQuarter = {
 	html: string;
 };
 
-export const totalProjectCount = 59;
+export const totalProjectCount = 68;
 
 export const projectQuarters: ProjectQuarter[] = [
+	{
+		slug: 'summer-2026',
+		legacyFile: 'summer2026.html',
+		label: 'Summer 2026',
+		term: 'Summer',
+		year: 2026,
+		status: 'current',
+		summary: 'Nine new and six returning projects spanning autoformalization, AI and machine learning for math, autoresearch, and math education.',
+		html: summer2026
+	},
 	{
 		slug: 'spring-2026',
 		legacyFile: 'spring2026.html',
 		label: 'Spring 2026',
 		term: 'Spring',
 		year: 2026,
-		status: 'current',
+		status: 'recent',
 		venue: 'Odegaard 136',
 		summary: 'Current Math AI Lab projects, including autoformalization, Lean infrastructure, and AI for mathematics.',
 		html: spring2026

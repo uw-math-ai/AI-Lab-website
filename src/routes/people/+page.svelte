@@ -33,7 +33,7 @@
 	<p class="people-intro">
 		The people of the UW Math AI Lab during the 2025-26 academic year (Fall 2025 - Spring
 		2026). For the projects themselves, see the quarterly pages under
-		<a href={sitePath('/projects/spring-2026')}>Projects</a>.
+		<a href={sitePath('/projects/summer-2026')}>Projects</a>.
 	</p>
 </section>
 

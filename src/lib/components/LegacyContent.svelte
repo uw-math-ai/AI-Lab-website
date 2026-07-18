@@ -14,7 +14,7 @@
 			? headings.filter(
 					(heading) =>
 						heading.level === 2 &&
-						/^(autoformalization|machine learning for math|formalization) projects$/i.test(heading.text)
+						/^(autoformalization|machine learning for math|formalization|new|returning) projects$/i.test(heading.text)
 				)
 			: headings
 	);
