@@ -21,7 +21,7 @@
 	<title>People | Math AI Lab</title>
 	<meta
 		name="description"
-		content="People of the University of Washington Math AI Lab during the 2025-26 academic year."
+		content="People of the University of Washington Math AI Lab through Summer 2026."
 	/>
 	<link rel="canonical" href={canonicalUrl('/people/')} />
 	<meta property="og:title" content="People | Math AI Lab" />
@@ -31,8 +31,7 @@
 <section class="presenters-section">
 	<h1>Math AI Lab People</h1>
 	<p class="people-intro">
-		The people of the UW Math AI Lab during the 2025-26 academic year (Fall 2025 - Spring
-		2026). For the projects themselves, see the quarterly pages under
+		The people of the UW Math AI Lab through Summer 2026. For the projects themselves, see the quarterly pages under
 		<a href={sitePath('/projects/summer-2026')}>Projects</a>.
 	</p>
 </section>
@@ -58,7 +57,11 @@
 		<div class="presenters-grid">
 			{#each alphabeticalProjectLeaders as person}
 				<a class="presenter-card linkable" href={person.url} target="_blank" rel="noreferrer">
-					<img class="presenter-photo" src={sitePath(person.image)} alt={person.name} loading="lazy" decoding="async" />
+					{#if person.image}
+						<img class="presenter-photo" src={sitePath(person.image)} alt={person.name} loading="lazy" decoding="async" />
+					{:else}
+						<div class="presenter-avatar" aria-hidden="true">{initials(person.name)}</div>
+					{/if}
 					<span class="presenter-name">{person.name}</span>
 					<span class="presenter-role">{person.role}</span>
 				</a>

@@ -2,6 +2,7 @@
 	import Reveal from '$lib/components/Reveal.svelte';
 	import CountUp from '$lib/components/CountUp.svelte';
 	import { labEvents } from '$lib/data/events';
+	import { participantCounts } from '$lib/data/people';
 	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
 	import { featuredResearch } from '$lib/data/research';
 	import { sitePath } from '$lib/paths';
@@ -81,15 +82,15 @@
 				<span>projects</span>
 			</div>
 			<div>
-				<strong><CountUp value={169} /></strong>
+				<strong><CountUp value={participantCounts.undergraduate} /></strong>
 				<span>undergraduate students</span>
 			</div>
 			<div>
-				<strong><CountUp value={17} /></strong>
+				<strong><CountUp value={participantCounts.graduate} /></strong>
 				<span>graduate students</span>
 			</div>
 			<div>
-				<strong><CountUp value={10} /></strong>
+				<strong><CountUp value={participantCounts.professor} /></strong>
 				<span>professors</span>
 			</div>
 		</div>

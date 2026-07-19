@@ -20,11 +20,10 @@ export type ProjectQuarter = {
 	year: number;
 	status: 'current' | 'recent' | 'archive';
 	venue?: string;
+	projectsLaunched?: number;
 	summary: string;
 	html: string;
 };
-
-export const totalProjectCount = 68;
 
 export const projectQuarters: ProjectQuarter[] = [
 	{
@@ -34,6 +33,7 @@ export const projectQuarters: ProjectQuarter[] = [
 		term: 'Summer',
 		year: 2026,
 		status: 'current',
+		projectsLaunched: 9,
 		summary: 'Nine new and six returning projects spanning autoformalization, AI and machine learning for math, autoresearch, and math education.',
 		html: summer2026
 	},
@@ -161,6 +161,15 @@ export const projectQuarters: ProjectQuarter[] = [
 		html: spring2022
 	}
 ];
+
+// The archived site records 59 projects through Spring 2026. New quarters add
+// only projects launched that quarter, so returning projects are not double-counted.
+const projectCountThroughSpring2026 = 59;
+
+export const totalProjectCount = projectQuarters.reduce(
+	(total, quarter) => total + (quarter.projectsLaunched ?? 0),
+	projectCountThroughSpring2026
+);
 
 export const projectRedirects = new Map(projectQuarters.map((quarter) => [quarter.legacyFile, `/projects/${quarter.slug}`]));
 

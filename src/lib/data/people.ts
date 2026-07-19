@@ -3,6 +3,8 @@ export type PersonCard = {
 	role: string;
 	image?: string;
 	url?: string;
+	studentLevel?: 'undergraduate' | 'graduate';
+	counterStartQuarter?: string;
 };
 
 export type LabPhoto = {
@@ -53,17 +55,24 @@ export const projectLeaders: PersonCard[] = [
 	{ name: 'Bryan Boehnke', role: 'Algebraic Geometry', image: '/photos/people/bryan-boehnke.jpg', url: 'https://sites.google.com/view/bryanboehnke/' },
 	{ name: 'Dean Light', role: 'LeanGCD', image: '/photos/people/dean-light.jpg', url: 'https://github.com/DeanLight' },
 	{ name: 'Eric Klavins', role: 'Zero-Knowledge Proofs, Formalizing Stacks', image: '/photos/people/eric-klavins.jpg', url: 'https://klavinslab.org/' },
-	{ name: 'Haocheng Cai', role: 'Monogenic Extensions', image: '/photos/people/haocheng-cai.jpg', url: 'https://math.washington.edu/people/haocheng-cai' },
+	{ name: 'Evan Wang', role: 'Chain-of-Thought Reasoning in Lean 4, LeanGCD', url: 'https://github.com/aurasoph', studentLevel: 'undergraduate' },
+	{ name: 'Freda Zhang', role: 'Conditional Return Laws', image: '/photos/people/freda-zhang.jpg', url: 'https://math.washington.edu/people/freda-zhang', studentLevel: 'graduate' },
+	{ name: 'Haocheng Cai', role: 'Monogenic Extensions, Shortest Vector Problem', image: '/photos/people/haocheng-cai.jpg', url: 'https://math.washington.edu/people/haocheng-cai' },
 	{ name: 'Haoming Ning', role: 'Commutative Algebra', image: '/photos/people/haoming-ning.jpg', url: 'https://sites.google.com/uw.edu/haomingning' },
-	{ name: 'Henry Kvinge', role: 'Math2Vec', image: '/photos/people/henry-kvinge.jpg', url: 'https://hkvinge.github.io/' },
+	{ name: 'Henry Kvinge', role: 'Math2Vec, Machine Learning Meets Algebraic Combinatorics', image: '/photos/people/henry-kvinge.jpg', url: 'https://hkvinge.github.io/' },
 	{ name: 'Ignacio Tejeda', role: 'Geometric Measure Theory', image: '/photos/people/ignacio-tejeda.jpg', url: 'https://math.washington.edu/people/ignacio-tejeda' },
 	{ name: 'John Leo', role: 'Monogenic Extensions', image: '/photos/people/john-leo.jpg', url: 'https://github.com/halfaya' },
-	{ name: 'Junaid Hasan', role: 'Deep Learning for Number Theory', image: '/photos/people/junaid-hasan.jpg', url: 'https://junaidhasan.com/' },
+	{ name: 'Junaid Hasan', role: 'Deep Learning for Number Theory, Mechanistic Interpretability, CayleyPy', image: '/photos/people/junaid-hasan.jpg', url: 'https://junaidhasan.com/' },
 	{ name: 'Leo Mayer', role: 'Geometric Invariant Theory, Commutative Algebra', image: '/photos/people/leo-mayer.jpg', url: 'https://math.washington.edu/people/leopold-mayer' },
 	{ name: 'Michael Theologitis', role: 'LeanGCD', image: '/photos/people/michael-theologitis.jpg', url: 'https://scholar.google.com/citations?user=zXsulEcAAAAJ&hl=en' },
 	{ name: 'Nelson Niu', role: 'Category Theory', image: '/photos/people/nelson-niu.jpg', url: 'https://nelsonniu.com/' },
+	{ name: 'Rohan Pandey', role: 'Improving Mathematical Chain-of-Thought Reasoning, RL for Polynomials', url: 'https://rohan-pandey1729.github.io/developerFolio/', studentLevel: 'undergraduate' },
 	{ name: 'Samuel Ainsworth', role: 'JAX in Lean', image: '/photos/people/samuel-ainsworth.jpg', url: 'https://samlikes.pizza/' },
-	{ name: 'Tyson Klingner', role: 'How Good Are LLMs at Lean?', image: '/photos/people/tyson-klingner.jpg', url: 'https://math.washington.edu/people/tyson-klingner' }
+	{ name: 'Theodore Meek', role: 'Autoformalizing Mathematical Benchmarks, Geometric Measure Theory', url: 'https://www.linkedin.com/in/theodore-meek-9a7b171b7', studentLevel: 'undergraduate' },
+	{ name: 'Ting Gong', role: 'Albilich', image: '/photos/people/ting-gong.jpg', url: 'https://sites.google.com/view/tinggong', studentLevel: 'graduate', counterStartQuarter: 'summer-2026' },
+	{ name: 'Tyson Klingner', role: 'LLMs at Lean, Learning and Formalizing Commutative Algebra', image: '/photos/people/tyson-klingner.jpg', url: 'https://math.washington.edu/people/tyson-klingner' },
+	{ name: 'Yue Wu', role: 'ProofMem, Conditional Return Laws', image: '/photos/people/yue-wu.jpg', url: 'https://math.washington.edu/people/yue-wu', studentLevel: 'graduate', counterStartQuarter: 'summer-2026' },
+	{ name: 'Zihong Lin', role: 'Shortest Vector Problem', image: '/photos/people/zihong-lin.jpg', url: 'https://linzihong.github.io/', studentLevel: 'graduate' }
 ];
 
 export const members: PersonCard[] = [
@@ -82,6 +91,7 @@ export const members: PersonCard[] = [
 	{ name: 'Bohan Zhao', role: 'Geometric Invariant Theory' },
 	{ name: 'Bohao Chen', role: 'LLMs at Lean' },
 	{ name: 'Cecilia', role: 'Math2Vec' },
+	{ name: 'Chaoxiang Zhang', role: 'Chain-of-Thought Reasoning in Lean 4', studentLevel: 'undergraduate', counterStartQuarter: 'summer-2026' },
 	{ name: 'Christian Tarta', role: 'Quantum Code Compilation' },
 	{ name: 'Claire Xu', role: 'RL for Polynomials, Deep Learning for Number Theory' },
 	{ name: 'Cordelia Li', role: 'Quantum Code Compilation' },
@@ -90,13 +100,12 @@ export const members: PersonCard[] = [
 	{ name: 'Di Qiu Xiang', role: 'OpenMath' },
 	{ name: 'Dora Kassabova', role: 'Commutative Algebra' },
 	{ name: 'Dowland Aiello', role: 'Formalizing Stacks' },
-	{ name: 'Drew Bladek', role: 'LLMs at Lean' },
-	{ name: 'Emily Meng', role: 'Geometric Invariant Theory' },
+	{ name: 'Drew Bladek', role: 'LLMs at Lean, Learning and Formalizing Commutative Algebra' },
+	{ name: 'Emily Meng', role: 'Geometric Invariant Theory, Machine Learning Meets Algebraic Combinatorics' },
 	{ name: 'Eric Hur', role: 'Quantum Code Compilation' },
 	{ name: 'Eric Leonen', role: 'Semantic Theorem Search' },
-	{ name: 'Escher Crawford', role: 'LLMs at Lean' },
+	{ name: 'Escher Crawford', role: 'LLMs at Lean, Learning and Formalizing Commutative Algebra' },
 	{ name: 'Evan Porter', role: 'RL for Polynomials' },
-	{ name: 'Evan Wang', role: 'LeanGCD, Lean Error Correction' },
 	{ name: 'Gaurang Pendharkar', role: 'CayleyPy' },
 	{ name: 'George Peykanu', role: 'Algebraic Geometry' },
 	{ name: 'Grant Yang', role: 'Algebraic Geometry' },
@@ -106,8 +115,10 @@ export const members: PersonCard[] = [
 	{ name: 'Jacob Boyce', role: 'Geometric Invariant Theory' },
 	{ name: 'James Martin', role: 'Formalizing Stacks' },
 	{ name: 'Jared Darlington', role: 'Math2Vec' },
+	{ name: 'Jayme Kim', role: 'ProofMem', studentLevel: 'undergraduate', counterStartQuarter: 'summer-2026' },
 	{ name: 'Jeremy Ma', role: 'JAX in Lean' },
 	{ name: 'Jiahe Lu', role: 'Math2Vec' },
+	{ name: 'Jolie', role: 'Improving Mathematical Chain-of-Thought Reasoning', studentLevel: 'undergraduate', counterStartQuarter: 'summer-2026' },
 	{ name: 'Joseph Qian', role: 'Provable Computation' },
 	{ name: 'Josh', role: 'Geometric Measure Theory' },
 	{ name: 'Junye Ji', role: 'Provable Computation' },
@@ -127,17 +138,20 @@ export const members: PersonCard[] = [
 	{ name: 'Nhan Pham', role: 'LeanGCD' },
 	{ name: 'Nicole Ham', role: 'Teaching a Computer to Knot' },
 	{ name: 'Nina Tharamal', role: 'Deep Learning for Number Theory' },
+	{ name: 'Noah Feinberg', role: 'Improving Mathematical Chain-of-Thought Reasoning', studentLevel: 'undergraduate', counterStartQuarter: 'summer-2026' },
+	{ name: 'Pei Li', role: 'Autoformalizing Mathematical Benchmarks', studentLevel: 'undergraduate', counterStartQuarter: 'summer-2026' },
 	{ name: 'Rachit Jaiswal', role: 'Math2Vec' },
 	{ name: 'Rithikesh Muddana', role: 'CayleyPy' },
-	{ name: 'Rohan Pandey', role: 'RL for Polynomials' },
 	{ name: 'Ruslana Korolov', role: 'Provable Computation' },
 	{ name: 'Saharsh Bhargava', role: 'Math2Vec' },
 	{ name: 'Samarth Rao', role: 'Math2Vec' },
 	{ name: 'Sambhu Ganesan', role: 'CayleyPy' },
 	{ name: 'Sarju Patel', role: 'Quantum Code Compilation' },
+	{ name: 'Sarthak Mitra', role: 'Improving Mathematical Chain-of-Thought Reasoning', studentLevel: 'undergraduate', counterStartQuarter: 'summer-2026' },
 	{ name: 'Sathvik Kurapati', role: 'Algebraic Geometry' },
 	{ name: 'Saumi Joshi', role: 'OpenMath' },
 	{ name: 'Sean Kawano', role: 'Teaching a Computer to Knot' },
+	{ name: 'Shree', role: 'Improving Mathematical Chain-of-Thought Reasoning', studentLevel: 'undergraduate', counterStartQuarter: 'summer-2026' },
 	{ name: 'Simon Chess', role: 'Lean Error Correction' },
 	{ name: 'Simon Kurgan', role: 'Semantic Theorem Search' },
 	{ name: 'Siyuan Ge', role: 'OpenMath, Lean Error Correction' },
@@ -145,18 +159,40 @@ export const members: PersonCard[] = [
 	{ name: 'Sophie Szeto', role: 'Semantic Theorem Search' },
 	{ name: 'Sukhman Singh', role: 'Category Theory' },
 	{ name: 'Sylvie Lausier', role: 'Quantum Code Compilation' },
+	{ name: 'Tanmay Kuchhal', role: 'Chain-of-Thought Reasoning in Lean 4', studentLevel: 'undergraduate', counterStartQuarter: 'summer-2026' },
 	{ name: 'Ted Guan', role: 'Semantic Theorem Search' },
-	{ name: 'Theo Meek', role: 'OpenMath, Geometric Measure Theory' },
 	{ name: 'Tianshuo Wang', role: 'Algebraic Geometry' },
 	{ name: 'Trey Adams', role: 'RL for Polynomials' },
 	{ name: 'Veer Shukla', role: 'Provable Computation' },
 	{ name: 'Xiaoxing Zhang', role: 'CayleyPy' },
 	{ name: 'Xinyi Zhi', role: 'Algebraic Geometry' },
 	{ name: 'Xinyue Fu', role: 'LLMs at Lean' },
-	{ name: 'Xuanyu Yang', role: 'Geometric Invariant Theory' },
+	{ name: 'Xuanyu Yang', role: 'Geometric Invariant Theory, Machine Learning Meets Algebraic Combinatorics' },
 	{ name: 'Yiran Wang', role: 'Lean Error Correction, Semantic Theorem Search' },
-	{ name: 'Zeyin Feng', role: 'Provable Computation' }
+	{ name: 'Zeyin Feng', role: 'Provable Computation' },
+	{ name: 'Zhi Chen', role: 'ProofMem', studentLevel: 'undergraduate', counterStartQuarter: 'summer-2026' }
 ];
+
+// Cumulative participation totals recorded by the archived site through Spring
+// 2026. People whose participation at a given level begins after that baseline
+// are tagged with a counter start quarter and added automatically from the roster.
+const participantCountThroughSpring2026 = {
+	undergraduate: 169,
+	graduate: 17,
+	professor: 10
+};
+
+const roster = [...leadership, ...projectLeaders, ...members];
+
+export const participantCounts = {
+	undergraduate:
+		participantCountThroughSpring2026.undergraduate +
+		roster.filter((person) => person.counterStartQuarter && person.studentLevel === 'undergraduate').length,
+	graduate:
+		participantCountThroughSpring2026.graduate +
+		roster.filter((person) => person.counterStartQuarter && person.studentLevel === 'graduate').length,
+	professor: participantCountThroughSpring2026.professor
+};
 
 export const labPhotos: LabPhoto[] = [
 	{ src: '/photos/fall2025.jpg', alt: 'Fall 2025 Math AI Lab', caption: 'Fall 2025 Math AI Lab' },
