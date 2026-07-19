@@ -11,6 +11,8 @@ export type LabPhoto = {
 	src: string;
 	alt: string;
 	caption: string;
+	width?: number;
+	height?: number;
 };
 
 export const leadership: PersonCard[] = [
@@ -199,7 +201,42 @@ export const labPhotos: LabPhoto[] = [
 	{ src: '/photos/winter2025.jpg', alt: 'Winter 2025 Math AI Lab', caption: 'Winter 2025 Math AI Lab' },
 	{ src: '/photos/lean-hackathon.jpg', alt: 'UW Lean Hackathon', caption: 'UW Lean Hackathon' },
 	{ src: '/photos/iclr-2026.jpg', alt: 'ICLR 2026, Rio de Janeiro', caption: 'ICLR 2026, Rio de Janeiro' },
-	{ src: '/photos/lean-hackathon-team.jpg', alt: 'UW Lean Hackathon team', caption: 'UW Lean Hackathon' }
+	{ src: '/photos/lean-hackathon-team.jpg', alt: 'UW Lean Hackathon team', caption: 'UW Lean Hackathon' },
+	{
+		src: '/photos/icml-2026-coex-1.webp',
+		alt: 'Math AI Lab members at ICML 2026 at COEX in Seoul',
+		caption: 'Math AI Lab at ICML 2026 · COEX, Seoul, Korea',
+		width: 2720,
+		height: 1532
+	},
+	{
+		src: '/photos/icml-2026-coex-2.webp',
+		alt: 'Math AI Lab group at the ICML 2026 welcome display at COEX',
+		caption: 'ICML 2026 welcome gathering · COEX, Seoul, Korea',
+		width: 2720,
+		height: 1532
+	},
+	{
+		src: '/photos/icml-2026-coex-3.webp',
+		alt: 'Math AI Lab members in front of the ICML 2026 sign at COEX',
+		caption: 'ICML 2026 · COEX, Seoul, Korea',
+		width: 932,
+		height: 700
+	},
+	{
+		src: '/photos/icml-2026-coex-4.webp',
+		alt: 'Three Math AI Lab members at ICML 2026 at COEX',
+		caption: 'Math AI Lab members at ICML 2026 · COEX, Seoul, Korea',
+		width: 2062,
+		height: 1546
+	},
+	{
+		src: '/photos/icml-2026-coex-5.webp',
+		alt: 'Five Math AI Lab members at the ICML 2026 display at COEX',
+		caption: 'Math AI Lab at ICML 2026 · COEX, Seoul, Korea',
+		width: 2720,
+		height: 1532
+	}
 ];
 
 export function initials(name: string) {

@@ -4,7 +4,7 @@
 	import { labEvents } from '$lib/data/events';
 	import { participantCounts } from '$lib/data/people';
 	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
-	import { featuredResearch } from '$lib/data/research';
+	import { featuredResearch, totalPaperCount } from '$lib/data/research';
 	import { sitePath } from '$lib/paths';
 	import { canonicalUrl } from '$lib/seo';
 
@@ -78,6 +78,10 @@
 	<Reveal>
 		<div class="stats">
 			<div>
+				<strong><CountUp value={totalPaperCount} /></strong>
+				<span>papers</span>
+			</div>
+			<div>
 				<strong><CountUp value={totalProjectCount} /></strong>
 				<span>projects</span>
 			</div>
@@ -107,7 +111,10 @@
 		<div class="paper-grid">
 			{#each featuredResearch as paper}
 				<a class="paper-card" href={paper.url} target="_blank" rel="noreferrer">
-					<span>{paper.venue}</span>
+					<div class="paper-card-meta">
+						<span>{paper.venue}</span>
+						{#if paper.badge}<em>{paper.badge}</em>{/if}
+					</div>
 					<strong>{paper.title}</strong>
 					<p>{paper.abstract}</p>
 				</a>
@@ -262,7 +269,7 @@
 
 	.stats {
 		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
+		grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
 		gap: 1rem;
 	}
 
@@ -351,10 +358,28 @@
 		box-shadow: var(--shadow);
 	}
 
-	.paper-card span {
+	.paper-card-meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.45rem;
+	}
+
+	.paper-card-meta span {
 		color: var(--purple);
 		font-size: 0.82rem;
 		font-weight: 850;
+	}
+
+	.paper-card-meta em {
+		border: 1px solid color-mix(in srgb, var(--gold) 48%, var(--line));
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--gold) 16%, transparent);
+		color: var(--heading);
+		font-size: 0.74rem;
+		font-style: normal;
+		font-weight: 800;
+		padding: 0.15rem 0.42rem;
 	}
 
 	.paper-card strong {
@@ -365,6 +390,11 @@
 	}
 
 	.paper-card p {
+		display: -webkit-box;
+		overflow: hidden;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 6;
+		line-clamp: 6;
 		margin: 0;
 		color: var(--muted);
 		font-size: 0.94rem;
@@ -463,7 +493,6 @@
 	}
 
 	@media (max-width: 860px) {
-		.stats,
 		.paper-grid,
 		.event-list,
 		.photo-panel {

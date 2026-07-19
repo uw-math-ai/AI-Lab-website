@@ -18,6 +18,18 @@ export type LabEvent = {
 	sourceLabel?: string;
 	abstract?: string;
 	details?: string[];
+	papers?: {
+		title: string;
+		url: string;
+		badge?: 'Oral presentation' | 'Spotlight';
+	}[];
+	photos?: {
+		src: string;
+		alt: string;
+		caption: string;
+		width: number;
+		height: number;
+	}[];
 };
 
 // Event source of truth for the site.
@@ -26,7 +38,7 @@ export type LabEvent = {
 // speaker, type, and, when available, the UW Math source URL. Use the exact UW
 // abstract when one is published; omit abstract rather than summarizing
 // unpublished text.
-export const labEvents = ([
+export const labEvents: LabEvent[] = ([
 	{
 		title: 'ICML 2026',
 		speaker: 'Math AI Lab',
@@ -38,15 +50,79 @@ export const labEvents = ([
 		sourceUrl: 'https://icml.cc/Conferences/2026',
 		sourceLabel: 'ICML 2026',
 		abstract:
-			'Congratulations to the authors of the 7 papers from Math AI Lab projects, which got accepted by ICML 2026 Conference and Workshops!',
-		details: [
-			'Does My Embedding Reflect That A=B? Evaluating Mathematical Equivalence in Embedding Models',
-			"Learned Interventions Inside Lean 4's grind",
-			'Semi-Autonomous Formalization of the Vlasov–Maxwell–Landau Equilibrium',
-			'Sorries Are Not the Hard Part: An Expert-Review Case Study of a Semi-Autonomous Formalization',
-			'Formalizing Numerical Analysis: An Agent Pipeline and Quality Audit Beyond Kernel Acceptance',
-			'Multiplication Beyond Groups: Stratified Fourier Mechanisms in Transformer Circuits',
-			'FactorLibrary: From Polynomials to Circuits via Recursive Subgoals'
+			'The UW Math AI Lab celebrates eight papers accepted to ICML 2026 and its workshops. Congratulations to every author and project team represented in Seoul. DiScoFormer was selected for an oral presentation, and Multiplication Beyond Groups received a Spotlight at the Mechanistic Interpretability Workshop.',
+		papers: [
+			{
+				title: 'DiScoFormer: Plug-In Density and Score Estimation with Transformers',
+				url: 'https://arxiv.org/abs/2511.05924',
+				badge: 'Oral presentation'
+			},
+			{
+				title: 'Formalizing Numerical Analysis: An Agent Pipeline and Quality Audit Beyond Kernel Acceptance',
+				url: 'https://arxiv.org/abs/2606.14000'
+			},
+			{
+				title: 'Does My Embedding Reflect That A = B? Evaluating Mathematical Equivalence in Embedding Models',
+				url: 'https://arxiv.org/abs/2606.23959'
+			},
+			{
+				title: 'Sorries Are Not the Hard Part: An Expert-Review Case Study of a Semi-Autonomous Formalization',
+				url: 'https://arxiv.org/abs/2606.13925'
+			},
+			{
+				title: 'Multiplication Beyond Groups: Stratified Fourier Mechanisms in Transformer Circuits',
+				url: 'https://arxiv.org/abs/2607.07066',
+				badge: 'Spotlight'
+			},
+			{
+				title: 'Semi-Autonomous Formalization of the Vlasov-Maxwell-Landau Equilibrium',
+				url: 'https://arxiv.org/abs/2603.15929'
+			},
+			{
+				title: "Learned Interventions Inside Lean 4's grind",
+				url: 'https://openreview.net/forum?id=3mZmYmeRDr'
+			},
+			{
+				title: 'FactorLibrary: From Polynomials to Circuits via Recursive Subgoals',
+				url: 'https://arxiv.org/abs/2606.25394'
+			}
+		],
+		photos: [
+			{
+				src: '/photos/icml-2026-coex-1.webp',
+				alt: 'Math AI Lab members at ICML 2026 at COEX in Seoul',
+				caption: 'Math AI Lab at ICML 2026 · COEX, Seoul, Korea',
+				width: 2720,
+				height: 1532
+			},
+			{
+				src: '/photos/icml-2026-coex-2.webp',
+				alt: 'Math AI Lab group at the ICML 2026 welcome display at COEX',
+				caption: 'ICML 2026 welcome gathering · COEX, Seoul, Korea',
+				width: 2720,
+				height: 1532
+			},
+			{
+				src: '/photos/icml-2026-coex-3.webp',
+				alt: 'Math AI Lab members in front of the ICML 2026 sign at COEX',
+				caption: 'ICML 2026 · COEX, Seoul, Korea',
+				width: 932,
+				height: 700
+			},
+			{
+				src: '/photos/icml-2026-coex-4.webp',
+				alt: 'Three Math AI Lab members at ICML 2026 at COEX',
+				caption: 'Math AI Lab members at ICML 2026 · COEX, Seoul, Korea',
+				width: 2062,
+				height: 1546
+			},
+			{
+				src: '/photos/icml-2026-coex-5.webp',
+				alt: 'Five Math AI Lab members at the ICML 2026 display at COEX',
+				caption: 'Math AI Lab at ICML 2026 · COEX, Seoul, Korea',
+				width: 2720,
+				height: 1532
+			}
 		]
 	},
 	{

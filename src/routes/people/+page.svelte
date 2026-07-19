@@ -92,20 +92,19 @@
 	<Reveal>
 		<h2>Lab Photos</h2>
 		<div class="lab-photos">
-			{#each labPhotos.slice(0, 3) as photo}
-				<figure class="lab-photo">
-					<img src={sitePath(photo.src)} alt={photo.alt} loading="lazy" decoding="async" />
+			{#each labPhotos as photo, index}
+				<figure class:lab-photo-featured={index === 0 || index === 5} class="lab-photo">
+					<img
+						src={sitePath(photo.src)}
+						alt={photo.alt}
+						width={photo.width}
+						height={photo.height}
+						loading="lazy"
+						decoding="async"
+					/>
 					<figcaption>// {photo.caption}</figcaption>
 				</figure>
 			{/each}
-			<div class="lab-photo-pair">
-				{#each labPhotos.slice(3) as photo}
-					<figure class="lab-photo">
-						<img src={sitePath(photo.src)} alt={photo.alt} loading="lazy" decoding="async" />
-						<figcaption>// {photo.caption}</figcaption>
-					</figure>
-				{/each}
-			</div>
 		</div>
 	</Reveal>
 </section>
@@ -275,10 +274,10 @@
 	}
 
 	.lab-photos {
-		display: flex;
-		flex-direction: column;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 		gap: 18px;
-		max-width: 860px;
+		max-width: 980px;
 		margin: 1.5rem auto 0;
 	}
 
@@ -299,6 +298,10 @@
 		box-shadow: var(--shadow-soft);
 	}
 
+	.lab-photo-featured {
+		grid-column: 1 / -1;
+	}
+
 	.lab-photo figcaption {
 		margin-top: 0.5rem;
 		color: var(--purple);
@@ -308,19 +311,13 @@
 		text-align: right;
 	}
 
-	.lab-photo-pair {
-		display: flex;
-		gap: 18px;
-	}
-
-	.lab-photo-pair .lab-photo {
-		flex: 1;
-		min-width: 0;
-	}
-
 	@media (max-width: 800px) {
-		.lab-photo-pair {
-			flex-direction: column;
+		.lab-photos {
+			grid-template-columns: 1fr;
+		}
+
+		.lab-photo-featured {
+			grid-column: auto;
 		}
 	}
 

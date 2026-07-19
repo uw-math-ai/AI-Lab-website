@@ -11,6 +11,7 @@
 	let mode = $state('upcoming');
 
 	const types = ['all', ...Array.from(new Set(labEvents.map((event) => event.type)))];
+	const icmlEvent = labEvents.find((event) => event.title === 'ICML 2026');
 
 	function eventTime(event: { date: string; startTime: string }) {
 		return new Date(`${event.date}T${event.startTime}:00`);
@@ -39,7 +40,7 @@
 				const isUpcoming = eventTime(event) >= new Date();
 				const matchesMode = mode === 'all' || (mode === 'upcoming' ? isUpcoming : !isUpcoming);
 				const matchesType = type === 'all' || event.type === type;
-				const haystack = `${event.title} ${event.speaker} ${event.location} ${event.abstract ?? ''} ${(event.details ?? []).join(' ')}`.toLowerCase();
+				const haystack = `${event.title} ${event.speaker} ${event.location} ${event.abstract ?? ''} ${(event.details ?? []).join(' ')} ${(event.papers ?? []).map((paper) => paper.title).join(' ')}`.toLowerCase();
 				return matchesMode && matchesType && haystack.includes(query.toLowerCase());
 			})
 			.sort((a, b) => {
@@ -97,6 +98,64 @@
 		</div>
 	</Reveal>
 </section>
+
+{#if icmlEvent}
+	<section class="page-shell section icml-feature" id="icml-2026" aria-labelledby="icml-heading">
+		<Reveal>
+			<article class="icml-card">
+				<div class="icml-copy">
+					<div>
+						<span class="eyebrow">Eight accepted papers · ICML 2026</span>
+						<h2 id="icml-heading">Congratulations to our ICML authors</h2>
+						<p>{icmlEvent.abstract}</p>
+						<div class="meta icml-meta">
+							<span class="pill">July 6–11, 2026</span>
+							<span class="pill">COEX · Seoul, Korea</span>
+						</div>
+					</div>
+					<a class="button" href={icmlEvent.sourceUrl} target="_blank" rel="noreferrer">ICML 2026</a>
+				</div>
+
+				{#if icmlEvent.photos?.length}
+					<div class="icml-gallery" aria-label="Photos from ICML 2026 at COEX">
+						{#each icmlEvent.photos as photo}
+							<figure class="icml-photo">
+								<img
+									src={sitePath(photo.src)}
+									alt={photo.alt}
+									width={photo.width}
+									height={photo.height}
+									loading="lazy"
+									decoding="async"
+								/>
+								<figcaption>{photo.caption}</figcaption>
+							</figure>
+						{/each}
+					</div>
+				{/if}
+
+				{#if icmlEvent.papers?.length}
+					<div class="icml-papers">
+						<div class="icml-papers-heading">
+							<span class="eyebrow">Accepted work</span>
+							<h3>Eight papers from across the lab</h3>
+						</div>
+						<ol class="icml-paper-list">
+							{#each icmlEvent.papers as paper}
+								<li class:honored={paper.badge}>
+									<a href={paper.url} target="_blank" rel="noreferrer">
+										<span>{paper.title}</span>
+										{#if paper.badge}<em>{paper.badge}</em>{/if}
+									</a>
+								</li>
+							{/each}
+						</ol>
+					</div>
+				{/if}
+			</article>
+		</Reveal>
+	</section>
+{/if}
 
 <section class="page-shell section">
 	<Reveal>
@@ -165,6 +224,158 @@
 
 	.hackathon-feature :global(.reveal) {
 		display: block;
+	}
+
+	.icml-feature {
+		padding-top: 0;
+		scroll-margin-top: 6rem;
+	}
+
+	.icml-feature :global(.reveal) {
+		display: block;
+	}
+
+	.icml-card {
+		overflow: hidden;
+		background:
+			linear-gradient(140deg, color-mix(in srgb, var(--purple) 10%, transparent), transparent 42%),
+			var(--surface);
+		border: 1px solid color-mix(in srgb, var(--gold) 38%, var(--line));
+		border-radius: var(--radius);
+		box-shadow: var(--shadow);
+	}
+
+	.icml-copy {
+		display: flex;
+		align-items: end;
+		justify-content: space-between;
+		gap: 1.5rem;
+		padding: clamp(1.2rem, 3vw, 2rem);
+	}
+
+	.icml-copy > div {
+		max-width: 70rem;
+	}
+
+	.icml-copy h2 {
+		margin: 0.35rem 0 0.75rem;
+		color: var(--heading);
+		font-family: var(--font-display);
+		font-size: clamp(2rem, 5vw, 4.2rem);
+		line-height: 0.98;
+	}
+
+	.icml-copy p {
+		margin: 0;
+		max-width: 76ch;
+		color: var(--muted);
+		font-size: 1.04rem;
+	}
+
+	.icml-meta {
+		margin-top: 1rem;
+	}
+
+	.icml-gallery {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1px;
+		background: var(--line);
+		border-block: 1px solid var(--line);
+	}
+
+	.icml-photo {
+		margin: 0;
+		min-width: 0;
+		background: var(--surface);
+	}
+
+	.icml-photo:first-child {
+		grid-column: 1 / -1;
+	}
+
+	.icml-photo img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.icml-photo figcaption {
+		padding: 0.65rem 0.8rem 0.8rem;
+		color: var(--muted);
+		font-size: 0.84rem;
+		font-weight: 700;
+	}
+
+	.icml-papers {
+		padding: clamp(1.2rem, 3vw, 2rem);
+	}
+
+	.icml-papers-heading h3 {
+		margin: 0.3rem 0 1rem;
+		color: var(--heading);
+		font-family: var(--font-display);
+		font-size: clamp(1.65rem, 3vw, 2.5rem);
+		line-height: 1;
+	}
+
+	.icml-paper-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.75rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		counter-reset: icml-papers;
+	}
+
+	.icml-paper-list li {
+		counter-increment: icml-papers;
+		min-width: 0;
+		border: 1px solid var(--line);
+		border-radius: calc(var(--radius) - 0.2rem);
+		background: color-mix(in srgb, var(--soft) 44%, var(--surface));
+	}
+
+	.icml-paper-list li.honored {
+		border-color: color-mix(in srgb, var(--gold) 58%, var(--line));
+		background:
+			linear-gradient(135deg, color-mix(in srgb, var(--gold) 15%, transparent), transparent 60%),
+			var(--surface);
+	}
+
+	.icml-paper-list a {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr);
+		gap: 0.75rem;
+		align-items: start;
+		padding: 0.9rem;
+		color: var(--heading);
+		font-weight: 800;
+		text-decoration: none;
+	}
+
+	.icml-paper-list a::before {
+		content: counter(icml-papers, decimal-leading-zero);
+		color: var(--purple);
+		font-family: var(--font-display);
+		font-size: 0.82rem;
+	}
+
+	.icml-paper-list a:hover span {
+		color: var(--purple);
+	}
+
+	.icml-paper-list em {
+		grid-column: 2;
+		justify-self: start;
+		border: 1px solid color-mix(in srgb, var(--gold) 54%, var(--line));
+		border-radius: 999px;
+		background: color-mix(in srgb, var(--gold) 17%, transparent);
+		color: var(--heading);
+		font-size: 0.76rem;
+		font-style: normal;
+		padding: 0.2rem 0.48rem;
 	}
 
 	.hackathon-card {
@@ -334,6 +545,19 @@
 	}
 
 	@media (max-width: 720px) {
+		.icml-copy {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+
+		.icml-copy .button {
+			width: 100%;
+		}
+
+		.icml-paper-list {
+			grid-template-columns: 1fr;
+		}
+
 		.hackathon-copy {
 			align-items: flex-start;
 			flex-direction: column;
@@ -350,6 +574,14 @@
 	}
 
 	@media (max-width: 640px) {
+		.icml-gallery {
+			grid-template-columns: 1fr;
+		}
+
+		.icml-photo:first-child {
+			grid-column: auto;
+		}
+
 		.calendar-toolbar {
 			align-items: stretch;
 		}

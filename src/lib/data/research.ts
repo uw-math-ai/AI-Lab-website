@@ -6,12 +6,14 @@ export type ResearchEntry = {
 	url: string;
 	linkLabel: string;
 	badge?: string;
+	featured?: boolean;
 };
 
 export type ResearchSection = {
 	id: string;
 	title: string;
 	description: string;
+	countsAsPaper: boolean;
 	items: ResearchEntry[];
 };
 
@@ -21,16 +23,91 @@ export const researchSections: ResearchSection[] = [
 		title: 'Conference & Workshop Papers',
 		description:
 			'Peer-reviewed and workshop papers by Math AI Lab members across machine learning, theorem proving, plasma physics, and mathematical search.',
+		countsAsPaper: true,
 		items: [
 			{
 				venue: 'ICML 2026',
-				badge: 'Spotlight',
+				badge: 'Oral presentation',
+				featured: true,
 				title: 'DiScoFormer: Plug-In Density and Score Estimation with Transformers',
-				authors: 'Vasily Ilin, Peter Sushko',
+				authors: 'Vasily Ilin, Peter Sushko, Ranjay Krishna',
 				abstract:
-					'Estimating probability density and its score from samples remains a core problem in generative modeling, Bayesian inference, and kinetic theory. DiScoFormer bridges classical kernel methods and neural score models with a plug-in transformer-based estimator.',
-				url: 'https://openreview.net/forum?id=ZuqbPd7xTy',
+					'Estimating probability density and its score from samples remains a core problem in generative modeling, Bayesian inference, and kinetic theory. Existing methods are bifurcated: classical kernel density estimators (KDE) generalize across distributions but suffer from the curse of dimensionality, while modern neural score models achieve high precision but require retraining for every target distribution. We introduce DiScoFormer (Density and Score Transformer), a “train-once, infer-anywhere” equivariant Transformer that maps i.i.d. samples to both density values and score vectors, generalizing across distributions and sample sizes. Analytically, we prove that self-attention can recover normalized KDE, establishing it as a functional generalization of kernel methods; empirically, individual attention heads learn multi-scale, kernel-like behaviors. The model converges faster and achieves higher precision than KDE for density estimation, and provides a high-fidelity plug-in score oracle for score-debiased KDE, Fisher information computation, and Fokker-Planck-type PDEs.',
+				url: 'https://arxiv.org/abs/2511.05924',
+				linkLabel: 'arXiv:2511.05924'
+			},
+			{
+				venue: 'ICML 2026 Workshop',
+				featured: true,
+				title: 'Formalizing Numerical Analysis: An Agent Pipeline and Quality Audit Beyond Kernel Acceptance',
+				authors: 'Theodore Meek, Siyuan Ge, Di Qiu Xiang, Simon Chess, Vasily Ilin',
+				abstract:
+					'Recent work has demonstrated that coding agents can formalize entire advanced mathematics textbooks in Lean 4, yet existing efforts concentrate on branches of mathematics already well-represented in mathlib and measure success solely through kernel acceptance. We address both limitations by applying a coding agent to formalize Numerical Methods for Ordinary Differential Equations, a textbook in numerical analysis that is largely absent from mathlib, stressing the agent\'s capacity to develop new theory from scratch. We further introduce a systematic, reproducible three-dimensional framework for evaluating the quality of agent-produced formalizations beyond compilation: semantic correctness, Mathlib reuse, and cross-file reuse via LLM-as-judge methods. Applying this framework to our own formalization and to the released outputs of RepoProver and M2F, we uncover recurring unfaithful formalization patterns, including incomplete multi-part statements, added weakening hypotheses, and parameter restrictions, that kernel acceptance entirely obscures. Our results suggest that compilation-based metrics substantially overstate formalization quality, and we provide a reproducible audit methodology to support more rigorous evaluation of future autoformalization systems.',
+				url: 'https://arxiv.org/abs/2606.14000',
+				linkLabel: 'arXiv:2606.14000'
+			},
+			{
+				venue: 'ICML 2026 Workshop',
+				featured: true,
+				title: 'Does My Embedding Reflect That A = B? Evaluating Mathematical Equivalence in Embedding Models',
+				authors:
+					'Jiaying Ye, Samarth Rao, Leo Carlin, Kedar Chintalapati, Saharsh Bhargava, Rachit Jaiswal, Michael Zhou, Jared Darlington, Jiahe Lu, Jarod Alper, Vasily Ilin, Henry Kvinge',
+				abstract:
+					'Because mathematics is highly abstract, a single statement can take very different forms depending on what subfield it is framed in. There are many examples where breakthroughs occurred after researchers discovered that a question had already been answered in a different field. At the same time, the growth of new resources related to formalization has increased the need for tools that enable efficient and reliable navigation between mathematical “languages” (e.g., from Lean to natural language). In this paper, we investigate whether current embedding models capture mathematical equivalence. To do this, we introduce the Mathematically Equivalent but Lexically Different Pairs (MELD) Dataset, a collection of mathematically equivalent statements that are expressed in very different language. We show that current state-of-the-art embedding models tend to group statements by the terminology used to make them instead of the underlying math. Motivated by this, we propose a contrastive approach to learning embeddings of mathematical text that focuses on aligning informal statements with different formalizations. Our experiments demonstrate that this leads to improvements not only on informal-formal retrieval tasks but also on MELD, which only contains natural language statements.',
+				url: 'https://arxiv.org/abs/2606.23959',
+				linkLabel: 'arXiv:2606.23959'
+			},
+			{
+				venue: 'ICML 2026 Workshop',
+				featured: true,
+				title: 'Sorries Are Not the Hard Part: An Expert-Review Case Study of a Semi-Autonomous Formalization',
+				authors: 'Vasily Ilin, Brian Nugent',
+				abstract:
+					'Large language models can often close proof gaps in interactive theorem provers, but a verified theorem is not the same thing as a reusable library contribution. We study this distinction through a detailed case study: a semi-autonomous formalization of Grothendieck\'s vanishing theorem. The initial version compiles with no sorries, but an expert review found serious problems in definitions, theorem generality, file organization, and the API. We then ran a review-driven refactor and compression process and obtained a second expert review. The before-and-after comparison shows a sharp split: agents adapted well to local, mechanically checkable feedback, but remained weak at choosing definitions and designing APIs. We argue that autoformalization should be evaluated not only by closed sorries, but by whether the resulting formalization survives expert review.',
+				url: 'https://arxiv.org/abs/2606.13925',
+				linkLabel: 'arXiv:2606.13925'
+			},
+			{
+				venue: 'ICML 2026, Mechanistic Interpretability Workshop',
+				badge: 'Spotlight',
+				featured: true,
+				title: 'Multiplication Beyond Groups: Stratified Fourier Mechanisms in Transformer Circuits',
+				authors: 'Zitong Andrew Chen, Junaid Hasan, Akhil Srinivasan, Hemkesh Bandi, Jarod Alper',
+				abstract:
+					'Transformers have demonstrated a remarkable ability to learn algorithmic reasoning, yet mechanistic analyses have mostly focused on globally invertible operations such as cyclic addition and group composition. In this work, we investigate how small transformers learn modular integer multiplication over composite moduli, a fundamentally non-invertible operation due to the presence of zero-divisors. We propose the monoid extension: a localized generalization of Group Composition via Representation (GCR) that suggests the learned computation does not rely on a single global representation space. Instead, the model partitions the input space into local hierarchical algebraic regions, where group-like structure survives and Fourier mechanisms can be applied. In transformers trained on square-free modular multiplication, we find that embeddings organize around these regions, attention exhibits class-sensitive routing and low-rank write directions, and local character features explain a large fraction of the model\'s output logits. Our results suggest that representation-theoretic mechanisms previously identified for group operations can extend beyond groups to more general structures.',
+				url: 'https://arxiv.org/abs/2607.07066',
+				linkLabel: 'arXiv:2607.07066'
+			},
+			{
+				venue: 'ICML 2026 Workshop',
+				featured: true,
+				title: 'Semi-Autonomous Formalization of the Vlasov-Maxwell-Landau Equilibrium',
+				authors: 'Vasily Ilin',
+				abstract:
+					'We present a complete Lean 4 formalization of the equilibrium characterization in the Vlasov-Maxwell-Landau (VML) system, which describes the motion of charged plasma. The project demonstrates the full AI-assisted mathematical research loop: an AI reasoning model (Gemini DeepThink) generated the proof from a conjecture, an agentic coding tool (Claude Code) translated it into Lean from natural-language prompts, a specialized prover (Aristotle) closed 111 lemmas, and the Lean kernel verified the result. A single mathematician supervised the process over 10 days at a cost of $200, writing zero lines of code. The entire development process is public: all 229 human prompts, and 213 git commits are archived in the repository. We report detailed lessons on AI failure modes — hypothesis creep, definition-alignment bugs, agent avoidance behaviors — and on what worked: the abstract/concrete proof split, adversarial self-review, and the critical role of human review of key definitions and theorem statements. Notably, the formalization was completed before the final draft of the corresponding math paper was finished.',
+				url: 'https://arxiv.org/abs/2603.15929',
+				linkLabel: 'arXiv:2603.15929'
+			},
+			{
+				venue: 'ICML 2026 Workshop',
+				featured: true,
+				title: "Learned Interventions Inside Lean 4's grind",
+				authors: 'Evan Wang, Simon Chess, Sophie Szeto, Theodore Meek',
+				abstract:
+					"Lean 4's grind tactic combines congruence closure, e-matching, and case-splitting into a single automated solver, and like any such solver, it relies on hand-tuned heuristics to decide what to instantiate and where to case-split. These heuristics are tempting targets for learning, but there is a catch: because grind's search is non-monotone, a learned heuristic that helps one proof can break another, and an always-on replacement usually nets out near zero. We avoid this by invoking a learned intervention only after stock grind has already failed: a failure-triggered cascade that, by construction, cannot lose a proof grind already had. We apply it to two of grind's internal decisions. A cost-aware e-match filter solves two more theorems on a held-out set of 855 and runs about 5% faster. A lookahead step, run only where stock grind fails, proves five theorems it otherwise times out on. We also report the negative result that motivated the design: across four feature-based models, statically predicting the correct case split is no better than random, because whether a split explodes is a runtime property that the features do not capture. Our results suggest that learning within theorem-proving tactics is most effective as a mechanism for deciding when and how to spend bounded search, backed by a reliable symbolic fallback.",
+				url: 'https://openreview.net/forum?id=3mZmYmeRDr',
 				linkLabel: 'OpenReview'
+			},
+			{
+				venue: 'ICML 2026 Workshop',
+				featured: true,
+				title: 'FactorLibrary: From Polynomials to Circuits via Recursive Subgoals',
+				authors:
+					'Rohan Pandey, Michael Ruofan Zeng, Weikun K. Zhang, Kaijie Jin, Naomi Morato, Archit Ganapule, Bhaumik Mehta, Jarod Alper',
+				abstract:
+					'Finding minimal arithmetic circuits for polynomials over finite fields is a combinatorially hard problem central to algebraic complexity theory. We formulate it as a reinforcement learning problem in two directions, bottom-up and top-down. To address the challenge of a fast-growing combinatorial search space, we introduce FactorLibrary, which stores factorizable subexpressions that serve as reusable subgoals across training episodes. We trained a bottom-up agent with Gumbel-PPO-MCTS and two top-down agents with PPO+MCTS and SAC. The PPO+MCTS top-down agent exhibited the most stable performance, finding certified optimal circuits up to complexity 8 with a success rate of 91.8%.',
+				url: 'https://arxiv.org/abs/2606.25394',
+				linkLabel: 'arXiv:2606.25394'
 			},
 			{
 				venue: 'ICLR 2026, Logical Reasoning of LLMs Workshop',
@@ -70,15 +147,6 @@ export const researchSections: ResearchSection[] = [
 					'Plasma modeling is central to the design of nuclear fusion reactors, but simulating collisional plasma kinetics from first principles remains computationally challenging. This work introduces a neural score-based approach for the Vlasov-Maxwell-Landau system.',
 				url: 'https://openreview.net/forum?id=0wp8jxxxGT',
 				linkLabel: 'OpenReview'
-			},
-			{
-				venue: 'AIPV 2026, AI, Proof & Verification Workshop',
-				title: 'Semi-Autonomous Formalization of the Vlasov-Maxwell-Landau Equilibrium',
-				authors: 'Vasily Ilin',
-				abstract:
-					'A semi-autonomous formalization effort targeting the equilibrium theory of the Vlasov-Maxwell-Landau system in Lean 4, combining human-guided proof structure with AI-assisted tactic search.',
-				url: 'https://arxiv.org/abs/2603.15929',
-				linkLabel: 'arXiv'
 			}
 		]
 	},
@@ -86,6 +154,7 @@ export const researchSections: ResearchSection[] = [
 		id: 'preprints',
 		title: 'Preprints',
 		description: 'Current preprints and project papers from the lab.',
+		countsAsPaper: true,
 		items: [
 			{
 				venue: 'arXiv Preprint',
@@ -104,6 +173,7 @@ export const researchSections: ResearchSection[] = [
 		id: 'research-artifacts',
 		title: 'Research Artifacts',
 		description: 'Software, formalization contributions, and manuscripts connected to current lab projects.',
+		countsAsPaper: false,
 		items: [
 			{
 				venue: 'Mathlib Contribution, 2026',
@@ -122,15 +192,6 @@ export const researchSections: ResearchSection[] = [
 					'A formalization of finite étale local-ring monogenicity from arXiv:2503.07846, including supporting intermediate lemmas for broader monogenic extensions work.',
 				url: 'https://github.com/leanprover-community/mathlib4/pull/37527',
 				linkLabel: 'Mathlib PR #37527'
-			},
-			{
-				venue: 'Manuscript, 2026',
-				title: 'Multiplication Beyond Groups: Stratified Fourier Mechanisms in Transformer Circuits',
-				authors: 'Anonymous authors',
-				abstract:
-					'A mechanistic interpretability study of how small transformers learn modular multiplication over composite moduli, extending group-composition explanations to non-invertible monoid structure.',
-				url: 'https://junaidhasan.com/assets/interpreting-monoids.pdf',
-				linkLabel: 'PDF'
 			}
 		]
 	},
@@ -138,6 +199,7 @@ export const researchSections: ResearchSection[] = [
 		id: 'other-publications',
 		title: 'Other Publications',
 		description: 'Essays and public-facing research perspectives connected to the lab.',
+		countsAsPaper: true,
 		items: [
 			{
 				venue: 'Bulletin of the American Mathematical Society, 2025',
@@ -153,4 +215,10 @@ export const researchSections: ResearchSection[] = [
 	}
 ];
 
-export const featuredResearch = researchSections.flatMap((section) => section.items).slice(0, 4);
+export const featuredResearch = researchSections
+	.flatMap((section) => section.items)
+	.filter((item) => item.featured);
+
+export const totalPaperCount = researchSections
+	.filter((section) => section.countsAsPaper)
+	.reduce((total, section) => total + section.items.length, 0);
