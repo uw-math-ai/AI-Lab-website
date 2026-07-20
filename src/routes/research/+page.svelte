@@ -69,8 +69,12 @@
 			</div>
 
 			<div class="research-grid">
-				{#each section.items as item}
-					<article class="research-card">
+				{#each section.items as item, index}
+					<article
+						class="research-card"
+						data-reveal-item
+						style={`--reveal-delay: ${(index % 2) * 65}ms`}
+					>
 						<div class="paper-meta">
 							<span>{item.venue}</span>
 							{#if item.badge}<em>{item.badge}</em>{/if}

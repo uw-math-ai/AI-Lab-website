@@ -9,7 +9,9 @@
 		"build:ai-lab": "BASE_PATH=/AI-Lab-website vite build",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"test:site": "node --test tests/site-content.test.mjs",
+		"verify:ai-lab": "npm run check && npm run build:ai-lab && npm run test:site"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-static": "^3.0.10",

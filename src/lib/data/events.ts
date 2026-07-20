@@ -126,6 +126,17 @@ export const labEvents: LabEvent[] = ([
 		]
 	},
 	{
+		title: 'Mid-summer social event',
+		speaker: 'Math AI Lab',
+		date: '2026-07-20',
+		startTime: '16:00',
+		endTime: '17:30',
+		location: 'OUG 136',
+		type: 'Social',
+		abstract:
+			'Come join us on Monday July 20th in OUG 136 to chat with your colleagues about their exciting research! Food and board games provided'
+	},
+	{
 		title: 'Math AI Lab social day',
 		speaker: 'Math AI Lab',
 		date: '2026-06-03',

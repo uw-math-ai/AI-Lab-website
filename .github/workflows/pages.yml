@@ -71,6 +71,9 @@ jobs:
             npm run build:ai-lab
           fi
 
+      - name: Verify rendered site content
+        run: npm run test:site
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 

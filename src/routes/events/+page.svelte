@@ -69,6 +69,76 @@
 	<CodePanel snippet={eventsLeanSnippet} />
 </section>
 
+{#if icmlEvent}
+	<section class="page-shell section icml-feature" id="icml-2026" aria-labelledby="icml-heading">
+		<article class="icml-card">
+			<Reveal>
+				<div class="icml-copy">
+					<div>
+						<span class="eyebrow">Eight accepted papers · ICML 2026</span>
+						<h2 id="icml-heading">Congratulations to our ICML authors</h2>
+						<p>{icmlEvent.abstract}</p>
+						<div class="meta icml-meta">
+							<span class="pill">July 6–11, 2026</span>
+							<span class="pill">COEX · Seoul, Korea</span>
+						</div>
+					</div>
+					<a class="button" href={icmlEvent.sourceUrl} target="_blank" rel="noreferrer">ICML 2026</a>
+				</div>
+			</Reveal>
+
+			{#if icmlEvent.photos?.length}
+				<Reveal>
+					<div class="icml-gallery" aria-label="Photos from ICML 2026 at COEX">
+						{#each icmlEvent.photos as photo, index}
+							<figure
+								class="icml-photo"
+								data-reveal-item
+								style={`--reveal-delay: ${(index % 2) * 70}ms`}
+							>
+								<img
+									src={sitePath(photo.src)}
+									alt={photo.alt}
+									width={photo.width}
+									height={photo.height}
+									loading="lazy"
+									decoding="async"
+								/>
+								<figcaption>{photo.caption}</figcaption>
+							</figure>
+						{/each}
+					</div>
+				</Reveal>
+			{/if}
+
+			{#if icmlEvent.papers?.length}
+				<Reveal>
+					<div class="icml-papers">
+						<div class="icml-papers-heading">
+							<span class="eyebrow">Accepted work</span>
+							<h3>Eight papers from across the lab</h3>
+						</div>
+						<ol class="icml-paper-list">
+							{#each icmlEvent.papers as paper, index}
+								<li
+									data-reveal-item
+									class:honored={paper.badge}
+									style={`--reveal-delay: ${(index % 2) * 70}ms`}
+								>
+									<a href={paper.url} target="_blank" rel="noreferrer">
+										<span>{paper.title}</span>
+										{#if paper.badge}<em>{paper.badge}</em>{/if}
+									</a>
+								</li>
+							{/each}
+						</ol>
+					</div>
+				</Reveal>
+			{/if}
+		</article>
+	</section>
+{/if}
+
 <section class="page-shell section hackathon-feature" aria-labelledby="hackathon-heading">
 	<Reveal>
 		<div class="hackathon-card">
@@ -99,64 +169,6 @@
 	</Reveal>
 </section>
 
-{#if icmlEvent}
-	<section class="page-shell section icml-feature" id="icml-2026" aria-labelledby="icml-heading">
-		<Reveal>
-			<article class="icml-card">
-				<div class="icml-copy">
-					<div>
-						<span class="eyebrow">Eight accepted papers · ICML 2026</span>
-						<h2 id="icml-heading">Congratulations to our ICML authors</h2>
-						<p>{icmlEvent.abstract}</p>
-						<div class="meta icml-meta">
-							<span class="pill">July 6–11, 2026</span>
-							<span class="pill">COEX · Seoul, Korea</span>
-						</div>
-					</div>
-					<a class="button" href={icmlEvent.sourceUrl} target="_blank" rel="noreferrer">ICML 2026</a>
-				</div>
-
-				{#if icmlEvent.photos?.length}
-					<div class="icml-gallery" aria-label="Photos from ICML 2026 at COEX">
-						{#each icmlEvent.photos as photo}
-							<figure class="icml-photo">
-								<img
-									src={sitePath(photo.src)}
-									alt={photo.alt}
-									width={photo.width}
-									height={photo.height}
-									loading="lazy"
-									decoding="async"
-								/>
-								<figcaption>{photo.caption}</figcaption>
-							</figure>
-						{/each}
-					</div>
-				{/if}
-
-				{#if icmlEvent.papers?.length}
-					<div class="icml-papers">
-						<div class="icml-papers-heading">
-							<span class="eyebrow">Accepted work</span>
-							<h3>Eight papers from across the lab</h3>
-						</div>
-						<ol class="icml-paper-list">
-							{#each icmlEvent.papers as paper}
-								<li class:honored={paper.badge}>
-									<a href={paper.url} target="_blank" rel="noreferrer">
-										<span>{paper.title}</span>
-										{#if paper.badge}<em>{paper.badge}</em>{/if}
-									</a>
-								</li>
-							{/each}
-						</ol>
-					</div>
-				{/if}
-			</article>
-		</Reveal>
-	</section>
-{/if}
-
 <section class="page-shell section">
 	<Reveal>
 		<div class="calendar-toolbar">
@@ -174,8 +186,12 @@
 		</div>
 
 		<div class="event-timeline">
-			{#each visibleEvents as event}
-				<article class="event-row">
+			{#each visibleEvents as event, index}
+				<article
+					class="event-row"
+					data-reveal-item
+					style={`--reveal-delay: ${Math.min(index, 3) * 55}ms`}
+				>
 					<div class="date-block">
 						<strong>{formatDate(event.date).split(',')[0]}</strong>
 						<span>{formatDate(event.date).replace(/^.*?, /, '')}</span>
@@ -287,6 +303,7 @@
 	.icml-photo {
 		margin: 0;
 		min-width: 0;
+		overflow: hidden;
 		background: var(--surface);
 	}
 
@@ -298,6 +315,11 @@
 		display: block;
 		width: 100%;
 		height: auto;
+		transition: transform 320ms ease;
+	}
+
+	.icml-photo:hover img {
+		transform: scale(1.012);
 	}
 
 	.icml-photo figcaption {
@@ -335,6 +357,16 @@
 		border: 1px solid var(--line);
 		border-radius: calc(var(--radius) - 0.2rem);
 		background: color-mix(in srgb, var(--soft) 44%, var(--surface));
+		transition:
+			transform 180ms ease,
+			border-color 180ms ease,
+			box-shadow 180ms ease;
+	}
+
+	.icml-paper-list li:hover {
+		transform: translateY(-2px);
+		border-color: color-mix(in srgb, var(--purple) 42%, var(--line));
+		box-shadow: var(--shadow-soft);
 	}
 
 	.icml-paper-list li.honored {

@@ -8,15 +8,11 @@
 	import { sitePath } from '$lib/paths';
 	import { canonicalUrl } from '$lib/seo';
 
-	const featuredEventTitles = new Set(['ICML 2026']);
-	const featuredHomeEvents = labEvents
-		.filter((event) => featuredEventTitles.has(event.title))
-		.sort((a, b) => a.date.localeCompare(b.date) || a.startTime.localeCompare(b.startTime));
 	const upcoming = labEvents
 		.filter(
 			(event) =>
 				new Date(`${event.date}T${event.startTime}:00`) >= new Date() &&
-				!featuredEventTitles.has(event.title)
+				event.title !== 'ICML 2026'
 		)
 		.sort((a, b) => a.date.localeCompare(b.date) || a.startTime.localeCompare(b.startTime))
 		.slice(0, 2);
@@ -35,13 +31,6 @@
 		});
 	}
 
-	function formatTime(value: string) {
-		const [hour, minute] = value.split(':').map(Number);
-		return new Date(2026, 0, 1, hour, minute).toLocaleTimeString('en-US', {
-			hour: 'numeric',
-			minute: '2-digit'
-		});
-	}
 </script>
 
 <svelte:head>
@@ -77,23 +66,23 @@
 <section class="page-shell section home-stats-section">
 	<Reveal>
 		<div class="stats">
-			<div>
+			<div data-reveal-item style="--reveal-delay: 0ms">
 				<strong><CountUp value={totalPaperCount} /></strong>
 				<span>papers</span>
 			</div>
-			<div>
+			<div data-reveal-item style="--reveal-delay: 45ms">
 				<strong><CountUp value={totalProjectCount} /></strong>
 				<span>projects</span>
 			</div>
-			<div>
+			<div data-reveal-item style="--reveal-delay: 90ms">
 				<strong><CountUp value={participantCounts.undergraduate} /></strong>
 				<span>undergraduate students</span>
 			</div>
-			<div>
+			<div data-reveal-item style="--reveal-delay: 135ms">
 				<strong><CountUp value={participantCounts.graduate} /></strong>
 				<span>graduate students</span>
 			</div>
-			<div>
+			<div data-reveal-item style="--reveal-delay: 180ms">
 				<strong><CountUp value={participantCounts.professor} /></strong>
 				<span>professors</span>
 			</div>
@@ -109,8 +98,15 @@
 			<p>Selected recent Math AI Lab papers. The full research page collects the lab's current conference papers, workshop papers, preprints, and essays.</p>
 		</div>
 		<div class="paper-grid">
-			{#each featuredResearch as paper}
-				<a class="paper-card" href={paper.url} target="_blank" rel="noreferrer">
+			{#each featuredResearch as paper, index}
+				<a
+					class="paper-card"
+					data-reveal-item
+					style={`--reveal-delay: ${(index % 4) * 55}ms`}
+					href={paper.url}
+					target="_blank"
+					rel="noreferrer"
+				>
 					<div class="paper-card-meta">
 						<span>{paper.venue}</span>
 						{#if paper.badge}<em>{paper.badge}</em>{/if}
@@ -133,7 +129,14 @@
 				<p>Upcoming events, seminars, and hosted Math AI Lab gatherings.</p>
 			</div>
 			<div class="event-list">
-				<a class="event-card hackathon-home-card" href="https://uw2026leanhackathon.github.io/" target="_blank" rel="noreferrer">
+				<a
+					class="event-card hackathon-home-card"
+					data-reveal-item
+					style="--reveal-delay: 0ms"
+					href="https://uw2026leanhackathon.github.io/"
+					target="_blank"
+					rel="noreferrer"
+				>
 					<img
 						src={sitePath('/logos/uw-2026-lean-hackathon-banner.png')}
 						alt="UW 2026 Lean Hackathon banner"
@@ -142,21 +145,21 @@
 					<strong>UW 2026 Lean Hackathon</strong>
 					<small>We hosted a Lean hackathon bringing together formalization, math, and AI communities.</small>
 				</a>
-				{#each featuredHomeEvents as event}
-					<a
-						class="event-card featured-event-card"
-						href={eventHref(event)}
-						target={event.sourceUrl ? '_blank' : undefined}
-						rel={event.sourceUrl ? 'noreferrer' : undefined}
-					>
-						<span>Featured · {formatDate(event.date)}</span>
-						<strong>{event.title}</strong>
-						<small>{formatTime(event.startTime)}-{formatTime(event.endTime)} · {event.location}</small>
-					</a>
-				{/each}
-				{#each upcoming as event}
+				<a
+					class="event-card featured-event-card"
+					data-reveal-item
+					style="--reveal-delay: 55ms"
+					href={sitePath('/events#icml-2026')}
+				>
+					<span>Congratulations · ICML 2026</span>
+					<strong>We presented 8 papers at ICML 2026</strong>
+					<small>Congratulations to our authors! Our work included an oral presentation and a workshop Spotlight in Seoul.</small>
+				</a>
+				{#each upcoming as event, index}
 					<a
 						class="event-card"
+						data-reveal-item
+						style={`--reveal-delay: ${(index + 2) * 55}ms`}
 						href={eventHref(event)}
 						target={event.sourceUrl ? '_blank' : undefined}
 						rel={event.sourceUrl ? 'noreferrer' : undefined}
@@ -185,8 +188,13 @@
 			<h2>Recent Quarters</h2>
 		</div>
 		<div class="grid">
-			{#each latestProjects as quarter}
-				<a class="card project-card" href={sitePath(`/projects/${quarter.slug}`)}>
+			{#each latestProjects as quarter, index}
+				<a
+					class="card project-card"
+					data-reveal-item
+					style={`--reveal-delay: ${index * 60}ms`}
+					href={sitePath(`/projects/${quarter.slug}`)}
+				>
 					<div class="meta">
 						<span class="pill">{quarter.label}</span>
 						{#if quarter.status === 'current'}<span class="pill">current</span>{/if}
@@ -201,16 +209,48 @@
 
 <section class="page-shell section">
 	<Reveal>
-		<div class="photo-panel">
-			<img src={sitePath('/photos/fall2025.jpg')} alt="Fall 2025 Math AI Lab" />
-			<div>
-				<span class="eyebrow">Community</span>
-				<h2>Math AI Lab Photo from Fall 2025</h2>
-				<p>
-					Our members during the Fall Quarter of 2025. The Math AI Lab was formerly called the eXperimental Lean Lab (XLL) and hosted through the
-					Washington eXperimental Mathematics Lab (WXML).
-				</p>
-			</div>
+		<div class="section-header">
+			<span class="eyebrow">Community</span>
+			<h2>Lab moments</h2>
+			<p>Recent gatherings from campus to conferences.</p>
+		</div>
+		<div class="home-photo-grid">
+			<figure class="home-photo-card home-photo-featured" data-reveal-item style="--reveal-delay: 0ms">
+				<img src={sitePath('/photos/fall2025.jpg')} alt="Fall 2025 Math AI Lab" loading="lazy" decoding="async" />
+				<figcaption>
+					<span>Fall 2025</span>
+					<strong>Math AI Lab</strong>
+					<p>Our lab community during Fall Quarter 2025 at the University of Washington.</p>
+				</figcaption>
+			</figure>
+			<figure class="home-photo-card" data-reveal-item style="--reveal-delay: 55ms">
+				<img
+					src={sitePath('/photos/icml-2026-coex-1.webp')}
+					alt="Math AI Lab members at ICML 2026 at COEX in Seoul"
+					width="2720"
+					height="1532"
+					loading="lazy"
+					decoding="async"
+				/>
+				<figcaption>
+					<span>ICML 2026 · Seoul</span>
+					<strong>Congratulations to our authors</strong>
+					<p>Math AI Lab members at COEX for eight papers presented across ICML and its workshops.</p>
+				</figcaption>
+			</figure>
+			<figure class="home-photo-card" data-reveal-item style="--reveal-delay: 110ms">
+				<img
+					src={sitePath('/photos/lean-hackathon.jpg')}
+					alt="Participants at the UW 2026 Lean Hackathon"
+					loading="lazy"
+					decoding="async"
+				/>
+				<figcaption>
+					<span>UW 2026 Lean Hackathon</span>
+					<strong>Lean, mathematics, and AI together</strong>
+					<p>A focused gathering hosted by the Math AI Lab at the University of Washington.</p>
+				</figcaption>
+			</figure>
 		</div>
 	</Reveal>
 </section>
@@ -287,7 +327,7 @@
 
 	.stats div:hover,
 	.event-card:hover,
-	.photo-panel:hover {
+	.home-photo-card:hover {
 		transform: translateY(-2px);
 		border-color: color-mix(in srgb, var(--purple) 34%, var(--line));
 		box-shadow: var(--shadow);
@@ -458,45 +498,97 @@
 		background: white;
 	}
 
-	.photo-panel {
+	.home-photo-grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
-		gap: 1.5rem;
-		align-items: center;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.home-photo-card {
+		margin: 0;
+		overflow: hidden;
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow);
-		padding: 1rem;
+		box-shadow: var(--shadow-soft);
 		transition:
 			transform 180ms ease,
 			border-color 180ms ease,
 			box-shadow 180ms ease;
 	}
 
-	.photo-panel img {
+	.home-photo-card img {
+		display: block;
 		width: 100%;
+		height: auto;
 		aspect-ratio: 16 / 9;
 		object-fit: cover;
-		border-radius: calc(var(--radius) - 0.2rem);
+		transition: transform 320ms ease;
 	}
 
-	.photo-panel h2 {
-		font-family: var(--font-display);
+	.home-photo-card:hover img {
+		transform: scale(1.012);
+	}
+
+	.home-photo-card figcaption {
+		display: grid;
+		align-content: center;
+		gap: 0.35rem;
+		padding: 1rem;
+	}
+
+	.home-photo-card figcaption span {
+		color: var(--purple);
+		font-size: 0.78rem;
+		font-weight: 850;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.home-photo-card figcaption strong {
 		color: var(--heading);
-		font-size: clamp(1.8rem, 4vw, 3rem);
-		line-height: 1;
+		font-family: var(--font-display);
+		font-size: clamp(1.3rem, 2.3vw, 2rem);
+		line-height: 1.08;
 	}
 
-	.photo-panel p {
+	.home-photo-card figcaption p {
+		margin: 0;
 		color: var(--muted);
+	}
+
+	.home-photo-featured {
+		display: grid;
+		grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr);
+		grid-column: 1 / -1;
+	}
+
+	.home-photo-featured img {
+		height: 100%;
+		min-height: 18rem;
+		aspect-ratio: auto;
+	}
+
+	.home-photo-featured figcaption {
+		padding: clamp(1.2rem, 3vw, 2rem);
 	}
 
 	@media (max-width: 860px) {
 		.paper-grid,
 		.event-list,
-		.photo-panel {
+		.home-photo-grid,
+		.home-photo-featured {
 			grid-template-columns: 1fr;
+		}
+
+		.home-photo-featured {
+			grid-column: auto;
+		}
+
+		.home-photo-featured img {
+			height: auto;
+			min-height: 0;
+			aspect-ratio: 16 / 9;
 		}
 
 		.event-card,

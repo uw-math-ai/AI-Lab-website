@@ -40,8 +40,15 @@
 	<Reveal>
 		<h2>Leadership</h2>
 		<div class="presenters-grid leadership-grid">
-			{#each leadership as person}
-				<a class="presenter-card linkable" href={person.url} target="_blank" rel="noreferrer">
+			{#each leadership as person, index}
+				<a
+					class="presenter-card linkable"
+					data-reveal-item
+					style={`--reveal-delay: ${(index % 5) * 45}ms`}
+					href={person.url}
+					target="_blank"
+					rel="noreferrer"
+				>
 					<img class="presenter-photo" src={sitePath(person.image)} alt={person.name} loading="lazy" decoding="async" />
 					<span class="presenter-name">{person.name}</span>
 					<span class="presenter-role">{person.role}</span>
@@ -55,8 +62,15 @@
 	<Reveal>
 		<h2>Project Leaders</h2>
 		<div class="presenters-grid">
-			{#each alphabeticalProjectLeaders as person}
-				<a class="presenter-card linkable" href={person.url} target="_blank" rel="noreferrer">
+			{#each alphabeticalProjectLeaders as person, index}
+				<a
+					class="presenter-card linkable"
+					data-reveal-item
+					style={`--reveal-delay: ${(index % 5) * 45}ms`}
+					href={person.url}
+					target="_blank"
+					rel="noreferrer"
+				>
 					{#if person.image}
 						<img class="presenter-photo" src={sitePath(person.image)} alt={person.name} loading="lazy" decoding="async" />
 					{:else}
@@ -77,8 +91,12 @@
 			Undergraduate and graduate researchers, with the project(s) they contribute to.
 		</p>
 		<div class="presenters-grid">
-			{#each alphabeticalMembers as person}
-				<div class="presenter-card member-card">
+			{#each alphabeticalMembers as person, index}
+				<div
+					class="presenter-card member-card"
+					data-reveal-item
+					style={`--reveal-delay: ${(index % 5) * 45}ms`}
+				>
 					<div class="presenter-avatar">{initials(person.name)}</div>
 					<span class="presenter-name">{person.name}</span>
 					<span class="presenter-role">{person.role}</span>
@@ -93,7 +111,12 @@
 		<h2>Lab Photos</h2>
 		<div class="lab-photos">
 			{#each labPhotos as photo, index}
-				<figure class:lab-photo-featured={index === 0 || index === 5} class="lab-photo">
+				<figure
+					class:lab-photo-featured={index === 0 || index === 5}
+					class="lab-photo"
+					data-reveal-item
+					style={`--reveal-delay: ${(index % 2) * 65}ms`}
+				>
 					<img
 						src={sitePath(photo.src)}
 						alt={photo.alt}
