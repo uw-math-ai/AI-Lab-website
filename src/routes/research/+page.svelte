@@ -43,13 +43,15 @@
 			<a class="button" href="#preprints">Preprints</a>
 		</div>
 	</div>
-	<div class="research-index" aria-label="Research sections">
-		<strong>{allItems.length}</strong>
-		<span>listed works</span>
-		{#each researchSections as section}
-			<a href={`#${section.id}`}>{section.title}</a>
-		{/each}
-	</div>
+	<Reveal class="research-index-reveal">
+		<div class="research-index interactive-surface" aria-label="Research sections">
+			<strong>{allItems.length}</strong>
+			<span>listed works</span>
+			{#each researchSections as section}
+				<a href={`#${section.id}`}>{section.title}</a>
+			{/each}
+		</div>
+	</Reveal>
 </section>
 
 <section class="page-shell section research-controls">
@@ -71,7 +73,7 @@
 			<div class="research-grid">
 				{#each section.items as item, index}
 					<article
-						class="research-card"
+						class="research-card interactive-surface"
 						data-reveal-item
 						style={`--reveal-delay: ${(index % 2) * 65}ms`}
 					>
@@ -92,7 +94,7 @@
 	</section>
 {:else}
 	<section class="page-shell section">
-		<div class="card empty-state">
+		<div class="card empty-state interactive-surface">
 			<h2>No matching research</h2>
 			<p>Try a different title, author, venue, or keyword.</p>
 		</div>
@@ -104,15 +106,18 @@
 		grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.36fr);
 	}
 
+	.research-hero :global(.research-index-reveal) {
+		align-self: end;
+	}
+
 	.research-index {
 		display: grid;
 		gap: 0.6rem;
-		align-self: end;
 		min-width: 0;
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow);
+		box-shadow: var(--surface-shadow-rest);
 		padding: 1.2rem;
 	}
 
@@ -179,18 +184,8 @@
 			var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 		padding: 1.15rem;
-		transition:
-			transform 180ms ease,
-			border-color 180ms ease,
-			box-shadow 180ms ease;
-	}
-
-	.research-card:hover {
-		transform: translateY(-2px);
-		border-color: color-mix(in srgb, var(--purple) 34%, var(--line));
-		box-shadow: var(--shadow);
 	}
 
 	.paper-meta {

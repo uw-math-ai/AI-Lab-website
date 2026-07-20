@@ -1,6 +1,7 @@
 <script lang="ts">
 	import LegacyContent from '$lib/components/LegacyContent.svelte';
 	import CodePanel from '$lib/components/CodePanel.svelte';
+	import Reveal from '$lib/components/Reveal.svelte';
 	import { leanSnippetForQuarter } from '$lib/data/leanSnippets';
 	import type { ProjectQuarter } from '$lib/data/projects';
 	import { sitePath } from '$lib/paths';
@@ -29,7 +30,9 @@
 </section>
 
 <section class="page-shell section project-content">
-	<LegacyContent html={quarter.html} projectSlug={quarter.slug} />
+	<Reveal>
+		<LegacyContent html={quarter.html} projectSlug={quarter.slug} />
+	</Reveal>
 </section>
 
 <style>

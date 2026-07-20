@@ -4,7 +4,7 @@
 	let { snippet } = $props<{ snippet: LeanSnippet }>();
 </script>
 
-<div class="code-panel">
+<div class="code-panel interactive-surface">
 	<pre><code>{snippet.code}</code></pre>
 	<a class="snippet-source" href={snippet.sourceUrl} target="_blank" rel="noreferrer">
 		Source: {snippet.sourceLabel}

@@ -42,10 +42,12 @@
 		<p>
 			All {totalProjectCount} Math AI Lab projects by academic quarter, ordered newest to oldest.
 		</p>
-		<div class="project-total">
-			<strong><CountUp value={totalProjectCount} /></strong>
-			<span>projects across {projectQuarters.length} quarters</span>
-		</div>
+		<Reveal class="project-total-reveal">
+			<div class="project-total interactive-surface">
+				<strong><CountUp value={totalProjectCount} /></strong>
+				<span>projects across {projectQuarters.length} quarters</span>
+			</div>
+		</Reveal>
 	</div>
 	<CodePanel snippet={projectIndexLeanSnippet} />
 </section>
@@ -57,8 +59,13 @@
 		</div>
 
 		<div class="quarter-grid">
-			{#each filtered as quarter}
-				<a class="card quarter-card" href={sitePath(`/projects/${quarter.slug}`)}>
+			{#each filtered as quarter, index}
+				<a
+					class="card quarter-card interactive-surface"
+					data-reveal-item
+					style={`--reveal-delay: ${(index % 3) * 55}ms`}
+					href={sitePath(`/projects/${quarter.slug}`)}
+				>
 					<div class="meta">
 						<span class="pill">{quarter.label}</span>
 						{#if quarter.status === 'current'}<span class="pill">current</span>{/if}
@@ -76,6 +83,10 @@
 		min-height: 26rem;
 	}
 
+	.compact-hero :global(.project-total-reveal) {
+		width: fit-content;
+	}
+
 	.project-total {
 		display: inline-grid;
 		gap: 0.1rem;
@@ -84,7 +95,7 @@
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.project-total strong {
@@ -117,14 +128,6 @@
 		text-decoration: none;
 		min-height: 14rem;
 		min-width: 0;
-		transition:
-			transform 180ms ease,
-			box-shadow 180ms ease;
-	}
-
-	.quarter-card:hover {
-		transform: translateY(-3px);
-		box-shadow: var(--shadow);
 	}
 
 	.quarter-card h2 {

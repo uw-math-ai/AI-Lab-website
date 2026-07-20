@@ -42,7 +42,7 @@
 		<div class="presenters-grid leadership-grid">
 			{#each leadership as person, index}
 				<a
-					class="presenter-card linkable"
+					class="presenter-card linkable interactive-surface"
 					data-reveal-item
 					style={`--reveal-delay: ${(index % 5) * 45}ms`}
 					href={person.url}
@@ -64,7 +64,7 @@
 		<div class="presenters-grid">
 			{#each alphabeticalProjectLeaders as person, index}
 				<a
-					class="presenter-card linkable"
+					class="presenter-card linkable interactive-surface"
 					data-reveal-item
 					style={`--reveal-delay: ${(index % 5) * 45}ms`}
 					href={person.url}
@@ -93,7 +93,7 @@
 		<div class="presenters-grid">
 			{#each alphabeticalMembers as person, index}
 				<div
-					class="presenter-card member-card"
+					class="presenter-card member-card interactive-surface"
 					data-reveal-item
 					style={`--reveal-delay: ${(index % 5) * 45}ms`}
 				>
@@ -113,7 +113,7 @@
 			{#each labPhotos as photo, index}
 				<figure
 					class:lab-photo-featured={index === 0 || index === 5}
-					class="lab-photo"
+					class="lab-photo interactive-surface"
 					data-reveal-item
 					style={`--reveal-delay: ${(index % 2) * 65}ms`}
 				>
@@ -223,28 +223,10 @@
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 		color: var(--text);
 		text-decoration: none;
 		text-align: center;
-		transition:
-			transform 180ms ease,
-			border-color 180ms ease,
-			box-shadow 180ms ease,
-			background 180ms ease;
-	}
-
-	.presenter-card:hover,
-	.lab-photo:hover {
-		transform: translateY(-6px);
-		border-color: color-mix(in srgb, var(--purple) 34%, var(--line));
-		box-shadow: var(--shadow);
-	}
-
-	:root[data-theme='dark'] .presenter-card:hover,
-	:root[data-theme='dark'] .lab-photo:hover {
-		border-color: color-mix(in srgb, var(--gold) 42%, var(--purple));
-		box-shadow: var(--glow-strong);
 	}
 
 	.presenter-photo {
@@ -306,19 +288,22 @@
 
 	.lab-photo {
 		margin: 0;
-		transition:
-			transform 180ms ease,
-			border-color 180ms ease,
-			box-shadow 180ms ease;
+		overflow: hidden;
+		background: var(--surface);
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.lab-photo img {
 		display: block;
 		width: 100%;
 		height: auto;
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		transition: transform var(--motion-fast);
+	}
+
+	.lab-photo:hover img {
+		transform: scale(1.012);
 	}
 
 	.lab-photo-featured {
@@ -326,7 +311,8 @@
 	}
 
 	.lab-photo figcaption {
-		margin-top: 0.5rem;
+		margin: 0;
+		padding: 0.65rem 0.8rem 0.8rem;
 		color: var(--purple);
 		font-family: var(--font-serif);
 		font-size: 1.05rem;

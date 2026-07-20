@@ -71,9 +71,9 @@
 
 {#if icmlEvent}
 	<section class="page-shell section icml-feature" id="icml-2026" aria-labelledby="icml-heading">
-		<article class="icml-card">
-			<Reveal>
-				<div class="icml-copy">
+		<Reveal class="feature-reveal">
+			<article class="icml-card interactive-surface">
+				<div class="icml-copy" data-reveal-item style="--reveal-delay: 0ms">
 					<div>
 						<span class="eyebrow">Eight accepted papers · ICML 2026</span>
 						<h2 id="icml-heading">Congratulations to our ICML authors</h2>
@@ -85,16 +85,14 @@
 					</div>
 					<a class="button" href={icmlEvent.sourceUrl} target="_blank" rel="noreferrer">ICML 2026</a>
 				</div>
-			</Reveal>
 
-			{#if icmlEvent.photos?.length}
-				<Reveal>
+				{#if icmlEvent.photos?.length}
 					<div class="icml-gallery" aria-label="Photos from ICML 2026 at COEX">
 						{#each icmlEvent.photos as photo, index}
 							<figure
-								class="icml-photo"
+								class="icml-photo interactive-surface"
 								data-reveal-item
-								style={`--reveal-delay: ${(index % 2) * 70}ms`}
+								style={`--reveal-delay: ${60 + Math.min(index, 3) * 55}ms`}
 							>
 								<img
 									src={sitePath(photo.src)}
@@ -108,22 +106,21 @@
 							</figure>
 						{/each}
 					</div>
-				</Reveal>
-			{/if}
+				{/if}
 
-			{#if icmlEvent.papers?.length}
-				<Reveal>
+				{#if icmlEvent.papers?.length}
 					<div class="icml-papers">
-						<div class="icml-papers-heading">
+						<div class="icml-papers-heading" data-reveal-item style="--reveal-delay: 120ms">
 							<span class="eyebrow">Accepted work</span>
 							<h3>Eight papers from across the lab</h3>
 						</div>
 						<ol class="icml-paper-list">
 							{#each icmlEvent.papers as paper, index}
 								<li
+									class="interactive-surface"
 									data-reveal-item
 									class:honored={paper.badge}
-									style={`--reveal-delay: ${(index % 2) * 70}ms`}
+									style={`--reveal-delay: ${170 + (index % 2) * 60}ms`}
 								>
 									<a href={paper.url} target="_blank" rel="noreferrer">
 										<span>{paper.title}</span>
@@ -133,15 +130,15 @@
 							{/each}
 						</ol>
 					</div>
-				</Reveal>
-			{/if}
-		</article>
+				{/if}
+			</article>
+		</Reveal>
 	</section>
 {/if}
 
 <section class="page-shell section hackathon-feature" aria-labelledby="hackathon-heading">
 	<Reveal>
-		<div class="hackathon-card">
+		<div class="hackathon-card interactive-surface">
 			<div class="hackathon-banner">
 				<img
 					src={sitePath('/logos/uw-2026-lean-hackathon-banner.png')}
@@ -192,11 +189,11 @@
 					data-reveal-item
 					style={`--reveal-delay: ${Math.min(index, 3) * 55}ms`}
 				>
-					<div class="date-block">
+					<div class="date-block interactive-surface">
 						<strong>{formatDate(event.date).split(',')[0]}</strong>
 						<span>{formatDate(event.date).replace(/^.*?, /, '')}</span>
 					</div>
-					<div class="event-body">
+					<div class="event-body interactive-surface">
 						<div class="meta">
 							<span class="pill">{event.type}</span>
 							<span class="pill">{formatTime(event.startTime)}-{formatTime(event.endTime)}</span>
@@ -220,7 +217,7 @@
 					</div>
 				</article>
 			{:else}
-				<div class="card">
+				<div class="card interactive-surface">
 					<h2>No matching events</h2>
 					<p>Try a broader search or switch between upcoming and archive views.</p>
 				</div>
@@ -252,13 +249,15 @@
 	}
 
 	.icml-card {
-		overflow: hidden;
+		--surface-border-rest: color-mix(in srgb, var(--gold) 38%, var(--line));
+		isolation: isolate;
+		overflow: visible;
 		background:
 			linear-gradient(140deg, color-mix(in srgb, var(--purple) 10%, transparent), transparent 42%),
 			var(--surface);
-		border: 1px solid color-mix(in srgb, var(--gold) 38%, var(--line));
+		border: 1px solid var(--surface-border-rest);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow);
+		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.icml-copy {
@@ -305,6 +304,9 @@
 		min-width: 0;
 		overflow: hidden;
 		background: var(--surface);
+		border: 1px solid transparent;
+		border-radius: calc(var(--radius) - 0.2rem);
+		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.icml-photo:first-child {
@@ -315,7 +317,7 @@
 		display: block;
 		width: 100%;
 		height: auto;
-		transition: transform 320ms ease;
+		transition: transform var(--motion-fast);
 	}
 
 	.icml-photo:hover img {
@@ -357,16 +359,7 @@
 		border: 1px solid var(--line);
 		border-radius: calc(var(--radius) - 0.2rem);
 		background: color-mix(in srgb, var(--soft) 44%, var(--surface));
-		transition:
-			transform 180ms ease,
-			border-color 180ms ease,
-			box-shadow 180ms ease;
-	}
-
-	.icml-paper-list li:hover {
-		transform: translateY(-2px);
-		border-color: color-mix(in srgb, var(--purple) 42%, var(--line));
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.icml-paper-list li.honored {
@@ -414,7 +407,7 @@
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 		overflow: hidden;
 	}
 
@@ -454,11 +447,6 @@
 		margin: 0;
 		color: var(--muted);
 		font-size: 1.05rem;
-	}
-
-	:root[data-theme='dark'] .hackathon-banner,
-	:root[data-theme='dark'] .hackathon-card {
-		box-shadow: var(--glow-strong);
 	}
 
 	.calendar-toolbar {
@@ -517,7 +505,7 @@
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.date-block {

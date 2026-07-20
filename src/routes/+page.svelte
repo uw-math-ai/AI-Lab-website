@@ -66,23 +66,23 @@
 <section class="page-shell section home-stats-section">
 	<Reveal>
 		<div class="stats">
-			<div data-reveal-item style="--reveal-delay: 0ms">
+			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 0ms">
 				<strong><CountUp value={totalPaperCount} /></strong>
 				<span>papers</span>
 			</div>
-			<div data-reveal-item style="--reveal-delay: 45ms">
+			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 45ms">
 				<strong><CountUp value={totalProjectCount} /></strong>
 				<span>projects</span>
 			</div>
-			<div data-reveal-item style="--reveal-delay: 90ms">
+			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 90ms">
 				<strong><CountUp value={participantCounts.undergraduate} /></strong>
 				<span>undergraduate students</span>
 			</div>
-			<div data-reveal-item style="--reveal-delay: 135ms">
+			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 135ms">
 				<strong><CountUp value={participantCounts.graduate} /></strong>
 				<span>graduate students</span>
 			</div>
-			<div data-reveal-item style="--reveal-delay: 180ms">
+			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 180ms">
 				<strong><CountUp value={participantCounts.professor} /></strong>
 				<span>professors</span>
 			</div>
@@ -100,7 +100,7 @@
 		<div class="paper-grid">
 			{#each featuredResearch as paper, index}
 				<a
-					class="paper-card"
+					class="paper-card interactive-surface"
 					data-reveal-item
 					style={`--reveal-delay: ${(index % 4) * 55}ms`}
 					href={paper.url}
@@ -130,7 +130,7 @@
 			</div>
 			<div class="event-list">
 				<a
-					class="event-card hackathon-home-card"
+					class="event-card hackathon-home-card interactive-surface"
 					data-reveal-item
 					style="--reveal-delay: 0ms"
 					href="https://uw2026leanhackathon.github.io/"
@@ -146,7 +146,7 @@
 					<small>We hosted a Lean hackathon bringing together formalization, math, and AI communities.</small>
 				</a>
 				<a
-					class="event-card featured-event-card"
+					class="event-card featured-event-card interactive-surface"
 					data-reveal-item
 					style="--reveal-delay: 55ms"
 					href={sitePath('/events#icml-2026')}
@@ -157,7 +157,7 @@
 				</a>
 				{#each upcoming as event, index}
 					<a
-						class="event-card"
+						class="event-card interactive-surface"
 						data-reveal-item
 						style={`--reveal-delay: ${(index + 2) * 55}ms`}
 						href={eventHref(event)}
@@ -169,7 +169,7 @@
 						<small>{event.speaker} · {event.location}</small>
 					</a>
 				{:else}
-					<a class="event-card" href={sitePath('/events')}>
+					<a class="event-card interactive-surface" data-reveal-item href={sitePath('/events')}>
 						<span>Archive</span>
 						<strong>Browse past Math AI events</strong>
 						<small>The agenda archive is updated from the official UW Math source.</small>
@@ -190,7 +190,7 @@
 		<div class="grid">
 			{#each latestProjects as quarter, index}
 				<a
-					class="card project-card"
+					class="card project-card interactive-surface"
 					data-reveal-item
 					style={`--reveal-delay: ${index * 60}ms`}
 					href={sitePath(`/projects/${quarter.slug}`)}
@@ -215,7 +215,7 @@
 			<p>Recent gatherings from campus to conferences.</p>
 		</div>
 		<div class="home-photo-grid">
-			<figure class="home-photo-card home-photo-featured" data-reveal-item style="--reveal-delay: 0ms">
+			<figure class="home-photo-card home-photo-featured interactive-surface" data-reveal-item style="--reveal-delay: 0ms">
 				<img src={sitePath('/photos/fall2025.jpg')} alt="Fall 2025 Math AI Lab" loading="lazy" decoding="async" />
 				<figcaption>
 					<span>Fall 2025</span>
@@ -223,7 +223,7 @@
 					<p>Our lab community during Fall Quarter 2025 at the University of Washington.</p>
 				</figcaption>
 			</figure>
-			<figure class="home-photo-card" data-reveal-item style="--reveal-delay: 55ms">
+			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 55ms">
 				<img
 					src={sitePath('/photos/icml-2026-coex-1.webp')}
 					alt="Math AI Lab members at ICML 2026 at COEX in Seoul"
@@ -238,7 +238,7 @@
 					<p>Math AI Lab members at COEX for eight papers presented across ICML and its workshops.</p>
 				</figcaption>
 			</figure>
-			<figure class="home-photo-card" data-reveal-item style="--reveal-delay: 110ms">
+			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 110ms">
 				<img
 					src={sitePath('/photos/lean-hackathon.jpg')}
 					alt="Participants at the UW 2026 Lean Hackathon"
@@ -317,20 +317,8 @@
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 		padding: 1.2rem;
-		transition:
-			transform 180ms ease,
-			border-color 180ms ease,
-			box-shadow 180ms ease;
-	}
-
-	.stats div:hover,
-	.event-card:hover,
-	.home-photo-card:hover {
-		transform: translateY(-2px);
-		border-color: color-mix(in srgb, var(--purple) 34%, var(--line));
-		box-shadow: var(--shadow);
 	}
 
 	.stats strong {
@@ -385,17 +373,7 @@
 			var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
-		transition:
-			transform 180ms ease,
-			border-color 180ms ease,
-			box-shadow 180ms ease;
-	}
-
-	.paper-card:hover {
-		transform: translateY(-2px);
-		border-color: color-mix(in srgb, var(--purple) 34%, var(--line));
-		box-shadow: var(--shadow);
+		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.paper-card-meta {
@@ -448,12 +426,8 @@
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 		padding: 1rem;
-		transition:
-			transform 180ms ease,
-			border-color 180ms ease,
-			box-shadow 180ms ease;
 	}
 
 	.event-card span {
@@ -510,11 +484,7 @@
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
-		transition:
-			transform 180ms ease,
-			border-color 180ms ease,
-			box-shadow 180ms ease;
+		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.home-photo-card img {
@@ -523,7 +493,7 @@
 		height: auto;
 		aspect-ratio: 16 / 9;
 		object-fit: cover;
-		transition: transform 320ms ease;
+		transition: transform var(--motion-fast);
 	}
 
 	.home-photo-card:hover img {

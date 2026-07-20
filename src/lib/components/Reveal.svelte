@@ -66,10 +66,10 @@
 
 	.reveal.enhanced {
 		opacity: 0;
-		transform: translateY(18px);
+		transform: translateY(var(--reveal-distance));
 		transition:
-			opacity 520ms ease,
-			transform 520ms ease;
+			opacity var(--motion-reveal),
+			transform var(--motion-reveal);
 	}
 
 	.reveal.enhanced.visible {
@@ -79,13 +79,14 @@
 
 	.reveal.enhanced :global([data-reveal-item]) {
 		opacity: 0;
-		translate: 0 14px;
+		translate: 0 var(--reveal-distance);
 		transition:
-			opacity 440ms ease var(--reveal-delay, 0ms),
-			translate 440ms ease var(--reveal-delay, 0ms),
-			border-color 180ms ease,
-			box-shadow 180ms ease,
-			background 180ms ease;
+			opacity var(--motion-reveal) var(--reveal-delay, 0ms),
+			translate var(--motion-reveal) var(--reveal-delay, 0ms),
+			transform var(--motion-fast),
+			border-color var(--motion-fast),
+			box-shadow var(--motion-fast),
+			background-color var(--motion-fast);
 	}
 
 	.reveal.enhanced :global([data-reveal-item].is-revealed) {

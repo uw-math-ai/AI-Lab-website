@@ -30,7 +30,8 @@
 <section class="page-shell featured-resource" aria-labelledby="featured-resource-title">
 	<Reveal>
 		<a
-			class="featured-resource-card"
+			class="featured-resource-card interactive-surface"
+			data-reveal-item
 			href="https://ww2.ams.org/journals/bull/2026-63-02/S0273-0979-2025-01879-0/viewer/?t=1780254358590"
 			target="_blank"
 			rel="noreferrer"
@@ -108,19 +109,9 @@
 			var(--surface);
 		border: 1px solid color-mix(in srgb, var(--purple) 30%, var(--line));
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 		color: var(--text);
 		text-decoration: none;
-		transition:
-			transform 180ms ease,
-			border-color 180ms ease,
-			box-shadow 180ms ease;
-	}
-
-	.featured-resource-card:hover {
-		transform: translateY(-2px);
-		border-color: color-mix(in srgb, var(--gold) 46%, var(--purple));
-		box-shadow: var(--shadow);
 	}
 
 	.featured-resource-card h2 {

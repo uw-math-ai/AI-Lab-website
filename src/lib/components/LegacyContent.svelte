@@ -24,7 +24,7 @@
 
 <div class="content-layout" class:compact class:flat class:project-mode={!!projectSlug} class:with-toc={showToc}>
 	{#if showToc}
-		<aside class="toc" aria-label="Page sections">
+		<aside class="toc interactive-surface" aria-label="Page sections">
 			<span>On this page</span>
 			{#each tocHeadings as heading}
 				<a class:h3={heading.level === 3} href={`#${heading.id}`}>{heading.text}</a>
@@ -73,7 +73,7 @@
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
-		box-shadow: var(--shadow-soft);
+		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.toc span {
@@ -211,13 +211,15 @@
 	.content-layout:not(.project-mode) .legacy-content :global(.project-detail) {
 		margin: 1rem 0;
 		transition:
-			box-shadow 180ms ease,
-			transform 180ms ease;
+			box-shadow var(--motion-fast),
+			transform var(--motion-fast),
+			border-color var(--motion-fast);
 	}
 
 	.content-layout:not(.project-mode) .legacy-content :global(.project-detail:hover) {
-		box-shadow: var(--shadow);
-		transform: translateY(-1px);
+		border-color: var(--surface-border-hover);
+		box-shadow: var(--surface-shadow-hover);
+		transform: translateY(var(--surface-lift));
 	}
 
 	.content-layout.flat .legacy-content :global(section > ul),
