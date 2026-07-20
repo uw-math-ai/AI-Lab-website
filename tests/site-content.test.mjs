@@ -22,6 +22,7 @@ test('the ICML feature precedes the hackathon and exposes animated paper and pho
 	assert.match(events, /class="icml-copy[^>]*data-reveal-item/);
 	assert.match(events, /class="icml-photo interactive-surface[^>]*data-reveal-item/);
 	assert.match(events, /class="[^"]*interactive-surface[^"]*honored"[^>]*data-reveal-item/);
+	assert.doesNotMatch(events, /welcome gathering|welcome display/i);
 });
 
 test('the homepage congratulates ICML authors, links once to the feature, and shows three lab moments', async () => {
@@ -32,7 +33,9 @@ test('the homepage congratulates ICML authors, links once to the feature, and sh
 	assert.match(home, /We presented 8 papers at ICML 2026/);
 	assert.match(home, /Congratulations to our authors!/);
 	assert.match(home, /photos\/fall2025\.jpg/);
-	assert.match(home, /photos\/icml-2026-coex-1\.webp/);
+	assert.match(home, /photos\/icml-2026-coex-2\.webp/);
+	assert.match(home, /ICML 2026 group photo/);
+	assert.doesNotMatch(home, /welcome gathering/i);
 	assert.match(home, /photos\/lean-hackathon\.jpg/);
 	assert.match(home, /class="home-photo-card[^>]*data-reveal-item/);
 });
@@ -55,6 +58,7 @@ test('repeated research and people cards opt into the shared reveal-item motion'
 	assert.match(research, /class="research-card interactive-surface[^>]*data-reveal-item/);
 	assert.match(people, /class="presenter-card[^>]*interactive-surface[^>]*data-reveal-item/);
 	assert.match(people, /class="lab-photo interactive-surface[^>]*data-reveal-item/);
+	assert.doesNotMatch(people, /welcome gathering|welcome display/i);
 });
 
 test('one shared motion and glow system governs interactive surfaces', async () => {

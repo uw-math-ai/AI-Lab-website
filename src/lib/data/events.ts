@@ -97,8 +97,8 @@ export const labEvents: LabEvent[] = ([
 			},
 			{
 				src: '/photos/icml-2026-coex-2.webp',
-				alt: 'Math AI Lab group at the ICML 2026 welcome display at COEX',
-				caption: 'ICML 2026 welcome gathering · COEX, Seoul, Korea',
+				alt: 'Math AI Lab group at ICML 2026 in COEX, Seoul',
+				caption: 'ICML 2026 group photo',
 				width: 2720,
 				height: 1532
 			},

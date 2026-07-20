@@ -225,8 +225,8 @@
 			</figure>
 			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 55ms">
 				<img
-					src={sitePath('/photos/icml-2026-coex-1.webp')}
-					alt="Math AI Lab members at ICML 2026 at COEX in Seoul"
+					src={sitePath('/photos/icml-2026-coex-2.webp')}
+					alt="Math AI Lab group at ICML 2026 in COEX, Seoul"
 					width="2720"
 					height="1532"
 					loading="lazy"
@@ -234,7 +234,7 @@
 				/>
 				<figcaption>
 					<span>ICML 2026 · Seoul</span>
-					<strong>Congratulations to our authors</strong>
+					<strong>ICML 2026 group photo</strong>
 					<p>Math AI Lab members at COEX for eight papers presented across ICML and its workshops.</p>
 				</figcaption>
 			</figure>
