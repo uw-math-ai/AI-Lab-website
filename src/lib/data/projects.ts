@@ -1,3 +1,4 @@
+import fall2026 from '$lib/legacy-html/fall2026.html?raw';
 import summer2026 from '$lib/legacy-html/summer2026.html?raw';
 import spring2026 from '$lib/legacy-html/spring2026.html?raw';
 import winter2026 from '$lib/legacy-html/winter2026.html?raw';
@@ -27,12 +28,22 @@ export type ProjectQuarter = {
 
 export const projectQuarters: ProjectQuarter[] = [
 	{
+		slug: 'fall-2026',
+		legacyFile: 'fall2026.html',
+		label: 'Fall 2026',
+		term: 'Fall',
+		year: 2026,
+		status: 'current',
+		summary: 'Proposed Fall 2026 lineup. Project leader applications are open through Monday, September 7.',
+		html: fall2026
+	},
+	{
 		slug: 'summer-2026',
 		legacyFile: 'summer2026.html',
 		label: 'Summer 2026',
 		term: 'Summer',
 		year: 2026,
-		status: 'current',
+		status: 'recent',
 		projectsLaunched: 9,
 		summary: 'Nine new and six returning projects spanning autoformalization, AI and machine learning for math, autoresearch, and math education.',
 		html: summer2026

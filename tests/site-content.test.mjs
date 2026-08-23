@@ -40,16 +40,33 @@ test('the homepage congratulates ICML authors, links once to the feature, and sh
 	assert.match(home, /class="home-photo-card[^>]*data-reveal-item/);
 });
 
-test('the July 20 mid-summer social is present in the rendered event calendar', async () => {
-	const events = await renderedPage('events');
+test('the July 20 mid-summer social remains in the event calendar data', async () => {
+	const events = await sourceFile('src/lib/data/events.ts');
 
 	assert.match(events, /Mid-summer social event/);
 	assert.match(events, /OUG 136/);
-	assert.match(events, /4:00 PM-5:30 PM/);
+	assert.match(events, /startTime: '16:00'/);
+	assert.match(events, /endTime: '17:30'/);
 	assert.match(
 		events,
 		/Come join us on Monday July 20th in OUG 136 to chat with your colleagues about their exciting research! Food and board games provided/
 	);
+});
+
+test('the Fall 2026 project leader announcement is upcoming and prominent on the homepage', async () => {
+	const [home, events] = await Promise.all([renderedPage(''), renderedPage('events')]);
+
+	assert.match(events, /Fall 2026 project leader applications open/);
+	assert.match(events, /Sep 7, 2026/);
+	assert.match(events, /Project Lead application form/);
+	assert.match(events, /Proposed Fall 2026 projects/);
+	assert.match(events, /docs\.google\.com\/forms\/d\/1Bl1wNdIGdc8jHBaaXI-REYfBaGwLFUDu4n3dRab2t40\/viewform/);
+
+	assert.match(home, /class="home-announcement interactive-surface[^"\n]*"/);
+	assert.match(home, /Lead a Math AI Lab project this fall/);
+	assert.match(home, /Apply by Monday, September 7 at 11:59 pm/);
+	assert.match(home, /Fall 2026 Projects/);
+	assert.match(home, /projects\/fall-2026/);
 });
 
 test('repeated research and people cards opt into the shared reveal-item motion', async () => {

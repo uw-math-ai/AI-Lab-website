@@ -196,7 +196,9 @@
 					<div class="event-body interactive-surface">
 						<div class="meta">
 							<span class="pill">{event.type}</span>
-							<span class="pill">{formatTime(event.startTime)}-{formatTime(event.endTime)}</span>
+							{#if event.startTime !== event.endTime}
+								<span class="pill">{formatTime(event.startTime)}-{formatTime(event.endTime)}</span>
+							{/if}
 							<span class="pill">{event.location}</span>
 						</div>
 						<h2>{event.title}</h2>
@@ -211,8 +213,19 @@
 								{/each}
 							</ul>
 						{/if}
-						{#if event.sourceUrl}
-							<a class="button" href={event.sourceUrl} target="_blank" rel="noreferrer">{event.sourceLabel ?? 'UW Math source'}</a>
+						{#if event.sourceUrl || event.links?.length}
+							<div class="event-links">
+								{#if event.sourceUrl}
+									<a class="button" href={event.sourceUrl} target="_blank" rel="noreferrer">{event.sourceLabel ?? 'UW Math source'}</a>
+								{/if}
+								{#each event.links ?? [] as link}
+									{#if link.url.startsWith('/')}
+										<a class="button" href={sitePath(link.url)}>{link.label}</a>
+									{:else}
+										<a class="button" href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+									{/if}
+								{/each}
+							</div>
 						{/if}
 					</div>
 				</article>
@@ -629,5 +642,10 @@
 		.date-block {
 			gap: 0.2rem;
 		}
+	}
+	.event-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
 	}
 </style>

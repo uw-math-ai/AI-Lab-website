@@ -8,11 +8,14 @@
 	import { sitePath } from '$lib/paths';
 	import { canonicalUrl } from '$lib/seo';
 
+	const applicationAnnouncement = labEvents.find((event) => event.type === 'Announcement');
+
 	const upcoming = labEvents
 		.filter(
 			(event) =>
 				new Date(`${event.date}T${event.startTime}:00`) >= new Date() &&
-				event.title !== 'ICML 2026'
+				event.title !== 'ICML 2026' &&
+				event.type !== 'Announcement'
 		)
 		.sort((a, b) => a.date.localeCompare(b.date) || a.startTime.localeCompare(b.startTime))
 		.slice(0, 2);
@@ -55,13 +58,39 @@
 			<a href="https://sites.math.washington.edu/~jarod/">Jarod Alper</a> and <a href="https://vilin97.github.io/">Vasily Ilin</a>.
 		</p>
 		<div class="actions">
-			<a class="button primary" href={sitePath('/projects/summer-2026')}>Ongoing Projects</a>
+			<a class="button primary" href={sitePath('/projects/fall-2026')}>Fall 2026 Projects</a>
 			<a class="button" href={sitePath('/events')}>Event Calendar</a>
 			<a class="button" href="https://github.com/uw-math-ai" target="_blank" rel="noreferrer">GitHub</a>
 		</div>
 	</div>
 
 </section>
+
+{#if applicationAnnouncement}
+	<section class="page-shell home-announcement-section" aria-labelledby="fall-2026-applications-heading">
+		<Reveal>
+			<div class="home-announcement interactive-surface" data-reveal-item>
+				<div class="home-announcement-copy">
+					<span class="eyebrow">Applications open · Fall 2026</span>
+					<h2 id="fall-2026-applications-heading">Lead a Math AI Lab project this fall</h2>
+					<p>
+						Apply by Monday, September 7 at 11:59 pm. Earlier applications receive priority, and
+						mentors of continuing projects should also apply.
+					</p>
+				</div>
+				<div class="actions">
+					{#each applicationAnnouncement.links ?? [] as link, index}
+						{#if link.url.startsWith('/')}
+							<a class="button" class:primary={index === 0} href={sitePath(link.url)}>{link.label}</a>
+						{:else}
+							<a class="button" class:primary={index === 0} href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+						{/if}
+					{/each}
+				</div>
+			</div>
+		</Reveal>
+	</section>
+{/if}
 
 <section class="page-shell section home-stats-section">
 	<Reveal>
@@ -269,6 +298,49 @@
 
 	.home-hero > div {
 		max-width: 76rem;
+	}
+
+	.home-announcement-section {
+		padding: 0 0 clamp(1rem, 3vw, 2rem);
+	}
+
+	.home-announcement {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		align-items: center;
+		gap: clamp(1.2rem, 4vw, 3rem);
+		padding: clamp(1.25rem, 3vw, 2rem);
+		background:
+			linear-gradient(120deg, color-mix(in srgb, var(--gold) 19%, transparent), transparent 42%),
+			linear-gradient(145deg, color-mix(in srgb, var(--purple) 12%, transparent), transparent 58%),
+			var(--surface);
+		border: 1px solid color-mix(in srgb, var(--gold) 48%, var(--line));
+		border-radius: var(--radius);
+		box-shadow: var(--surface-shadow-rest);
+	}
+
+	.home-announcement-copy {
+		display: grid;
+		gap: 0.65rem;
+	}
+
+	.home-announcement h2 {
+		margin: 0;
+		color: var(--heading);
+		font-family: var(--font-display);
+		font-size: clamp(1.65rem, 4vw, 2.7rem);
+		line-height: 1.05;
+	}
+
+	.home-announcement p {
+		max-width: 68ch;
+		margin: 0;
+		color: var(--muted);
+	}
+
+	.home-announcement .actions {
+		justify-content: flex-end;
+		margin-top: 0;
 	}
 
 	.actions {
@@ -544,6 +616,14 @@
 	}
 
 	@media (max-width: 860px) {
+		.home-announcement {
+			grid-template-columns: 1fr;
+		}
+
+		.home-announcement .actions {
+			justify-content: flex-start;
+		}
+
 		.paper-grid,
 		.event-list,
 		.home-photo-grid,

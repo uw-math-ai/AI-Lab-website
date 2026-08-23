@@ -13,9 +13,13 @@ export type LabEvent = {
 		| 'Final Exam'
 		| 'Information Session'
 		| 'Colloquium'
-		| 'Social';
+		| 'Social'
+		| 'Announcement';
 	sourceUrl?: string;
 	sourceLabel?: string;
+	// Extra action buttons. Internal paths (starting with '/') are resolved
+	// against the site base path at render time.
+	links?: { label: string; url: string }[];
 	abstract?: string;
 	details?: string[];
 	papers?: {
@@ -39,6 +43,26 @@ export type LabEvent = {
 // abstract when one is published; omit abstract rather than summarizing
 // unpublished text.
 export const labEvents: LabEvent[] = ([
+	{
+		title: 'Fall 2026 project leader applications open',
+		speaker: 'Math AI Lab',
+		date: '2026-09-07',
+		startTime: '23:59',
+		endTime: '23:59',
+		location: 'Online',
+		type: 'Announcement',
+		// TODO: after the Google Form is published, replace the form URL below
+		// with the short share link (forms.gle/...) from the Send dialog.
+		links: [
+			{
+				label: 'Project Lead application form',
+				url: 'https://docs.google.com/forms/d/1Bl1wNdIGdc8jHBaaXI-REYfBaGwLFUDu4n3dRab2t40/viewform'
+			},
+			{ label: 'Proposed Fall 2026 projects', url: '/projects/fall-2026' }
+		],
+		abstract:
+			'Project leader applications for Fall 2026 are open! We are recruiting leaders for projects in four areas: machine learning and AI for math, formalization and autoformalization, autoresearch, and AI for math education and learning.\n\nApplications are due Monday, September 7 at 11:59 pm, and earlier applications have priority. Mentors of continuing projects are required to fill it out. The project descriptions are linked below.'
+	},
 	{
 		title: 'ICML 2026',
 		speaker: 'Math AI Lab',
