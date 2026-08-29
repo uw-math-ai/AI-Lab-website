@@ -44,13 +44,13 @@
 		</div>
 	</div>
 	<Reveal class="research-index-reveal">
-		<div class="research-index interactive-surface" aria-label="Research sections">
+		<nav class="research-index interactive-surface" aria-label="Research sections">
 			<strong>{allItems.length}</strong>
 			<span>listed works</span>
 			{#each researchSections as section}
 				<a href={`#${section.id}`}>{section.title}</a>
 			{/each}
-		</div>
+		</nav>
 	</Reveal>
 </section>
 
@@ -103,64 +103,72 @@
 
 <style>
 	.research-hero {
-		grid-template-columns: minmax(0, 1fr) minmax(15rem, 0.36fr);
-	}
-
-	.research-hero :global(.research-index-reveal) {
-		align-self: end;
+		grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.32fr);
+		align-items: end;
 	}
 
 	.research-index {
 		display: grid;
-		gap: 0.6rem;
+		gap: 0.35rem;
 		min-width: 0;
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
-		padding: 1.2rem;
+		padding-left: 1.25rem;
+		border-left: 1px solid var(--line);
 	}
 
 	.research-index strong {
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: 3rem;
+		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
+		font-weight: 600;
+		font-size: 2.2rem;
 		line-height: 1;
+		letter-spacing: -0.03em;
+		color: var(--heading);
 	}
 
 	.research-index span {
+		font-family: var(--font-sans);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--muted);
-		font-weight: 750;
+		margin-bottom: 0.5rem;
 	}
 
 	.research-index a {
-		color: var(--purple);
-		font-weight: 800;
+		font-family: var(--font-sans);
+		font-size: 0.86rem;
+		color: var(--text);
+		text-decoration: none;
 		overflow-wrap: anywhere;
-		text-decoration-thickness: 0.08em;
-		text-underline-offset: 0.18em;
+	}
+
+	.research-index a:hover {
+		text-decoration: underline;
 	}
 
 	.research-controls {
 		padding-top: 0;
-		padding-bottom: 1rem;
+		padding-bottom: 0.5rem;
 	}
 
 	.research-controls label {
 		display: grid;
-		gap: 0.55rem;
+		gap: 0.5rem;
 		max-width: 38rem;
-		color: var(--muted);
-		font-size: 0.86rem;
-		font-weight: 850;
-		text-transform: uppercase;
+	}
+
+	.research-controls label span {
+		font-family: var(--font-sans);
+		font-size: 0.72rem;
+		font-weight: 600;
 		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--muted);
 	}
 
 	.research-controls input {
 		width: 100%;
-		text-transform: none;
-		letter-spacing: 0;
 	}
 
 	.research-section {
@@ -169,94 +177,99 @@
 
 	.research-grid {
 		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1rem;
+		grid-template-columns: minmax(0, 1fr);
 	}
 
 	.research-card {
 		display: grid;
-		gap: 0.75rem;
-		align-content: start;
-		min-width: 0;
-		min-height: 23rem;
-		background:
-			linear-gradient(132deg, color-mix(in srgb, var(--purple) 8%, transparent), transparent 48%),
-			var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
-		padding: 1.15rem;
+		grid-template-columns: 13rem minmax(0, 1fr);
+		gap: 0.35rem 2rem;
+		padding: 1.15rem 0;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.research-card > :global(:not(.paper-meta)) {
+		grid-column: 2;
 	}
 
 	.paper-meta {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.5rem;
-		align-items: center;
-		color: var(--purple);
-		font-size: 0.82rem;
-		font-weight: 850;
+		grid-column: 1;
+		grid-row: 1 / span 4;
+	}
+
+	.paper-meta {
+		display: grid;
+		align-content: start;
+		gap: 0.3rem;
+		padding-top: 0.35rem;
+		font-family: var(--font-sans);
+		font-size: 0.74rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--muted);
 	}
 
 	.paper-meta em {
-		border: 1px solid color-mix(in srgb, var(--gold) 48%, var(--line));
-		border-radius: 999px;
-		background: color-mix(in srgb, var(--gold) 16%, transparent);
-		color: var(--heading);
 		font-style: normal;
-		padding: 0.16rem 0.48rem;
+		color: var(--gold-ink);
 	}
 
 	.research-card h3 {
 		margin: 0;
+		font-size: 1.22rem;
+		line-height: 1.3;
+		font-weight: 500;
 		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(1.25rem, 2vw, 1.7rem);
-		line-height: 1.08;
 	}
 
 	.research-card p {
-		margin: 0;
+		margin: 0.35rem 0 0;
 		color: var(--muted);
+		font-size: 0.98rem;
+		max-width: 72ch;
 	}
 
 	.research-card .authors {
-		color: var(--text);
-		font-weight: 750;
+		font-family: var(--font-sans);
+		font-size: 0.84rem;
+		color: var(--muted);
+	}
+
+	.research-card .snippet-source {
+		margin-top: 0.6rem;
 	}
 
 	.empty-state {
 		max-width: 40rem;
+		border: 0;
+		border-top: 1px solid var(--line-strong);
+		border-radius: 0;
+		padding: 1.25rem 0 0;
+		background: transparent;
 	}
 
 	.empty-state h2 {
 		margin: 0 0 0.4rem;
-		color: var(--heading);
-		font-family: var(--font-display);
+		font-size: 1.4rem;
 	}
 
 	@media (max-width: 900px) {
-		.research-hero,
-		.research-grid {
+		.research-hero {
 			grid-template-columns: 1fr;
 		}
 
-		.research-card {
-			min-height: 0;
+		.research-index {
+			padding-left: 0;
+			border-left: 0;
+			border-top: 1px solid var(--line);
+			padding-top: 1rem;
 		}
 	}
 
 	@media (max-width: 640px) {
-		.research-index {
-			padding: 1rem;
-		}
-
-		.research-index strong {
-			font-size: 2.4rem;
-		}
-
 		.research-card {
-			padding: 1rem;
+			grid-template-columns: 1fr;
 		}
 	}
 </style>

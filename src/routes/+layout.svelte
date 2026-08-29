@@ -2,14 +2,12 @@
 	import '../app.css';
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
-	import MathBackground from '$lib/components/MathBackground.svelte';
 	import ThemeController from '$lib/components/ThemeController.svelte';
 
 	let { children } = $props();
 </script>
 
 <ThemeController />
-<MathBackground />
 <SiteHeader />
 <main>
 	{@render children()}

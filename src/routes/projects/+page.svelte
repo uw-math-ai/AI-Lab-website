@@ -1,9 +1,8 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
-	import CodePanel from '$lib/components/CodePanel.svelte';
+	import AsciiMap from '$lib/components/AsciiMap.svelte';
 	import CountUp from '$lib/components/CountUp.svelte';
-	import { projectIndexLeanSnippet } from '$lib/data/leanSnippets';
-	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
+		import { projectQuarters, totalProjectCount } from '$lib/data/projects';
 	import { sitePath } from '$lib/paths';
 	import { canonicalUrl } from '$lib/seo';
 
@@ -49,7 +48,7 @@
 			</div>
 		</Reveal>
 	</div>
-	<CodePanel snippet={projectIndexLeanSnippet} />
+	<div class="hero-aside"><AsciiMap cols={44} rows={20} /></div>
 </section>
 
 <section class="page-shell section">
@@ -80,7 +79,7 @@
 
 <style>
 	.compact-hero {
-		min-height: 26rem;
+		min-height: 24rem;
 	}
 
 	.compact-hero :global(.project-total-reveal) {
@@ -88,67 +87,95 @@
 	}
 
 	.project-total {
-		display: inline-grid;
-		gap: 0.1rem;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.6rem;
 		margin-top: 1.25rem;
-		padding: 0.9rem 1.05rem;
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
+		padding-top: 0.9rem;
+		border-top: 1px solid var(--line-strong);
 	}
 
 	.project-total strong {
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(2.2rem, 5vw, 3.8rem);
+		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
+		font-weight: 600;
+		font-size: 2rem;
 		line-height: 1;
+		letter-spacing: -0.03em;
+		color: var(--heading);
 	}
 
 	.project-total span {
+		font-family: var(--font-sans);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--muted);
-		font-weight: 750;
 	}
 
 	.filter-row {
-		margin-bottom: 1.2rem;
+		margin-bottom: 0.5rem;
 	}
 
 	.filter-row input {
 		flex: 1 1 18rem;
+		max-width: 38rem;
 	}
 
 	.quarter-grid {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1rem;
+		grid-template-columns: minmax(0, 1fr);
+		border-top: 1px solid var(--line-strong);
+		margin-top: 1rem;
 	}
 
 	.quarter-card {
+		display: grid;
+		grid-template-columns: 11rem minmax(0, 1fr);
+		gap: 0.4rem 2rem;
+		padding: 1rem 0;
+		border: 0;
+		border-bottom: 1px solid var(--line);
+		border-radius: 0;
+		background: transparent;
 		text-decoration: none;
-		min-height: 14rem;
-		min-width: 0;
+		color: var(--text);
+	}
+
+	.quarter-card .meta {
+		margin: 0;
+		align-content: start;
+		padding-top: 0.2rem;
 	}
 
 	.quarter-card h2 {
-		font-family: var(--font-display);
+		margin: 0;
+		font-size: 1.22rem;
+		font-weight: 500;
+		line-height: 1.3;
 		color: var(--heading);
-		margin: 0 0 0.55rem;
 	}
 
-	@media (max-width: 920px) {
-		.quarter-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
+	.quarter-card:hover h2 {
+		text-decoration: underline;
+	}
+
+	.quarter-card p {
+		grid-column: 2;
+		margin: 0;
+		color: var(--muted);
+		font-size: 0.98rem;
+		max-width: 72ch;
 	}
 
 	@media (max-width: 640px) {
-		.quarter-grid {
+		.quarter-card {
 			grid-template-columns: 1fr;
 		}
 
-		.quarter-card {
-			min-height: 0;
+		.quarter-card p {
+			grid-column: 1;
 		}
 	}
 </style>

@@ -1,9 +1,8 @@
 <script lang="ts">
 	import LegacyContent from '$lib/components/LegacyContent.svelte';
 	import Reveal from '$lib/components/Reveal.svelte';
-	import CodePanel from '$lib/components/CodePanel.svelte';
-	import { resourcesLeanSnippet } from '$lib/data/leanSnippets';
-	import coursesHtml from '$lib/legacy-html/courses.html?raw';
+	import AsciiMap from '$lib/components/AsciiMap.svelte';
+		import coursesHtml from '$lib/legacy-html/courses.html?raw';
 	import resourcesHtml from '$lib/legacy-html/resources.html?raw';
 	import seminarsHtml from '$lib/legacy-html/seminars.html?raw';
 	import { canonicalUrl } from '$lib/seo';
@@ -24,7 +23,7 @@
 			A guide to Math AI background material, UW courses, and related seminar series.
 		</p>
 	</div>
-	<CodePanel snippet={resourcesLeanSnippet} />
+	<div class="hero-aside"><AsciiMap cols={44} rows={20} /></div>
 </section>
 
 <section class="page-shell featured-resource" aria-labelledby="featured-resource-title">
@@ -89,104 +88,87 @@
 
 <style>
 	.compact-hero {
-		min-height: 28rem;
+		min-height: 24rem;
 	}
 
 	.featured-resource {
-		padding-top: clamp(1rem, 2vw, 1.4rem);
-		padding-bottom: clamp(1rem, 2vw, 1.4rem);
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
 	}
 
 	.featured-resource-card {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) auto;
-		gap: 1rem;
+		gap: 1rem 2rem;
 		align-items: center;
-		padding: clamp(1.1rem, 2.5vw, 1.55rem);
-		background:
-			linear-gradient(118deg, color-mix(in srgb, var(--gold) 14%, transparent), transparent 38%),
-			linear-gradient(132deg, color-mix(in srgb, var(--purple) 10%, transparent), transparent 46%),
-			var(--surface);
-		border: 1px solid color-mix(in srgb, var(--purple) 30%, var(--line));
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
+		padding: 1.2rem 0;
+		border-top: 1px solid var(--line-strong);
+		border-bottom: 1px solid var(--line);
 		color: var(--text);
 		text-decoration: none;
 	}
 
 	.featured-resource-card h2 {
-		margin: 0.2rem 0 0.4rem;
+		margin: 0.25rem 0 0.2rem;
+		font-size: 1.5rem;
+		line-height: 1.15;
 		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(1.55rem, 3vw, 2.45rem);
-		line-height: 1;
+	}
+
+	.featured-resource-card:hover h2 {
+		text-decoration: underline;
 	}
 
 	.featured-resource-card p {
-		max-width: 62rem;
 		margin: 0;
 		color: var(--muted);
-		font-size: 1.02rem;
-		line-height: 1.55;
+		font-size: 1rem;
 	}
 
 	.featured-link {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		min-height: 2.4rem;
-		padding: 0.5rem 0.9rem;
-		background: var(--purple);
-		border-radius: 999px;
-		color: white;
-		font-size: 0.88rem;
-		font-weight: 850;
+		font-family: var(--font-sans);
+		font-size: 0.86rem;
+		font-weight: 600;
 		white-space: nowrap;
+		color: var(--text);
+	}
+
+	.featured-link::after {
+		content: ' ↗';
+		font-family: var(--font-serif);
 	}
 
 	.resource-section-nav {
 		position: sticky;
-		top: 4.6rem;
+		top: 3.6rem;
 		z-index: 12;
 		display: flex;
-		gap: 0.55rem;
+		gap: 1.4rem;
 		align-items: center;
-		margin-top: -1rem;
-		padding-top: 0.7rem;
-		padding-bottom: 0.7rem;
+		padding: 0.75rem 0;
 		background: color-mix(in srgb, var(--bg) 88%, transparent);
-		backdrop-filter: blur(16px);
+		backdrop-filter: blur(14px);
 		border-bottom: 1px solid var(--line);
 		scrollbar-width: thin;
 	}
 
 	.resource-section-nav a {
-		display: inline-flex;
-		align-items: center;
-		min-height: 2.4rem;
-		padding: 0.45rem 0.85rem;
-		border: 1px solid var(--line);
-		border-radius: 999px;
-		background: var(--surface);
-		color: var(--text);
-		font-size: 0.9rem;
-		font-weight: 750;
+		font-family: var(--font-sans);
+		font-size: 0.86rem;
+		font-weight: 600;
+		color: var(--muted);
 		text-decoration: none;
-		box-shadow: var(--shadow-soft);
-		transition:
-			color 180ms ease,
-			border-color 180ms ease,
-			transform 180ms ease;
+		padding-bottom: 0.15rem;
+		border-bottom: 2px solid transparent;
 	}
 
 	.resource-section-nav a:hover {
-		color: var(--purple);
-		border-color: color-mix(in srgb, var(--purple) 45%, var(--line));
-		transform: translateY(-1px);
+		color: var(--text);
+		border-bottom-color: var(--text);
 	}
 
 	.combined-resource-section {
-		scroll-margin-top: 6rem;
+		scroll-margin-top: 7rem;
 	}
 
 	.combined-resource-section + .combined-resource-section {
@@ -198,30 +180,13 @@
 			grid-template-columns: 1fr;
 		}
 
-		.featured-link {
-			justify-self: start;
-		}
-
 		.resource-section-nav {
-			top: 4.2rem;
 			overflow-x: auto;
-			padding-right: 1rem;
-			margin-top: 0;
 		}
 
 		.resource-section-nav a {
 			flex: 0 0 auto;
 			white-space: nowrap;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.featured-resource-card {
-			padding: 1rem;
-		}
-
-		.featured-link {
-			width: 100%;
 		}
 	}
 </style>
