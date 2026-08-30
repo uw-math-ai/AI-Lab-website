@@ -57,7 +57,7 @@
 
 <section class="home-hero">
 	<div class="hero-field" aria-hidden="false">
-		<OpenProblemsHero bleed caption="The Growing Map of Open Problems · hover any point" />
+		<OpenProblemsHero bleed caption="Hover any point to read the problem" />
 	</div>
 	<div class="page-shell hero-copy">
 		<span class="eyebrow">University of Washington</span>
@@ -80,7 +80,7 @@
 	<section class="page-shell" aria-labelledby="fall-2026-applications-heading">
 		<div class="home-announcement interactive-surface">
 			<div>
-				<span class="eyebrow">Applications open · Fall 2026</span>
+				<span class="eyebrow">Applications open for Fall 2026</span>
 				<h2 id="fall-2026-applications-heading">Lead a Math AI Lab project this fall</h2>
 				<p>
 					Apply by Monday, September 7 at 11:59 pm. Earlier applications receive priority, and
@@ -241,7 +241,7 @@
 						</a>
 					</li>
 					<li class="event-card featured-event-card interactive-surface" data-reveal-item style="--reveal-delay: 45ms">
-						<span class="row-key">Congratulations · ICML 2026</span>
+						<span class="row-key">ICML 2026</span>
 						<a class="row-body" href={sitePath('/events#icml-2026')}>
 							<strong>We presented 8 papers at ICML 2026</strong>
 							<small>Congratulations to our authors! Our work included an oral presentation and a workshop Spotlight in Seoul.</small>
@@ -257,7 +257,7 @@
 								rel={event.sourceUrl ? 'noreferrer' : undefined}
 							>
 								<strong>{event.title}</strong>
-								<small>{event.speaker} · {event.location}</small>
+								<small>{event.speaker}, {event.location}</small>
 							</a>
 						</li>
 					{:else}
@@ -281,7 +281,8 @@
 					{#each latestProjects as quarter, index}
 						<li class="project-card interactive-surface" data-reveal-item style={`--reveal-delay: ${index * 45}ms`}>
 							<span class="row-key">
-								{quarter.label}{#if quarter.status === 'current'} · current{/if}
+								{quarter.label}
+								{#if quarter.status === 'current'}<em>Current</em>{/if}
 							</span>
 							<a class="row-body" href={sitePath(`/projects/${quarter.slug}`)}>
 								<strong>{quarter.label} Projects</strong>
@@ -305,7 +306,7 @@
 		</div>
 		<div class="home-photo-grid">
 			<figure class="home-photo-card home-photo-featured interactive-surface" data-reveal-item style="--reveal-delay: 0ms">
-				<img src={sitePath('/photos/fall2025.jpg')} alt="Fall 2025 Math AI Lab" loading="lazy" decoding="async" />
+				<img src={sitePath('/photos/fall2025.jpg')} width="3024" height="1702" alt="Fall 2025 Math AI Lab" loading="lazy" decoding="async" />
 				<figcaption>
 					<span>Fall 2025</span>
 					<strong>Math AI Lab</strong>
@@ -322,13 +323,13 @@
 					decoding="async"
 				/>
 				<figcaption>
-					<span>ICML 2026 · Seoul</span>
+					<span>ICML 2026, Seoul</span>
 					<strong>ICML 2026 group photo</strong>
 					<p>Math AI Lab members at COEX for eight papers presented across ICML and its workshops.</p>
 				</figcaption>
 			</figure>
-			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 90ms">
-				<img src={sitePath('/photos/lean-hackathon.jpg')} alt="Participants at the UW 2026 Lean Hackathon" loading="lazy" decoding="async" />
+			<figure class="home-photo-card wide interactive-surface" data-reveal-item style="--reveal-delay: 90ms">
+				<img src={sitePath('/photos/lean-hackathon.jpg')} width="2000" height="584" alt="Participants at the UW 2026 Lean Hackathon" loading="lazy" decoding="async" />
 				<figcaption>
 					<span>UW 2026 Lean Hackathon</span>
 					<strong>Lean, mathematics, and AI together</strong>
@@ -589,7 +590,7 @@
 		margin: 0.6rem 0 0;
 		font-family: var(--font-sans);
 		font-size: 0.74rem;
-		color: var(--faint);
+		color: var(--muted);
 	}
 
 	/* ---------- Papers ---------- */
@@ -683,6 +684,13 @@
 		line-height: 1.4;
 	}
 
+	.row-key em {
+		display: block;
+		margin-top: 0.2rem;
+		font-style: normal;
+		color: var(--text);
+	}
+
 	.row-key.num {
 		font-family: var(--font-mono);
 		text-transform: none;
@@ -721,21 +729,28 @@
 	}
 
 	/* ---------- Photos ---------- */
+	/* Photographs keep their own proportions — the panoramic hackathon shot
+	   takes a full-width row rather than being cropped to match the others. */
 	.home-photo-grid {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1.25rem;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		align-items: start;
+		gap: 1.5rem 1.25rem;
 	}
 
 	.home-photo-card {
 		margin: 0;
+		min-width: 0;
+	}
+
+	.home-photo-card.wide {
+		grid-column: 1 / -1;
 	}
 
 	.home-photo-card img {
 		display: block;
 		width: 100%;
-		aspect-ratio: 3 / 2;
-		object-fit: cover;
+		height: auto;
 		border: 1px solid var(--line);
 	}
 
@@ -812,6 +827,17 @@
 	}
 
 	@media (max-width: 640px) {
+		/* Nothing smaller than 12px on a phone. */
+		.tool-stats dt,
+		.home-photo-card figcaption span {
+			font-size: 0.75rem;
+		}
+
+		.credit,
+		.home-photo-card figcaption {
+			font-size: 0.82rem;
+		}
+
 		.home-announcement {
 			grid-template-columns: 1fr;
 		}

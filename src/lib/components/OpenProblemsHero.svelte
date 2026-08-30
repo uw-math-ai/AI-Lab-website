@@ -19,6 +19,7 @@
 		born: number;
 		sx: number;
 		sy: number;
+		shown: boolean;
 	};
 
 	let {
@@ -106,9 +107,55 @@
 				n.sx = ox + (n.x - bbox.minx) * s;
 				n.sy = oy + (n.y - bbox.miny) * s;
 			}
+
+			copyFade = bled ? W : 0;
+			clearings = [];
+			const box = (el: Element | null) => {
+				if (!el) return;
+				const r = el.getBoundingClientRect();
+				const w = wrap.getBoundingClientRect();
+				clearings.push({
+					x: r.left - w.left + r.width / 2,
+					y: r.top - w.top + r.height / 2,
+					rx: r.width / 2 + 22,
+					ry: r.height / 2 + 16
+				});
+			};
+			box(wrap.querySelector('.counter'));
+			box(wrap.querySelector('.key'));
+			applyVisibility();
 		}
 
 		const hash = (i: number) => (((i * 2654435761) >>> 0) % 1000) / 1000;
+
+		// Where type sits, thin the field out rather than painting over it: each
+		// point is dropped with a probability that rises smoothly inside the
+		// clearing, so the edge dithers away instead of showing a hard hole.
+		type Clearing = { x: number; y: number; rx: number; ry: number };
+		let clearings: Clearing[] = [];
+		let copyFade = 0;
+
+		function visibility(x: number, y: number) {
+			let v = 1;
+			if (copyFade > 0) {
+				const t = (x - copyFade * 0.3) / (copyFade * 0.26);
+				v = Math.min(v, Math.max(0, Math.min(1, t)));
+			}
+			for (const c of clearings) {
+				const dx = Math.abs(x - c.x) / c.rx;
+				const dy = Math.abs(y - c.y) / c.ry;
+				const d = Math.max(dx, dy);
+				if (d < 1.3) v = Math.min(v, Math.max(0, (d - 0.78) / 0.52));
+			}
+			return v;
+		}
+
+		function applyVisibility() {
+			for (let i = 0; i < nodes.length; i++) {
+				const n = nodes[i];
+				n.shown = hash(i * 31 + 11) < visibility(n.sx, n.sy);
+			}
+		}
 
 		async function load() {
 			const res = await fetch(sitePath('/data/open-problems-hero.json'));
@@ -134,7 +181,8 @@
 					decl: n[6],
 					born: -1,
 					sx: 0,
-					sy: 0
+					sy: 0,
+					shown: true
 				};
 			});
 			nodes = allNodes;
@@ -176,7 +224,11 @@
 			const cur = done ? 2027 : yearAt(elapsed);
 			if (!done) {
 				year = Math.min(2026, Math.floor(cur));
-				if (cur >= 2027) done = true;
+				if (cur >= 2027) {
+					done = true;
+					// The counter is at its widest now; re-cut the clearing to fit.
+					requestAnimationFrame(() => layout());
+				}
 			}
 
 			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -190,7 +242,7 @@
 			for (const [a, b] of edges) {
 				const na = nodes[a];
 				const nb = nodes[b];
-				if (na.yr > cur || nb.yr > cur) continue;
+				if (na.yr > cur || nb.yr > cur || !na.shown || !nb.shown) continue;
 				ctx.moveTo(na.sx, na.sy);
 				ctx.lineTo(nb.sx, nb.sy);
 			}
@@ -201,6 +253,7 @@
 			for (const n of nodes) {
 				if (n.yr > cur) continue;
 				count++;
+				if (!n.shown) continue;
 				if (n.born < 0) n.born = now;
 				(byCat[n.cat] ?? (byCat[n.cat] = [])).push(n);
 			}
@@ -224,7 +277,7 @@
 			// Gold beacons on Lean-linked problems.
 			const pulse = 0.5 + 0.5 * Math.sin(now / 900);
 			for (const n of nodes) {
-				if (!n.decl || n.yr > cur) continue;
+				if (!n.decl || n.yr > cur || !n.shown) continue;
 				ctx.beginPath();
 				ctx.arc(n.sx, n.sy, 4.5 + pulse * 2.5, 0, Math.PI * 2);
 				ctx.strokeStyle = `rgba(201,162,39,${0.55 - pulse * 0.25})`;
@@ -255,7 +308,7 @@
 			let best: Node | null = null;
 			let bd = 14 * 14;
 			for (const n of nodes) {
-				if (n.born < 0) continue;
+				if (n.born < 0 || !n.shown) continue;
 				const dx = n.sx - px;
 				const dy = n.sy - py;
 				const d = dx * dx + dy * dy;
@@ -281,7 +334,7 @@
 					x: pointer.x,
 					y: pointer.y,
 					title: n.title ?? `An open problem in ${catName}`,
-					meta: `${catName} · ${yrLabel}`,
+					meta: yrLabel === 'undated' ? catName : `${catName}, ${yrLabel}`,
 					lean: n.decl || undefined
 				};
 			} else {
@@ -341,7 +394,7 @@
 		<div class="tip" style={`left:${tip.x}px; top:${tip.y}px`} role="status">
 			<strong>{tip.title}</strong>
 			<span>{tip.meta}</span>
-			{#if tip.lean}<em>Stated in Lean · {tip.lean}</em>{/if}
+			{#if tip.lean}<em>Stated in Lean<b>{tip.lean}</b></em>{/if}
 		</div>
 	{/if}
 
@@ -353,7 +406,7 @@
 {#if spectrum.length}
 	<div class="spectrum" role="img" aria-label="Share of open problems by field">
 		{#each spectrum as f}
-			<span style={`flex:${f.count}; background:${f.color}`} title={`${f.name} · ${fmt(f.count)}`}></span>
+			<span style={`flex:${f.count}; background:${f.color}`} title={`${f.name}, ${fmt(f.count)} open problems`}></span>
 		{/each}
 	</div>
 {/if}
@@ -377,30 +430,11 @@
 		padding: 0;
 	}
 
-	@media (min-width: 900px) {
-		.frame.bleed canvas {
-			-webkit-mask-image: linear-gradient(
-				95deg,
-				transparent 0 28%,
-				rgba(0, 0, 0, 0.14) 38%,
-				rgba(0, 0, 0, 0.6) 48%,
-				#000 58%
-			);
-			mask-image: linear-gradient(
-				95deg,
-				transparent 0 28%,
-				rgba(0, 0, 0, 0.14) 38%,
-				rgba(0, 0, 0, 0.6) 48%,
-				#000 58%
-			);
-		}
-	}
-
 	.frame.bleed .counter {
 		top: clamp(1rem, 3vw, 2rem);
 		right: max(1.5rem, calc((100vw - var(--shell)) / 2));
-		padding: 0.6rem 0.2rem 0.8rem 3rem;
-		background: radial-gradient(115% 150% at 88% 42%, var(--bg) 46%, color-mix(in srgb, var(--bg) 55%, transparent) 74%, transparent 100%);
+		padding: 0;
+		background: none;
 	}
 
 	.frame.bleed .key {
@@ -410,8 +444,8 @@
 		display: grid;
 		justify-items: end;
 		gap: 0.3rem;
-		padding: 0.6rem 0.2rem 0.6rem 3rem;
-		background: radial-gradient(120% 160% at 85% 50%, var(--bg) 48%, color-mix(in srgb, var(--bg) 55%, transparent) 76%, transparent 100%);
+		padding: 0;
+		background: none;
 		text-align: right;
 	}
 
@@ -500,7 +534,7 @@
 	}
 
 	.key .caption {
-		color: var(--faint);
+		color: var(--muted);
 	}
 
 	.key i {
@@ -541,10 +575,23 @@
 	}
 
 	.tip em {
+		display: grid;
+		gap: 0.1rem;
+		margin-top: 0.15rem;
 		font-style: normal;
+		font-size: 0.68rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--gold-ink);
+	}
+
+	.tip em b {
 		font-family: var(--font-mono);
 		font-size: 0.72rem;
-		color: var(--gold-ink);
+		font-weight: 400;
+		letter-spacing: 0;
+		text-transform: none;
 	}
 
 	@media (max-width: 900px) {

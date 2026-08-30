@@ -31,8 +31,9 @@ iframe {
 	--surface-strong: #ffffff;
 	--text: var(--ink);
 	--heading: var(--ink);
-	--muted: rgba(27, 30, 35, 0.6);
-	--faint: rgba(27, 30, 35, 0.38);
+	--muted: rgba(27, 30, 35, 0.62);
+	/* Deprecated: failed AA at caption sizes. Use --muted. */
+	--faint: var(--muted);
 	--line: rgba(27, 30, 35, 0.14);
 	--line-strong: rgba(27, 30, 35, 0.32);
 	--soft: rgba(27, 30, 35, 0.045);
@@ -69,8 +70,8 @@ iframe {
 	--surface-strong: #1d1e22;
 	--text: var(--ink);
 	--heading: #f2f2ea;
-	--muted: rgba(223, 223, 214, 0.62);
-	--faint: rgba(223, 223, 214, 0.4);
+	--muted: rgba(223, 223, 214, 0.64);
+	--faint: var(--muted);
 	--line: rgba(223, 223, 214, 0.16);
 	--line-strong: rgba(223, 223, 214, 0.36);
 	--soft: rgba(223, 223, 214, 0.06);

@@ -148,7 +148,8 @@
 	{#if caption}
 		<figcaption>
 			<span class="num">{year}</span>
-			<span>{fmt(count)} open problems · <a href={sitePath('/#open-problems-map')}>the map</a></span>
+			<span>{fmt(count)} open problems</span>
+			<a href={sitePath('/#open-problems-map')}>The map</a>
 		</figcaption>
 	{/if}
 </figure>
@@ -179,8 +180,9 @@
 
 	figcaption {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: baseline;
-		gap: 0.75rem;
+		gap: 0.4rem 1rem;
 		font-family: var(--font-sans);
 		font-size: 0.72rem;
 		letter-spacing: 0.06em;

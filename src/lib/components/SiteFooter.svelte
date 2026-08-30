@@ -27,7 +27,8 @@
 		<div class="footer-brand">
 			<span class="wordmark">Math AI Lab</span>
 			<p>Department of Mathematics<br />University of Washington</p>
-			<small>© 2026 · Report a bug to zengrf at uw dot edu</small>
+			<small>© 2026</small>
+			<small>Report a bug to zengrf at uw dot edu</small>
 		</div>
 
 		<div class="footer-col">
@@ -85,6 +86,10 @@
 		font-size: 1.2rem;
 	}
 
+	.footer-brand small:first-of-type {
+		margin-top: 1rem;
+	}
+
 	.footer-brand p {
 		margin: 0.6rem 0 0;
 		color: var(--muted);
@@ -94,10 +99,10 @@
 
 	.footer-brand small {
 		display: block;
-		margin-top: 1rem;
+		margin-top: 0.35rem;
 		font-family: var(--font-sans);
 		font-size: 0.72rem;
-		color: var(--faint);
+		color: var(--muted);
 	}
 
 	.footer-col {

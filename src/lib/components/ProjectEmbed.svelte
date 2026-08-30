@@ -188,5 +188,24 @@
 		.viewport {
 			aspect-ratio: 4 / 3;
 		}
+
+		.load {
+			width: max-content;
+			max-width: calc(100% - 2rem);
+			font-size: 0.82rem;
+			padding: 0.6rem 1rem 0.6rem 0.85rem;
+			white-space: nowrap;
+		}
+
+		.chrome {
+			font-size: 0.75rem;
+			gap: 0.5rem;
+		}
+
+		.url {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 	}
 </style>

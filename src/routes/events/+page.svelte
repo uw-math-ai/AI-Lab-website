@@ -75,12 +75,12 @@
 				<div class="icml-top">
 				<div class="icml-copy" data-reveal-item style="--reveal-delay: 0ms">
 					<div>
-						<span class="eyebrow">Eight accepted papers · ICML 2026</span>
+						<span class="eyebrow">Eight accepted papers at ICML 2026</span>
 						<h2 id="icml-heading">Congratulations to our ICML authors</h2>
 						<p>{icmlEvent.abstract}</p>
 						<div class="meta icml-meta">
 							<span class="pill">July 6–11, 2026</span>
-							<span class="pill">COEX · Seoul, Korea</span>
+							<span class="pill">COEX, Seoul, Korea</span>
 						</div>
 					</div>
 					<a class="button" href={icmlEvent.sourceUrl} target="_blank" rel="noreferrer">ICML 2026</a>

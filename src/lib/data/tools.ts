@@ -30,10 +30,10 @@ export const labTools: LabTool[] = [
 			{ value: '1742–2026', label: 'years' }
 		],
 		links: [
-			{ label: 'Dataset · ulamai/UnsolvedMath', url: 'https://huggingface.co/datasets/ulamai/UnsolvedMath' },
+			{ label: 'UnsolvedMath dataset', url: 'https://huggingface.co/datasets/ulamai/UnsolvedMath' },
 			{ label: 'Formalization frontier', url: 'https://open-problems-map.pages.dev/frontier.html' }
 		],
-		credit: 'Simon Kurgan · built on TheoremGraph · problem data ulamai/UnsolvedMath, CC BY 4.0.'
+		credit: 'Built by Simon Kurgan on TheoremGraph. Problem data from ulamai/UnsolvedMath, CC BY 4.0.'
 	},
 	{
 		id: 'theoremsearch',
@@ -50,8 +50,8 @@ export const labTools: LabTool[] = [
 			{ value: '11.3M', label: 'graph edges' }
 		],
 		links: [
-			{ label: 'TheoremSearch · arXiv:2602.05216', url: 'https://arxiv.org/abs/2602.05216' },
-			{ label: 'TheoremGraph · arXiv:2606.25363', url: 'https://arxiv.org/abs/2606.25363' },
+			{ label: 'TheoremSearch paper', url: 'https://arxiv.org/abs/2602.05216' },
+			{ label: 'TheoremGraph paper', url: 'https://arxiv.org/abs/2606.25363' },
 			{ label: 'API', url: 'https://api.theoremsearch.com/openapi.json' },
 			{ label: 'Dataset', url: 'https://huggingface.co/datasets/uw-math-ai/theorem-search-dataset' }
 		],
