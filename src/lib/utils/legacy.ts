@@ -19,6 +19,33 @@ export function headingsFromHtml(html: string) {
 	});
 }
 
+/**
+ * Turn plain-text arXiv references in legacy project pages into links, so a
+ * contributor can paste "arXiv:2503.07846" or a bare arxiv.org URL and it
+ * still resolves. Existing anchors and anything inside a tag are left alone.
+ * Both forms are matched in one pass so a rewritten URL cannot be rewritten
+ * again by the bare-id rule.
+ */
+const ARXIV_REFERENCE =
+	/\bhttps?:\/\/arxiv\.org\/(?:abs|pdf)\/(\d{4}\.\d{4,5})(?:v\d+)?\b|\barXiv[:\s]\s*(\d{4}\.\d{4,5})(?:v\d+)?\b/gi;
+
+export function linkArxivReferences(html: string) {
+	return html
+		.split(/(<a\b[\s\S]*?<\/a>|<[^>]+>)/gi)
+		.map((segment, index) => {
+			// Odd indices are the tags and anchors captured above; never touch them.
+			if (index % 2 === 1) return segment;
+			return segment.replace(
+				ARXIV_REFERENCE,
+				(_match, fromUrl?: string, fromId?: string) => {
+					const id = fromUrl ?? fromId;
+					return `<a href="https://arxiv.org/abs/${id}" target="_blank" rel="noreferrer">arXiv:${id}</a>`;
+				}
+			);
+		})
+		.join('');
+}
+
 export function legacyMainContent(html: string, options: { projectSlug?: string } = {}) {
 	const body = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? html;
 	const withoutChrome = body
@@ -96,7 +123,7 @@ export function legacyMainContent(html: string, options: { projectSlug?: string 
 		});
 	}
 
-	return rewriteLinks(normalized);
+	return linkArxivReferences(rewriteLinks(normalized));
 }
 
 function stripProjectPageTitle(html: string, projectSlug: string) {

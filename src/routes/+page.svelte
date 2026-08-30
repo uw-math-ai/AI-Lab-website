@@ -57,7 +57,13 @@
 
 <section class="home-hero">
 	<div class="hero-field" aria-hidden="false">
-		<OpenProblemsHero bleed caption="Hover any point to read the problem" />
+		<OpenProblemsHero
+			bleed
+			caption="Hover any point to read the problem"
+			work="The Growing Map of Open Problems"
+			author="Simon Kurgan"
+			href="https://open-problems-map.pages.dev/"
+		/>
 	</div>
 	<div class="page-shell hero-copy">
 		<span class="eyebrow">University of Washington</span>

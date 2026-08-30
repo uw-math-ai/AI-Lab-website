@@ -26,8 +26,20 @@
 		total = 15458,
 		lean = 77,
 		bleed = false,
-		caption = ''
-	} = $props<{ total?: number; lean?: number; bleed?: boolean; caption?: string }>();
+		caption = '',
+		work = '',
+		author = '',
+		href = ''
+	} = $props<{
+		total?: number;
+		lean?: number;
+		bleed?: boolean;
+		caption?: string;
+		/** Figure credit: the piece, who made it, and where it lives. */
+		work?: string;
+		author?: string;
+		href?: string;
+	}>();
 
 	let canvas: HTMLCanvasElement;
 	let wrap: HTMLDivElement;
@@ -401,6 +413,12 @@
 	<div class="key">
 		<span><i style="background:#c9a227"></i>{lean} problems already stated in Lean</span>
 		{#if caption}<span class="caption">{caption}</span>{/if}
+		{#if work}
+			<span class="figure-credit">
+				<a href={href} target="_blank" rel="noreferrer">{work}</a>
+				{#if author}<b>{author}</b>{/if}
+			</span>
+		{/if}
 	</div>
 </div>
 {#if spectrum.length}
@@ -535,6 +553,31 @@
 
 	.key .caption {
 		color: var(--muted);
+	}
+
+	.figure-credit {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.5rem;
+		margin-top: 0.35rem;
+		padding-top: 0.35rem;
+		border-top: 1px solid var(--line);
+	}
+
+	.figure-credit a {
+		color: var(--muted);
+		text-decoration: none;
+		border-bottom: 1px solid var(--line-strong);
+	}
+
+	.figure-credit a:hover {
+		color: var(--text);
+		border-bottom-color: var(--text);
+	}
+
+	.figure-credit b {
+		font-weight: 600;
+		color: var(--text);
 	}
 
 	.key i {
