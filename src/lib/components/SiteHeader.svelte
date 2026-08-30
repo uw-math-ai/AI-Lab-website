@@ -2,8 +2,28 @@
 	import { page } from '$app/stores';
 	import { routePath, sitePath } from '$lib/paths';
 
+	import { browser } from '$app/environment';
+
 	let menuOpen = $state(false);
+	let theme = $state('light');
 	let pathname = $derived(routePath($page.url.pathname));
+
+	// ThemeController owns the theme; the header mirrors it and asks for changes
+	// through the same event, so the footer's Auto/Light/Dark stays in sync.
+	$effect(() => {
+		if (!browser) return;
+		const read = () => (theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+		read();
+		const observer = new MutationObserver(read);
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		return () => observer.disconnect();
+	});
+
+	function toggleTheme() {
+		window.dispatchEvent(
+			new CustomEvent('math-ai-theme', { detail: theme === 'dark' ? 'light' : 'dark' })
+		);
+	}
 
 	const navItems = [
 		{ href: '/projects', label: 'Projects', match: (p: string) => p.startsWith('/projects') },
@@ -26,18 +46,8 @@
 			<span class="institution">University of Washington</span>
 		</a>
 
-		<button
-			class="menu-button"
-			type="button"
-			aria-expanded={menuOpen}
-			aria-controls="primary-navigation"
-			onclick={() => (menuOpen = !menuOpen)}
-		>
-			<span class="bars" aria-hidden="true"><i></i><i></i></span>
-			<span class="menu-label">Menu</span>
-		</button>
-
-		<nav id="primary-navigation" class:open={menuOpen} aria-label="Primary navigation">
+		<div class="header-right">
+			<nav id="primary-navigation" class:open={menuOpen} aria-label="Primary navigation">
 			{#each navItems as item}
 				<a class:active={item.match(pathname)} href={sitePath(item.href)} onclick={closeMenus}>{item.label}</a>
 			{/each}
@@ -50,7 +60,32 @@
 			>
 				Support the lab
 			</a>
-		</nav>
+			</nav>
+
+			<button
+				class="theme-toggle"
+				type="button"
+				onclick={toggleTheme}
+				title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+				aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+			>
+				<svg viewBox="0 0 16 16" aria-hidden="true">
+					<circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.2" />
+					<path d="M8 1.6a6.4 6.4 0 0 1 0 12.8z" fill="currentColor" />
+				</svg>
+			</button>
+
+			<button
+				class="menu-button"
+				type="button"
+				aria-expanded={menuOpen}
+				aria-controls="primary-navigation"
+				onclick={() => (menuOpen = !menuOpen)}
+			>
+				<span class="bars" aria-hidden="true"><i></i><i></i></span>
+				<span class="menu-label">Menu</span>
+			</button>
+		</div>
 	</div>
 </header>
 
@@ -111,10 +146,44 @@
 		white-space: nowrap;
 	}
 
+	.header-right {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+	}
+
 	nav {
 		display: flex;
 		align-items: center;
 		gap: 0.15rem;
+	}
+
+	.theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.85rem;
+		height: 1.85rem;
+		padding: 0;
+		border: 1px solid var(--line-strong);
+		border-radius: var(--radius);
+		background: transparent;
+		color: var(--muted);
+		cursor: pointer;
+		transition:
+			color var(--motion-fast),
+			border-color var(--motion-fast);
+	}
+
+	.theme-toggle svg {
+		width: 0.9rem;
+		height: 0.9rem;
+		display: block;
+	}
+
+	.theme-toggle:hover {
+		color: var(--text);
+		border-color: var(--text);
 	}
 
 	nav a {
