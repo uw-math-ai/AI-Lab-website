@@ -592,7 +592,7 @@
 		z-index: 3;
 		transform: translate(14px, -50%);
 		display: grid;
-		gap: 0.15rem;
+		gap: 0.3rem;
 		max-width: 18rem;
 		background: var(--surface);
 		border: 1px solid var(--line);
@@ -609,6 +609,7 @@
 		font-family: var(--font-serif);
 		font-weight: 600;
 		font-size: 0.95rem;
+		line-height: 1.25;
 		color: var(--heading);
 	}
 
@@ -619,8 +620,10 @@
 
 	.tip em {
 		display: grid;
-		gap: 0.1rem;
+		gap: 0.15rem;
 		margin-top: 0.15rem;
+		padding-top: 0.35rem;
+		border-top: 1px solid var(--line);
 		font-style: normal;
 		font-size: 0.68rem;
 		font-weight: 600;

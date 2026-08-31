@@ -26,6 +26,16 @@
 	const [openProblems, theoremSearch] = labTools;
 
 	let query = $state('');
+	let selected = $state(0);
+
+	function onTabKeydown(event: KeyboardEvent) {
+		const delta = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+		if (!delta) return;
+		event.preventDefault();
+		selected = (selected + delta + labTools.length) % labTools.length;
+		const next = document.getElementById(`tool-tab-${labTools[selected].id}`);
+		next?.focus();
+	}
 
 	function eventHref(event: { sourceUrl?: string }) {
 		return event.sourceUrl ?? sitePath('/events');
@@ -123,78 +133,70 @@
 		<p>Two public tools from Math AI Lab projects, running live below.</p>
 	</div>
 
-	<article class="tool" id={openProblems.id}>
-		<Reveal>
-			<div class="tool-head" data-reveal-item>
-				<div class="tool-copy">
-					<h3>{openProblems.name}</h3>
-					<p>{openProblems.description}</p>
-					<div class="tool-links">
-						<a class="button" href={openProblems.url} target="_blank" rel="noreferrer">Open the map <span class="arrow">↗</span></a>
-						{#each openProblems.links as link}
-							<a class="text-link" href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
-						{/each}
-					</div>
-				</div>
-				<dl class="tool-stats">
-					{#each openProblems.stats as stat}
-						<div><dt>{stat.label}</dt><dd class="num">{stat.value}</dd></div>
-					{/each}
-				</dl>
-			</div>
-			<div data-reveal-item style="--reveal-delay: 80ms">
-				<ProjectEmbed
-					src={openProblems.url}
-					title={openProblems.name}
-					poster={openProblems.poster}
-					posterAlt={openProblems.posterAlt}
-					loadLabel="Play the growing map"
-				/>
-			</div>
-			<p class="credit">{openProblems.credit}</p>
-		</Reveal>
-	</article>
+	<div class="gallery" id="open-problems-map">
+		<div class="gallery-tabs" role="tablist" aria-label="Lab tools">
+			{#each labTools as tool, index}
+				<button
+					type="button"
+					role="tab"
+					id={`tool-tab-${tool.id}`}
+					aria-selected={selected === index}
+					aria-controls={`tool-panel-${tool.id}`}
+					tabindex={selected === index ? 0 : -1}
+					class:selected={selected === index}
+					onclick={() => (selected = index)}
+					onkeydown={onTabKeydown}
+				>
+					{tool.name}
+				</button>
+			{/each}
+		</div>
 
-	<article class="tool" id={theoremSearch.id}>
-		<Reveal>
-			<div class="tool-head" data-reveal-item>
-				<div class="tool-copy">
-					<h3>{theoremSearch.name}</h3>
-					<p>{theoremSearch.description}</p>
-					<form class="search" action="https://www.theoremsearch.com/search" method="get" target="_blank" rel="noreferrer">
-						<input
-							type="search"
-							name="q"
-							bind:value={query}
-							placeholder="Describe a result (e.g. The Jones polynomial is link invariant)"
-							aria-label="Search TheoremSearch"
-						/>
-						<button class="button primary" type="submit">Search</button>
-					</form>
-					<div class="tool-links">
-						{#each theoremSearch.links as link}
-							<a class="text-link" href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
-						{/each}
+		{#each labTools as tool, index}
+			{#if selected === index}
+				<div
+					class="gallery-panel"
+					id={`tool-panel-${tool.id}`}
+					role="tabpanel"
+					aria-labelledby={`tool-tab-${tool.id}`}
+				>
+					<div class="gallery-copy">
+						<p class="tool-description">{tool.description}</p>
+						{#if tool.id === 'theoremsearch'}
+							<form class="search" action="https://www.theoremsearch.com/search" method="get" target="_blank" rel="noreferrer">
+								<input
+									type="search"
+									name="q"
+									bind:value={query}
+									placeholder="Describe a result (e.g. The Jones polynomial is link invariant)"
+									aria-label="Search TheoremSearch"
+								/>
+								<button class="button primary" type="submit">Search</button>
+							</form>
+						{/if}
+						<div class="tool-links">
+							<a class="button" href={tool.url} target="_blank" rel="noreferrer">
+								{tool.id === 'theoremsearch' ? 'Open TheoremSearch' : 'Open the map'}
+								<span class="arrow">↗</span>
+							</a>
+							{#each tool.links as link}
+								<a class="text-link" href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+							{/each}
+						</div>
 					</div>
+
+					<ProjectEmbed
+						src={tool.id === 'theoremsearch' && query.trim() ? searchUrl(query) : tool.url}
+						title={tool.name}
+						poster={tool.poster}
+						posterAlt={tool.posterAlt}
+						loadLabel={tool.id === 'theoremsearch' ? 'Open TheoremSearch here' : 'Play the growing map'}
+					/>
+					<p class="credit">{tool.credit}</p>
 				</div>
-				<dl class="tool-stats">
-					{#each theoremSearch.stats as stat}
-						<div><dt>{stat.label}</dt><dd class="num">{stat.value}</dd></div>
-					{/each}
-				</dl>
-			</div>
-			<div data-reveal-item style="--reveal-delay: 80ms">
-				<ProjectEmbed
-					src={query.trim() ? searchUrl(query) : theoremSearch.url}
-					title={theoremSearch.name}
-					poster={theoremSearch.poster}
-					posterAlt={theoremSearch.posterAlt}
-					loadLabel="Open TheoremSearch here"
-				/>
-			</div>
-			<p class="credit">{theoremSearch.credit}</p>
-		</Reveal>
-	</article>
+			{/if}
+		{/each}
+	</div>
 </section>
 
 <section class="page-shell section papers-section">
@@ -493,46 +495,71 @@
 	}
 
 	/* ---------- Tools ---------- */
-	.tool {
-		padding: clamp(1.5rem, 3vw, 2.5rem) 0 0;
-	}
-
-	.tool + .tool {
-		margin-top: clamp(2.5rem, 5vw, 4rem);
-		border-top: 1px solid var(--line);
-	}
-
-	.tool-head {
+	/* Both tools share one frame; the tabs pick which is on show, so the
+	   section stays the same height whichever is selected. */
+	.gallery {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto;
-		gap: 1.5rem 3rem;
-		align-items: start;
-		margin-bottom: 1.5rem;
+		gap: 1.5rem;
 	}
 
-	.tool-copy {
-		max-width: 44rem;
+	.gallery-tabs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 1.75rem;
+		border-bottom: 1px solid var(--line);
 	}
 
-	.tool-copy h3 {
-		font-size: clamp(1.6rem, 2.8vw, 2.1rem);
-		line-height: 1.1;
-		margin: 0 0 0.6rem;
+	.gallery-tabs button {
+		position: relative;
+		border: 0;
+		background: none;
+		padding: 0 0 0.7rem;
+		margin-bottom: -1px;
+		font-family: var(--font-serif);
+		font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+		font-weight: 500;
+		letter-spacing: -0.01em;
+		color: var(--muted);
+		cursor: pointer;
+		transition: color var(--motion-fast);
 	}
 
-	.tool-copy p {
+	.gallery-tabs button:hover {
+		color: var(--text);
+	}
+
+	.gallery-tabs button.selected {
+		color: var(--heading);
+	}
+
+	.gallery-tabs button.selected::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 2px;
+		background: var(--purple);
+	}
+
+	.gallery-panel {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.tool-description {
 		margin: 0;
-		font-size: 1.02rem;
+		max-width: var(--measure);
+		font-size: 1.05rem;
 		line-height: 1.5;
 		color: var(--muted);
-		max-width: var(--measure);
 	}
 
 	.tool-links {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.5rem 1.2rem;
+		gap: 0.6rem 1.2rem;
 		margin-top: 1.1rem;
 	}
 
@@ -549,37 +576,6 @@
 		border-bottom-color: var(--purple);
 	}
 
-	.tool-stats {
-		display: grid;
-		grid-template-columns: repeat(2, auto);
-		gap: 0.9rem 2.2rem;
-		margin: 0.3rem 0 0;
-		padding-left: 2rem;
-		border-left: 1px solid var(--line);
-	}
-
-	.tool-stats div {
-		display: grid;
-		gap: 0.2rem;
-	}
-
-	.tool-stats dt {
-		font-family: var(--font-sans);
-		font-size: 0.68rem;
-		font-weight: 600;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--muted);
-	}
-
-	.tool-stats dd {
-		margin: 0;
-		font-size: 1.35rem;
-		font-weight: 600;
-		line-height: 1;
-		color: var(--heading);
-	}
-
 	.search {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) auto;
@@ -593,9 +589,9 @@
 	}
 
 	.credit {
-		margin: 0.6rem 0 0;
+		margin: 0;
 		font-family: var(--font-sans);
-		font-size: 0.74rem;
+		font-size: 0.78rem;
 		color: var(--muted);
 	}
 
@@ -813,18 +809,6 @@
 			white-space: normal;
 		}
 
-		.tool-head {
-			grid-template-columns: 1fr;
-		}
-
-		.tool-stats {
-			grid-template-columns: repeat(4, auto);
-			padding-left: 0;
-			border-left: 0;
-			border-top: 1px solid var(--line);
-			padding-top: 1rem;
-		}
-
 		.split {
 			grid-template-columns: 1fr;
 		}
@@ -836,7 +820,6 @@
 
 	@media (max-width: 640px) {
 		/* Nothing smaller than 12px on a phone. */
-		.tool-stats dt,
 		.home-photo-card figcaption span {
 			font-size: 0.75rem;
 		}
@@ -865,10 +848,6 @@
 		.row-list li {
 			grid-template-columns: 1fr;
 			gap: 0.3rem;
-		}
-
-		.tool-stats {
-			grid-template-columns: repeat(2, auto);
 		}
 
 		.search {

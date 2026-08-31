@@ -139,17 +139,10 @@
 	}
 
 	.resource-section-nav {
-		position: sticky;
-		top: 3.6rem;
-		z-index: 12;
 		display: flex;
-		gap: 1.4rem;
+		gap: 1.6rem;
 		align-items: center;
-		padding: 0.75rem 0;
-		background: color-mix(in srgb, var(--bg) 88%, transparent);
-		backdrop-filter: blur(14px);
-		border-bottom: 1px solid var(--line);
-		scrollbar-width: thin;
+		padding: 0.9rem 0 0;
 	}
 
 	.resource-section-nav a {

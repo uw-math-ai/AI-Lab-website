@@ -460,4 +460,57 @@
 			grid-template-columns: 1fr;
 		}
 	}
+
+	/* Outbound links carry a small mark for what they lead to — a repository, a
+	   paper, a dataset, a talk. Drawn as masks so they take the text colour and
+	   work in both themes. */
+	.legacy-content :global(a[href*='github.com'])::after,
+	.legacy-content :global(a[href*='arxiv.org'])::after,
+	.legacy-content :global(a[href*='ams.org'])::after,
+	.legacy-content :global(a[href*='doi.org'])::after,
+	.legacy-content :global(a[href*='huggingface.co'])::after,
+	.legacy-content :global(a[href*='youtube.com'])::after,
+	.legacy-content :global(a[href*='youtu.be'])::after {
+		content: '';
+		display: inline-block;
+		width: 0.72em;
+		height: 0.72em;
+		margin-left: 0.3em;
+		vertical-align: -0.02em;
+		background-color: currentColor;
+		opacity: 0.55;
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		mask-position: center;
+		-webkit-mask-size: contain;
+		mask-size: contain;
+	}
+
+	/* repository */
+	.legacy-content :global(a[href*='github.com'])::after {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 4.5 2.5 8 6 11.5M10 4.5 13.5 8 10 11.5'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 4.5 2.5 8 6 11.5M10 4.5 13.5 8 10 11.5'/%3E%3C/svg%3E");
+	}
+
+	/* paper */
+	.legacy-content :global(a[href*='arxiv.org'])::after,
+	.legacy-content :global(a[href*='ams.org'])::after,
+	.legacy-content :global(a[href*='doi.org'])::after {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M4 1.8h5l3 3v9.4H4z'/%3E%3Cpath d='M9 1.8v3.2h3'/%3E%3Cpath d='M6 8.6h4M6 11h4' stroke-linecap='round'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.4' stroke-linejoin='round'%3E%3Cpath d='M4 1.8h5l3 3v9.4H4z'/%3E%3Cpath d='M9 1.8v3.2h3'/%3E%3Cpath d='M6 8.6h4M6 11h4' stroke-linecap='round'/%3E%3C/svg%3E");
+	}
+
+	/* dataset */
+	.legacy-content :global(a[href*='huggingface.co'])::after {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.4'%3E%3Cellipse cx='8' cy='3.8' rx='5' ry='2'/%3E%3Cpath d='M3 3.8v8.4c0 1.1 2.2 2 5 2s5-.9 5-2V3.8'/%3E%3Cpath d='M3 8c0 1.1 2.2 2 5 2s5-.9 5-2'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.4'%3E%3Cellipse cx='8' cy='3.8' rx='5' ry='2'/%3E%3Cpath d='M3 3.8v8.4c0 1.1 2.2 2 5 2s5-.9 5-2V3.8'/%3E%3Cpath d='M3 8c0 1.1 2.2 2 5 2s5-.9 5-2'/%3E%3C/svg%3E");
+	}
+
+	/* talk */
+	.legacy-content :global(a[href*='youtube.com'])::after,
+	.legacy-content :global(a[href*='youtu.be'])::after {
+		-webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.4' stroke-linejoin='round'%3E%3Crect x='1.5' y='3' width='13' height='10' rx='2.5'/%3E%3Cpath d='M6.6 6.2 10.4 8l-3.8 1.8z' fill='black'/%3E%3C/svg%3E");
+		mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='black' stroke-width='1.4' stroke-linejoin='round'%3E%3Crect x='1.5' y='3' width='13' height='10' rx='2.5'/%3E%3Cpath d='M6.6 6.2 10.4 8l-3.8 1.8z' fill='black'/%3E%3C/svg%3E");
+	}
 </style>

@@ -4,6 +4,20 @@
 	import { canonicalUrl } from '$lib/seo';
 
 	let query = $state('');
+	let expanded = $state(new Set<string>());
+	let previewing = $state(new Set<string>());
+
+	/** arXiv refuses to be framed at /abs, but serves /pdf without restriction. */
+	function arxivId(url: string) {
+		return url.match(/arxiv\.org\/(?:abs|pdf)\/(\d{4}\.\d{4,5})/)?.[1] ?? null;
+	}
+
+	function toggle(set: Set<string>, key: string) {
+		const next = new Set(set);
+		if (next.has(key)) next.delete(key);
+		else next.add(key);
+		return next;
+	}
 
 	const allItems = $derived(researchSections.flatMap((section) => section.items));
 	const filteredSections = $derived(
@@ -80,13 +94,54 @@
 						<div class="paper-meta">
 							<span>{item.venue}</span>
 							{#if item.badge}<em>{item.badge}</em>{/if}
+							{#if previewing.has(item.url)}
+								<figure class="paper-preview">
+									<a
+										class="preview-open"
+										href={`https://arxiv.org/pdf/${arxivId(item.url)}`}
+										target="_blank"
+										rel="noreferrer"
+										aria-label={`Open ${item.title} on arXiv`}
+									>
+										<iframe
+											src={`https://arxiv.org/pdf/${arxivId(item.url)}#toolbar=0&navpanes=0&scrollbar=0&view=FitH&page=1`}
+											title={`First page of ${item.title}`}
+											loading="lazy"
+											tabindex="-1"
+										></iframe>
+									</a>
+									<figcaption>First page — open on arXiv ↗</figcaption>
+								</figure>
+							{/if}
 						</div>
 						<h3>{item.title}</h3>
 						<p class="authors">{item.authors}</p>
-						<p>{item.abstract}</p>
-						<a class="snippet-source" href={item.url} target="_blank" rel="noreferrer">
-							{item.linkLabel}
-						</a>
+						<div class="abstract-wrap">
+							<p class="abstract" class:open={expanded.has(item.url)}>{item.abstract}</p>
+						</div>
+						<div class="paper-actions">
+							<button
+								type="button"
+								class="disclose"
+								aria-expanded={expanded.has(item.url)}
+								onclick={() => (expanded = toggle(expanded, item.url))}
+							>
+								{expanded.has(item.url) ? 'Less' : 'Read the abstract'}
+							</button>
+							<a class="snippet-source" href={item.url} target="_blank" rel="noreferrer">
+								{item.linkLabel}
+							</a>
+							{#if arxivId(item.url)}
+								<button
+									type="button"
+									class="disclose"
+									aria-expanded={previewing.has(item.url)}
+									onclick={() => (previewing = toggle(previewing, item.url))}
+								>
+									{previewing.has(item.url) ? 'Hide the paper' : 'Preview the paper'}
+								</button>
+							{/if}
+						</div>
 					</article>
 				{/each}
 			</div>
@@ -178,6 +233,90 @@
 	.research-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
+	}
+
+	/* Abstracts run long, so they open on request. The wrapper keeps the
+	   paragraph out of the grid, which would otherwise blockify -webkit-box
+	   and drop the clamp. */
+	.abstract-wrap {
+		min-width: 0;
+	}
+
+	.abstract {
+		margin: 0;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.abstract.open {
+		display: block;
+	}
+
+	.paper-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem 1.25rem;
+		margin-top: 0.5rem;
+	}
+
+	.disclose {
+		border: 0;
+		background: none;
+		padding: 0;
+		font-family: var(--font-sans);
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: var(--purple);
+		cursor: pointer;
+		border-bottom: 1px solid color-mix(in srgb, var(--purple) 40%, transparent);
+	}
+
+	.disclose:hover {
+		border-bottom-color: var(--purple);
+	}
+
+	/* A small plate in the margin: the top of page one, cropped. The frame is
+	   inert, so the whole thumbnail is one link to the PDF. */
+	.paper-preview {
+		margin: 0.75rem 0 0;
+	}
+
+	.preview-open {
+		position: relative;
+		display: block;
+		aspect-ratio: 1 / 0.78;
+		overflow: hidden;
+		border: 1px solid var(--line-strong);
+		border-radius: 2px;
+		background: #fff;
+	}
+
+	.preview-open iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		aspect-ratio: 1 / 1.414;
+		border: 0;
+		pointer-events: none;
+	}
+
+	.preview-open:hover {
+		border-color: var(--purple);
+	}
+
+	.paper-preview figcaption {
+		margin-top: 0.35rem;
+		font-family: var(--font-sans);
+		font-size: 0.68rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: none;
+		color: var(--purple);
 	}
 
 	.research-card {

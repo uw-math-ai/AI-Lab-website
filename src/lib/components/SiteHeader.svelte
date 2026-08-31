@@ -162,8 +162,10 @@
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
-		width: 1.85rem;
-		height: 1.85rem;
+		flex: 0 0 auto;
+		/* Matches the vertical box of the nav links beside it. */
+		width: 2.1rem;
+		height: 2.1rem;
 		padding: 0;
 		border: 1px solid var(--line-strong);
 		border-radius: var(--radius);
@@ -232,6 +234,9 @@
 	}
 
 	nav .support {
+		display: inline-flex;
+		align-items: center;
+		height: 2.1rem;
 		margin-left: 0.5rem;
 		border: 1px solid var(--line-strong);
 		color: var(--text);
