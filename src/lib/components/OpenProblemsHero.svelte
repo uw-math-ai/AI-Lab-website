@@ -45,7 +45,13 @@
 	let wrap: HTMLDivElement;
 	let year = $state(1742);
 	let shown = $state(0);
-	let tip = $state<{ x: number; y: number; title: string; meta: string; lean?: string } | null>(null);
+	let tip = $state<{
+		/** Anchored by edges, so the card never has to be sized to place it. */
+		style: string;
+		title: string;
+		meta: string;
+		lean?: string;
+	} | null>(null);
 	let ready = $state(false);
 	let spectrum = $state<{ name: string; count: number; color: string }[]>([]);
 
@@ -342,9 +348,21 @@
 			if (n) {
 				const catName = (cats[n.cat] ?? 'miscellaneous').replace(/_/g, ' ');
 				const yrLabel = Math.floor(n.yr) > 0 ? String(Math.floor(n.yr)) : 'undated';
+				// Anchor to whichever edges leave room. Using left/right and
+				// top/bottom rather than a transform means the card is never
+				// squeezed by the space remaining beside the cursor.
+				const GAP = 14;
+				const CARD = 340;
+				const horizontal =
+					pointer.x + CARD + GAP > W
+						? `right:${Math.round(W - pointer.x + GAP)}px`
+						: `left:${Math.round(pointer.x + GAP)}px`;
+				const vertical =
+					pointer.y > H / 2
+						? `bottom:${Math.round(H - pointer.y + GAP)}px`
+						: `top:${Math.round(pointer.y + GAP)}px`;
 				tip = {
-					x: pointer.x,
-					y: pointer.y,
+					style: `${horizontal}; ${vertical}`,
 					title: n.title ?? `An open problem in ${catName}`,
 					meta: yrLabel === 'undated' ? catName : `${catName}, ${yrLabel}`,
 					lean: n.decl || undefined
@@ -403,7 +421,7 @@
 	</div>
 
 	{#if tip}
-		<div class="tip" style={`left:${tip.x}px; top:${tip.y}px`} role="status">
+		<div class="tip" style={tip.style} role="status">
 			<strong>{tip.title}</strong>
 			<span>{tip.meta}</span>
 			{#if tip.lean}<em>Stated in Lean<b>{tip.lean}</b></em>{/if}
@@ -590,10 +608,10 @@
 	.tip {
 		position: absolute;
 		z-index: 3;
-		transform: translate(14px, -50%);
 		display: grid;
+		width: max-content;
 		gap: 0.3rem;
-		max-width: 18rem;
+		max-width: 20rem;
 		background: var(--surface);
 		border: 1px solid var(--line);
 		border-radius: var(--radius);
@@ -611,6 +629,7 @@
 		font-size: 0.95rem;
 		line-height: 1.25;
 		color: var(--heading);
+		overflow-wrap: anywhere;
 	}
 
 	.tip span {
@@ -618,9 +637,16 @@
 		text-transform: capitalize;
 	}
 
+	/* Grid items size to min-content by default, so a long unbroken Lean name
+	   would push the card's rule and text past its own border. */
+	.tip > * {
+		min-width: 0;
+	}
+
 	.tip em {
 		display: grid;
 		gap: 0.15rem;
+		min-width: 0;
 		margin-top: 0.15rem;
 		padding-top: 0.35rem;
 		border-top: 1px solid var(--line);
@@ -634,10 +660,16 @@
 
 	.tip em b {
 		font-family: var(--font-mono);
-		font-size: 0.72rem;
+		font-size: 0.7rem;
 		font-weight: 400;
+		line-height: 1.35;
 		letter-spacing: 0;
 		text-transform: none;
+		/* Lean declaration names are long and unbroken; let them wrap rather
+		   than run past the edge of the card. */
+		min-width: 0;
+		overflow-wrap: anywhere;
+		word-break: break-all;
 	}
 
 	@media (max-width: 900px) {
