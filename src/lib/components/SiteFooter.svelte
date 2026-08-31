@@ -1,210 +1,175 @@
 <script lang="ts">
-	let open = $state(false);
+	import { sitePath } from '$lib/paths';
+
+	let theme = $state('auto');
 	const themeOptions = [
 		{ label: 'Auto', value: 'auto' },
 		{ label: 'Light', value: 'light' },
 		{ label: 'Dark', value: 'dark' }
 	];
 
-	function setTheme(value: string) {
-		window.dispatchEvent(new CustomEvent('math-ai-theme', { detail: value }));
-		open = false;
-	}
+	$effect(() => {
+		try {
+			theme = localStorage.getItem('math-ai-theme') ?? 'auto';
+		} catch {
+			theme = 'auto';
+		}
+	});
 
-	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape') open = false;
+	function setTheme(value: string) {
+		theme = value;
+		window.dispatchEvent(new CustomEvent('math-ai-theme', { detail: value }));
 	}
 </script>
 
-<svelte:window onkeydown={handleKeydown} />
-
 <footer class="site-footer">
-	<div>
-		<strong>Math AI Lab</strong>
-		<span>Department of Mathematics, University of Washington © 2026</span>
-		<small>Report a bug to zengrf at uw dot edu</small>
-	</div>
-	<div class="footer-links">
-		<a href="https://github.com/uw-math-ai" target="_blank" rel="noreferrer">GitHub</a>
-		<a href="https://huggingface.co/uw-math-ai" target="_blank" rel="noreferrer">HuggingFace</a>
-		<button type="button" aria-expanded={open} aria-label="Open site settings" onclick={() => (open = !open)}>⚙</button>
-	</div>
-
-	<button class="drawer-backdrop" class:open={open} type="button" aria-label="Close site settings" onclick={() => (open = false)}></button>
-	<div class="settings-drawer" class:open>
-		<div>
-			<div class="drawer-title">
-				<h2>Site settings</h2>
-				<button type="button" aria-label="Close site settings" onclick={() => (open = false)}>Close</button>
-			</div>
-			<p>Theme defaults to light from 7am to 6:59pm and dark from 7pm to 6:59am.</p>
+	<div class="footer-inner">
+		<div class="footer-brand">
+			<span class="wordmark">Math AI Lab</span>
+			<p>Department of Mathematics<br />University of Washington</p>
+			<small>© 2026</small>
+			<small>Report a bug to zengrf at uw dot edu</small>
 		</div>
-		<div class="theme-buttons" role="group" aria-label="Theme mode">
-			{#each themeOptions as option}
-				<button type="button" onclick={() => setTheme(option.value)}>{option.label}</button>
-			{/each}
+
+		<div class="footer-col">
+			<span class="label">Site</span>
+			<a href={sitePath('/projects')}>Projects</a>
+			<a href={sitePath('/research')}>Research</a>
+			<a href={sitePath('/people')}>People</a>
+			<a href={sitePath('/events')}>Events</a>
+			<a href={sitePath('/resources')}>Resources</a>
+		</div>
+
+		<div class="footer-col">
+			<span class="label">Tools</span>
+			<a href="https://www.theoremsearch.com" target="_blank" rel="noreferrer">TheoremSearch</a>
+			<a href="https://open-problems-map.pages.dev" target="_blank" rel="noreferrer">Map of Open Problems</a>
+			<a href="https://api.theoremsearch.com/openapi.json" target="_blank" rel="noreferrer">API</a>
+			<a href="https://uw2026leanhackathon.github.io/" target="_blank" rel="noreferrer">Lean Hackathon 2026</a>
+		</div>
+
+		<div class="footer-col">
+			<span class="label">Elsewhere</span>
+			<a href="https://github.com/uw-math-ai" target="_blank" rel="noreferrer">GitHub</a>
+			<a href="https://huggingface.co/uw-math-ai" target="_blank" rel="noreferrer">Hugging Face</a>
+			<a href="https://math.washington.edu" target="_blank" rel="noreferrer">UW Mathematics</a>
+			<div class="theme" role="group" aria-label="Theme">
+				<span class="label">Theme</span>
+				{#each themeOptions as option}
+					<button type="button" class:on={theme === option.value} onclick={() => setTheme(option.value)}>{option.label}</button>
+				{/each}
+			</div>
 		</div>
 	</div>
 </footer>
 
 <style>
 	.site-footer {
-		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		padding: 2rem max(1rem, calc((100vw - 1180px) / 2));
-		background: var(--purple);
-		color: white;
-		overflow: hidden;
-	}
-
-	.site-footer::before {
-		content: '';
-		position: absolute;
-		inset: 0;
-		background:
-			linear-gradient(168deg, transparent 0 72%, color-mix(in srgb, white 12%, transparent) 72% 100%),
-			var(--footer-texture);
-		pointer-events: none;
-	}
-
-	.site-footer > * {
-		position: relative;
-		z-index: 1;
-	}
-
-	.site-footer div:first-child {
-		display: grid;
-		gap: 0.25rem;
-	}
-
-	.site-footer span {
-		color: color-mix(in srgb, white 72%, transparent);
-	}
-
-	.site-footer small {
-		color: color-mix(in srgb, white 64%, transparent);
-		font-size: 0.78rem;
-	}
-
-	.footer-links {
-		display: flex;
-		align-items: center;
-		gap: 0.6rem;
-		flex-wrap: wrap;
-		justify-content: flex-end;
-	}
-
-	.footer-links a,
-	.footer-links button,
-	.theme-buttons button {
-		border: 1px solid color-mix(in srgb, white 25%, transparent);
-		border-radius: 999px;
-		background: color-mix(in srgb, white 10%, transparent);
-		color: white;
-		text-decoration: none;
-		padding: 0.55rem 0.78rem;
-		font: inherit;
-		cursor: pointer;
-	}
-
-	.footer-links button {
-		width: 2.4rem;
-		height: 2.4rem;
-		padding: 0;
-	}
-
-	.settings-drawer {
-		position: fixed;
-		right: 1rem;
-		bottom: 1rem;
-		z-index: 81;
-		width: min(24rem, calc(100vw - 2rem));
-		display: grid;
-		gap: 1rem;
-		padding: 1.1rem;
-		background: var(--surface-strong);
+		margin-top: clamp(3rem, 8vw, 6rem);
+		border-top: 1px solid var(--line-strong);
+		background: var(--bg);
 		color: var(--text);
-		border: 1px solid var(--line);
-		border-radius: 1rem;
-		box-shadow: var(--shadow);
-		opacity: 0;
-		pointer-events: none;
-		transform: translateY(1rem);
-		transition: all 180ms ease;
 	}
 
-	.settings-drawer.open {
-		opacity: 1;
-		pointer-events: auto;
-		transform: translateY(0);
+	.footer-inner {
+		display: grid;
+		grid-template-columns: 1.6fr 1fr 1fr 1fr;
+		gap: 2rem;
+		width: min(var(--shell), calc(100vw - 3rem));
+		margin: 0 auto;
+		padding: 3rem 0 3.5rem;
 	}
 
-	.drawer-backdrop {
-		position: fixed;
-		inset: 0;
-		z-index: 80;
-		border: 0;
-		background: transparent;
-		opacity: 0;
-		pointer-events: none;
+	.wordmark {
+		font-family: var(--font-serif);
+		font-weight: 600;
+		font-size: 1.2rem;
 	}
 
-	.drawer-backdrop.open {
-		pointer-events: auto;
+	.footer-brand small:first-of-type {
+		margin-top: 1rem;
 	}
 
-	.drawer-title {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-	}
-
-	.settings-drawer h2 {
-		margin: 0 0 0.25rem;
-		font-size: 1rem;
-	}
-
-	.drawer-title button {
-		border: 1px solid var(--line);
-		border-radius: 999px;
-		background: var(--soft);
-		color: var(--text);
-		padding: 0.35rem 0.6rem;
-		font-size: 0.8rem;
-		font-weight: 800;
-		cursor: pointer;
-	}
-
-	.settings-drawer p {
-		margin: 0;
+	.footer-brand p {
+		margin: 0.6rem 0 0;
 		color: var(--muted);
-		font-size: 0.92rem;
+		font-size: 0.95rem;
+		line-height: 1.45;
 	}
 
-	.theme-buttons {
-		display: flex;
-		gap: 0.55rem;
-		flex-wrap: wrap;
+	.footer-brand small {
+		display: block;
+		margin-top: 0.35rem;
+		font-family: var(--font-sans);
+		font-size: 0.72rem;
+		color: var(--muted);
 	}
 
-	.theme-buttons button {
-		background: var(--soft);
+	.footer-col {
+		display: grid;
+		align-content: start;
+		gap: 0.45rem;
+	}
+
+	.footer-col .label {
+		margin-bottom: 0.3rem;
+	}
+
+	.footer-col a {
+		font-family: var(--font-sans);
+		font-size: 0.88rem;
 		color: var(--text);
-		border-color: var(--line);
+		text-decoration: none;
+		width: fit-content;
 	}
 
-	@media (max-width: 760px) {
-		.site-footer {
-			align-items: flex-start;
-			flex-direction: column;
+	.footer-col a:hover {
+		color: var(--purple);
+		text-decoration: underline;
+	}
+
+	.theme {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.3rem;
+		margin-top: 0.8rem;
+	}
+
+	.theme .label {
+		width: 100%;
+	}
+
+	.theme button {
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		background: transparent;
+		color: var(--muted);
+		font-family: var(--font-sans);
+		font-size: 0.74rem;
+		font-weight: 600;
+		padding: 0.25rem 0.65rem;
+		cursor: pointer;
+	}
+
+	.theme button.on {
+		border-color: var(--text);
+		color: var(--text);
+	}
+
+	@media (max-width: 800px) {
+		.footer-inner {
+			grid-template-columns: 1fr 1fr;
 		}
 
-		.footer-links {
-			justify-content: flex-start;
+		.footer-brand {
+			grid-column: 1 / -1;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.footer-inner {
+			width: min(100% - 2rem, var(--shell));
 		}
 	}
 </style>

@@ -2,14 +2,35 @@
 	import { page } from '$app/stores';
 	import { routePath, sitePath } from '$lib/paths';
 
+	import { browser } from '$app/environment';
+
 	let menuOpen = $state(false);
+	let theme = $state('light');
 	let pathname = $derived(routePath($page.url.pathname));
 
+	// ThemeController owns the theme; the header mirrors it and asks for changes
+	// through the same event, so the footer's Auto/Light/Dark stays in sync.
+	$effect(() => {
+		if (!browser) return;
+		const read = () => (theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+		read();
+		const observer = new MutationObserver(read);
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		return () => observer.disconnect();
+	});
+
+	function toggleTheme() {
+		window.dispatchEvent(
+			new CustomEvent('math-ai-theme', { detail: theme === 'dark' ? 'light' : 'dark' })
+		);
+	}
+
 	const navItems = [
-		{ href: '/people', label: 'People' },
-		{ href: '/research', label: 'Research' },
-		{ href: '/events', label: 'Events' },
-		{ href: '/resources', label: 'Resources' }
+		{ href: '/projects', label: 'Projects', match: (p: string) => p.startsWith('/projects') },
+		{ href: '/research', label: 'Research', match: (p: string) => p === '/research' },
+		{ href: '/people', label: 'People', match: (p: string) => p === '/people' },
+		{ href: '/events', label: 'Events', match: (p: string) => p === '/events' },
+		{ href: '/resources', label: 'Resources', match: (p: string) => p === '/resources' }
 	];
 
 	function closeMenus() {
@@ -18,37 +39,54 @@
 </script>
 
 <header class="site-header">
-	<a class="brand" href={sitePath('/')} onclick={closeMenus} aria-label="Math AI Lab home">
-		<img src={sitePath('/logos/math-ai-mark.svg')} alt="" />
-		<span>
-			<strong>Math AI Lab</strong>
-			<small>University of Washington</small>
-		</span>
-	</a>
-
-	<button class="menu-button" type="button" aria-expanded={menuOpen} onclick={() => (menuOpen = !menuOpen)}>
-		<span></span>
-		<span></span>
-		<span></span>
-		Mobile navigation
-	</button>
-
-	<nav class:open={menuOpen} aria-label="Primary navigation">
-		<a class:active={pathname === '/'} href={sitePath('/')} onclick={closeMenus}>Home</a>
-		<a class:active={pathname.startsWith('/projects')} href={sitePath('/projects')} onclick={closeMenus}>Projects</a>
-		{#each navItems as item}
-			<a class:active={pathname === item.href} href={sitePath(item.href)} onclick={closeMenus}>{item.label}</a>
-		{/each}
-		<a class="accent" href="https://uw2026leanhackathon.github.io/" target="_blank" rel="noreferrer">Lean Hackathon</a>
-		<a
-			class="support"
-			href="https://www.washington.edu/giving/make-a-gift/?source_typ=3&source=DSC-152346&code=DSC-152346&fastForward=yes&page=make"
-			target="_blank"
-			rel="noreferrer"
-		>
-			Support us
+	<div class="header-inner">
+		<a class="brand" href={sitePath('/')} onclick={closeMenus} aria-label="Math AI Lab home">
+			<img src={sitePath('/logos/math-ai-mark.svg')} alt="" />
+			<span class="wordmark">Math AI Lab</span>
+			<span class="institution">University of Washington</span>
 		</a>
-	</nav>
+
+		<div class="header-right">
+			<nav id="primary-navigation" class:open={menuOpen} aria-label="Primary navigation">
+			{#each navItems as item}
+				<a class:active={item.match(pathname)} href={sitePath(item.href)} onclick={closeMenus}>{item.label}</a>
+			{/each}
+			<a class="external" href="https://www.theoremsearch.com" target="_blank" rel="noreferrer">TheoremSearch</a>
+			<a
+				class="support"
+				href="https://www.washington.edu/giving/make-a-gift/?source_typ=3&source=DSC-152346&code=DSC-152346&fastForward=yes&page=make"
+				target="_blank"
+				rel="noreferrer"
+			>
+				Support the lab
+			</a>
+			</nav>
+
+			<button
+				class="theme-toggle"
+				type="button"
+				onclick={toggleTheme}
+				title={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+				aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+			>
+				<svg viewBox="0 0 16 16" aria-hidden="true">
+					<circle cx="8" cy="8" r="6.4" fill="none" stroke="currentColor" stroke-width="1.2" />
+					<path d="M8 1.6a6.4 6.4 0 0 1 0 12.8z" fill="currentColor" />
+				</svg>
+			</button>
+
+			<button
+				class="menu-button"
+				type="button"
+				aria-expanded={menuOpen}
+				aria-controls="primary-navigation"
+				onclick={() => (menuOpen = !menuOpen)}
+			>
+				<span class="bars" aria-hidden="true"><i></i><i></i></span>
+				<span class="menu-label">Menu</span>
+			</button>
+		</div>
+	</div>
 </header>
 
 <style>
@@ -56,149 +94,214 @@
 		position: sticky;
 		top: 0;
 		z-index: 40;
+		background: color-mix(in srgb, var(--bg) 84%, transparent);
+		border-bottom: 1px solid var(--line);
+		backdrop-filter: saturate(140%) blur(14px);
+		-webkit-backdrop-filter: saturate(140%) blur(14px);
+	}
+
+	.header-inner {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		gap: 1rem;
-		padding: 0.85rem max(1rem, calc((100vw - 1180px) / 2));
-		background: color-mix(in srgb, var(--surface) 88%, transparent);
-		border-bottom: 1px solid var(--line);
-		backdrop-filter: blur(18px);
+		width: min(var(--shell), calc(100vw - 3rem));
+		margin: 0 auto;
+		height: 3.6rem;
 	}
 
 	.brand {
 		display: inline-flex;
-		align-items: center;
-		gap: 0.75rem;
+		align-items: baseline;
+		gap: 0.6rem;
 		color: var(--text);
 		text-decoration: none;
-		min-width: max-content;
+		min-width: 0;
 	}
 
 	.brand img {
-		width: 2.6rem;
-		height: 2.6rem;
+		width: 1.35rem;
+		height: 1.35rem;
+		align-self: center;
 		object-fit: contain;
 	}
 
-	.brand span {
-		display: grid;
-		line-height: 1.05;
+	.wordmark {
+		font-family: var(--font-serif);
+		font-weight: 600;
+		font-size: 1.12rem;
+		letter-spacing: -0.01em;
+		white-space: nowrap;
 	}
 
-	.brand strong {
-		font-family: var(--font-display);
-		font-size: 1.05rem;
-	}
-
-	.brand small {
+	.institution {
+		font-family: var(--font-sans);
+		font-size: 0.68rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--muted);
-		font-size: 0.73rem;
+		padding-left: 0.6rem;
+		border-left: 1px solid var(--line-strong);
+		white-space: nowrap;
+	}
+
+	.header-right {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
 	}
 
 	nav {
 		display: flex;
 		align-items: center;
-		gap: 0.35rem;
+		gap: 0.15rem;
+	}
+
+	.theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex: 0 0 auto;
+		/* Matches the vertical box of the nav links beside it. */
+		width: 2.1rem;
+		height: 2.1rem;
+		padding: 0;
+		border: 1px solid var(--line-strong);
+		border-radius: var(--radius);
+		background: transparent;
+		color: var(--muted);
+		cursor: pointer;
+		transition:
+			color var(--motion-fast),
+			border-color var(--motion-fast);
+	}
+
+	.theme-toggle svg {
+		width: 0.9rem;
+		height: 0.9rem;
+		display: block;
+	}
+
+	.theme-toggle:hover {
+		color: var(--text);
+		border-color: var(--text);
 	}
 
 	nav a {
-		border: 0;
-		border-radius: 999px;
-		background: transparent;
-		color: var(--text);
-		font: inherit;
-		font-size: 0.88rem;
-		font-weight: 650;
+		position: relative;
+		border-radius: var(--radius);
+		color: var(--muted);
+		font-family: var(--font-sans);
+		font-size: 0.84rem;
+		font-weight: 600;
 		text-decoration: none;
-		padding: 0.58rem 0.72rem;
-		cursor: pointer;
+		padding: 0.45rem 0.7rem;
 		transition:
-			background 180ms ease,
-			color 180ms ease,
-			transform 180ms ease;
-	}
-
-	nav a:hover,
-	nav .active {
-		background: var(--soft);
-		color: var(--purple);
+			color var(--motion-fast),
+			background var(--motion-fast);
 	}
 
 	nav a:hover {
-		transform: translateY(-1px);
+		color: var(--text);
+		background: var(--soft);
 	}
 
-	.accent {
-		color: var(--purple) !important;
-		border: 1px solid color-mix(in srgb, var(--purple) 25%, transparent);
+	nav a.active {
+		color: var(--text);
 	}
 
-	.support {
-		background: var(--purple) !important;
-		color: white !important;
-		box-shadow: var(--glow-small);
+	nav a.active::after {
+		content: '';
+		position: absolute;
+		left: 0.7rem;
+		right: 0.7rem;
+		bottom: 0.18rem;
+		height: 2px;
+		background: var(--text);
+		border-radius: 0;
+	}
+
+	nav .external {
+		color: var(--purple);
+	}
+
+	nav .external::after {
+		content: '↗';
+		margin-left: 0.25rem;
+		font-family: var(--font-serif);
+		font-weight: 400;
+	}
+
+	nav .support {
+		display: inline-flex;
+		align-items: center;
+		height: 2.1rem;
+		margin-left: 0.5rem;
+		border: 1px solid var(--line-strong);
+		color: var(--text);
+	}
+
+	nav .support:hover {
+		border-color: var(--text);
 	}
 
 	.menu-button {
 		display: none;
-		position: relative;
-		width: 2.65rem;
-		height: 2.65rem;
-		overflow: hidden;
-		border: 1px solid var(--line);
-		border-radius: 999px;
-		background: var(--surface-strong);
-		color: transparent;
+		align-items: center;
+		gap: 0.5rem;
+		border: 1px solid var(--line-strong);
+		border-radius: var(--radius);
+		background: transparent;
+		color: var(--text);
+		font-family: var(--font-sans);
+		font-size: 0.8rem;
+		font-weight: 600;
+		padding: 0.45rem 0.8rem;
+		cursor: pointer;
 	}
 
-	.menu-button span {
-		position: absolute;
-		left: 0.7rem;
-		width: 1.2rem;
-		height: 2px;
-		background: var(--text);
+	.bars {
+		display: inline-grid;
+		gap: 4px;
+		width: 14px;
 	}
 
-	.menu-button span:nth-child(1) {
-		top: 0.82rem;
+	.bars i {
+		display: block;
+		height: 1.5px;
+		background: currentColor;
 	}
 
-	.menu-button span:nth-child(2) {
-		top: 1.28rem;
-	}
-
-	.menu-button span:nth-child(3) {
-		top: 1.74rem;
-	}
-
-	@media (max-width: 1080px) {
-		.site-header {
-			padding-inline: 1rem;
+	@media (max-width: 960px) {
+		.institution {
+			display: none;
 		}
 
 		.menu-button {
-			display: inline-block;
+			display: inline-flex;
 		}
 
 		nav {
 			position: fixed;
-			top: 4.7rem;
+			top: 4.3rem;
 			right: 1rem;
 			left: 1rem;
 			display: grid;
 			align-items: stretch;
 			max-height: calc(100vh - 6rem);
 			overflow-y: auto;
-			padding: 0.75rem;
+			padding: 0.5rem;
 			background: var(--surface-strong);
 			border: 1px solid var(--line);
-			border-radius: 1rem;
+			border-radius: var(--radius-lg);
 			box-shadow: var(--shadow);
 			opacity: 0;
 			pointer-events: none;
-			transform: translateY(-0.5rem);
-			transition: all 180ms ease;
+			transform: translateY(-0.4rem);
+			transition:
+				opacity var(--motion-fast),
+				transform var(--motion-fast);
 		}
 
 		nav.open {
@@ -206,44 +309,34 @@
 			pointer-events: auto;
 			transform: translateY(0);
 		}
-	}
 
-	@media (max-width: 480px) {
-		.site-header {
-			gap: 0.6rem;
-			padding: 0.7rem 0.75rem;
+		nav a {
+			padding: 0.75rem 0.9rem;
+			font-size: 0.95rem;
+			border-radius: var(--radius);
 		}
 
-		.brand {
-			min-width: 0;
-			gap: 0.55rem;
-		}
-
-		.brand img {
-			width: 2.25rem;
-			height: 2.25rem;
-		}
-
-		.brand strong {
-			font-size: 0.98rem;
-			white-space: nowrap;
-		}
-
-		.brand small {
+		nav a.active::after {
 			display: none;
 		}
 
-		.menu-button {
-			flex: 0 0 auto;
-			width: 2.45rem;
-			height: 2.45rem;
+		nav a.active {
+			background: var(--soft);
+		}
+
+		nav .support {
+			margin: 0.25rem 0 0;
+			text-align: center;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.header-inner {
+			width: min(100% - 2rem, var(--shell));
 		}
 
 		nav {
 			top: 4rem;
-			right: 0.75rem;
-			left: 0.75rem;
-			max-height: calc(100vh - 5rem);
 		}
 	}
 </style>

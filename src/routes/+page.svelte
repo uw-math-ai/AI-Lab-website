@@ -1,10 +1,12 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
-	import CountUp from '$lib/components/CountUp.svelte';
+	import OpenProblemsHero from '$lib/components/OpenProblemsHero.svelte';
+	import ProjectEmbed from '$lib/components/ProjectEmbed.svelte';
 	import { labEvents } from '$lib/data/events';
 	import { participantCounts } from '$lib/data/people';
 	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
 	import { featuredResearch, totalPaperCount } from '$lib/data/research';
+	import { labTools } from '$lib/data/tools';
 	import { sitePath } from '$lib/paths';
 	import { canonicalUrl } from '$lib/seo';
 
@@ -21,6 +23,18 @@
 		.slice(0, 2);
 
 	const latestProjects = projectQuarters.slice(0, 3);
+	const [openProblems, theoremSearch] = labTools;
+
+	let selected = $state(0);
+
+	function onTabKeydown(event: KeyboardEvent) {
+		const delta = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
+		if (!delta) return;
+		event.preventDefault();
+		selected = (selected + delta + labTools.length) % labTools.length;
+		const next = document.getElementById(`tool-tab-${labTools[selected].id}`);
+		next?.focus();
+	}
 
 	function eventHref(event: { sourceUrl?: string }) {
 		return event.sourceUrl ?? sitePath('/events');
@@ -34,6 +48,7 @@
 		});
 	}
 
+	const fmt = (n: number) => n.toLocaleString('en-US');
 </script>
 
 <svelte:head>
@@ -45,14 +60,20 @@
 	<meta property="og:type" content="website" />
 </svelte:head>
 
-<section class="page-shell hero home-hero">
-	<div>
+<section class="home-hero">
+	<div class="hero-field" data-ambient-quiet aria-hidden="false">
+		<OpenProblemsHero
+			bleed
+			caption="Hover any point to read the problem"
+			work="The Growing Map of Open Problems"
+			author="Simon Kurgan"
+			href="https://open-problems-map.pages.dev/"
+		/>
+	</div>
+	<div class="page-shell hero-copy">
 		<span class="eyebrow">University of Washington</span>
-		<div class="hero-title-lockup">
-			<img src={sitePath('/logos/math-ai-lab-logo.png')} alt="" />
-			<h1>Math AI Lab</h1>
-		</div>
-		<p>
+		<h1>Math AI Lab</h1>
+		<p class="dek">
 			The University of Washington Math AI Lab is a research and education organization focused on using AI
 			for math, founded by
 			<a href="https://sites.math.washington.edu/~jarod/">Jarod Alper</a> and <a href="https://vilin97.github.io/">Vasily Ilin</a>.
@@ -62,61 +83,103 @@
 			<a class="button" href={sitePath('/events')}>Event Calendar</a>
 			<a class="button" href="https://github.com/uw-math-ai" target="_blank" rel="noreferrer">GitHub</a>
 		</div>
+		<a class="hero-jump" href="#open-problems-map">Explore the full map ↓</a>
 	</div>
-
 </section>
 
 {#if applicationAnnouncement}
-	<section class="page-shell home-announcement-section" aria-labelledby="fall-2026-applications-heading">
-		<Reveal>
-			<div class="home-announcement interactive-surface" data-reveal-item>
-				<div class="home-announcement-copy">
-					<span class="eyebrow">Applications open · Fall 2026</span>
-					<h2 id="fall-2026-applications-heading">Lead a Math AI Lab project this fall</h2>
-					<p>
-						Apply by Monday, September 7 at 11:59 pm. Earlier applications receive priority, and
-						mentors of continuing projects should also apply.
-					</p>
-				</div>
-				<div class="actions">
-					{#each applicationAnnouncement.links ?? [] as link, index}
-						{#if link.url.startsWith('/')}
-							<a class="button" class:primary={index === 0} href={sitePath(link.url)}>{link.label}</a>
-						{:else}
-							<a class="button" class:primary={index === 0} href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
-						{/if}
-					{/each}
-				</div>
+	<section class="page-shell" aria-labelledby="fall-2026-applications-heading">
+		<div class="home-announcement interactive-surface">
+			<div>
+				<span class="eyebrow">Applications open for Fall 2026</span>
+				<h2 id="fall-2026-applications-heading">Lead a Math AI Lab project this fall</h2>
+				<p>
+					Apply by Monday, September 7 at 11:59 pm. Earlier applications receive priority, and
+					mentors of continuing projects should also apply.
+				</p>
 			</div>
-		</Reveal>
+			<div class="actions">
+				{#each applicationAnnouncement.links ?? [] as link, index}
+					{#if link.url.startsWith('/')}
+						<a class="button" class:primary={index === 0} href={sitePath(link.url)}>{link.label}</a>
+					{:else}
+						<a class="button" class:primary={index === 0} href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+					{/if}
+				{/each}
+			</div>
+		</div>
 	</section>
 {/if}
 
 <section class="page-shell section home-stats-section">
-	<Reveal>
-		<div class="stats">
-			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 0ms">
-				<strong><CountUp value={totalPaperCount} /></strong>
-				<span>papers</span>
-			</div>
-			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 45ms">
-				<strong><CountUp value={totalProjectCount} /></strong>
-				<span>projects</span>
-			</div>
-			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 90ms">
-				<strong><CountUp value={participantCounts.undergraduate} /></strong>
-				<span>undergraduate students</span>
-			</div>
-			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 135ms">
-				<strong><CountUp value={participantCounts.graduate} /></strong>
-				<span>graduate students</span>
-			</div>
-			<div class="interactive-surface" data-reveal-item style="--reveal-delay: 180ms">
-				<strong><CountUp value={participantCounts.professor} /></strong>
-				<span>professors</span>
-			</div>
+	<div class="stats">
+		<div class="interactive-surface"><strong>{fmt(totalPaperCount)}</strong><span>papers</span></div>
+		<div class="interactive-surface"><strong>{fmt(totalProjectCount)}</strong><span>projects</span></div>
+		<div class="interactive-surface"><strong>{fmt(participantCounts.undergraduate)}</strong><span>undergraduate students</span></div>
+		<div class="interactive-surface"><strong>{fmt(participantCounts.graduate)}</strong><span>graduate students</span></div>
+		<div class="interactive-surface"><strong>{fmt(participantCounts.professor)}</strong><span>professors</span></div>
+	</div>
+</section>
+
+<section class="page-shell section tools-section" id="tools">
+	<div class="section-header">
+		<span class="eyebrow">Tools</span>
+		<h2>Built in the lab</h2>
+		<p>Two public tools from Math AI Lab projects, running live below.</p>
+	</div>
+
+	<div class="gallery" id="open-problems-map">
+		<div class="gallery-tabs" role="tablist" aria-label="Lab tools">
+			{#each labTools as tool, index}
+				<button
+					type="button"
+					role="tab"
+					id={`tool-tab-${tool.id}`}
+					aria-selected={selected === index}
+					aria-controls={`tool-panel-${tool.id}`}
+					tabindex={selected === index ? 0 : -1}
+					class:selected={selected === index}
+					onclick={() => (selected = index)}
+					onkeydown={onTabKeydown}
+				>
+					{tool.name}
+				</button>
+			{/each}
 		</div>
-	</Reveal>
+
+		{#each labTools as tool, index}
+			{#if selected === index}
+				<div
+					class="gallery-panel"
+					id={`tool-panel-${tool.id}`}
+					role="tabpanel"
+					aria-labelledby={`tool-tab-${tool.id}`}
+				>
+					<div class="gallery-copy">
+						<p class="tool-description">{tool.description}</p>
+						<div class="tool-links">
+							<a class="button" href={tool.url} target="_blank" rel="noreferrer">
+								{tool.id === 'theoremsearch' ? 'Open TheoremSearch' : 'Open the map'}
+								<span class="arrow">↗</span>
+							</a>
+							{#each tool.links as link}
+								<a class="text-link" href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+							{/each}
+						</div>
+					</div>
+
+					<ProjectEmbed
+						src={tool.url}
+						title={tool.name}
+						poster={tool.poster}
+						posterAlt={tool.posterAlt}
+						loadLabel={tool.id === 'theoremsearch' ? 'Open TheoremSearch here' : 'Play the growing map'}
+					/>
+					<p class="credit">{tool.credit}</p>
+				</div>
+			{/if}
+		{/each}
+	</div>
 </section>
 
 <section class="page-shell section papers-section">
@@ -125,113 +188,101 @@
 			<span class="eyebrow">Research</span>
 			<h2>Publications & Preprints</h2>
 			<p>Selected recent Math AI Lab papers. The full research page collects the lab's current conference papers, workshop papers, preprints, and essays.</p>
+			<a class="section-link" href={sitePath('/research')}>Open Research Page →</a>
 		</div>
-		<div class="paper-grid">
+		<ol class="paper-list">
 			{#each featuredResearch as paper, index}
-				<a
-					class="paper-card interactive-surface"
-					data-reveal-item
-					style={`--reveal-delay: ${(index % 4) * 55}ms`}
-					href={paper.url}
-					target="_blank"
-					rel="noreferrer"
-				>
-					<div class="paper-card-meta">
+				<li class="paper-card interactive-surface" data-reveal-item style={`--reveal-delay: ${(index % 4) * 45}ms`}>
+					<div class="paper-venue">
 						<span>{paper.venue}</span>
 						{#if paper.badge}<em>{paper.badge}</em>{/if}
 					</div>
-					<strong>{paper.title}</strong>
-					<p>{paper.abstract}</p>
-				</a>
+					<div class="paper-body">
+						<a href={paper.url} target="_blank" rel="noreferrer">{paper.title}</a>
+						<p>{paper.abstract}</p>
+					</div>
+				</li>
 			{/each}
-		</div>
-		<a class="button research-link" href={sitePath('/research')}>Open Research Page</a>
+		</ol>
 	</Reveal>
 </section>
 
-<section class="banded">
-	<div class="page-shell section">
-		<Reveal>
-			<div class="section-header">
-				<span class="eyebrow">Now</span>
-				<h2>Events</h2>
-				<p>Upcoming events, seminars, and hosted Math AI Lab gatherings.</p>
-			</div>
-			<div class="event-list">
-				<a
-					class="event-card hackathon-home-card interactive-surface"
-					data-reveal-item
-					style="--reveal-delay: 0ms"
-					href="https://uw2026leanhackathon.github.io/"
-					target="_blank"
-					rel="noreferrer"
-				>
-					<img
-						src={sitePath('/logos/uw-2026-lean-hackathon-banner.png')}
-						alt="UW 2026 Lean Hackathon banner"
-					/>
-					<span>Hosted event</span>
-					<strong>UW 2026 Lean Hackathon</strong>
-					<small>We hosted a Lean hackathon bringing together formalization, math, and AI communities.</small>
-				</a>
-				<a
-					class="event-card featured-event-card interactive-surface"
-					data-reveal-item
-					style="--reveal-delay: 55ms"
-					href={sitePath('/events#icml-2026')}
-				>
-					<span>Congratulations · ICML 2026</span>
-					<strong>We presented 8 papers at ICML 2026</strong>
-					<small>Congratulations to our authors! Our work included an oral presentation and a workshop Spotlight in Seoul.</small>
-				</a>
-				{#each upcoming as event, index}
-					<a
-						class="event-card interactive-surface"
-						data-reveal-item
-						style={`--reveal-delay: ${(index + 2) * 55}ms`}
-						href={eventHref(event)}
-						target={event.sourceUrl ? '_blank' : undefined}
-						rel={event.sourceUrl ? 'noreferrer' : undefined}
-					>
-						<span>{formatDate(event.date)}</span>
-						<strong>{event.title}</strong>
-						<small>{event.speaker} · {event.location}</small>
-					</a>
-				{:else}
-					<a class="event-card interactive-surface" data-reveal-item href={sitePath('/events')}>
-						<span>Archive</span>
-						<strong>Browse past Math AI events</strong>
-						<small>The agenda archive is updated from the official UW Math source.</small>
-					</a>
-				{/each}
-			</div>
-			<a class="button" href={sitePath('/events')}>Event Calendar</a>
-		</Reveal>
-	</div>
-</section>
-
-<section class="page-shell section">
+<section class="page-shell section split-section">
 	<Reveal>
-		<div class="section-header">
-			<span class="eyebrow">Projects</span>
-			<h2>Recent Quarters</h2>
-		</div>
-		<div class="grid">
-			{#each latestProjects as quarter, index}
-				<a
-					class="card project-card interactive-surface"
-					data-reveal-item
-					style={`--reveal-delay: ${index * 60}ms`}
-					href={sitePath(`/projects/${quarter.slug}`)}
-				>
-					<div class="meta">
-						<span class="pill">{quarter.label}</span>
-						{#if quarter.status === 'current'}<span class="pill">current</span>{/if}
-					</div>
-					<h3>{quarter.label} Projects</h3>
-					<p>{quarter.summary}</p>
-				</a>
-			{/each}
+		<div class="split">
+			<div>
+				<div class="section-header">
+					<span class="eyebrow">Now</span>
+					<h2>Events</h2>
+					<p>Upcoming events, seminars, and hosted Math AI Lab gatherings.</p>
+					<a class="section-link" href={sitePath('/events')}>Event Calendar →</a>
+				</div>
+				<ul class="row-list">
+					<li class="event-card hackathon-home-card interactive-surface" data-reveal-item>
+						<span class="row-key">Hosted event</span>
+						<a class="row-body" href="https://uw2026leanhackathon.github.io/" target="_blank" rel="noreferrer">
+							<img
+								src={sitePath('/logos/uw-2026-lean-hackathon-banner.png')}
+								alt="UW 2026 Lean Hackathon banner"
+								loading="lazy"
+								decoding="async"
+							/>
+							<strong>UW 2026 Lean Hackathon</strong>
+							<small>We hosted a Lean hackathon bringing together formalization, math, and AI communities.</small>
+						</a>
+					</li>
+					<li class="event-card featured-event-card interactive-surface" data-reveal-item style="--reveal-delay: 45ms">
+						<span class="row-key">ICML 2026</span>
+						<a class="row-body" href={sitePath('/events#icml-2026')}>
+							<strong>We presented 8 papers at ICML 2026</strong>
+							<small>Congratulations to our authors! Our work included an oral presentation and a workshop Spotlight in Seoul.</small>
+						</a>
+					</li>
+					{#each upcoming as event, index}
+						<li class="event-card interactive-surface" data-reveal-item style={`--reveal-delay: ${(index + 2) * 45}ms`}>
+							<span class="row-key num">{formatDate(event.date)}</span>
+							<a
+								class="row-body"
+								href={eventHref(event)}
+								target={event.sourceUrl ? '_blank' : undefined}
+								rel={event.sourceUrl ? 'noreferrer' : undefined}
+							>
+								<strong>{event.title}</strong>
+								<small>{event.speaker}, {event.location}</small>
+							</a>
+						</li>
+					{:else}
+						<li class="event-card interactive-surface" data-reveal-item>
+							<span class="row-key">Archive</span>
+							<a class="row-body" href={sitePath('/events')}>
+								<strong>Browse past Math AI events</strong>
+								<small>The agenda archive is updated from the official UW Math source.</small>
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</div>
+			<div>
+				<div class="section-header">
+					<span class="eyebrow">Projects</span>
+					<h2>Recent Quarters</h2>
+					<a class="section-link" href={sitePath('/projects')}>All {totalProjectCount} projects →</a>
+				</div>
+				<ul class="row-list">
+					{#each latestProjects as quarter, index}
+						<li class="project-card interactive-surface" data-reveal-item style={`--reveal-delay: ${index * 45}ms`}>
+							<span class="row-key">
+								{quarter.label}
+								{#if quarter.status === 'current'}<em>Current</em>{/if}
+							</span>
+							<a class="row-body" href={sitePath(`/projects/${quarter.slug}`)}>
+								<strong>{quarter.label} Projects</strong>
+								<small>{quarter.summary}</small>
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</div>
 		</div>
 	</Reveal>
 </section>
@@ -242,17 +293,18 @@
 			<span class="eyebrow">Community</span>
 			<h2>Lab moments</h2>
 			<p>Recent gatherings from campus to conferences.</p>
+			<a class="section-link" href={sitePath('/people')}>People →</a>
 		</div>
 		<div class="home-photo-grid">
 			<figure class="home-photo-card home-photo-featured interactive-surface" data-reveal-item style="--reveal-delay: 0ms">
-				<img src={sitePath('/photos/fall2025.jpg')} alt="Fall 2025 Math AI Lab" loading="lazy" decoding="async" />
+				<img src={sitePath('/photos/fall2025.jpg')} width="3024" height="1702" alt="Fall 2025 Math AI Lab" loading="lazy" decoding="async" />
 				<figcaption>
 					<span>Fall 2025</span>
 					<strong>Math AI Lab</strong>
 					<p>Our lab community during Fall Quarter 2025 at the University of Washington.</p>
 				</figcaption>
 			</figure>
-			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 55ms">
+			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 45ms">
 				<img
 					src={sitePath('/photos/icml-2026-coex-2.webp')}
 					alt="Math AI Lab group at ICML 2026 in COEX, Seoul"
@@ -262,18 +314,13 @@
 					decoding="async"
 				/>
 				<figcaption>
-					<span>ICML 2026 · Seoul</span>
+					<span>ICML 2026, Seoul</span>
 					<strong>ICML 2026 group photo</strong>
 					<p>Math AI Lab members at COEX for eight papers presented across ICML and its workshops.</p>
 				</figcaption>
 			</figure>
-			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 110ms">
-				<img
-					src={sitePath('/photos/lean-hackathon.jpg')}
-					alt="Participants at the UW 2026 Lean Hackathon"
-					loading="lazy"
-					decoding="async"
-				/>
+			<figure class="home-photo-card wide interactive-surface" data-reveal-item style="--reveal-delay: 90ms">
+				<img src={sitePath('/photos/lean-hackathon.jpg')} width="2000" height="584" alt="Participants at the UW 2026 Lean Hackathon" loading="lazy" decoding="async" />
 				<figcaption>
 					<span>UW 2026 Lean Hackathon</span>
 					<strong>Lean, mathematics, and AI together</strong>
@@ -285,337 +332,474 @@
 </section>
 
 <style>
-	.hero a:not(.button) {
-		color: var(--purple);
-		font-weight: 750;
-	}
-
+	/* ---------- Hero ---------- */
+	/* The map is the ground; the copy sits on the paper the mask leaves clear. */
 	.home-hero {
-		grid-template-columns: minmax(0, 1fr);
-		min-height: auto;
-		padding-bottom: clamp(1rem, 2vw, 1.5rem);
+		position: relative;
+		display: grid;
+		align-content: center;
+		min-height: min(calc(100vh - 3.6rem), 46rem);
+		padding: clamp(2rem, 5vw, 4rem) 0 3.5rem;
+		overflow: hidden;
 	}
 
-	.home-hero > div {
-		max-width: 76rem;
+	.hero-field {
+		position: absolute;
+		inset: 0;
+		z-index: 0;
 	}
 
-	.home-announcement-section {
-		padding: 0 0 clamp(1rem, 3vw, 2rem);
+	.hero-copy {
+		position: relative;
+		z-index: 1;
+		max-width: 100%;
+		pointer-events: none;
 	}
 
+	.hero-copy > * {
+		pointer-events: auto;
+	}
+
+	.hero-copy h1 {
+		font-size: clamp(2.6rem, 5vw, 4.6rem);
+		line-height: 1;
+		letter-spacing: -0.02em;
+		margin: 0.7rem 0 1.1rem;
+		white-space: nowrap;
+	}
+
+	.dek {
+		color: var(--muted);
+		font-size: clamp(1.02rem, 1.4vw, 1.15rem);
+		line-height: 1.5;
+		max-width: 31rem;
+		margin: 0;
+	}
+
+	.dek a {
+		color: var(--text);
+	}
+
+	.hero-copy .actions {
+		margin-top: 1.6rem;
+	}
+
+	.hero-jump {
+		display: inline-block;
+		margin-top: 1.5rem;
+		font-family: var(--font-sans);
+		font-size: 0.78rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--muted);
+		text-decoration: none;
+		border-bottom: 1px solid var(--line-strong);
+		padding-bottom: 0.15rem;
+	}
+
+	.hero-jump:hover {
+		color: var(--text);
+		border-bottom-color: var(--text);
+	}
+
+	/* ---------- Announcement ---------- */
 	.home-announcement {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) auto;
 		align-items: center;
-		gap: clamp(1.2rem, 4vw, 3rem);
-		padding: clamp(1.25rem, 3vw, 2rem);
-		background:
-			linear-gradient(120deg, color-mix(in srgb, var(--gold) 19%, transparent), transparent 42%),
-			linear-gradient(145deg, color-mix(in srgb, var(--purple) 12%, transparent), transparent 58%),
-			var(--surface);
-		border: 1px solid color-mix(in srgb, var(--gold) 48%, var(--line));
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
-	}
-
-	.home-announcement-copy {
-		display: grid;
-		gap: 0.65rem;
+		gap: 1rem 2.5rem;
+		padding: 1.25rem 0;
+		margin-top: 1.5rem;
+		border-top: 1px solid var(--line-strong);
+		border-bottom: 1px solid var(--line);
 	}
 
 	.home-announcement h2 {
-		margin: 0;
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(1.65rem, 4vw, 2.7rem);
-		line-height: 1.05;
+		font-size: 1.35rem;
+		line-height: 1.2;
+		margin: 0.3rem 0 0.25rem;
 	}
 
 	.home-announcement p {
-		max-width: 68ch;
+		max-width: var(--measure);
 		margin: 0;
 		color: var(--muted);
+		font-size: 0.98rem;
 	}
 
 	.home-announcement .actions {
 		justify-content: flex-end;
-		margin-top: 0;
 	}
 
-	.actions {
-		margin-top: 1.6rem;
-	}
-
-	.hero-title-lockup {
-		display: flex;
-		align-items: center;
-		gap: clamp(0.8rem, 2vw, 1.4rem);
-		margin: 1.1rem 0;
-		min-width: 0;
-	}
-
-	.hero-title-lockup img {
-		width: clamp(5.8rem, 13vw, 10rem);
-		height: clamp(5.8rem, 13vw, 10rem);
-		flex: 0 0 auto;
-		object-fit: contain;
-		border-radius: 0.7rem;
-		box-shadow: var(--shadow-soft);
-	}
-
-	.hero-title-lockup h1 {
-		margin: 0;
-		min-width: 0;
-		white-space: nowrap;
-		font-size: clamp(3rem, 7.6vw, 7rem);
-	}
-
+	/* ---------- Stats ---------- */
 	.home-stats-section {
-		padding: clamp(0.75rem, 2vw, 1.25rem) 0 clamp(0.75rem, 2vw, 1.25rem);
-	}
-
-	.papers-section {
-		padding-top: clamp(1.5rem, 4vw, 2.75rem);
+		padding-top: clamp(1.5rem, 3vw, 2.5rem);
 	}
 
 	.stats {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
-		gap: 1rem;
+		grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+		border-top: 1px solid var(--line-strong);
+		border-bottom: 1px solid var(--line);
 	}
 
-	.stats div {
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
-		padding: 1.2rem;
+	.stats > div {
+		padding: 1.1rem 1rem 1.1rem 0;
+		margin-right: 1rem;
+		border-right: 1px solid var(--line);
+	}
+
+	.stats > div:last-child {
+		border-right: 0;
+		margin-right: 0;
 	}
 
 	.stats strong {
 		display: block;
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(2rem, 4vw, 3.2rem);
+		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
+		font-weight: 600;
+		font-size: clamp(1.7rem, 3vw, 2.4rem);
 		line-height: 1;
+		letter-spacing: -0.03em;
+		color: var(--heading);
 	}
 
 	.stats span {
+		display: block;
+		margin-top: 0.45rem;
+		font-family: var(--font-sans);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		color: var(--muted);
-		font-weight: 650;
 	}
 
-	.banded {
+	/* ---------- Tools ---------- */
+	/* Both tools share one frame; the tabs pick which is on show, so the
+	   section stays the same height whichever is selected. */
+	.gallery {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.gallery-tabs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 1.75rem;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.gallery-tabs button {
 		position: relative;
-		background: color-mix(in srgb, var(--soft) 60%, transparent);
+		border: 0;
+		background: none;
+		padding: 0 0 0.7rem;
+		margin-bottom: -1px;
+		font-family: var(--font-serif);
+		font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+		font-weight: 500;
+		letter-spacing: -0.01em;
+		color: var(--muted);
+		cursor: pointer;
+		transition: color var(--motion-fast);
 	}
 
-	.event-list {
+	.gallery-tabs button:hover {
+		color: var(--text);
+	}
+
+	.gallery-tabs button.selected {
+		color: var(--heading);
+	}
+
+	.gallery-tabs button.selected::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 2px;
+		background: var(--purple);
+	}
+
+	.gallery-panel {
 		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: 1rem;
-		margin-bottom: 1rem;
+		gap: 1.25rem;
 	}
 
-	.event-card,
-	.project-card,
-	.paper-card {
-		text-decoration: none;
+	.tool-description {
+		margin: 0;
+		max-width: var(--measure);
+		font-size: 1.05rem;
+		line-height: 1.5;
+		color: var(--muted);
 	}
 
-	.paper-grid {
-		display: grid;
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-		gap: 1rem;
-	}
-
-	.research-link {
-		margin-top: 1rem;
-	}
-
-	.paper-card {
-		display: grid;
-		align-content: start;
-		gap: 0.65rem;
-		min-height: 14rem;
-		padding: 1rem;
-		background:
-			linear-gradient(132deg, color-mix(in srgb, var(--purple) 8%, transparent), transparent 46%),
-			var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
-	}
-
-	.paper-card-meta {
+	.tool-links {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.45rem;
+		gap: 0.6rem 1.2rem;
+		margin-top: 1.1rem;
 	}
 
-	.paper-card-meta span {
+	.text-link {
+		font-family: var(--font-sans);
+		font-size: 0.84rem;
+		font-weight: 600;
 		color: var(--purple);
-		font-size: 0.82rem;
-		font-weight: 850;
+		text-decoration: none;
+		border-bottom: 1px solid color-mix(in srgb, var(--purple) 40%, transparent);
 	}
 
-	.paper-card-meta em {
-		border: 1px solid color-mix(in srgb, var(--gold) 48%, var(--line));
-		border-radius: 999px;
-		background: color-mix(in srgb, var(--gold) 16%, transparent);
-		color: var(--heading);
-		font-size: 0.74rem;
-		font-style: normal;
-		font-weight: 800;
-		padding: 0.15rem 0.42rem;
+	.text-link:hover {
+		border-bottom-color: var(--purple);
 	}
 
-	.paper-card strong {
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: 1.14rem;
-		line-height: 1.12;
-	}
-
-	.paper-card p {
-		display: -webkit-box;
-		overflow: hidden;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 6;
-		line-clamp: 6;
+	.credit {
 		margin: 0;
+		font-family: var(--font-sans);
+		font-size: 0.78rem;
 		color: var(--muted);
-		font-size: 0.94rem;
+	}
+
+	/* ---------- Papers ---------- */
+	.paper-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.paper-card {
+		display: grid;
+		grid-template-columns: 13rem minmax(0, 1fr);
+		gap: 0.5rem 2rem;
+		padding: 1.1rem 0;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.paper-venue {
+		display: grid;
+		align-content: start;
+		gap: 0.3rem;
+		font-family: var(--font-sans);
+		font-size: 0.74rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--muted);
+		padding-top: 0.35rem;
+	}
+
+	.paper-venue em {
+		font-style: normal;
+		color: var(--gold-ink);
+	}
+
+	.paper-body a {
+		font-size: 1.2rem;
+		line-height: 1.3;
+		font-weight: 500;
+		color: var(--heading);
+		text-decoration: none;
+	}
+
+	.paper-body a:hover {
+		color: var(--purple);
+		text-decoration: underline;
+	}
+
+	.paper-body p {
+		margin: 0.4rem 0 0;
+		font-size: 0.95rem;
+		line-height: 1.5;
+		color: var(--muted);
+		max-width: var(--measure);
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		line-clamp: 3;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	/* ---------- Events + Projects ---------- */
+	.split {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 3rem;
+		align-items: start;
+	}
+
+	.row-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.row-list li {
+		display: grid;
+		grid-template-columns: 8rem minmax(0, 1fr);
+		gap: 1.25rem;
+		padding: 0.9rem 0;
+		border-bottom: 1px solid var(--line);
+	}
+
+	.row-key {
+		font-family: var(--font-sans);
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--muted);
+		padding-top: 0.3rem;
+		line-height: 1.4;
+	}
+
+	.row-key em {
+		display: block;
+		margin-top: 0.2rem;
+		font-style: normal;
+		color: var(--text);
+	}
+
+	.row-key.num {
+		font-family: var(--font-mono);
+		text-transform: none;
+		letter-spacing: 0;
+	}
+
+	.row-body {
+		display: grid;
+		gap: 0.2rem;
+		text-decoration: none;
+		color: var(--text);
+	}
+
+	.row-body img {
+		width: 100%;
+		max-width: 20rem;
+		margin-bottom: 0.5rem;
+		border: 1px solid var(--line);
+	}
+
+	.row-body strong {
+		font-weight: 500;
+		font-size: 1.08rem;
+		line-height: 1.3;
+	}
+
+	.row-body:hover strong {
+		color: var(--purple);
+		text-decoration: underline;
+	}
+
+	.row-body small {
+		font-family: var(--font-sans);
+		font-size: 0.84rem;
+		color: var(--muted);
 		line-height: 1.45;
 	}
 
-	.event-card {
-		display: grid;
-		gap: 0.35rem;
-		min-height: 11rem;
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
-		padding: 1rem;
-	}
-
-	.event-card span {
-		color: var(--purple);
-		font-weight: 850;
-	}
-
-	.event-card strong {
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: 1.15rem;
-		line-height: 1.12;
-	}
-
-	.event-card small {
-		color: var(--muted);
-	}
-
-	.featured-event-card {
-		background:
-			linear-gradient(135deg, color-mix(in srgb, var(--gold) 16%, transparent), transparent 42%),
-			linear-gradient(132deg, color-mix(in srgb, var(--purple) 10%, transparent), transparent 50%),
-			var(--surface);
-		border-color: color-mix(in srgb, var(--gold) 42%, var(--line));
-	}
-
-	.featured-event-card span {
-		color: color-mix(in srgb, var(--gold) 78%, var(--purple));
-	}
-
-	.hackathon-home-card {
-		gap: 0.55rem;
-	}
-
-	.hackathon-home-card img {
-		display: block;
-		width: 100%;
-		max-height: 10rem;
-		object-fit: contain;
-		border: 1px solid var(--line);
-		border-radius: calc(var(--radius) - 0.2rem);
-		background: white;
-	}
-
+	/* ---------- Photos ---------- */
+	/* Photographs keep their own proportions — the panoramic hackathon shot
+	   takes a full-width row rather than being cropped to match the others. */
 	.home-photo-grid {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1rem;
+		align-items: start;
+		gap: 1.5rem 1.25rem;
 	}
 
 	.home-photo-card {
 		margin: 0;
-		overflow: hidden;
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
+		min-width: 0;
+	}
+
+	.home-photo-card.wide {
+		grid-column: 1 / -1;
 	}
 
 	.home-photo-card img {
 		display: block;
 		width: 100%;
 		height: auto;
-		aspect-ratio: 16 / 9;
-		object-fit: cover;
-		transition: transform var(--motion-fast);
-	}
-
-	.home-photo-card:hover img {
-		transform: scale(1.012);
+		border: 1px solid var(--line);
 	}
 
 	.home-photo-card figcaption {
-		display: grid;
-		align-content: center;
-		gap: 0.35rem;
-		padding: 1rem;
+		margin-top: 0.55rem;
+		font-family: var(--font-sans);
+		font-size: 0.8rem;
+		line-height: 1.45;
+		color: var(--muted);
 	}
 
 	.home-photo-card figcaption span {
-		color: var(--purple);
-		font-size: 0.78rem;
-		font-weight: 850;
+		display: block;
+		font-size: 0.7rem;
+		font-weight: 600;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 	}
 
 	.home-photo-card figcaption strong {
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(1.3rem, 2.3vw, 2rem);
-		line-height: 1.08;
+		display: block;
+		margin-top: 0.15rem;
+		font-family: var(--font-serif);
+		font-size: 1.02rem;
+		font-weight: 500;
+		color: var(--text);
 	}
 
 	.home-photo-card figcaption p {
-		margin: 0;
-		color: var(--muted);
+		margin: 0.2rem 0 0;
 	}
 
-	.home-photo-featured {
-		display: grid;
-		grid-template-columns: minmax(0, 1.35fr) minmax(17rem, 0.65fr);
-		grid-column: 1 / -1;
+	@media (max-width: 1000px) {
+		.home-hero {
+			min-height: 0;
+			padding-bottom: 0;
+		}
+
+		.hero-copy {
+			order: -1;
+		}
+
+		.hero-field {
+			position: static;
+			height: 24rem;
+			margin-top: 2rem;
+			border-top: 1px solid var(--line-strong);
+			padding-top: 1rem;
+		}
+
+		.hero-copy h1 {
+			white-space: normal;
+		}
+
+		.split {
+			grid-template-columns: 1fr;
+		}
+
+		.home-photo-grid {
+			grid-template-columns: 1fr 1fr;
+		}
 	}
 
-	.home-photo-featured img {
-		height: 100%;
-		min-height: 18rem;
-		aspect-ratio: auto;
-	}
+	@media (max-width: 640px) {
+		/* Nothing smaller than 12px on a phone. */
+		.home-photo-card figcaption span {
+			font-size: 0.75rem;
+		}
 
-	.home-photo-featured figcaption {
-		padding: clamp(1.2rem, 3vw, 2rem);
-	}
+		.credit,
+		.home-photo-card figcaption {
+			font-size: 0.82rem;
+		}
 
-	@media (max-width: 860px) {
 		.home-announcement {
 			grid-template-columns: 1fr;
 		}
@@ -624,68 +808,31 @@
 			justify-content: flex-start;
 		}
 
-		.paper-grid,
-		.event-list,
-		.home-photo-grid,
-		.home-photo-featured {
+		.hero-copy h1 {
+			white-space: normal;
+		}
+
+		.paper-card {
 			grid-template-columns: 1fr;
 		}
 
-		.home-photo-featured {
-			grid-column: auto;
+		.row-list li {
+			grid-template-columns: 1fr;
+			gap: 0.3rem;
 		}
 
-		.home-photo-featured img {
-			height: auto;
-			min-height: 0;
-			aspect-ratio: 16 / 9;
+		.home-photo-grid {
+			grid-template-columns: 1fr;
 		}
 
-		.event-card,
-		.paper-card {
-			min-height: 0;
-		}
-	}
-
-	@media (min-width: 861px) and (max-width: 1120px) {
-		.paper-grid {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-	}
-
-	@media (max-width: 520px) {
-		.hero-title-lockup {
-			gap: 0.75rem;
+		.stats > div {
+			border-right: 0;
+			border-bottom: 1px solid var(--line);
+			margin-right: 0;
 		}
 
-		.hero-title-lockup img {
-			width: clamp(4.8rem, 19vw, 5.9rem);
-			height: clamp(4.8rem, 19vw, 5.9rem);
-		}
-
-		.hero-title-lockup h1 {
-			font-size: clamp(2.25rem, 13vw, 3.1rem);
-		}
-	}
-
-	@media (max-width: 390px) {
-		.hero-title-lockup {
-			gap: 0.55rem;
-		}
-
-		.hero-title-lockup img {
-			width: 4.1rem;
-			height: 4.1rem;
-		}
-
-		.hero-title-lockup h1 {
-			font-size: clamp(1.95rem, 10.5vw, 2.45rem);
-		}
-
-		.stats div,
-		.event-card,
-		.paper-card {
-			padding: 0.9rem;
+		.stats > div:last-child {
+			border-bottom: 0;
 		}
 	}
 </style>

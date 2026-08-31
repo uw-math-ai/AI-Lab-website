@@ -7,8 +7,8 @@ export function sitePath(path = '/') {
 }
 
 export function routePath(pathname: string) {
-	if (base && pathname.startsWith(base)) {
-		return pathname.slice(base.length) || '/';
-	}
-	return pathname || '/';
+	const withoutBase = base && pathname.startsWith(base) ? pathname.slice(base.length) : pathname;
+	// Prerendered pages are served as /research/, the dev server as /research.
+	const trimmed = withoutBase.replace(/\/+$/, '');
+	return trimmed || '/';
 }

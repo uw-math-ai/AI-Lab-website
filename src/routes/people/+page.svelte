@@ -28,17 +28,20 @@
 	<meta property="og:url" content={canonicalUrl('/people/')} />
 </svelte:head>
 
-<section class="presenters-section">
-	<h1>Math AI Lab People</h1>
-	<p class="people-intro">
+<section class="page-shell presenters-section">
+	<span class="eyebrow">People</span>
+	<h1 class="page-title">Math AI Lab People</h1>
+	<p class="people-intro lead">
 		The people of the UW Math AI Lab through Summer 2026. For the projects themselves, see the quarterly pages under
 		<a href={sitePath('/projects/summer-2026')}>Projects</a>.
 	</p>
 </section>
 
-<section class="presenters-section people-section" id="leadership">
+<section class="page-shell section people-section" id="leadership">
 	<Reveal>
-		<h2>Leadership</h2>
+		<div class="section-header">
+			<h2>Leadership</h2>
+		</div>
 		<div class="presenters-grid leadership-grid">
 			{#each leadership as person, index}
 				<a
@@ -58,15 +61,17 @@
 	</Reveal>
 </section>
 
-<section class="presenters-section people-section" id="project-leaders">
+<section class="page-shell section people-section" id="project-leaders">
 	<Reveal>
-		<h2>Project Leaders</h2>
+		<div class="section-header">
+			<h2>Project Leaders</h2>
+		</div>
 		<div class="presenters-grid">
 			{#each alphabeticalProjectLeaders as person, index}
 				<a
 					class="presenter-card linkable interactive-surface"
 					data-reveal-item
-					style={`--reveal-delay: ${(index % 5) * 45}ms`}
+					style={`--reveal-delay: ${(index % 6) * 40}ms`}
 					href={person.url}
 					target="_blank"
 					rel="noreferrer"
@@ -84,20 +89,19 @@
 	</Reveal>
 </section>
 
-<section class="presenters-section people-section" id="members">
+<section class="page-shell section people-section" id="members">
 	<Reveal>
-		<h2>Members</h2>
-		<p class="section-note">
-			Undergraduate and graduate researchers, with the project(s) they contribute to.
-		</p>
-		<div class="presenters-grid">
+		<div class="section-header">
+			<h2>Members</h2>
+			<p class="section-note">Undergraduate and graduate researchers, with the project(s) they contribute to.</p>
+		</div>
+		<div class="presenters-grid member-grid">
 			{#each alphabeticalMembers as person, index}
 				<div
 					class="presenter-card member-card interactive-surface"
 					data-reveal-item
-					style={`--reveal-delay: ${(index % 5) * 45}ms`}
+					style={`--reveal-delay: ${(index % 6) * 40}ms`}
 				>
-					<div class="presenter-avatar">{initials(person.name)}</div>
 					<span class="presenter-name">{person.name}</span>
 					<span class="presenter-role">{person.role}</span>
 				</div>
@@ -106,9 +110,12 @@
 	</Reveal>
 </section>
 
-<section class="presenters-section people-section" id="lab-photos">
+<section class="page-shell section people-section" id="lab-photos">
 	<Reveal>
-		<h2>Lab Photos</h2>
+		<div class="section-header">
+			<span class="eyebrow">Community</span>
+			<h2>Lab Photos</h2>
+		</div>
 		<div class="lab-photos">
 			{#each labPhotos as photo, index}
 				<figure
@@ -125,7 +132,7 @@
 						loading="lazy"
 						decoding="async"
 					/>
-					<figcaption>// {photo.caption}</figcaption>
+					<figcaption>{photo.caption}</figcaption>
 				</figure>
 			{/each}
 		</div>
@@ -134,176 +141,124 @@
 
 <style>
 	.presenters-section {
-		width: min(1120px, calc(100vw - 2rem));
-		margin: 0 auto;
-		padding: 0 0 clamp(3rem, 6vw, 5rem);
+		padding-top: clamp(2rem, 5vw, 3.5rem);
 	}
 
-	.presenters-section:first-of-type {
-		padding-top: clamp(3rem, 8vw, 5rem);
-		padding-bottom: 1.5rem;
-		text-align: center;
+	.presenters-section .page-title {
+		margin: 0.8rem 0 1rem;
 	}
 
-	.presenters-section h1 {
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(2.8rem, 7vw, 5.8rem);
-		line-height: 0.92;
-		margin: 0 0 1rem;
-	}
-
-	.people-intro,
-	.section-note {
-		max-width: 680px;
-		margin: 0 auto 1.5rem;
-		color: var(--muted);
-		text-align: center;
-		font-size: 1.02rem;
+	.people-intro {
+		max-width: var(--measure);
 	}
 
 	.people-intro a {
-		color: var(--purple);
-		font-weight: 800;
-	}
-
-	.presenters-section h2 {
-		margin: 0 0 2.5rem;
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(1.8rem, 4vw, 3.1rem);
-		line-height: 1;
-		text-align: center;
+		color: var(--text);
 	}
 
 	.people-section {
 		scroll-margin-top: 6rem;
 	}
 
+	.section-note {
+		grid-column: 1;
+		max-width: var(--measure);
+		margin: 0.35rem 0 0;
+		color: var(--muted);
+		font-size: 1rem;
+	}
+
 	.presenters-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-		gap: 18px;
+		grid-template-columns: repeat(6, minmax(0, 1fr));
+		gap: 1.5rem 1.25rem;
 	}
 
 	.leadership-grid {
-		grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-		max-width: 1040px;
-		margin: 0 auto;
-	}
-
-	.leadership-grid .presenter-card {
-		padding-block: 34px;
-	}
-
-	.leadership-grid .presenter-role {
-		display: inline-flex;
-		justify-content: center;
-		max-width: 100%;
-		margin-top: 0.2rem;
-		padding: 0.32rem 0.65rem;
-		border: 1px solid color-mix(in srgb, var(--purple) 22%, var(--line));
-		border-radius: 999px;
-		background: color-mix(in srgb, var(--soft) 72%, var(--surface));
-		color: var(--purple);
-		font-size: 0.78rem;
-		line-height: 1.2;
-	}
-
-	:root[data-theme='dark'] .leadership-grid .presenter-role {
-		border-color: color-mix(in srgb, var(--gold) 34%, var(--purple));
-		color: var(--gold);
+		grid-template-columns: repeat(5, minmax(0, 1fr));
 	}
 
 	.presenter-card {
 		display: block;
 		min-width: 0;
-		min-height: 0;
-		padding: 30px 20px;
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
 		color: var(--text);
 		text-decoration: none;
-		text-align: center;
 	}
 
 	.presenter-photo {
 		display: block;
-		width: 84px;
-		height: 84px;
-		margin: 0 auto 1rem;
-		border: 2px solid color-mix(in srgb, var(--gold) 42%, var(--line));
-		border-radius: 50%;
-		box-shadow: var(--glow-small);
+		width: 100%;
+		aspect-ratio: 1 / 1;
+		margin: 0 0 0.6rem;
+		border: 1px solid var(--line);
 		object-fit: cover;
 		background: var(--soft);
+		filter: none;
 	}
 
 	.presenter-avatar {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 68px;
-		height: 68px;
-		margin: 0 auto 1rem;
-		border: 2px solid color-mix(in srgb, var(--gold) 42%, var(--line));
-		border-radius: 50%;
-		background: linear-gradient(135deg, var(--purple) 0%, var(--cyan) 100%);
-		box-shadow: var(--glow-small);
-		color: white;
-		font-family: var(--font-display);
-		font-size: 1.25rem;
-		font-weight: 800;
+		width: 100%;
+		aspect-ratio: 1 / 1;
+		margin: 0 0 0.6rem;
+		border: 1px solid var(--line);
+		background: var(--soft);
+		color: var(--muted);
+		font-family: var(--font-mono);
+		font-size: 1.3rem;
 	}
 
 	.presenter-name {
 		display: block;
 		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: 0.95rem;
-		font-weight: 800;
-		line-height: 1.15;
-		margin-bottom: 0.28rem;
+		font-family: var(--font-serif);
+		font-size: 1rem;
+		font-weight: 500;
+		line-height: 1.2;
+		margin-bottom: 0.15rem;
+	}
+
+	a.presenter-card:hover .presenter-name {
+		text-decoration: underline;
 	}
 
 	.presenter-role {
 		display: block;
 		color: var(--muted);
-		font-family: var(--font-body);
-		font-size: 0.76rem;
-		font-weight: 750;
-		letter-spacing: 0.02em;
-		line-height: 1.42;
+		font-family: var(--font-sans);
+		font-size: 0.78rem;
+		line-height: 1.4;
+	}
+
+	.member-grid {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+		gap: 0;
+		border-top: 1px solid var(--line-strong);
+	}
+
+	.member-card {
+		padding: 0.75rem 1rem 0.75rem 0;
+		border-bottom: 1px solid var(--line);
 	}
 
 	.lab-photos {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 18px;
-		max-width: 980px;
-		margin: 1.5rem auto 0;
+		gap: 1.5rem 1.25rem;
 	}
 
 	.lab-photo {
 		margin: 0;
-		overflow: hidden;
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
+		min-width: 0;
 	}
 
 	.lab-photo img {
 		display: block;
 		width: 100%;
 		height: auto;
-		transition: transform var(--motion-fast);
-	}
-
-	.lab-photo:hover img {
-		transform: scale(1.012);
+		border: 1px solid var(--line);
 	}
 
 	.lab-photo-featured {
@@ -311,48 +266,38 @@
 	}
 
 	.lab-photo figcaption {
-		margin: 0;
-		padding: 0.65rem 0.8rem 0.8rem;
-		color: var(--purple);
-		font-family: var(--font-serif);
-		font-size: 1.05rem;
-		font-weight: 600;
-		text-align: right;
+		margin-top: 0.55rem;
+		font-family: var(--font-sans);
+		font-size: 0.8rem;
+		line-height: 1.45;
+		color: var(--muted);
 	}
 
-	@media (max-width: 800px) {
+	@media (max-width: 900px) {
+		.presenters-grid,
+		.leadership-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.member-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (max-width: 560px) {
+		.presenters-grid,
+		.leadership-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1.25rem 0.75rem;
+		}
+
+		.member-grid,
 		.lab-photos {
 			grid-template-columns: 1fr;
 		}
 
 		.lab-photo-featured {
 			grid-column: auto;
-		}
-	}
-
-	@media (max-width: 520px) {
-		.presenters-section {
-			width: min(100% - 1rem, 1120px);
-		}
-
-		.presenters-grid {
-			grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
-			gap: 0.75rem;
-		}
-
-		.presenter-card {
-			padding: 1.15rem 0.75rem;
-		}
-
-		.presenter-photo {
-			width: 72px;
-			height: 72px;
-		}
-
-		.presenter-avatar {
-			width: 58px;
-			height: 58px;
-			font-size: 1.05rem;
 		}
 	}
 </style>

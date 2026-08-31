@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 
 	const symbols = [
 		'∑',
@@ -46,6 +47,41 @@
 	};
 
 	let canvas: HTMLCanvasElement;
+	let quiet = $state(false);
+
+	// Re-runs on navigation so the field is never left dimmed after leaving a
+	// page that asked for quiet.
+	$effect(() => {
+		const pathname = $page.url.pathname;
+		if (!browser) return;
+		void pathname;
+
+		let observer: IntersectionObserver | null = null;
+		let raf = 0;
+		let attempts = 0;
+
+		const attach = () => {
+			const target = document.querySelector('[data-ambient-quiet]');
+			if (!target) {
+				quiet = false;
+				// The page may still be mounting; give it a few frames, then stop.
+				if (attempts++ < 20) raf = requestAnimationFrame(attach);
+				return;
+			}
+			observer = new IntersectionObserver(
+				([entry]) => (quiet = entry.intersectionRatio > 0.2),
+				{ threshold: [0, 0.2, 0.5, 1] }
+			);
+			observer.observe(target);
+		};
+		attach();
+
+		return () => {
+			observer?.disconnect();
+			cancelAnimationFrame(raf);
+			quiet = false;
+		};
+	});
 
 	$effect(() => {
 		if (!browser || !canvas) return;
@@ -101,7 +137,7 @@
 				context.fillStyle = symbolColor;
 				context.shadowColor = haloColor;
 				context.shadowBlur = 10;
-				context.font = `${particle.size}px "Space Grotesk", "Inter", sans-serif`;
+				context.font = `${particle.size}px "STIX Two Text", "Times New Roman", serif`;
 				context.fillText(
 					particle.symbol,
 					particle.x + Math.sin(particle.phase) * 5,
@@ -144,8 +180,8 @@
 	});
 </script>
 
-<div class="ambient-field" aria-hidden="true"></div>
-<canvas bind:this={canvas} class="math-canvas" aria-hidden="true"></canvas>
+<div class="ambient-field" class:quiet aria-hidden="true"></div>
+<canvas bind:this={canvas} class="math-canvas" class:quiet aria-hidden="true"></canvas>
 <div class="grain" aria-hidden="true"></div>
 
 <style>
@@ -183,6 +219,17 @@
 		width: 100%;
 		height: 100%;
 		opacity: 0.78;
+		transition: opacity 700ms ease;
+	}
+
+	.ambient-field {
+		transition: opacity 700ms ease;
+	}
+
+	/* Held back while a page's own visual is on screen. */
+	.math-canvas.quiet,
+	.ambient-field.quiet {
+		opacity: 0.05;
 	}
 
 	.grain {
@@ -202,6 +249,11 @@
 
 	:root[data-theme='dark'] .math-canvas {
 		opacity: 0.92;
+	}
+
+	:root[data-theme='dark'] .math-canvas.quiet,
+	:root[data-theme='dark'] .ambient-field.quiet {
+		opacity: 0.06;
 	}
 
 	:root[data-theme='dark'] .grain {

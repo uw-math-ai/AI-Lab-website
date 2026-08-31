@@ -1,8 +1,6 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
-	import CodePanel from '$lib/components/CodePanel.svelte';
-	import { eventsLeanSnippet } from '$lib/data/leanSnippets';
-	import { labEvents } from '$lib/data/events';
+		import { labEvents } from '$lib/data/events';
 	import { sitePath } from '$lib/paths';
 	import { canonicalUrl } from '$lib/seo';
 
@@ -57,7 +55,7 @@
 	<meta property="og:url" content={canonicalUrl('/events/')} />
 </svelte:head>
 
-<section class="page-shell hero compact-hero">
+<section class="page-shell hero compact-hero single">
 	<div>
 		<span class="eyebrow">Calendar</span>
 		<h1>Events</h1>
@@ -66,21 +64,21 @@
 			entries are one-object updates.
 		</p>
 	</div>
-	<CodePanel snippet={eventsLeanSnippet} />
 </section>
 
 {#if icmlEvent}
 	<section class="page-shell section icml-feature" id="icml-2026" aria-labelledby="icml-heading">
 		<Reveal class="feature-reveal">
 			<article class="icml-card interactive-surface">
+				<div class="icml-top">
 				<div class="icml-copy" data-reveal-item style="--reveal-delay: 0ms">
 					<div>
-						<span class="eyebrow">Eight accepted papers · ICML 2026</span>
+						<span class="eyebrow">Eight accepted papers at ICML 2026</span>
 						<h2 id="icml-heading">Congratulations to our ICML authors</h2>
 						<p>{icmlEvent.abstract}</p>
 						<div class="meta icml-meta">
 							<span class="pill">July 6–11, 2026</span>
-							<span class="pill">COEX · Seoul, Korea</span>
+							<span class="pill">COEX, Seoul, Korea</span>
 						</div>
 					</div>
 					<a class="button" href={icmlEvent.sourceUrl} target="_blank" rel="noreferrer">ICML 2026</a>
@@ -107,6 +105,7 @@
 						{/each}
 					</div>
 				{/if}
+				</div>
 
 				{#if icmlEvent.papers?.length}
 					<div class="icml-papers">
@@ -204,7 +203,11 @@
 						<h2>{event.title}</h2>
 						<p class="speaker">{event.speaker}</p>
 						{#if event.abstract}
-							<p class="abstract">{event.abstract}</p>
+							<div class="abstract">
+								{#each event.abstract.split(/\n\s*\n/) as paragraph}
+									<p>{paragraph.trim()}</p>
+								{/each}
+							</div>
 						{/if}
 						{#if event.details?.length}
 							<ul class="event-details">
@@ -241,85 +244,68 @@
 
 <style>
 	.compact-hero {
-		min-height: 28rem;
+		min-height: 24rem;
 	}
 
+	.icml-feature,
 	.hackathon-feature {
 		padding-top: 0;
 	}
 
+	.icml-feature {
+		scroll-margin-top: 6rem;
+	}
+
+	.icml-feature :global(.reveal),
 	.hackathon-feature :global(.reveal) {
 		display: block;
 	}
 
-	.icml-feature {
-		padding-top: 0;
-		scroll-margin-top: 6rem;
-	}
-
-	.icml-feature :global(.reveal) {
-		display: block;
-	}
-
 	.icml-card {
-		--surface-border-rest: color-mix(in srgb, var(--gold) 38%, var(--line));
-		isolation: isolate;
-		overflow: visible;
-		background:
-			linear-gradient(140deg, color-mix(in srgb, var(--purple) 10%, transparent), transparent 42%),
-			var(--surface);
-		border: 1px solid var(--surface-border-rest);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
+		border-top: 1px solid var(--line-strong);
+		border-bottom: 1px solid var(--line);
+		padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+	}
+
+	.icml-top {
+		display: grid;
+		grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+		gap: clamp(1.5rem, 4vw, 3.5rem);
+		align-items: start;
 	}
 
 	.icml-copy {
-		display: flex;
-		align-items: end;
-		justify-content: space-between;
-		gap: 1.5rem;
-		padding: clamp(1.2rem, 3vw, 2rem);
-	}
-
-	.icml-copy > div {
-		max-width: 70rem;
+		display: grid;
+		gap: 1.25rem;
+		justify-items: start;
 	}
 
 	.icml-copy h2 {
 		margin: 0.35rem 0 0.75rem;
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(2rem, 5vw, 4.2rem);
-		line-height: 0.98;
+		font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+		line-height: 1.05;
 	}
 
 	.icml-copy p {
 		margin: 0;
-		max-width: 76ch;
+		max-width: 60ch;
 		color: var(--muted);
-		font-size: 1.04rem;
+		font-size: 1.02rem;
 	}
 
 	.icml-meta {
-		margin-top: 1rem;
+		margin: 1rem 0 0;
 	}
 
 	.icml-gallery {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 1px;
-		background: var(--line);
-		border-block: 1px solid var(--line);
+		gap: 0.75rem;
 	}
 
 	.icml-photo {
 		margin: 0;
 		min-width: 0;
-		overflow: hidden;
-		background: var(--surface);
-		border: 1px solid transparent;
-		border-radius: calc(var(--radius) - 0.2rem);
-		box-shadow: var(--surface-shadow-rest);
 	}
 
 	.icml-photo:first-child {
@@ -330,143 +316,108 @@
 		display: block;
 		width: 100%;
 		height: auto;
-		transition: transform var(--motion-fast);
-	}
-
-	.icml-photo:hover img {
-		transform: scale(1.012);
+		border: 1px solid var(--line);
 	}
 
 	.icml-photo figcaption {
-		padding: 0.65rem 0.8rem 0.8rem;
+		margin-top: 0.4rem;
 		color: var(--muted);
-		font-size: 0.84rem;
-		font-weight: 700;
+		font-family: var(--font-sans);
+		font-size: 0.76rem;
+		line-height: 1.4;
 	}
 
 	.icml-papers {
-		padding: clamp(1.2rem, 3vw, 2rem);
+		margin-top: clamp(1.5rem, 3vw, 2.5rem);
 	}
 
 	.icml-papers-heading h3 {
-		margin: 0.3rem 0 1rem;
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(1.65rem, 3vw, 2.5rem);
-		line-height: 1;
+		margin: 0.3rem 0 0.5rem;
+		font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+		line-height: 1.1;
 	}
 
 	.icml-paper-list {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0.75rem;
+		gap: 0 2.5rem;
 		margin: 0;
 		padding: 0;
 		list-style: none;
-		counter-reset: icml-papers;
+		border-top: 1px solid var(--line-strong);
 	}
 
 	.icml-paper-list li {
-		counter-increment: icml-papers;
 		min-width: 0;
-		border: 1px solid var(--line);
-		border-radius: calc(var(--radius) - 0.2rem);
-		background: color-mix(in srgb, var(--soft) 44%, var(--surface));
-		box-shadow: var(--surface-shadow-rest);
-	}
-
-	.icml-paper-list li.honored {
-		border-color: color-mix(in srgb, var(--gold) 58%, var(--line));
-		background:
-			linear-gradient(135deg, color-mix(in srgb, var(--gold) 15%, transparent), transparent 60%),
-			var(--surface);
+		border-bottom: 1px solid var(--line);
 	}
 
 	.icml-paper-list a {
 		display: grid;
-		grid-template-columns: auto minmax(0, 1fr);
-		gap: 0.75rem;
-		align-items: start;
-		padding: 0.9rem;
+		gap: 0.25rem;
+		justify-items: start;
+		padding: 0.8rem 0;
 		color: var(--heading);
-		font-weight: 800;
+		font-size: 1.05rem;
+		font-weight: 500;
+		line-height: 1.35;
 		text-decoration: none;
 	}
 
-	.icml-paper-list a::before {
-		content: counter(icml-papers, decimal-leading-zero);
-		color: var(--purple);
-		font-family: var(--font-display);
-		font-size: 0.82rem;
-	}
-
 	.icml-paper-list a:hover span {
-		color: var(--purple);
+		text-decoration: underline;
 	}
 
 	.icml-paper-list em {
-		grid-column: 2;
-		justify-self: start;
-		border: 1px solid color-mix(in srgb, var(--gold) 54%, var(--line));
-		border-radius: 999px;
-		background: color-mix(in srgb, var(--gold) 17%, transparent);
-		color: var(--heading);
-		font-size: 0.76rem;
+		font-family: var(--font-sans);
+		font-size: 0.72rem;
+		font-weight: 600;
 		font-style: normal;
-		padding: 0.2rem 0.48rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--gold-ink);
 	}
 
 	.hackathon-card {
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
-		overflow: hidden;
-	}
-
-	.hackathon-banner {
 		display: grid;
+		grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
+		gap: clamp(1.5rem, 4vw, 3rem);
 		align-items: center;
-		padding: clamp(0.4rem, 1vw, 0.75rem);
-		background: color-mix(in srgb, var(--soft) 38%, var(--surface));
+		border-bottom: 1px solid var(--line);
+		padding: clamp(1.5rem, 3vw, 2rem) 0;
 	}
 
 	.hackathon-banner img {
 		display: block;
 		width: 100%;
 		height: auto;
-		aspect-ratio: 16 / 9;
-		object-fit: contain;
-		border-radius: calc(var(--radius) - 0.15rem);
+		border: 1px solid var(--line);
 	}
 
 	.hackathon-copy {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1rem;
-		padding: clamp(1.2rem, 3vw, 2rem);
+		display: grid;
+		gap: 1.25rem;
+		justify-items: start;
 	}
 
 	.hackathon-copy h2 {
-		margin: 0;
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(2rem, 4vw, 3.4rem);
-		line-height: 0.98;
+		margin: 0.35rem 0 0.5rem;
+		font-size: clamp(1.7rem, 3vw, 2.4rem);
+		line-height: 1.05;
 	}
 
 	.hackathon-copy p {
 		margin: 0;
+		max-width: 60ch;
 		color: var(--muted);
-		font-size: 1.05rem;
+		font-size: 1.02rem;
 	}
 
 	.calendar-toolbar {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.75rem;
-		margin-bottom: 1.5rem;
+		gap: 0.6rem;
+		margin-bottom: 1rem;
 		align-items: center;
 	}
 
@@ -475,144 +426,131 @@
 	}
 
 	.calendar-toolbar select {
-		flex: 0 1 14rem;
+		flex: 0 1 12rem;
 	}
 
 	.segmented {
 		display: inline-flex;
-		padding: 0.25rem;
-		border: 1px solid var(--line);
-		border-radius: 999px;
-		background: var(--surface);
+		border: 1px solid var(--line-strong);
+		border-radius: var(--radius);
+		overflow: hidden;
 	}
 
 	.segmented button {
 		border: 0;
-		border-radius: 999px;
 		background: transparent;
-		color: var(--text);
-		font-weight: 800;
-		padding: 0.55rem 0.85rem;
+		color: var(--muted);
+		font-family: var(--font-sans);
+		font-size: 0.84rem;
+		font-weight: 600;
+		padding: 0.55rem 0.9rem;
 		cursor: pointer;
 	}
 
+	.segmented button + button {
+		border-left: 1px solid var(--line);
+	}
+
 	.segmented button.active {
-		background: var(--purple);
-		color: white;
+		background: var(--text);
+		color: var(--bg);
 	}
 
 	.event-timeline {
 		display: grid;
-		gap: 1rem;
+		border-top: 1px solid var(--line-strong);
 	}
 
 	.event-row {
 		display: grid;
 		grid-template-columns: 10rem minmax(0, 1fr);
-		gap: 1rem;
-		align-items: stretch;
-	}
-
-	.date-block,
-	.event-body {
-		background: var(--surface);
-		border: 1px solid var(--line);
-		border-radius: var(--radius);
-		box-shadow: var(--surface-shadow-rest);
+		gap: 2rem;
+		padding: 1.25rem 0;
+		border-bottom: 1px solid var(--line);
 	}
 
 	.date-block {
 		display: grid;
 		align-content: start;
-		gap: 0.35rem;
-		padding: 1rem;
-		color: var(--purple);
+		gap: 0.25rem;
+		padding-top: 0.3rem;
 	}
 
 	.date-block strong {
-		font-family: var(--font-display);
-		font-size: 1.5rem;
-		line-height: 1;
+		font-family: var(--font-mono);
+		font-variant-numeric: tabular-nums;
+		font-size: 1rem;
+		font-weight: 600;
+		line-height: 1.2;
+		color: var(--heading);
 	}
 
 	.date-block span {
+		font-family: var(--font-sans);
+		font-size: 0.78rem;
 		color: var(--muted);
-		font-weight: 700;
 	}
 
-	.event-body {
-		padding: 1rem;
+	.event-body .meta {
+		margin: 0 0 0.4rem;
 	}
 
 	.event-body h2 {
-		margin: 0.6rem 0 0.25rem;
-		color: var(--heading);
-		font-family: var(--font-display);
-		font-size: clamp(1.35rem, 2.6vw, 2rem);
-		line-height: 1.05;
+		margin: 0 0 0.25rem;
+		font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+		line-height: 1.2;
 	}
 
 	.event-body p {
 		color: var(--muted);
-		max-width: 78ch;
+		max-width: 72ch;
+		margin: 0 0 0.5rem;
 	}
 
 	.event-body .abstract {
 		white-space: pre-line;
+		font-size: 0.98rem;
 	}
 
 	.event-body .event-details {
-		max-width: 78ch;
-		margin: 0.65rem 0 0;
+		max-width: 72ch;
+		margin: 0.5rem 0 0;
 		padding-left: 1.2rem;
 		color: var(--muted);
 	}
 
 	.event-body .event-details li + li {
-		margin-top: 0.35rem;
+		margin-top: 0.3rem;
 	}
 
 	.event-body .speaker {
 		color: var(--text);
-		font-weight: 750;
+		font-family: var(--font-sans);
+		font-size: 0.9rem;
 	}
 
-	@media (max-width: 720px) {
-		.icml-copy {
-			align-items: flex-start;
-			flex-direction: column;
-		}
+	.event-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 0.75rem;
+	}
 
-		.icml-copy .button {
-			width: 100%;
+	@media (max-width: 900px) {
+		.icml-top,
+		.hackathon-card {
+			grid-template-columns: 1fr;
 		}
 
 		.icml-paper-list {
 			grid-template-columns: 1fr;
 		}
-
-		.hackathon-copy {
-			align-items: flex-start;
-			flex-direction: column;
-		}
-
-		.hackathon-copy .actions,
-		.hackathon-copy .button {
-			width: 100%;
-		}
-
-		.event-row {
-			grid-template-columns: 1fr;
-		}
 	}
 
-	@media (max-width: 640px) {
-		.icml-gallery {
+	@media (max-width: 720px) {
+		.event-row {
 			grid-template-columns: 1fr;
-		}
-
-		.icml-photo:first-child {
-			grid-column: auto;
+			gap: 0.5rem;
 		}
 
 		.calendar-toolbar {
@@ -629,23 +567,5 @@
 			display: grid;
 			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
-
-		.segmented button {
-			padding: 0.52rem 0.45rem;
-		}
-
-		.date-block,
-		.event-body {
-			padding: 0.9rem;
-		}
-
-		.date-block {
-			gap: 0.2rem;
-		}
-	}
-	.event-links {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.6rem;
 	}
 </style>
