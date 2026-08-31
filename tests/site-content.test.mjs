@@ -117,7 +117,6 @@ test('all primary block families opt into the shared interactive surface', async
 	assert.match(people, /lab-photo interactive-surface/);
 	assert.match(research, /research-index interactive-surface/);
 	assert.match(research, /research-card interactive-surface/);
-	assert.match(projects, /project-total interactive-surface/);
 	assert.match(projects, /quarter-card interactive-surface/);
 	assert.match(resources, /featured-resource-card interactive-surface/);
 	assert.match(codePanel, /code-panel interactive-surface/);

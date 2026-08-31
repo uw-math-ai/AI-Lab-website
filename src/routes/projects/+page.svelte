@@ -1,7 +1,6 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
 	import AsciiMap from '$lib/components/AsciiMap.svelte';
-	import CountUp from '$lib/components/CountUp.svelte';
 		import { projectQuarters, totalProjectCount } from '$lib/data/projects';
 	import { sitePath } from '$lib/paths';
 	import { canonicalUrl } from '$lib/seo';
@@ -41,12 +40,6 @@
 		<p>
 			All {totalProjectCount} Math AI Lab projects by academic quarter, ordered newest to oldest.
 		</p>
-		<Reveal class="project-total-reveal">
-			<div class="project-total interactive-surface">
-				<strong><CountUp value={projectQuarters.length} /></strong>
-				<span>academic quarters, {projectQuarters.at(-1)?.year}–{projectQuarters[0]?.year}</span>
-			</div>
-		</Reveal>
 	</div>
 	<div class="hero-aside"><AsciiMap cols={44} rows={20} /></div>
 </section>
@@ -82,37 +75,9 @@
 		min-height: 24rem;
 	}
 
-	.compact-hero :global(.project-total-reveal) {
-		width: fit-content;
-	}
 
-	.project-total {
-		display: inline-flex;
-		align-items: baseline;
-		gap: 0.6rem;
-		margin-top: 1.25rem;
-		padding-top: 0.9rem;
-		border-top: 1px solid var(--line-strong);
-	}
 
-	.project-total strong {
-		font-family: var(--font-mono);
-		font-variant-numeric: tabular-nums;
-		font-weight: 600;
-		font-size: 2rem;
-		line-height: 1;
-		letter-spacing: -0.03em;
-		color: var(--heading);
-	}
 
-	.project-total span {
-		font-family: var(--font-sans);
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--muted);
-	}
 
 	.filter-row {
 		margin-bottom: 0.5rem;
