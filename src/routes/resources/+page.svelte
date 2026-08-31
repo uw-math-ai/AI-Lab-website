@@ -1,7 +1,6 @@
 <script lang="ts">
 	import LegacyContent from '$lib/components/LegacyContent.svelte';
 	import Reveal from '$lib/components/Reveal.svelte';
-	import AsciiMap from '$lib/components/AsciiMap.svelte';
 		import coursesHtml from '$lib/legacy-html/courses.html?raw';
 	import resourcesHtml from '$lib/legacy-html/resources.html?raw';
 	import seminarsHtml from '$lib/legacy-html/seminars.html?raw';
@@ -15,7 +14,7 @@
 	<meta property="og:url" content={canonicalUrl('/resources/')} />
 </svelte:head>
 
-<section class="page-shell hero compact-hero">
+<section class="page-shell hero compact-hero single">
 	<div>
 		<span class="eyebrow">Resources</span>
 		<h1>Seminars, Courses, and Resources</h1>
@@ -23,7 +22,6 @@
 			A guide to Math AI background material, UW courses, and related seminar series.
 		</p>
 	</div>
-	<div class="hero-aside"><AsciiMap cols={44} rows={20} /></div>
 </section>
 
 <section class="page-shell featured-resource" aria-labelledby="featured-resource-title">

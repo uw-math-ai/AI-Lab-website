@@ -25,7 +25,6 @@
 	const latestProjects = projectQuarters.slice(0, 3);
 	const [openProblems, theoremSearch] = labTools;
 
-	let query = $state('');
 	let selected = $state(0);
 
 	function onTabKeydown(event: KeyboardEvent) {
@@ -47,10 +46,6 @@
 			day: 'numeric',
 			year: 'numeric'
 		});
-	}
-
-	function searchUrl(q: string) {
-		return `https://www.theoremsearch.com/search?q=${encodeURIComponent(q.trim())}`;
 	}
 
 	const fmt = (n: number) => n.toLocaleString('en-US');
@@ -162,18 +157,6 @@
 				>
 					<div class="gallery-copy">
 						<p class="tool-description">{tool.description}</p>
-						{#if tool.id === 'theoremsearch'}
-							<form class="search" action="https://www.theoremsearch.com/search" method="get" target="_blank" rel="noreferrer">
-								<input
-									type="search"
-									name="q"
-									bind:value={query}
-									placeholder="Describe a result (e.g. The Jones polynomial is link invariant)"
-									aria-label="Search TheoremSearch"
-								/>
-								<button class="button primary" type="submit">Search</button>
-							</form>
-						{/if}
 						<div class="tool-links">
 							<a class="button" href={tool.url} target="_blank" rel="noreferrer">
 								{tool.id === 'theoremsearch' ? 'Open TheoremSearch' : 'Open the map'}
@@ -186,7 +169,7 @@
 					</div>
 
 					<ProjectEmbed
-						src={tool.id === 'theoremsearch' && query.trim() ? searchUrl(query) : tool.url}
+						src={tool.url}
 						title={tool.name}
 						poster={tool.poster}
 						posterAlt={tool.posterAlt}
@@ -576,18 +559,6 @@
 		border-bottom-color: var(--purple);
 	}
 
-	.search {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto;
-		gap: 0.5rem;
-		margin-top: 1.1rem;
-		max-width: 40rem;
-	}
-
-	.search input {
-		width: 100%;
-	}
-
 	.credit {
 		margin: 0;
 		font-family: var(--font-sans);
@@ -848,10 +819,6 @@
 		.row-list li {
 			grid-template-columns: 1fr;
 			gap: 0.3rem;
-		}
-
-		.search {
-			grid-template-columns: 1fr;
 		}
 
 		.home-photo-grid {

@@ -54,11 +54,32 @@
 				cells[ci] |= BITS[y & 3][x & 1];
 				if (n.lean) gold[ci] = 1;
 			}
-			let out = '';
+			// Trim the empty margin so the <pre> box hugs the drawing and the
+			// caption below lines up with it.
+			let minRow = rows;
+			let maxRow = -1;
+			let minCol = cols;
+			let maxCol = -1;
 			for (let r = 0; r < rows; r++) {
+				for (let k = 0; k < cols; k++) {
+					if (!cells[r * cols + k]) continue;
+					if (r < minRow) minRow = r;
+					if (r > maxRow) maxRow = r;
+					if (k < minCol) minCol = k;
+					if (k > maxCol) maxCol = k;
+				}
+			}
+			if (maxRow < 0) {
+				html = '';
+				count = 0;
+				return;
+			}
+
+			let out = '';
+			for (let r = minRow; r <= maxRow; r++) {
 				let line = '';
 				let inGold = false;
-				for (let k = 0; k < cols; k++) {
+				for (let k = minCol; k <= maxCol; k++) {
 					const i = r * cols + k;
 					const ch = String.fromCharCode(0x2800 + cells[i]);
 					if (gold[i] && !inGold) {
@@ -159,7 +180,9 @@
 		margin: 0;
 		display: grid;
 		gap: 0.5rem;
-		justify-items: start;
+		/* The caption is wider than the drawing; align both right so the block
+		   reads as one column against the page margin. */
+		justify-items: end;
 	}
 
 	pre {

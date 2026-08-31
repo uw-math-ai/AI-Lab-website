@@ -158,6 +158,16 @@ export const researchSections: ResearchSection[] = [
 		items: [
 			{
 				venue: 'arXiv Preprint',
+				title: 'TheoremGraph: Bridging Formal and Informal Mathematics',
+				authors:
+					'Simon Kurgan, Evan Wang, Eric Leonen, Sophie Szeto, Luke Alexander, Artemii Remizov, Jarod Alper, Giovanni Inchiostro, Vasily Ilin',
+				abstract:
+					'Mathematical knowledge is organized around statements and their dependencies, but this structure is exposed unevenly: informal papers cite mostly at the document level, while formal libraries record fine-grained dependencies over a much smaller body of mathematics. We introduce TheoremGraph, a unified statement-level dependency graph spanning both informal and formal mathematics. On the informal side, we parse 11.7M theorem-like environments from mathematics arXiv and recover 18.3M candidate directed dependencies, each labeled by the extractor that proposed it so downstream users can trade coverage for precision. On the formal side, we release LeanGraph, a Lean 4 elaborator-level extractor producing 388,105 declaration nodes and 11.3M typed edges across 25 Lean projects. We bridge the two graphs by embedding generated natural-language slogans into a shared semantic space, linking related statements across papers and across the informal/formal divide; an LLM judge affirms 47,952 such matches above a 0.8 cosine floor, with the judge-acceptance rate rising from 48% across the floor to 87% in the >=0.9 tier. On formal concept retrieval, our name-and-signature representation with graph expansion comes within 0.5pp of LeanSearch v2\'s reranked Recall@10 (0.775 vs. 0.780) without an LM reranker. We release the dataset, extractors, HTTP API, and MCP interface as infrastructure for mathematical search, attribution, and retrieval-augmented reasoning.',
+				url: 'https://arxiv.org/abs/2606.25363',
+				linkLabel: 'arXiv:2606.25363'
+			},
+			{
+				venue: 'arXiv Preprint',
 				title:
 					'StabilizerBench: A Benchmark for AI-Assisted Quantum Error Correction Circuit Synthesis',
 				authors:

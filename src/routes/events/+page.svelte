@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
-	import AsciiMap from '$lib/components/AsciiMap.svelte';
 		import { labEvents } from '$lib/data/events';
 	import { sitePath } from '$lib/paths';
 	import { canonicalUrl } from '$lib/seo';
@@ -56,7 +55,7 @@
 	<meta property="og:url" content={canonicalUrl('/events/')} />
 </svelte:head>
 
-<section class="page-shell hero compact-hero">
+<section class="page-shell hero compact-hero single">
 	<div>
 		<span class="eyebrow">Calendar</span>
 		<h1>Events</h1>
@@ -65,7 +64,6 @@
 			entries are one-object updates.
 		</p>
 	</div>
-	<div class="hero-aside"><AsciiMap cols={44} rows={20} /></div>
 </section>
 
 {#if icmlEvent}
@@ -205,7 +203,11 @@
 						<h2>{event.title}</h2>
 						<p class="speaker">{event.speaker}</p>
 						{#if event.abstract}
-							<p class="abstract">{event.abstract}</p>
+							<div class="abstract">
+								{#each event.abstract.split(/\n\s*\n/) as paragraph}
+									<p>{paragraph.trim()}</p>
+								{/each}
+							</div>
 						{/if}
 						{#if event.details?.length}
 							<ul class="event-details">

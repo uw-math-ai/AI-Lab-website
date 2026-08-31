@@ -258,9 +258,22 @@
 	.paper-actions {
 		display: flex;
 		flex-wrap: wrap;
-		align-items: center;
+		align-items: baseline;
 		gap: 0.4rem 1.25rem;
-		margin-top: 0.5rem;
+		margin-top: 0.6rem;
+	}
+
+	/* All three read as one row of controls. */
+	.paper-actions :global(.snippet-source) {
+		margin-top: 0;
+		font-size: 0.8rem;
+		line-height: 1.2;
+		border-bottom: 1px solid color-mix(in srgb, var(--purple) 40%, transparent);
+	}
+
+	.paper-actions :global(.snippet-source):hover {
+		border-bottom-color: var(--purple);
+		text-decoration: none;
 	}
 
 	.disclose {
@@ -270,6 +283,7 @@
 		font-family: var(--font-sans);
 		font-size: 0.8rem;
 		font-weight: 600;
+		line-height: 1.2;
 		color: var(--purple);
 		cursor: pointer;
 		border-bottom: 1px solid color-mix(in srgb, var(--purple) 40%, transparent);
