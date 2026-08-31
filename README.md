@@ -59,6 +59,25 @@ The event calendar is repo-owned data in `src/lib/data/events.ts`. To add an eve
 
 Use UW Math event pages as the source URL whenever possible.
 
+## Home page hero data
+
+The point field behind the home page hero, and the braille maps on subpage
+heroes, both read `static/data/open-problems-hero.json`. It is a generated
+subset of [The Growing Map of Open Problems](https://open-problems-map.pages.dev/),
+whose source data lives outside this repo in
+`TheoremSearch/experiments/unsolved_math_pilot/galaxy_data.json`.
+
+To regenerate it after the map's data changes:
+
+```sh
+node scripts/build-hero-data.mjs /path/to/galaxy_data.json
+```
+
+The script keeps every Lean-linked and every titled problem, then samples the
+rest with a fixed seed, so the map is identical on every build. Problem data is
+[ulamai/UnsolvedMath](https://huggingface.co/datasets/ulamai/UnsolvedMath),
+CC BY 4.0.
+
 ## Static Redirects
 
 Public quarter URLs such as `spring2026.html` are lightweight redirect shims in `static/` so existing links keep working after the SvelteKit migration.
