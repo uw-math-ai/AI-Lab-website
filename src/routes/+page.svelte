@@ -56,7 +56,7 @@
 </svelte:head>
 
 <section class="home-hero">
-	<div class="hero-field" aria-hidden="false">
+	<div class="hero-field" data-ambient-quiet aria-hidden="false">
 		<OpenProblemsHero
 			bleed
 			caption="Hover any point to read the problem"
@@ -540,13 +540,13 @@
 		font-family: var(--font-sans);
 		font-size: 0.84rem;
 		font-weight: 600;
-		color: var(--text);
+		color: var(--purple);
 		text-decoration: none;
-		border-bottom: 1px solid var(--line-strong);
+		border-bottom: 1px solid color-mix(in srgb, var(--purple) 40%, transparent);
 	}
 
 	.text-link:hover {
-		border-bottom-color: var(--text);
+		border-bottom-color: var(--purple);
 	}
 
 	.tool-stats {
@@ -641,6 +641,7 @@
 	}
 
 	.paper-body a:hover {
+		color: var(--purple);
 		text-decoration: underline;
 	}
 
@@ -724,6 +725,7 @@
 	}
 
 	.row-body:hover strong {
+		color: var(--purple);
 		text-decoration: underline;
 	}
 

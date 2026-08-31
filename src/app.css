@@ -22,8 +22,8 @@ iframe {
 
 	--paper: #fdfdfb;
 	--ink: #1b1e23;
-	--purple: #1b1e23;
-	--purple-ink: #000000;
+	--purple: #4b2e83;
+	--purple-ink: #3a2266;
 	--gold: #c9a227;
 	--gold-ink: #8c7019;
 	--bg: var(--paper);
@@ -37,7 +37,7 @@ iframe {
 	--line: rgba(27, 30, 35, 0.14);
 	--line-strong: rgba(27, 30, 35, 0.32);
 	--soft: rgba(27, 30, 35, 0.045);
-	--soft-purple: rgba(27, 30, 35, 0.06);
+	--soft-purple: rgba(75, 46, 131, 0.08);
 	--soft-gold: rgba(201, 162, 39, 0.16);
 		--radius: 4px;
 	--radius-lg: 6px;
@@ -61,8 +61,8 @@ iframe {
 :root[data-theme='dark'] {
 	--paper: #131416;
 	--ink: #dfdfd6;
-	--purple: #f2f2ea;
-	--purple-ink: #ffffff;
+	--purple: #b9a2ea;
+	--purple-ink: #d2c2f3;
 	--gold: #e0b93a;
 	--gold-ink: #e6c65b;
 	--bg: var(--paper);
@@ -75,8 +75,11 @@ iframe {
 	--line: rgba(223, 223, 214, 0.16);
 	--line-strong: rgba(223, 223, 214, 0.36);
 	--soft: rgba(223, 223, 214, 0.06);
-	--soft-purple: rgba(223, 223, 214, 0.08);
+	--soft-purple: rgba(185, 162, 234, 0.14);
 	--soft-gold: rgba(224, 185, 58, 0.16);
+	--cyan: #5ff4ff;
+	--ambient-symbol: rgba(185, 162, 234, 0.66);
+	--ambient-halo: rgba(95, 244, 255, 0.3);
 	--shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 	--shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.4);
 	--surface-shadow-hover: none;
@@ -136,7 +139,7 @@ select {
 }
 
 :focus-visible {
-	outline: 2px solid var(--text);
+	outline: 2px solid var(--purple);
 	outline-offset: 3px;
 }
 
@@ -317,7 +320,7 @@ h4 {
 }
 
 :root body .interactive-surface:focus-visible {
-	outline: 2px solid var(--text);
+	outline: 2px solid var(--purple);
 	outline-offset: 3px;
 }
 
