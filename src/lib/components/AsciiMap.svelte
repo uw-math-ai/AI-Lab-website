@@ -39,7 +39,7 @@
 			return 2027;
 		}
 
-		function render(cur: number) {
+		function rasterize(cur: number) {
 			const W = cols * 2;
 			const H = rows * 4;
 			const cells = new Uint8Array(cols * rows);
@@ -54,8 +54,16 @@
 				cells[ci] |= BITS[y & 3][x & 1];
 				if (n.lean) gold[ci] = 1;
 			}
-			// Trim the empty margin so the <pre> box hugs the drawing and the
-			// caption below lines up with it.
+			return { cells, gold, c };
+		}
+
+		// The crop is measured once, from the finished map. Measuring it per
+		// frame would resize the block as problems appeared, and the drawing
+		// would jump around while it grew.
+		let crop = { minRow: 0, maxRow: rows - 1, minCol: 0, maxCol: cols - 1 };
+
+		function measureCrop() {
+			const { cells } = rasterize(Infinity);
 			let minRow = rows;
 			let maxRow = -1;
 			let minCol = cols;
@@ -69,17 +77,16 @@
 					if (k > maxCol) maxCol = k;
 				}
 			}
-			if (maxRow < 0) {
-				html = '';
-				count = 0;
-				return;
-			}
+			if (maxRow >= 0) crop = { minRow, maxRow, minCol, maxCol };
+		}
 
+		function render(cur: number) {
+			const { cells, gold, c } = rasterize(cur);
 			let out = '';
-			for (let r = minRow; r <= maxRow; r++) {
+			for (let r = crop.minRow; r <= crop.maxRow; r++) {
 				let line = '';
 				let inGold = false;
-				for (let k = minCol; k <= maxCol; k++) {
+				for (let k = crop.minCol; k <= crop.maxCol; k++) {
 					const i = r * cols + k;
 					const ch = String.fromCharCode(0x2800 + cells[i]);
 					if (gold[i] && !inGold) {
@@ -134,6 +141,8 @@
 					yr: (n[2] > 0 ? n[2] : 1995 + hash(i) * 31) + hash(i * 7 + 3),
 					lean: Boolean(n[6])
 				}));
+			measureCrop();
+
 			if (reduced) {
 				year = 2026;
 				render(2027);
@@ -169,7 +178,13 @@
 	{#if caption}
 		<figcaption>
 			<span class="num">{year}</span>
-			<span>{fmt(count)} open problems</span>
+			<span>
+				<span class="tally">
+					<span class="ghost" aria-hidden="true">{fmt(total)}</span>
+					<span class="value">{fmt(count)}</span>
+				</span>
+				open problems
+			</span>
 			<a href={sitePath('/#open-problems-map')}>The map</a>
 		</figcaption>
 	{/if}
@@ -213,7 +228,29 @@
 		color: var(--muted);
 	}
 
+	/* The tally runs from 1 to the full count while the map grows. A hidden
+	   copy of the final number holds the width exactly, so the caption keeps
+	   one size and the drawing centred above it does not drift. */
+	.tally {
+		position: relative;
+		display: inline-block;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.tally .ghost {
+		visibility: hidden;
+	}
+
+	.tally .value {
+		position: absolute;
+		inset: 0;
+		text-align: right;
+	}
+
 	figcaption .num {
+		min-width: 4ch;
+		font-variant-numeric: tabular-nums;
+		text-align: right;
 		font-size: 1.1rem;
 		font-weight: 600;
 		color: var(--heading);
