@@ -180,9 +180,9 @@
 		margin: 0;
 		display: grid;
 		gap: 0.5rem;
-		/* The caption is wider than the drawing; align both right so the block
-		   reads as one column against the page margin. */
-		justify-items: end;
+		/* The caption is wider than the drawing, so centre the drawing over it;
+		   the block as a whole still sits against the page margin. */
+		justify-items: center;
 	}
 
 	pre {

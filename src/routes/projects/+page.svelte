@@ -43,8 +43,8 @@
 		</p>
 		<Reveal class="project-total-reveal">
 			<div class="project-total interactive-surface">
-				<strong><CountUp value={totalProjectCount} /></strong>
-				<span>projects across {projectQuarters.length} quarters</span>
+				<strong><CountUp value={projectQuarters.length} /></strong>
+				<span>academic quarters, {projectQuarters.at(-1)?.year}–{projectQuarters[0]?.year}</span>
 			</div>
 		</Reveal>
 	</div>
