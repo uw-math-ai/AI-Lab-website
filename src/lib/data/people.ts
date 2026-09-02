@@ -68,7 +68,7 @@ export const projectLeaders: PersonCard[] = [
 	{ name: 'Leo Mayer', role: 'Geometric Invariant Theory, Commutative Algebra', image: '/photos/people/leo-mayer.jpg', url: 'https://math.washington.edu/people/leopold-mayer' },
 	{ name: 'Michael Theologitis', role: 'LeanGCD', image: '/photos/people/michael-theologitis.jpg', url: 'https://scholar.google.com/citations?user=zXsulEcAAAAJ&hl=en' },
 	{ name: 'Nelson Niu', role: 'Category Theory', image: '/photos/people/nelson-niu.jpg', url: 'https://nelsonniu.com/' },
-	{ name: 'Rohan Pandey', role: 'Improving Mathematical Chain-of-Thought Reasoning, RL for Polynomials', url: 'https://rohan-pandey1729.github.io/developerFolio/', studentLevel: 'undergraduate' },
+	{ name: 'Rohan Pandey', role: 'Improving Mathematical Chain-of-Thought Reasoning, RL for Polynomials', image: '/photos/people/rohan-pandey.jpg', url: 'https://rohan-pandey1729.github.io/developerFolio/', studentLevel: 'graduate' },
 	{ name: 'Samuel Ainsworth', role: 'JAX in Lean', image: '/photos/people/samuel-ainsworth.jpg', url: 'https://samlikes.pizza/' },
 	{ name: 'Theodore Meek', role: 'Autoformalizing Mathematical Benchmarks, Geometric Measure Theory', url: 'https://www.linkedin.com/in/theodore-meek-9a7b171b7', studentLevel: 'undergraduate' },
 	{ name: 'Ting Gong', role: 'Albilich', image: '/photos/people/ting-gong.jpg', url: 'https://sites.google.com/view/tinggong', studentLevel: 'graduate', counterStartQuarter: 'summer-2026' },
