@@ -39,37 +39,6 @@ blocks:
           statement also receives human review and is classified as faithful, uncertain, or
           unfaithful.
   - type: project
-    title: Improving Mathematical Chain-of-Thought Reasoning of LLMs
-    id: improving-mathematical-chain-of-thought-reasoning-of-llms
-    style: heading
-    details:
-      - label: "Area:"
-        content: AI and machine learning for math
-      - label: "Project Leader:"
-        content: Rohan Pandey
-      - label: "Members:"
-        content: Sarthak Mitra, Noah Feinberg, Jolie, Shree
-      - label: "Description:"
-        content: Study how mathematical reasoning traces form and how they can be made more efficient and
-          reliable, using reinforcement learning, prompt optimization, and Lean-based verification
-          as feedback for improving chain-of-thought reasoning.
-  - type: project
-    title: Chain-of-Thought Reasoning in Lean 4
-    id: chain-of-thought-reasoning-in-lean-4
-    style: heading
-    details:
-      - label: "Area:"
-        content: AI and machine learning for math
-      - label: "Project Leader:"
-        content: Evan Wang
-      - label: "Looking for:"
-        content: new members
-      - label: "Description:"
-        content: Validate language-model reasoning by translating chain-of-thought traces into Lean 4. The
-          team defines a constrained, state-driven domain in Lean and uses formal errors as
-          feedback, helping models identify and correct contradictions, invalid state changes, and
-          other logical mistakes in their reasoning traces.
-  - type: project
     title: PermuFormer 2
     id: permuformer-2
     style: heading
@@ -77,13 +46,13 @@ blocks:
       - label: "Area:"
         content: AI and machine learning for math
       - label: "Project Leaders:"
-        content: Henry Kvinge, Michael R. Zeng
+        content: Henry Kvinge, Michael R. Zeng, Junaid Hasan
       - label: "Looking for:"
         content: new students and a graduate student mentor
       - label: "Description:"
-        content: "The continuation of Machine Learning Meets Algebraic Combinatorics: train a small language
+        content: "The continuation of Permuformer: train a small language
           model on a broad curriculum of algebraic combinatorics tasks, building balanced training
-          and evaluation sets for partitions, Young tableaux, and other core combinatorial objects."
+          and evaluation sets for partitions, Young tableaux, and other core combinatorial objects. We might gain the following two kinds of results: - a better understanding of how complex reasoning ability emerge from modern LLMs; - new conjectures and theorems from patterns captured by these specialized models."
   - type: project
     title: "ProofMem: Separating Proof Replay from Proof-Pattern Generalization in Lean Theorem Proving"
     id: proofmem-separating-proof-replay-from-proof-pattern-generalization-in-lean-theorem-proving
@@ -110,45 +79,15 @@ blocks:
       - label: "Project Leaders:"
         content: Ting Gong, Michael R. Zeng
       - label: "Description:"
-        content: Investigate open problems in finite group theory using AI systems connected to computer
+        content: Investigate open problems e.g. in finite group theory using AI systems connected to computer
           algebra tools such as GAP. In the fall the team also maintains the project's agent harness
           and MCP tooling.
-  - type: project
-    title: Learning and Formalizing Commutative Algebra
-    id: learning-and-formalizing-commutative-algebra
-    style: heading
-    details:
-      - label: "Area:"
-        content: AI for math learning and education
-      - label: "Project Leader:"
-        content: Tyson Klingner
-      - label: "Members:"
-        content: Drew Bladek, Escher Crawford
-      - label: "Description:"
-        content: Learn commutative algebra while formalizing a fundamental result in Lean, with the goal of
-          contributing the formalization to mathlib.
   - type: heading
     title: "Proposed New Projects: AI for Math Learning"
     id: proposed-new-projects-ai-for-math-learning
     level: 2
   - type: text
     content: New projects looking for mentors and students!
-  - type: project
-    title: AI Math Learning Environment
-    id: ai-math-learning-environment
-    style: heading
-    details:
-      - label: "Area:"
-        content: AI for math learning and education
-      - label: "Description:"
-        content: "A full-screen, distraction-free lecture environment with almost no controls, where
-          mathematics appears gradually rather than as a wall of text, ideally in a
-          handwritten-style visual format. The system supports voice commands, and the user can
-          pause and ask questions, which are answered on a separate board and can be merged into the
-          lecture board. The intended workflow: upload a piece of mathematics, such as a PDF, choose
-          a number of minutes, and the tool builds a lecture of that length. Each user has a profile
-          so the system knows what they already know and crafts lectures accordingly, and a feedback
-          system tracks which interactions the user liked."
   - type: project
     title: AI Math Textbook
     id: ai-math-textbook
@@ -164,39 +103,17 @@ blocks:
           embellished version should contain far more flowcharts, mindmaps, and schematics, with two
           levels of presentation: undergraduate and graduate/researcher."
   - type: project
-    title: A New and Improved Natural Language Game
-    id: a-new-and-improved-natural-language-game
+    title: A New and Improved Natural Numbers Game
+    id: a-new-and-improved-natural-numbers-game
     style: heading
     details:
       - label: "Area:"
         content: AI for math learning and education
       - label: "Description:"
-        content: "A learning game that may combine with the textbook idea and serve as a testbed for the
-          workflow, with each project leader bringing their own textbook. The experience resembles
-          someone presenting a section of the textbook to you: main ideas come first, each clickable
-          and expandable, with the material organized as a graph that zooms in all the way to the
-          level of a proof tree. Both nodes and edges are clickable, definitions stay collapsed
-          until clicked, and instant feedback is built in."
+        content: "A new version of the Lean Natural Numbers Game that may combine with the textbook idea and serve as a testbed for the
+          workflow (see above). This would be of interest to the Lean community and anyone trying to learn Lean in a fun way."
   - type: project
-    title: Math Tutor
-    id: math-tutor
-    style: heading
-    details:
-      - label: "Area:"
-        content: AI for math learning and education
-      - label: "Project Leader:"
-        content: Eric Klavins
-      - label: "Description:"
-        content: Teach mathematics to a student in a goal-directed approach informed by an estimation of the
-          student's knowledge, built up from assessing their performance on a set of problems. Using
-          a combination of agent-based LLMs, the Lean proof assistant, and model-predictive methods,
-          students are served custom-made problems that extend their knowledge and skills optimally
-          fast. A prototype of this approach, called Polya, has been developed by the Klavins lab
-          and can teach basic topology among other subjects. Students working on this project will
-          extend the approach by designing and testing new agentic harnesses and by developing new
-          curricula.
-  - type: project
-    title: The Scientific Method
+    title: Formalizing the Scientific Method
     id: the-scientific-method
     style: heading
     details:
@@ -205,11 +122,7 @@ blocks:
       - label: "Project Leader:"
         content: Eric Klavins
       - label: "Description:"
-        content: "Formalize the scientific method in Lean and LLMs, in an attempt to answer the question:
-          can the experiments done in a given scientific paper refute hypotheses derived from a
-          mathematical model of the physics involved? For example, given a model of a gene network,
-          a hypothesis about a particular gene interaction, and a molecular perturbation, does the
-          perturbation provide information about the interaction?"
+        content: "Formalize the scientific method in Lean."
   - type: project
     title: Code Certifications
     id: code-certifications
@@ -240,8 +153,8 @@ blocks:
       - label: "Project Leader:"
         content: to be announced
       - label: "Description:"
-        content: "Host and maintain the lab's internal tools on EC2: the Albilich autoresearch system, the
-          autoformalization stack (Polya and the benchmark tool), MCP tool calling, and
+        content: "Host and maintain the lab's internal tools on EC2: the Albilich autoresearch system,
+          autoformalization tools (Polya and the benchmark tool), MCP tool calling, and
           TheoremSearch."
   - type: heading
     title: Possibly Returning
