@@ -1,4 +1,25 @@
 # Edit this file to update the website. See docs/content-editing.md.
+- title: StabilizerBench at IEEE QCE 2026
+  speaker: StabilizerBench authors
+  date: 2026-09-13
+  startTime: "13:00"
+  endTime: "14:30"
+  utcOffset: "-04:00"
+  timeZoneLabel: EDT
+  location: Room 801A, Metro Toronto Convention Centre, Toronto, Canada
+  type: Conference
+  sourceUrl: https://qce.quantum.ieee.org/2026/qce26-schedule/paper-schedule/
+  sourceLabel: IEEE program
+  organizer:
+    name: IEEE Quantum Week
+    url: https://qce.quantum.ieee.org/2026/
+  abstract: >-
+    Accepted technical paper at the IEEE International Conference on Quantum Computing and
+    Engineering (QCE 2026), in the QSYS track. Listed in the AI-Assisted Quantum Software
+    Engineering session; times shown are for the full session.
+  links:
+    - label: Paper
+      url: https://arxiv.org/abs/2604.21287
 - title: Fall 2026 project leader applications open
   speaker: Math AI Lab
   date: 2026-09-07
@@ -15,6 +36,30 @@
     Project leader applications for Fall 2026 are open! We are recruiting leaders for projects in four areas: machine learning and AI for math, formalization and autoformalization, autoresearch, and AI for math education and learning.
 
     Applications are due Monday, September 7 at 11:59 pm, and earlier applications have priority. Mentors of continuing projects are required to fill it out. The project descriptions are linked below.
+- title: "TAG-DS spotlight: Does My Embedding Reflect That A = B?"
+  speaker: Samarth Rao
+  date: 2026-08-19
+  startTime: "10:20"
+  endTime: "10:40"
+  utcOffset: "-04:00"
+  timeZoneLabel: EDT
+  location: Curry Student Center Ballroom, Northeastern University, Boston, MA
+  type: Conference
+  sourceUrl: https://www.tagds.com/events/tag-ds-2026#h.basnxbwm14nc
+  sourceLabel: TAG-DS 2026
+  organizer:
+    name: TAG-DS
+    url: https://www.tagds.com/
+  abstract: >-
+    Samarth Rao presented “Does My Embedding Reflect That A = B? Evaluating Mathematical
+    Equivalence in Embedding Models” as a spotlight talk at TAG-DS 2026.
+  links:
+    - label: Slides
+      url: https://docs.google.com/presentation/d/13TMYcYC61R5DncvyIFGe_LLyjlJx0WloeLjd73mmaws/edit?slide=id.p#slide=id.p
+    - label: Paper
+      url: https://openreview.net/forum?id=kwzRA4f5zB
+    - label: Schedule
+      url: https://docs.google.com/document/d/1kDGjtp87ieDgwV534WTEOZPGBX05PsZZP9G82zQEnSc/preview
 - title: Mid-summer social event
   speaker: Math AI Lab
   date: 2026-07-20

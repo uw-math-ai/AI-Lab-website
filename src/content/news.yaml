@@ -1,0 +1,25 @@
+# Dates refer to the news, not the related conference session. Newest first.
+- id: samarth-rao-tag-ds-2026
+  date: 2026-08-19
+  title: Samarth Rao gives a TAG-DS spotlight talk
+  summary: >-
+    Samarth presented “Does My Embedding Reflect That A = B?” at TAG-DS 2026 in Boston.
+  links:
+    - label: Conference
+      url: https://www.tagds.com/events/tag-ds-2026#h.basnxbwm14nc
+    - label: Slides
+      url: https://docs.google.com/presentation/d/13TMYcYC61R5DncvyIFGe_LLyjlJx0WloeLjd73mmaws/edit?slide=id.p#slide=id.p
+    - label: Paper
+      url: https://openreview.net/forum?id=kwzRA4f5zB
+- id: stabilizerbench-ieee-qce-2026
+  # Backdated to IEEE's published technical-paper notification date, not a verified email date.
+  # https://qce.quantum.ieee.org/2026/submission-deadlines/
+  date: 2026-07-06
+  title: StabilizerBench accepted to IEEE QCE 2026
+  summary: >-
+    StabilizerBench was accepted to the QSYS technical-paper track.
+  links:
+    - label: IEEE program
+      url: https://qce.quantum.ieee.org/2026/qce26-schedule/paper-schedule/
+    - label: Paper
+      url: https://arxiv.org/abs/2604.21287

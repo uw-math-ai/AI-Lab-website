@@ -7,7 +7,8 @@ const server = await createServer({ server: { middlewareMode: true, hmr: false, 
 after(() => server.close());
 const { parseContent } = await server.ssrLoadModule('/scripts/yaml-content.ts');
 const { projectQuarters, getProjectQuarter, totalProjectCount } = await server.ssrLoadModule('/src/lib/data/projects.ts');
-const { labEvents } = await server.ssrLoadModule('/src/lib/data/events.ts');
+const { labEvents, eventDate } = await server.ssrLoadModule('/src/lib/data/events.ts');
+const { labNews } = await server.ssrLoadModule('/src/lib/data/news.ts');
 const { renderMarkdown, renderInline } = await server.ssrLoadModule('/src/lib/content/markdown.ts');
 
 test('every editable YAML file validates through the production content loader', async () => {
@@ -75,4 +76,31 @@ test('Markdown preserves math, nested lists, links, and blocks executable HTML',
 	assert.match(renderMarkdown('- Topic\n  - [Lean](https://lean-lang.org/)'), /<ul>[\s\S]*<ul>[\s\S]*href="https:\/\/lean-lang.org\/"/);
 	assert.doesNotMatch(renderMarkdown('<script>alert(1)</script>\n\n[bad](javascript:alert(1))'), /<script>|href="javascript:/);
 	assert.match(renderInline('[Slides](/slides/test.pdf)'), /href="\/slides\/test.pdf"/);
+});
+
+test('conference events retain verified dates, venue time zones, and source links', () => {
+	const tag = labEvents.find((event) => event.speaker === 'Samarth Rao');
+	assert.ok(tag);
+	assert.equal(tag.date, '2026-08-19');
+	assert.equal(tag.startTime, '10:20');
+	assert.equal(tag.endTime, '10:40');
+	assert.equal(eventDate(tag).toISOString(), '2026-08-19T14:20:00.000Z');
+	assert.ok(tag.links.some((link) => link.url === 'https://openreview.net/forum?id=kwzRA4f5zB'));
+	assert.ok(tag.links.some((link) => link.url.includes('13TMYcYC61R5DncvyIFGe_LLyjlJx0WloeLjd73mmaws')));
+	const ieee = labEvents.find((event) => event.title === 'StabilizerBench at IEEE QCE 2026');
+	assert.ok(ieee);
+	assert.equal(eventDate(ieee).toISOString(), '2026-09-13T17:00:00.000Z');
+	assert.equal(ieee.endTime, '14:30');
+	assert.match(ieee.abstract, /full session/);
+	assert.equal(ieee.timeZoneLabel, 'EDT');
+	assert.equal(ieee.organizer.name, 'IEEE Quantum Week');
+});
+
+test('news has independent historical dates, chronological ordering, and unique IDs', () => {
+	assert.deepEqual(labNews.map((item) => item.date), labNews.map((item) => item.date).toSorted().reverse());
+	assert.equal(labNews.find((item) => item.id === 'samarth-rao-tag-ds-2026').date, '2026-08-19');
+	assert.equal(labNews.find((item) => item.id === 'stabilizerbench-ieee-qce-2026').date, '2026-07-06');
+	const item = JSON.stringify({ id: 'news-fixture', date: '2026-08-19', title: 'News', summary: 'Summary', links: [{ label: 'Source', url: 'https://example.com/' }] });
+	assert.throws(() => parseContent(`[${item},${item}]`, 'src/content/news.yaml'), /Duplicate news ID/);
+	assert.throws(() => parseContent(`[${item.replace('2026-08-19', '2026-02-30')}]`, 'src/content/news.yaml'), /date/);
 });

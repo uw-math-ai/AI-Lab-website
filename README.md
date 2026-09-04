@@ -46,7 +46,7 @@ repo links to it but does not build that app.
 
 ## Editing content
 
-Edit YAML in `src/content/` to update project quarters, events, people, publications, homepage tool
+Edit YAML in `src/content/` to update project quarters, events, news, people, publications, homepage tool
 cards, resources, and page metadata. Project descriptions support Markdown, so no HTML editing is
 needed. New quarter files are discovered automatically, and invalid YAML fails validation before deployment.
 

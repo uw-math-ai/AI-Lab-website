@@ -1,7 +1,8 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
 	import Seo from '$lib/components/Seo.svelte';
-	import { labEvents } from '$lib/data/events';
+	import NewsList from '$lib/components/NewsList.svelte';
+	import { labEvents, eventDate } from '$lib/data/events';
 	import { pages } from '$lib/data/pages';
 	import { sitePath } from '$lib/paths';
 	import { collectionPage, graph, organizationId } from '$lib/structuredData';
@@ -20,8 +21,8 @@
 					item: {
 						'@type': 'Event',
 						name: event.title,
-						startDate: `${event.date}T${event.startTime}:00`,
-						endDate: `${event.date}T${event.endTime}:00`,
+						startDate: `${event.date}T${event.startTime}:00${event.utcOffset ?? ''}`,
+						endDate: `${event.date}T${event.endTime}:00${event.utcOffset ?? ''}`,
 						location: {
 							'@type': event.location === 'Online' ? 'VirtualLocation' : 'Place',
 							name: event.location,
@@ -31,7 +32,7 @@
 							event.location === 'Online'
 								? 'https://schema.org/OnlineEventAttendanceMode'
 								: 'https://schema.org/OfflineEventAttendanceMode',
-						organizer: { '@id': organizationId },
+						organizer: event.organizer ? { '@type': 'Organization', ...event.organizer } : { '@id': organizationId },
 						...(event.abstract ? { description: event.abstract } : {}),
 						...(event.sourceUrl ? { url: event.sourceUrl } : {})
 					}
@@ -45,10 +46,6 @@
 
 	const types = ['all', ...Array.from(new Set(labEvents.map((event) => event.type)))];
 	const icmlEvent = labEvents.find((event) => event.title === 'ICML 2026');
-
-	function eventTime(event: { date: string; startTime: string }) {
-		return new Date(`${event.date}T${event.startTime}:00`);
-	}
 
 	function formatDate(value: string) {
 		return new Date(`${value}T00:00:00`).toLocaleDateString('en-US', {
@@ -70,7 +67,7 @@
 	let visibleEvents = $derived(
 		labEvents
 			.filter((event) => {
-				const isUpcoming = eventTime(event) >= new Date();
+				const isUpcoming = eventDate(event) >= new Date();
 				const matchesMode = mode === 'all' || (mode === 'upcoming' ? isUpcoming : !isUpcoming);
 				const matchesType = type === 'all' || event.type === type;
 				const haystack = `${event.title} ${event.speaker} ${event.location} ${event.abstract ?? ''} ${(event.details ?? []).join(' ')} ${(event.papers ?? []).map((paper) => paper.title).join(' ')}`.toLowerCase();
@@ -78,7 +75,7 @@
 			})
 			.sort((a, b) => {
 				const direction = mode === 'upcoming' ? 1 : -1;
-				return direction * (eventTime(a).getTime() - eventTime(b).getTime());
+				return direction * (eventDate(a).getTime() - eventDate(b).getTime());
 			})
 	);
 </script>
@@ -195,6 +192,8 @@
 	</Reveal>
 </section>
 
+<NewsList />
+
 <section class="page-shell section">
 	<Reveal>
 		<div class="calendar-toolbar">
@@ -226,7 +225,7 @@
 						<div class="meta">
 							<span class="pill">{event.type}</span>
 							{#if event.startTime !== event.endTime}
-								<span class="pill">{formatTime(event.startTime)}-{formatTime(event.endTime)}</span>
+								<span class="pill">{formatTime(event.startTime)}-{formatTime(event.endTime)}{event.timeZoneLabel ? ` ${event.timeZoneLabel}` : ''}</span>
 							{/if}
 							<span class="pill">{event.location}</span>
 						</div>

@@ -66,6 +66,9 @@ export const eventSchema = z.strictObject({
 	date,
 	startTime: time,
 	endTime: time,
+	utcOffset: z.string().regex(/^[+-](?:0\d|1[0-4]):[0-5]\d$/).optional(),
+	timeZoneLabel: text.optional(),
+	organizer: z.strictObject({ name: text, url }).optional(),
 	location: text,
 	type: z.enum(['Seminar', 'Workshop', 'Conference', 'Poster Session', 'Final Exam', 'Information Session', 'Colloquium', 'Social', 'Announcement']),
 	sourceUrl: url.optional(),
@@ -77,6 +80,21 @@ export const eventSchema = z.strictObject({
 	photos: z.array(photo).optional()
 });
 export type LabEvent = z.infer<typeof eventSchema>;
+
+export const newsSchema = z.array(z.strictObject({
+	id,
+	date,
+	title: text,
+	summary: text,
+	links: z.array(link).min(1)
+})).superRefine((items, ctx) => {
+	const ids = new Set<string>();
+	for (const [index, item] of items.entries()) {
+		if (ids.has(item.id)) ctx.addIssue({ code: 'custom', path: [index, 'id'], message: `Duplicate news ID: ${item.id}` });
+		ids.add(item.id);
+	}
+});
+export type NewsItem = z.infer<typeof newsSchema>[number];
 
 const person = z.strictObject({
 	name: text,
@@ -130,6 +148,7 @@ export function schemaForContentFile(filename: string) {
 	if (/\/projects\/[^/]+\.yaml$/.test(filename)) return projectQuarterSchema;
 	if (/\/resources\/[^/]+\.yaml$/.test(filename)) return resourceSchema;
 	if (filename.endsWith('/events.yaml')) return z.array(eventSchema).min(1);
+	if (filename.endsWith('/news.yaml')) return newsSchema;
 	if (filename.endsWith('/people.yaml')) return peopleSchema;
 	if (filename.endsWith('/research.yaml')) return z.array(researchSection).min(1);
 	if (filename.endsWith('/tools.yaml')) return z.array(tool).min(1);

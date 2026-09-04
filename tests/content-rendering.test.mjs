@@ -64,3 +64,46 @@ test('resource redirects preserve the hosting prefix and section fragment', asyn
 		}
 	}
 });
+
+test('dated news and its links render on both the homepage and Events page', async () => {
+	const news = parseYaml(await readFile('src/content/news.yaml', 'utf8'));
+	for (const route of ['', 'events']) {
+		const page = parseHtml(await readFile(`build/${route}/index.html`, 'utf8'));
+		for (const item of news) {
+			const cards = all(page, (node) => attr(node, 'id') === item.id);
+			assert.equal(cards.length, 1);
+			assert.ok(text(cards[0]).includes(item.title));
+			assert.ok(text(cards[0]).includes(item.summary));
+			assert.equal(attr(all(cards[0], (node) => node.tagName === 'time')[0], 'datetime'), item.date);
+			for (const link of item.links) {
+				assert.ok(all(cards[0], (node) => attr(node, 'href') === link.url).length === 1);
+			}
+		}
+	}
+});
+
+test('StabilizerBench moves to conference papers without duplication', async () => {
+	const sections = parseYaml(await readFile('src/content/research.yaml', 'utf8'));
+	const papers = sections.flatMap((section) => section.items);
+	const matches = papers.filter((paper) => paper.url === 'https://arxiv.org/abs/2604.21287');
+	assert.equal(matches.length, 1);
+	assert.equal(matches[0].badge, 'Accepted');
+	assert.equal(matches[0].venue, 'IEEE QCE 2026, QSYS track');
+	assert.ok(sections.find((section) => section.id === 'conference-workshop-papers').items.includes(matches[0]));
+	const page = parseHtml(await readFile('build/research/index.html', 'utf8'));
+	assert.equal(all(page, (node) => node.tagName === 'h3' && text(node) === matches[0].title).length, 1);
+});
+
+test('conference structured data uses local offsets and external organizers', async () => {
+	const html = parseHtml(await readFile('build/events/index.html', 'utf8'));
+	const script = all(html, (node) => node.tagName === 'script' && attr(node, 'type') === 'application/ld+json')[0];
+	const graph = JSON.parse(script.childNodes.map((node) => node.value ?? '').join(''))['@graph'];
+	const events = graph.find((item) => item['@type'] === 'ItemList').itemListElement.map((entry) => entry.item);
+	const ieee = events.find((event) => event.name === 'StabilizerBench at IEEE QCE 2026');
+	assert.equal(ieee.startDate, '2026-09-13T13:00:00-04:00');
+	assert.equal(ieee.endDate, '2026-09-13T14:30:00-04:00');
+	assert.equal(ieee.organizer.name, 'IEEE Quantum Week');
+	const tag = events.find((event) => event.name.startsWith('TAG-DS spotlight:'));
+	assert.equal(tag.startDate, '2026-08-19T10:20:00-04:00');
+	assert.equal(tag.organizer.name, 'TAG-DS');
+});

@@ -5,6 +5,15 @@
     theorem proving, plasma physics, and mathematical search.
   countsAsPaper: true
   items:
+    - venue: IEEE QCE 2026, QSYS track
+      badge: Accepted
+      title: "StabilizerBench: A Benchmark for AI-Assisted Quantum Error Correction Circuit Synthesis"
+      authors: Andres Paz, Christian Tarta, Cordelia Yuqiao Li, Mayee Sun, Sarju Patel, Sylvie Lausier
+      abstract: A benchmark suite for evaluating AI systems on synthesizing quantum error-correcting
+        stabilizer circuits, with systematic coverage of code families and circuit constraints
+        relevant to near-term quantum hardware.
+      url: https://arxiv.org/abs/2604.21287
+      linkLabel: arXiv:2604.21287
     - venue: ICML 2026
       badge: Oral presentation
       featured: true
@@ -47,7 +56,8 @@
         of future autoformalization systems."
       url: https://arxiv.org/abs/2606.14000
       linkLabel: arXiv:2606.14000
-    - venue: ICML 2026 Workshop
+    - venue: TAG-DS 2026; ICML 2026 Workshop
+      badge: TAG-DS Spotlight
       featured: true
       title: Does My Embedding Reflect That A = B? Evaluating Mathematical Equivalence in Embedding Models
       authors: Jiaying Ye, Samarth Rao, Leo Carlin, Kedar Chintalapati, Saharsh Bhargava, Rachit Jaiswal,
@@ -225,14 +235,6 @@
         retrieval-augmented reasoning."
       url: https://arxiv.org/abs/2606.25363
       linkLabel: arXiv:2606.25363
-    - venue: arXiv Preprint
-      title: "StabilizerBench: A Benchmark for AI-Assisted Quantum Error Correction Circuit Synthesis"
-      authors: Andres Paz, Christian Tarta, Cordelia Yuqiao Li, Mayee Sun, Sarju Patel, Sylvie Lausier
-      abstract: A benchmark suite for evaluating AI systems on synthesizing quantum error-correcting
-        stabilizer circuits, with systematic coverage of code families and circuit constraints
-        relevant to near-term quantum hardware.
-      url: https://arxiv.org/abs/2604.21287
-      linkLabel: arXiv:2604.21287
 - id: research-artifacts
   title: Research Artifacts
   description: Software, formalization contributions, and manuscripts connected to current lab projects.

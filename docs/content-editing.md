@@ -8,6 +8,7 @@ No HTML source pages or conversion scripts are needed.
 | --- | --- |
 | Project teams, descriptions, mentors, and quarter summaries | `src/content/projects/<quarter>.yaml` |
 | Seminar/event cards, dates, photos, and linked papers | `src/content/events.yaml` |
+| Dated news on the homepage and Events page | `src/content/news.yaml` |
 | Leadership, mentors, members, headshots, and lab photos | `src/content/people.yaml` |
 | Publication cards, authors, abstracts, and featured work | `src/content/research.yaml` |
 | Homepage tool cards, statistics, and links | `src/content/tools.yaml` |
@@ -91,6 +92,13 @@ following the existing quarter redirect files.
 For events, copy an existing entry and edit its title, speaker, date, times, location, and type.
 Quote times such as `"09:00"`. Use the published abstract when available. Optional arrays include
 `links`, `papers`, `photos`, and `details`. Events are sorted by date/time automatically.
+For events outside Seattle, set `utcOffset` (for example `"-04:00"`) and `timeZoneLabel` (`EDT`)
+for the event date. Times are shown in the venue's local time.
+
+News entries have a unique `id`, a `date`, a short `title` and `summary`, and `links`.
+Use the date of the news, not a future conference date. Keep retrospective news separate from
+calendar entries so past announcements do not appear as upcoming events. Cite any inferred
+backdating in a YAML comment and retain the source link.
 
 For publications, keep each item in the appropriate section. `featured: true` includes a work in
 the homepage's featured list; `countsAsPaper` controls whether a section contributes to the paper count.

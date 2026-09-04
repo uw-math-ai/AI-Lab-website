@@ -3,7 +3,8 @@
 	import OpenProblemsHero from '$lib/components/OpenProblemsHero.svelte';
 	import ProjectEmbed from '$lib/components/ProjectEmbed.svelte';
 	import Seo from '$lib/components/Seo.svelte';
-	import { labEvents } from '$lib/data/events';
+	import NewsList from '$lib/components/NewsList.svelte';
+	import { labEvents, eventDate } from '$lib/data/events';
 	import { participantCounts } from '$lib/data/people';
 	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
 	import { featuredResearch, totalPaperCount } from '$lib/data/research';
@@ -17,7 +18,7 @@
 	const upcoming = labEvents
 		.filter(
 			(event) =>
-				new Date(`${event.date}T${event.startTime}:00`) >= new Date() &&
+				eventDate(event) >= new Date() &&
 				event.title !== 'ICML 2026' &&
 				event.type !== 'Announcement'
 		)
@@ -204,6 +205,8 @@
 		</ol>
 	</Reveal>
 </section>
+
+<NewsList />
 
 <section class="page-shell section split-section">
 	<Reveal>

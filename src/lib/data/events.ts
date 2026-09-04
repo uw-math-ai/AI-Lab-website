@@ -8,5 +8,5 @@ export const labEvents = (content as LabEvent[]).toSorted(
 );
 
 export function eventDate(event: LabEvent) {
-	return new Date(`${event.date}T${event.startTime}:00`);
+	return new Date(`${event.date}T${event.startTime}:00${event.utcOffset ?? ''}`);
 }
