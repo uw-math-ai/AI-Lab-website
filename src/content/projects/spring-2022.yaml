@@ -1,0 +1,23 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: spring-2022
+legacyFile: spring2022.html
+label: Spring 2022
+term: Spring
+year: 2022
+status: archive
+lastmod: 2026-06-01
+summary: The early XLL-era project archive.
+blocks:
+  - type: text
+    content: |-
+      -   **Faculty mentor:** Jarod Alper
+      -   **Graduate student mentors:** Vasily Ilin, Leopold Mayer
+      -   **Student participants and contributors:** Griffin Golias, Kevin Kuei, Brendan Murphy, Alex Scheffelin, Runchi Tan
+      -   [GitHub repository](https://github.com/leomayer1/WXML_Sp2022)
+  - type: heading
+    title: Project
+    id: project
+    level: 3
+  - type: text
+    content: Developed our own library for ideals of commutative rings and formalized Hilbert's 1890
+      proof that ideals in polynomial rings are finitely generated.

@@ -2,13 +2,15 @@
 	import Reveal from '$lib/components/Reveal.svelte';
 	import OpenProblemsHero from '$lib/components/OpenProblemsHero.svelte';
 	import ProjectEmbed from '$lib/components/ProjectEmbed.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import { labEvents } from '$lib/data/events';
 	import { participantCounts } from '$lib/data/people';
 	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
 	import { featuredResearch, totalPaperCount } from '$lib/data/research';
 	import { labTools } from '$lib/data/tools';
+	import { pages } from '$lib/data/pages';
 	import { sitePath } from '$lib/paths';
-	import { canonicalUrl } from '$lib/seo';
+	import { graph, organization, website } from '$lib/structuredData';
 
 	const applicationAnnouncement = labEvents.find((event) => event.type === 'Announcement');
 
@@ -51,14 +53,10 @@
 	const fmt = (n: number) => n.toLocaleString('en-US');
 </script>
 
-<svelte:head>
-	<title>Math AI Lab | University of Washington</title>
-	<link rel="canonical" href={canonicalUrl('/')} />
-	<meta property="og:title" content="Math AI Lab | University of Washington" />
-	<meta property="og:url" content={canonicalUrl('/')} />
-	<meta property="og:site_name" content="UW Math AI Lab" />
-	<meta property="og:type" content="website" />
-</svelte:head>
+<Seo
+	{...pages.home}
+	jsonLd={graph(organization, website)}
+/>
 
 <section class="home-hero">
 	<div class="hero-field" data-ambient-quiet aria-hidden="false">

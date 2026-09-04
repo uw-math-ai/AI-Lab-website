@@ -1,0 +1,53 @@
+# Edit this file to update the website. See docs/content-editing.md.
+blocks:
+  - type: heading
+    title: Math AI Resources
+    id: math-ai-resources
+    level: 2
+  - type: quote
+    content: >-
+      "Investing in applied machine learning without understanding the mathematical foundations is
+      like investing in health care without understanding biology".
+    attribution: "-- Rebecca Willett (2023)"
+  - type: text
+    content: |-
+      What is Math AI? At the intersection of mathematics and AI is a broad, rapidly-developing subject. It is truly interdisciplinary subject connected to mathematics, applied mathematics, statistics, computer science, philosophy, and engineering. It can be roughly categorized into five interrelated areas:
+
+      -   the mathematics behind AI
+      -   mathematical formalization
+      -   autoformalization: using machine learning to automate formalization
+      -   machine learning to assist mathematical research, and
+      -   the meaning of mathematics in the age of AI.
+  - type: heading
+    title: Math AI resources
+    id: math-ai-reading-resources
+    level: 2
+  - type: text
+    content: |-
+      -   [Embracing AI and Formalization: Experimenting with Tomorrow's Mathematical Tools](https://sites.math.washington.edu/~jarod/papers/embracingAI.pdf) by Jarod Alper\
+          in _Bulletin Of The American Mathematical Society_.
+      -   All the articles from the [April 2024](https://www.ams.org/journals/bull/2024-61-02/) and [July 2024](https://www.ams.org/journals/bull/2024-61-03/) issues of the Bulletin of the AMS
+      -   [AI for Math Resources](https://docs.google.com/document/d/1kD7H4E28656ua8jOGZ934nbH2HcBLyxcRgFDduH5iQ0/edit?tab=t.0) created following the National Academies of Sciences meeting: [AI to Assist Mathematical Reasoning](https://www.nationalacademies.org/event/06-12-2023/ai-to-assist-mathematical-reasoning-a-workshop)
+  - type: heading
+    title: Lean resources
+    id: lean-resources
+    level: 2
+  - type: text
+    content: |-
+      -   Playing around
+          -   Play the [Natural Number Game](https://www.ma.imperial.ac.uk/~buzzard/xena/natural_number_game/) (by Kevin Buzzard and Mohammad Pedramfar).
+          -   Additional [Lean games](https://adam.math.hhu.de/)
+          -   A [Glimpse of Lean](https://github.com/PatrickMassot/GlimpseOfLean) by Pattrick Massot
+          -   [Online version of Lean](https://live.lean-lang.org/) (no installation)
+      -   Getting serious
+          -   Install a **Lean 4** environment on your computer with VS Code: follow the [directions here](https://leanprover-community.github.io/mathematics_in_lean/C01_Introduction.html#getting-started).
+          -   [Mathematics in Lean](https://leanprover-community.github.io/mathematics_in_lean/), introductory book by Jeremy Avigad and Patrick Massot
+              -   Follow the instructions in Section 1.1 "Getting Started" in to download the "mathematics\_in\_lean" repository which you should be able to view in VS Code.
+          -   Kevin Buzzard's course [Formalising Mathematics 2024](https://github.com/ImperialCollegeLondon/formalising-mathematics-2024)
+          -   [Theorem Proving in Lean 4](https://leanprover.github.io/theorem_proving_in_lean4/) by Jeremy Avigad, Leonardo de Moura, and Soonho Kong
+          -   [Mathlib4 documentation](https://leanprover-community.github.io/mathlib4_docs/).
+          -   [Lean community resources](https://leanprover-community.github.io/) including [math courses using Lean](https://leanprover-community.github.io/courses.html)
+          -   Search tools for Lean: [Loogle](https://loogle.lean-lang.org/), [Moogle](https://www.moogle.ai/), and [LeanSearch](https://leansearch.net/). They can be used within a VS code.
+          -   Lean tactic cheatsheets: [Lean community](https://leanprover-community.github.io/papers/lean-tactics.pdf), [Buzzard](https://www.ma.imperial.ac.uk/~buzzard/xena/formalising-mathematics-2024/Part_C/Part_C.html)
+          -   [Mathlib naming conventions](https://leanprover-community.github.io/contribute/naming.html)
+          -   Join the [Lean community Zulip](https://leanprover.zulipchat.com/).

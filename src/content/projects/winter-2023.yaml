@@ -1,0 +1,70 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: winter-2023
+legacyFile: winter2023.html
+label: Winter 2023
+term: Winter
+year: 2023
+status: archive
+lastmod: 2026-06-01
+summary: Fibonacci identities, group theory, topology, and commutative algebra projects.
+blocks:
+  - type: text
+    content: |-
+      -   **Faculty mentor:** Jarod Alper
+      -   **Graduate student mentors:** Vasily Ilin, Leopold Mayer
+      -   **Student participants:** Gregory Baimetov, Zachary Banken, William Dudarov, Griffin Golias, Raymond Guo, Eva Hu, Luca Li, Lawrence Lin, Alex Sanchez
+      -   [Github repository](https://github.com/Vilin97/LLL)
+  - type: heading
+    title: "Projects:"
+    id: projects
+    level: 3
+  - type: project
+    title: Identities of the Fibonacci sequence Fₙ
+    id: identities-of-the-fibonacci-sequence-f
+    style: list
+    intro: "(Lawrence Lin):"
+    details:
+      - content: F₍ₙ₎F₍ₙ₊₂₎-F₍ₙ₊₁₎² = (-1)^(n+1)
+      - content: F₍ₙ₎F₍ₘ₊ₙ₎ = F₍ₙ₊₁₎F₍ₘ₎ + F₍ₙ₎F₍ₘ₋₁₎
+      - content: m | n ⟹ F₍ₘ₎ | F₍ₙ₎
+      - content: "Binet's Formula: F₍ₙ₎ = (1/√5)((1+√5)/2)^n - ((1-√5)/2)^n"
+  - type: project
+    title: Group theory exercises from Herstein _Abstract Algebra_
+    id: group-theory-exercises-from-herstein-abstract-algebra
+    style: list
+    intro: "(Alex Sanchez):"
+    details:
+      - content: Let G be an abelian group, and let h₁, h₂ ∈ G be elements. Prove that there exists an
+          element h ∈ G whose order is the least common multiple of the orders of h₁ and h₂.
+      - content: Let G be an abelian group, and let H₁, and H₂ be subgroups. Prove that there exists a
+          subgroup of G whose order is the least common multiple of the orders of H₁ and H₂.
+  - type: project
+    title: Topology
+    id: topology
+    style: list
+    intro: "(Zilu Li):"
+    details:
+      - content: "If f : X → Y is a quotient map, then for each y ∈ Y the set f⁻¹({y}) is connected. If Y is
+          connected, then so is X."
+      - content: If a set is connected, then so is its closure.
+      - content: "In a metric space (X,d), the following are equivalent: (a) X is compact, (b) Every
+          infinite subset of X has a cluster point, (c) Every sequence in X has a convergent
+          subsequence, (d) X is complete and totally bounded, (e) X is totally bounded and has the
+          Lebesgue property."
+  - type: project
+    title: Commutative algebra
+    id: commutative-algebra
+    style: list
+    intro: "(Raymond Guo):"
+    details:
+      - content: An integral domain is a PID if and only if every prime ideal is principal.
+  - type: project
+    title: Sequences
+    id: sequences
+    style: list
+    intro: "(Zachary Banken, Gregory Baimetov):"
+    details:
+      - content: "Beatty's Theorem (aka Rayleigh's Theorem): see
+          [wikipedia](https://en.wikipedia.org/wiki/Beatty_sequence)."
+      - content: "Uspensky's Theorem: it is not possible to partition the natural numbers using 3 or more
+          Beatty sequences."

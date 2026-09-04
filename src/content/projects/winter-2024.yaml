@@ -1,0 +1,73 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: winter-2024
+legacyFile: winter2024.html
+label: Winter 2024
+term: Winter
+year: 2024
+status: archive
+lastmod: 2026-06-01
+summary: FRACTRAN, continued fractions, cancellation theorems, and Math 300 formalization work.
+blocks:
+  - type: project
+    title: Faculty mentors
+    id: faculty-mentors
+    style: list
+    intro: ": Jarod Alper, Andy Heald"
+  - type: project
+    title: Graduate student mentors
+    id: graduate-student-mentors
+    style: list
+    intro: ": Herman Chau, Vasily Ilin, Leopold Mayer"
+  - type: project
+    title: Student participants
+    id: student-participants
+    style: list
+    intro: ": Dale Dai, Yujia Dai, Siyuan Ge, Tess Gerrard, Kenneth Gong, Daniel Hughes, Mitchell Levy,
+      Benjamin Li, Xinyan Li, Nathan Louie, Rina Reimer, Alexander Sanchez, Qiguang Yan, Christie
+      Yang, Steven Zhong"
+  - type: heading
+    title: "Projects:"
+    id: projects
+    level: 3
+  - type: project
+    title: FRACTRAN
+    id: fractran
+    style: list
+    details:
+      - content: Implement the programming language [FRACTRAN](https://en.wikipedia.org/wiki/FRACTRAN) in
+          Lean and write the adder in FRACTRAN.
+      - content: "Members: Vasilly Ilin, Alex Sanchez, Mitchell Levy"
+      - content: "[GitHub code](https://github.com/sanchace/FRACTRAN)"
+  - type: project
+    title: Continued Fraction Expansion for e
+    id: continued-fraction-expansion-for-e
+    style: list
+    intro: (continued from Fall 2023)
+    details:
+      - content: The continued fraction expansion of e is \[1, 0, 1, 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, 1, 1,
+          10, …\]
+      - content: "Members: Xinyan Li, Leopold Mayer, Christie Yang"
+      - content: "[GitHub code](https://github.com/leomayer1/cont_frac)"
+  - type: project
+    title: Witt's Cancellation Theorem
+    id: witt-s-cancellation-theorem
+    style: list
+    intro: (continuation from Fall 2023)
+    details:
+      - content: "Thm: Let ⟨-,-⟩ be a symmetric bilinear form (i.e. ⟨x,y⟩ = ⟨y,x⟩ for all x,y ∈ V). Suppose
+          that there is form-preserving map g: U → U' where U, U' ⊂ V are subspaces. Then there is a
+          form-preserving map f: V → V extending g."
+      - content: "Cor: U ⊕ V ≅ W ⊕ V ⟹ U ≅ W."
+      - content: "Members: Andy Heald, Nathan Louie, Sarah Mathison, Qiguang Yan"
+  - type: project
+    title: Formalizing Math 300
+    id: formalizing-math-300
+    style: list
+    intro: (continuation from Fall 2023)
+    details:
+      - content: "Goal: Formalize the exercises (and possibly results) in the Math 300 textbook by
+          Conroy--Taggart: _An Introduction to Mathematical Reasoning_."
+      - content: Write a Lean guide for students taking Math 300
+      - content: "Members: Chengyu (Kenneth) Gong, Rina Reimer, Tess Gerrard, Anthony Xing, Yanzhe (Steven)
+          Zhong"
+      - content: "[GitHub code](https://github.com/StevennZZZ/FormalizingMATH300/)"

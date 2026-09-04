@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#4b2e83"/>
+  <path d="M0 0h1200v630H0z" fill="url(#wash)"/>
+  <path d="M530 0v630M0 510h1200M1040 0v630" stroke="#b7a57a" stroke-width="2" opacity="0.35"/>
+  <circle cx="1090" cy="-5" r="270" fill="none" stroke="#b7a57a" stroke-width="2" opacity="0.28"/>
+  <circle cx="1090" cy="-5" r="205" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.14"/>
+  <image x="70" y="115" width="400" height="400" xlink:href="../logos/math-ai-lab-logo.png"/>
+  <text x="590" y="236" fill="#b7a57a" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="5">UNIVERSITY OF WASHINGTON</text>
+  <text x="590" y="326" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="72" font-weight="700">Math AI Lab</text>
+  <text x="590" y="390" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="31">AI for mathematics · Lean formalization</text>
+  <text x="590" y="438" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="31">Automated theorem proving</text>
+  <text x="590" y="530" fill="#b7a57a" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="700">ai.math.uw.edu</text>
+  <defs>
+    <linearGradient id="wash" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4b2e83"/>
+      <stop offset="1" stop-color="#2f1b57"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,0 +1,18 @@
+# Edit this file to update the website. See docs/content-editing.md.
+blocks:
+  - type: heading
+    title: Math AI Seminars
+    id: math-ai-seminars
+    level: 2
+  - type: quote
+    content: >-
+      We often hear that mathematics consists mainly of proving theorems.
+      Is a writer's job mainly that of writing sentences?
+    attribution: "-- Gian-Carlo Rota (1980)"
+  - type: text
+    content: |-
+      Math AI-related colloquia and seminars at University of Washington
+
+      -   Math: [Math AI Seminar](https://math.washington.edu/events/series/math-ai-seminar)
+      -   Math: [Distinguished Seminar in Optimization & Data](https://math.washington.edu/events/series/distinguished-seminar-optimization-data)
+      -   CSE: [Colloquium of PLSE](https://uwplse.org/colloquia/) (Programming Languages and Software Engineering)

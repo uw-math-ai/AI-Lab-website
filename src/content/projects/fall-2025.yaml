@@ -1,0 +1,241 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: fall-2025
+legacyFile: fall2025.html
+label: Fall 2025
+term: Fall
+year: 2025
+status: recent
+lastmod: 2026-06-01
+venue: OUG 136
+summary: Fall 2025 project teams across Lean formalization, theorem search, number theory, quantum
+  compilation, and more.
+blocks:
+  - type: text
+    content: We meet Mondays and Wednesdays from 4-5:30 pm in OUG 136.
+  - type: project
+    title: AI for Quantum Code Compilation
+    id: ai-for-quantum-code-compilation
+    style: list
+    details:
+      - label: "Lead mentor:"
+        content: Andres Paz
+      - label: "Members:"
+        content: Eric Hur, Mayee Sun, Sylvie Lausier, Christian Tarta
+      - label: "Description:"
+        content: |-
+          Quantum error correction (QEC) codes are traditionally described using stabilizers, which define the subspace preserved by the code. However, implementing these codes requires translating stabilizers into fault-tolerant quantum circuits—an inherently nontrivial task that is highly dependent on the constraints and capabilities of the underlying hardware architecture.
+
+          This project aims to develop an AI agent capable of synthesizing such circuits in a way that:\
+          1\. In the ideal (noiseless) setting, the resulting circuits implement the intended stabilizer structure of the code on the target architecture.\
+          2\. In the noisy setting, the agent searches over circuit variations to optimize fidelity, taking into account realistic noise models and architectural constraints.
+
+          The outcome would be a toolchain that bridges the gap between abstract QEC code design and concrete, high-performance circuit implementations, enabling better exploration of architecture-specific tradeoffs in fault-tolerant quantum computing.
+      - label: "Prerequisites:"
+        content: linear algebra (must have), ML experience (recommended)
+  - type: project
+    title: Deep learning of number theory
+    id: deep-learning-of-number-theory
+    style: list
+    details:
+      - label: "Lead mentors:"
+        content: Jarod Alper and Junaid Hasan
+      - label: "Members:"
+        content: Andrew Chen, Claire Xu, Ivonne Zhang, Akhil Srinivasan, Nina Tharamal, Hemkesh Bandi
+      - label: "Description:"
+        content: The goal is to explore to what extent modern machine learning algorithms (e.g., feedforward
+          neural network, transformers, llms) can learn number-theoretic functions such as modular
+          arithmetic, the Mobius function, or gcd. We can first attempt to replicate results from
+          the literature (e.g., [arXiv:2502.10335](https://arxiv.org/abs/2502.10335),
+          [arXiv:2308.15594](https://arxiv.org/abs/2308.15594)) and then explore our own functions
+          and algorithms. We aim to submit to one of the major ML conferences such as ICML or ICLR.
+      - label: "Prerequisites:"
+        content: Python (must have), ML experience (desired)
+  - type: project
+    title: Formalizing Geometric Measure Theory
+    id: formalizing-geometric-measure-theory
+    style: list
+    details:
+      - label: "Lead mentor:"
+        content: Ignacio Tejeda
+      - label: "Members:"
+        content: Annie Cao, Nathan Pao, Theodore Meek
+      - label: "Description:"
+        content: "The goal is to formalizing the following theorem in geometric analysis: If E is a set of
+          Hausdorff dimension 0 < s < 1, the density D^s(E,x) fails to exist at almost every point x
+          of E. This is Theorem 4.2 in Falconer's book _Geometry of Fractal Sets_. To get exposure
+          with Lean and specifically with analysis in Lean, this project will begin by following
+          Terence Tao's [Lean Companion](https://github.com/teorth/analysis) to his Analysis I
+          textbook."
+      - label: "Prerequisites:"
+        content: Lean (recommended), analysis (recommended)
+  - type: project
+    title: Formalizing Stacks
+    id: formalizing-stacks
+    style: list
+    details:
+      - label: "Lead mentors:"
+        content: Eric Klavins and Max Lieblich
+      - label: "Additional mentor:"
+        content: Leopold Mayer
+      - label: "Members:"
+        content: Dowland Aiello, James Martin
+      - label: "Description:"
+        content: This project seeks to give formal definitions in Lean of the mathematical objects of sites,
+          sheaves, and stacks. While these are sophisticated mathematical objects, their definitions
+          are not hard to internalize axiomatically, assuming a basic understanding of category
+          theory. Building off mathlib's definiton of a category, the first aim is to define a site
+          following the Stacks Project [Tag 00VG](https://stacks.math.columbia.edu/tag/00VG) rather
+          than using mathlib's [current
+          definition](https://leanprover-community.github.io/mathlib4_docs/Mathlib/CategoryTheory/Sites/Grothendieck.html#CategoryTheory.GrothendieckTopology).
+          The focus here is only formalizing these key definitions, rather than building out a
+          larger mathematical library with lemmas and theorems.
+      - label: "Prerequisites:"
+        content: Lean (recommended), category theory (recommended)
+  - type: project
+    title: How good are language models at Lean?
+    id: how-good-are-language-models-at-lean
+    style: list
+    details:
+      - label: "Lead mentors:"
+        content: Tyson Klingner and Patrick O'Melveny
+      - label: "Members:"
+        content: Kaira Nair, Drew Bladek, Xinyue Fu, Bohao Chen
+      - label: "Description:"
+        content: In an effort to understand the ability of frontier general-purpose large language models at
+          generating Lean code, we will design an evaluation procedure for various Lean tasks such
+          as next step generation or entire proof generation. We will run our algorithms on the
+          existing frontier models to see which LLMs perform the best, providing valuable guidance
+          to the Lean community on which LLMs to use for certain use cases. We will use a scalable
+          architecture so that our algorithms can be rerun when new models or versions are released.
+      - label: "Prerequisites:"
+        content: ML experience (must have), Lean (recommended)
+  - type: project
+    title: Lean error correction with language models
+    id: lean-error-correction-with-language-models
+    style: list
+    details:
+      - label: "Lead mentor:"
+        content: Vasily Ilin
+      - label: "Members:"
+        content: Ajit Mallavarapu, Evan Wang, Simon Chess, Daniel Lee, Siyuan Ge
+      - label: "Description:"
+        content: With the goal of making Lean easier to use and specifically making errors easier to debug,
+          we will curate a Lean error dataset and train models to correct errors. There are
+          currently large data sets of error-free code, e.g., Mathlib and github repositories, but
+          no existing data sets of common human-made errors. This makes it hard to train LLMs to
+          understand the compiler feedback and fix the errors. We will assemble a dataset of
+          erroneous proofs, the compiler feedback, and the error corrections. We fine-tune Qwen 4B
+          on this dataset. We aim to submit to one of the major ML conferences such as ICML or ICLR.
+      - label: "Prerequisites:"
+        content: Python (must-have), Lean (must-have), an ML course (useful)
+      - label: "Time Commitment:"
+        content: at least 10 hours a week for a quarter
+  - type: project
+    title: "Mathematician's copilot: reliable theorem search"
+    id: mathematician-s-copilot-reliable-theorem-search
+    style: list
+    details:
+      - label: "Lead mentors:"
+        content: Vasily Ilin and Giovanni Inchiostro
+      - label: "Members:"
+        content: Sophie Szeto, Eric Leonen, Ted Guan, Artemii Remizov
+      - label: "Description:"
+        content: The broad vision is to apply modern machine learning techniques to facilitate mathematical
+          research. As a first step in this direction, this project seeks to design search
+          algorithms for locating theorem statements. Mathematics is unique in academia of having
+          precise, self-contained statements of knowledge, which we refer to as theorems, but as of
+          yet, there is no reliable tool to find existing theorems. Currently frontier language
+          model like ChatGPT might guess at the correct reference but will hallucinate the specific
+          reference numbering. We will develop a search tool by scraping the arxiv or other
+          mathematical documents (e.g., the Stacks Project), extracting theorem statements, and
+          finally computing embeddings of the text. At inference time, we will compare the cosine
+          similarity of the user query to the theorems in our database (which is similar to the
+          technology powering LeanSearch). We aim to submit to one of the major ML conferences such
+          as ICML or ICLR.
+      - label: "Prerequisites:"
+        content: Python (must-have) and an ML course (useful)
+      - label: "Time Commitment:"
+        content: at least 5 hours a week for a quarter
+  - type: project
+    title: Monogenic extensions of regular local rings
+    id: monogenic-extensions-of-regular-local-rings
+    style: list
+    details:
+      - label: Meeting time
+        content: ": 8:30-10:30 am on Tuesdays"
+      - label: "Lead mentors:"
+        content: John Leo and Bianca Viray
+      - label: "Additional mentor:"
+        content: Bryan Boehnke and Haocheng Cai
+      - label: "Members:"
+        content: George Peykanu, Sathvik Kurapati, Tianshuo Wang, Xinyi Zhi
+      - label: "Description:"
+        content: The goal is to add to Lean two lemmas from a recent paper
+          ([arXiv:2503.07846](https://arxiv.org/abs/2503.07846)). The first lemma is well known and
+          says that an etale extension of regular local rings is monogenic, i.e., generated by a
+          single element. The second lemma says that an extension of regular local rings that fails
+          to be etale at a unique codimension 1 point is also monogenic.
+      - label: "Prerequisites:"
+        content: Lean (recommended), commutative algebra (recommended)
+  - type: project
+    title: Provable Computation in Lean
+    id: provable-computation-in-lean
+    style: list
+    details:
+      - label: "Lead mentor:"
+        content: Dhruv Bhatia
+      - label: "Members:"
+        content: Annis Wu, Ruslana Korolov, Zeyin Feng, Alan Chang
+      - label: "Description:"
+        content: While lean has seen extensive use as a theorem proving assistant, its capabilities as a
+          computational programming language have been left underutilized. The goal of this project
+          will be to start filling this gap. Along the way, we will learn the basics of functional
+          programming, monads, and Lean’s meta-programming framework to begin implementing
+          algorithms that can both be run efficiently and be reasoned about. Our main goal will be
+          to implement basic algorithms with applications to linear algebra while also proving (in
+          Lean) correctness of said algorithms.
+      - label: "Prerequisites:"
+        content: Lean (recommended), metaprogramming in Lean (recommended)
+  - type: project
+    title: Reinforcement Learning for Polynomials.
+    id: reinforcement-learning-for-polynomials
+    style: list
+    details:
+      - label: "Lead mentor:"
+        content: Jarod Alper and Michael R. Zeng
+      - label: "Members:"
+        content: Bhaumik Mehta, Kyle Zhang, Rohan Pandey, Trey Adams, Naomi Morato, Evan Porter, Kaijie Jin
+      - label: "Description:"
+        content: We will use reinforcement learning to train computers to search for efficient arithmetic
+          circuits computing specific polynomials. This is in some sense a simplified version of
+          proof generation, where computers are trained to search for proofs of theorems, except
+          that in this case the search space is considerably smaller. At the same time, this project
+          may shed some light on some explicit questions in algebraic complexity theory, and
+          specifically the algebraic analogue of P vs NP. Our inspiration is the AlphaZero algorithm
+          for two-player games, which we will adapt to a single-player game. The problem we will
+          attack is to find efficient ways to compute a polynomial f(x\_1, ..., x\_n) using an
+          arithmetic circuit consisting of + and x gates together with scalar multiplication. Our
+          strategy is to use Monte Carlo Tree Search to train a deep neural network to learn an
+          effective evaluation function (giving a score of how close the current state is from
+          computing the polynomial) and a policy (a probability distribution over the next moves,
+          with higher probability given to moves that simplify the expression). The computer is
+          rewarded when it finds efficient arithmetic circuits. We aim to submit to one of the major
+          ML conferences such as ICML or ICLR.
+      - label: "Prerequisites:"
+        content: Python (must have), ML experience (must have)
+  - type: project
+    title: Teaching a computer to knot
+    id: teaching-a-computer-to-knot
+    style: list
+    details:
+      - label: "Lead mentors:"
+        content: Allison Henrich (Seattle U) and Andrew Tawfeek
+      - label: "Members:"
+        content: Sean Kawano, Abel Mesfin, Nicole Ham, Solden Stoll
+      - label: "Description:"
+        content: |-
+          Mosaic diagrams were developed in 2008 by Lomanoco and Kauffman to build quantum knot systems. Since then, the structure of mosaics has been widely studied by many others due to their convenient way of encoding a knot in three-dimensional space as a matrix. In 2014, it was shown by Kuriya and Shehab that mosaics are a complete invariant for tame knots, which are the concrete knots we can make with string in everyday life.
+
+          In this project, we will utilize this convenient matrix-encoding of knots to help build and train an AI model to recognize knots through their mosaic representation. To be precise, since knots are fundamentally topological objects with connectivity patterns, we will construct together an appropriate graph neural network and train it together, developing the proper milestones to gauge its progress (e.g. first recognizing connectedness, then number of links, etc.) along the way.
+      - label: "Prerequisites:"
+        content: python experience (must have)

@@ -1,18 +1,26 @@
 <script lang="ts">
-	import LegacyContent from '$lib/components/LegacyContent.svelte';
+	import ContentBlocks from '$lib/components/ContentBlocks.svelte';
 	import Reveal from '$lib/components/Reveal.svelte';
-		import coursesHtml from '$lib/legacy-html/courses.html?raw';
-	import resourcesHtml from '$lib/legacy-html/resources.html?raw';
-	import seminarsHtml from '$lib/legacy-html/seminars.html?raw';
-	import { canonicalUrl } from '$lib/seo';
+	import Seo from '$lib/components/Seo.svelte';
+	import { courses, resources, seminars } from '$lib/data/resources';
+	import { pages } from '$lib/data/pages';
+	import { breadcrumbs, collectionPage, graph } from '$lib/structuredData';
+
+	const { title, description } = pages.resources;
 </script>
 
-<svelte:head>
-	<title>Resources | Math AI Lab</title>
-	<link rel="canonical" href={canonicalUrl('/resources/')} />
-	<meta property="og:title" content="Resources | Math AI Lab" />
-	<meta property="og:url" content={canonicalUrl('/resources/')} />
-</svelte:head>
+<Seo
+	{title}
+	{description}
+	path="/resources/"
+	jsonLd={graph(
+		collectionPage(title, '/resources/', description),
+		breadcrumbs([
+			{ name: 'Home', path: '/' },
+			{ name: 'Resources', path: '/resources/' }
+		])
+	)}
+/>
 
 <section class="page-shell hero compact-hero single">
 	<div>
@@ -58,7 +66,7 @@
 			<h2>Related Seminars</h2>
 			<p>Math AI-related colloquia and seminars at the University of Washington.</p>
 		</div>
-		<LegacyContent html={seminarsHtml} compact flat />
+		<ContentBlocks blocks={seminars.blocks} compact flat />
 	</Reveal>
 </section>
 
@@ -69,7 +77,7 @@
 			<h2>Related Courses</h2>
 			<p>Formal methods, AI and machine learning, NLP, optimization, data science, and ethics courses.</p>
 		</div>
-		<LegacyContent html={coursesHtml} compact flat />
+		<ContentBlocks blocks={courses.blocks} compact flat />
 	</Reveal>
 </section>
 
@@ -80,7 +88,7 @@
 			<h2>Math AI Resources</h2>
 			<p>Background material, Math AI reading, and Lean resources for getting started and getting serious.</p>
 		</div>
-		<LegacyContent html={resourcesHtml} compact flat />
+		<ContentBlocks blocks={resources.blocks} compact flat />
 	</Reveal>
 </section>
 

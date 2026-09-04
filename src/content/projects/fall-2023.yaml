@@ -1,0 +1,69 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: fall-2023
+legacyFile: fall2023.html
+label: Fall 2023
+term: Fall
+year: 2023
+status: archive
+lastmod: 2026-06-01
+summary: Continued fractions, Witt cancellation, random graphs, and Math 300 projects.
+blocks:
+  - type: text
+    content: |-
+      -   **Falculty Mentors:** Jarod Alper, Andy Heald, James Morrow
+      -   **Graduate student mentors:** Herman Chau, Vasily Ilin, Leopold Mayer
+      -   **Undergraduate TA:** Zilu (Luca) Li
+      -   **Student participants:** Anthony Xing, Benjamin Li, Chengyu Gong, Christie Yang, George King, Nathan Louie, Qiguang Yan, Sarah Mathison, Xinyan Li, Yanzhe (Steven) Zhong, Yu He Zhang, Zhongrui An
+  - type: heading
+    title: "Projects:"
+    id: projects
+    level: 3
+  - type: project
+    title: Continued Fraction Expansion for e
+    id: continued-fraction-expansion-for-e
+    style: list
+    details:
+      - content: The continued fraction expansion of e is \[1, 0, 1, 1, 2, 1, 1, 4, 1, 1, 6, 1, 1, 8, 1, 1,
+          10, …\].
+      - label: "Members:"
+        content: Xinyan Li, Leopold Mayer, Christie Yang
+      - content: "[GitHub code](https://github.com/leomayer1/cont_frac)"
+  - type: project
+    title: Witt's Cancellation Theorem
+    id: witt-s-cancellation-theorem
+    style: list
+    details:
+      - label: "Thm:"
+        content: "Let ⟨-,-⟩ be a symmetric bilinear form (i.e. ⟨x,y⟩ = ⟨y,x⟩ for all x,y ∈ V). Suppose that
+          there is form-preserving map g: U → U' where U, U' ⊂ V are subspaces. Then there is a
+          form-preserving map f: V → V extending g."
+      - label: "Cor:"
+        content: U ⊕ V ≅ W ⊕ V ⟹ U ≅ W.
+      - label: "Members:"
+        content: Andy Heald, Nathan Louie, Sarah Mathison, Qiguang Yan
+  - type: project
+    title: Random Graphs
+    id: random-graphs
+    style: list
+    details:
+      - label: "Goal:"
+        content: "Build a random graph G(n,p) with n = # of nodes with p = probability of an edge. Show that
+          the expected number E(# edges in G(n,p)) of edges in a random graph G(n,p) is (n choose
+          2)p."
+      - label: "Related goals:"
+        content: compute other expected numbers, e.g. number of triangles in a random graph.
+      - label: "Members:"
+        content: Zhongrui An, Hermann Chau, Vasily Ilin, George King, Benjamin Li, Yu He Zhang
+      - content: "[GitHub code](https://github.com/Vilin97/random_graphs)"
+  - type: project
+    title: Formalizing Math 300
+    id: formalizing-math-300
+    style: list
+    details:
+      - label: "Goals:"
+        content: |-
+          -   Formalize the exercises (and possibly results) in the Math 300 textbook by Conroy--Taggart: An Introduction to Mathematical Reasoning.
+          -   Write a Lean guide for students taking Math 300
+      - label: "Members:"
+        content: Yanzhe (Steven) Zhong, Anthony Xing, Luca Li, Chengyu (Kenneth) Gong
+      - content: "[GitHub code](https://github.com/StevennZZZ/FormalizingMATH300/)"

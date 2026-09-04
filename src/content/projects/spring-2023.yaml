@@ -1,0 +1,96 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: spring-2023
+legacyFile: spring2023.html
+label: Spring 2023
+term: Spring
+year: 2023
+status: archive
+lastmod: 2026-06-01
+summary: Spring 2023 Lean formalization projects and student participants.
+blocks:
+  - type: text
+    content: |-
+      -   **Faculty mentor:** Jarod Alper
+      -   **Graduate student mentors:** Vasily Ilin, Leopold Mayer
+      -   **Student participants:** Dhruv Ashok, Gregory Baimetov, Zachary Banken, Dianna E., Luca Li, Lawrence Lin, Rico Qi, Timothy Tran, Alfie Xu, Edward Yu
+      -   [Github repository](https://github.com/Vilin97/LLL)
+  - type: heading
+    title: "Projects:"
+    id: projects
+    level: 3
+  - type: project
+    title: Lagrange's Theorem
+    id: lagrange-s-theorem
+    style: list
+    intro: "(Dhruv Ashok):"
+    details:
+      - content: If G is a finite group and H ⊆ G is a subgroup, then the order of H divides the order of G.
+  - type: project
+    title: Abstract term rewriting
+    id: abstract-term-rewriting
+    style: list
+    intro: "(Gregory Baimetov):"
+    details:
+      - content: The confluence and the Church-Rosser property are equivalent (see
+          [Wikepidia](https://en.m.wikipedia.org/wiki/Confluence_\(abstract_rewriting\))).
+      - content: Formalize the principle of well-founded induction (see
+          [Wikepidia](https://en.m.wikipedia.org/wiki/Well-founded_relation)).
+  - type: project
+    title: Simplicial homology / tactics
+    id: simplicial-homology-tactics
+    style: list
+    intro: "(Zachary Banken):"
+    details:
+      - content: Formalize simplicial homology including definitions of simplicial complexes, faces, and the
+          chain group as well that the square of the boundary operator is zero.
+      - content: Functional programming and writing simple tactics in Lean.
+  - type: project
+    title: Linear algebra
+    id: linear-algebra
+    style: list
+    intro: "(Dianna E.):"
+    details:
+      - content: "If V is a vector space and S, T: V → V are linear transformations such that the range of S
+          is contained in the nullspace of T, then (ST)² = 0."
+  - type: project
+    title: Compactness
+    id: compactness
+    style: list
+    intro: "(Luca Li):"
+    details:
+      - content: If X is a compact space, then every closed subset is also compact.
+      - content: If (X,d) is a metric space and every infinite subset of X has a cluster point, then X is
+          sequentially compact.
+  - type: project
+    title: Banach Fixed Point Theorem
+    id: banach-fixed-point-theorem
+    style: list
+    intro: "(Lawrence Lin):"
+    details:
+      - content: "If (X,d) is a non-empty complete metric space and T: X → X is a contraction mapping, then
+          T has a unique fixed point."
+  - type: project
+    title: Euclidean Geometry
+    id: euclidean-geometry
+    style: list
+    intro: "(Rico Qi and Edward Yu):"
+    details:
+      - content: Formalize Euclidean Geometry based on Hilbert's Axioms by defining points, lines, angles,
+          and the notion of distance.
+      - content: Formalize a solution to [Problem
+          1](https://artofproblemsolving.com/wiki/index.php/2023_USAMO_Problems/Problem_1) on USAMO
+          2023.
+  - type: project
+    title: Graph theory
+    id: graph-theory
+    style: list
+    intro: "(Timothy Tran):"
+    details:
+      - content: Every tree on n vertices has n-1 edges.
+  - type: project
+    title: Mean Value Theorem
+    id: mean-value-theorem
+    style: list
+    intro: "(Alfie Xu):"
+    details:
+      - content: Formalize the Mean Value Theorem (currently relying on Rolle's Theorem).

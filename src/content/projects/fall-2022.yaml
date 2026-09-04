@@ -1,0 +1,33 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: fall-2022
+legacyFile: fall2022.html
+label: Fall 2022
+term: Fall
+year: 2022
+status: archive
+lastmod: 2026-06-01
+summary: Fall 2022 undergraduate research projects run through WXML.
+blocks:
+  - type: text
+    content: |-
+      -   **Faculty mentor:** Jarod Alper
+      -   **Graduate student mentors:** Vasily Ilin, Leopold Mayer
+      -   **Student participants:** Zachary Banken, Griffin Golias, Raymond Guo, Eva Hu, Hastin Kapoor, Luca Li, Lawrence Lin, Alex Sanchez
+      -   Github repositories:
+          -   [raymondpg](https://github.com/raymondpg/XLL)
+          -   [vilin97](https://github.com/Vilin97/LLL)
+  - type: heading
+    title: Project
+    id: project
+    level: 3
+  - type: text
+    content: |-
+      Formalizing solutions to exercises from undergraduate math textbooks such as:
+
+      -   Axler's book [Algebra Done Right](https://linear.axler.net/)
+      -   Mukres's book [Topology a first course](https://www.maths.ed.ac.uk/~v1ranick/papers/munkres.pdf)
+      -   Silverman's book [A Friendly Introduction to Number Theory](https://www.math.brown.edu/~jhs/frint.html)
+      -   Silverman and Tate's book, Rational Points on Elliptic Curves
+      -   Folland's book [Advanced Calculus](https://www.math.umn.edu/~garrett/m/fun/notes_2013-14/02a_folland_real.pdf)
+      -   Rudin's book [Principles of Mathematical Analysis](https://www.math.ucdavis.edu/~hunter/intro_analysis_pdf/rudin.pdf)
+      -   Hungerford's book [Abstract Algebra: An Introduction](https://www.math.ucla.edu/~rchua/math259/hungerford.pdf)

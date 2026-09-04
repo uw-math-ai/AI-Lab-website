@@ -1,7 +1,32 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import { researchSections } from '$lib/data/research';
-	import { canonicalUrl } from '$lib/seo';
+	import { pages } from '$lib/data/pages';
+	import { collectionPage, graph } from '$lib/structuredData';
+
+	const { title, description } = pages.research;
+	const researchItems = researchSections.flatMap((section) => section.items);
+	const researchJsonLd = graph(
+		collectionPage(title, '/research/', description),
+		{
+			'@type': 'ItemList',
+			name: 'UW Math AI Lab papers and preprints',
+			itemListElement: researchItems.map((item, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				item: {
+					'@type': 'ScholarlyArticle',
+					name: item.title,
+					author: item.authors.split(', ').map((name) => ({ '@type': 'Person', name })),
+					description: item.abstract,
+					isPartOf: { '@type': 'CreativeWork', name: item.venue },
+					url: item.url,
+					sameAs: item.url
+				}
+			}))
+		}
+	);
 
 	let query = $state('');
 	let expanded = $state(new Set<string>());
@@ -33,16 +58,7 @@
 	);
 </script>
 
-<svelte:head>
-	<title>Research | Math AI Lab</title>
-	<meta
-		name="description"
-		content="Publications and preprints from the University of Washington Math AI Lab."
-	/>
-	<link rel="canonical" href={canonicalUrl('/research/')} />
-	<meta property="og:title" content="Research | Math AI Lab" />
-	<meta property="og:url" content={canonicalUrl('/research/')} />
-</svelte:head>
+<Seo {title} {description} path="/research/" jsonLd={researchJsonLd} />
 
 <section class="page-shell hero research-hero">
 	<div>

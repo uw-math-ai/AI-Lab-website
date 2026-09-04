@@ -1,0 +1,44 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: fall-2024
+legacyFile: fall2024.html
+label: Fall 2024
+term: Fall
+year: 2024
+status: archive
+lastmod: 2026-06-01
+summary: Formalizing examples, tactics, generating functions, CLT, and topology for algebraic geometry.
+blocks:
+  - type: project
+    title: Formalizing examples and counterexamples in commutative algebra
+    id: formalizing-examples-and-counterexamples-in-commutative-algebra
+    style: list
+    intro: |-
+      (Jarod Alper)
+
+      While most of undergraduate mathematics has been formalized, there has been relatively little focus on formalizing examples and counterexamples. We will address this and learn Lean in the process. We will start with simple examples, such as providing rings that are not integral domains or noetherian, then move onto more complicated examples like rings of integers that are not PIDs/UFDs. Students will be free to choose the exact examples based on their interests.
+  - type: project
+    title: Metaprogramming and Tactics in Lean
+    id: metaprogramming-and-tactics-in-lean
+    style: list
+    intro: |-
+      (Dhruv Bhatia)
+
+      Lean is great because it can check our proofs for us. But wouldn't it be greater if it could also automate parts of the proof writing process itself? Tactics are tools built into Lean that do exactly this. In this project, we will learn about metaprogramming - the process of writing code in Lean to change its own functionality. Along the way, we'll encounter type theory, monads, and other concepts from functional programming, while diving deep into how lean actually works under the hood. Finally, we'll use these tools to write our own tactic for anyone in the lean community to use! Students are encouraged to propose their own potential tactics.
+  - type: project
+    title: Generating Functions
+    id: generating-functions
+    style: list
+    intro: (Herman Chau)
+  - type: project
+    title: Central Limit Theorem
+    id: central-limit-theorem
+    style: list
+    intro: |-
+      (Vasily Ilin)
+
+      CLT is a central (pun intended) result in probability and statistics, and yet it is not in mathlib. Let's fix it!
+  - type: project
+    title: Topology for Algebraic Geometry
+    id: topology-for-algebraic-geometry
+    style: list
+    intro: (Leopold Mayer)

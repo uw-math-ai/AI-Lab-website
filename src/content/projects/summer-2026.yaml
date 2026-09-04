@@ -1,0 +1,295 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: summer-2026
+legacyFile: summer2026.html
+label: Summer 2026
+term: Summer
+year: 2026
+status: recent
+lastmod: 2026-07-18
+projectsLaunched: 9
+summary: Nine new and six returning projects spanning autoformalization, AI and machine learning for
+  math, autoresearch, and math education.
+blocks:
+  - type: text
+    content: |-
+      Summer 2026 brings **nine new projects** alongside **six returning projects** from Spring. Together, the teams span autoformalization, AI and machine learning for math, autoresearch, and AI-supported mathematics learning.
+
+      The goal of projects is a **publication** or a **significant open-source contribution**, e.g. to [mathlib4](https://github.com/leanprover-community/mathlib4).
+  - type: heading
+    title: New Projects
+    id: new-projects
+    level: 2
+  - type: text
+    content: "These nine projects are launching in Summer 2026 across four areas: autoformalization, AI
+      and machine learning for math, autoresearch, and AI for math learning and education."
+  - type: project
+    title: Autoformalizing Mathematical Benchmarks
+    id: autoformalizing-mathematical-benchmarks
+    style: heading
+    details:
+      - label: "Area:"
+        content: Autoformalization
+      - label: "Project Leader:"
+        content: Theodore Meek
+      - label: "Members:"
+        content: Michael R. Zeng, Pei Li
+      - label: "Description:"
+        content: Formalize research-level conjectures from
+          [LemmaBench](https://github.com/ahayat16/LemmaBench) and
+          [OpenConjecture](https://huggingface.co/datasets/davisrbr/openconjecture) using a simple
+          agentic workflow in which AI agents check and refine one another's work. Every resulting
+          statement will also receive human review and be classified as faithful, uncertain, or
+          unfaithful, producing a useful benchmark with clear quality signals.
+  - type: project
+    title: Improving Mathematical Chain-of-Thought Reasoning of LLMs
+    id: improving-mathematical-chain-of-thought-reasoning-of-llms
+    style: heading
+    details:
+      - label: "Area:"
+        content: AI and machine learning for math
+      - label: "Project Leader:"
+        content: Rohan Pandey
+      - label: "Members:"
+        content: Sarthak Mitra, Noah Feinberg, Jolie, Shree
+      - label: "Description:"
+        content: Study how mathematical reasoning traces form and how they can be made more efficient and
+          reliable. Building on [recent work on scientific reasoning in language
+          models](https://openreview.net/forum?id=IdYSW0AS4Y), the team will explore reinforcement
+          learning, prompt optimization, and Lean-based verification as feedback for improving
+          chain-of-thought reasoning.
+  - type: project
+    title: Chain-of-Thought Reasoning in Lean 4
+    id: chain-of-thought-reasoning-in-lean-4
+    style: heading
+    details:
+      - label: "Area:"
+        content: AI and machine learning for math
+      - label: "Project Leader:"
+        content: Evan Wang
+      - label: "Members:"
+        content: Chaoxiang Zhang, Tanmay Kuchhal
+      - label: "Description:"
+        content: Validate language-model reasoning by translating chain-of-thought traces into Lean 4 rather
+          than relying only on first-order logical checks. The initial proof of concept will define
+          a constrained, state-driven domain in Lean and use formal errors as feedback, helping
+          models identify and correct contradictions, invalid state changes, and other logical
+          mistakes in their reasoning traces.
+      - label: "Profiles:"
+        content: "[Evan Wang](https://github.com/aurasoph), [Chaoxiang Zhang](https://github.com/am1nuos1),
+          [Tanmay Kuchhal](https://github.com/tanmaykuchhal)"
+  - type: project
+    title: Machine Learning Meets Algebraic Combinatorics 2
+    id: machine-learning-meets-algebraic-combinatorics-2
+    style: heading
+    details:
+      - label: "Area:"
+        content: AI and machine learning for math
+      - label: "Project Leaders:"
+        content: Henry Kvinge, Michael R. Zeng
+      - label: "Members:"
+        content: Emily Meng, Xuanyu Yang
+      - label: "Description:"
+        content: Train a small language model on a broad curriculum of algebraic combinatorics tasks.
+          Building on prior work with permutations, the team will construct balanced training and
+          evaluation sets for partitions, Young tableaux, and other core combinatorial objects, with
+          the goal of learning rich, domain-aware representations.
+  - type: project
+    title: "ProofMem: Separating Proof Replay from Proof-Pattern Generalization in Lean Theorem Proving"
+    id: proofmem-separating-proof-replay-from-proof-pattern-generalization-in-lean-theorem-proving
+    style: heading
+    details:
+      - label: "Area:"
+        content: AI and machine learning for math
+      - label: "Project Leader:"
+        content: Yue Wu
+      - label: "Members:"
+        content: Zhi Chen, Jayme Kim
+      - label: "Description:"
+        content: Build a controlled Lean evaluation framework to distinguish exact proof replay from genuine
+          proof-pattern generalization. The project will test whether models remain robust under
+          superficial theorem perturbations, transfer proof ideas to sibling theorems, and retain
+          those abilities after further fine-tuning. Evaluation will combine Lean verification with
+          proof-script matching, token loss, tactic edit distance, and retention curves.
+      - label: "Profiles:"
+        content: "[Zhi Chen](https://github.com/Chiyoru7D7), [Jayme Kim](https://github.com/hyungoo-1)"
+  - type: project
+    title: Learning Conditional Return Laws from Financial Trading Signals
+    id: learning-conditional-return-laws-from-financial-trading-signals
+    style: heading
+    details:
+      - label: "Area:"
+        content: Autoresearch
+      - label: "Project Leaders:"
+        content: Freda Zhang, Yue Wu
+      - label: "Description:"
+        content: Learn the full conditional distribution of future asset returns from trading signals, going
+          beyond expected return to model volatility, tail risk, and downside probability. The
+          learned distributions will be evaluated using calibration, probability integral transform
+          diagnostics, value-at-risk violations, and proper scoring rules.
+  - type: project
+    title: Albilich
+    id: albilich
+    style: heading
+    details:
+      - label: "Area:"
+        content: Autoresearch
+      - label: "Project Leaders:"
+        content: Ting Gong, Michael R. Zeng
+      - label: "Description:"
+        content: Investigate open problems in finite group theory using AI systems connected to computer
+          algebra tools such as GAP. The project will draw problems from the field's regularly
+          updated open-problem literature and combine agentic research methods with symbolic
+          computation to search for new examples, patterns, and proofs.
+  - type: project
+    title: "Autoresearch: The Shortest Vector Problem"
+    id: autoresearch-the-shortest-vector-problem
+    style: heading
+    details:
+      - label: "Area:"
+        content: Autoresearch
+      - label: "Project Leaders:"
+        content: Zihong Lin, Haocheng Cai
+      - label: "Description:"
+        content: Search for unusually short vectors in lattices arising from the Arakelov geometry of
+          Grassmannians, beginning with the first unknown case, Gr(2,4). The team will develop a
+          reliable program for computing lattice norms and, in parallel, adapt an autoresearch-style
+          agentic loop to improve candidate vectors using explicit evaluation metrics. New
+          computational evidence may lead to improved bounds or a new conjecture for the
+          Grassmannian's essential minimum.
+      - label: "Code:"
+        content: "[GitHub repo](https://github.com/LinZihong/ShortestVector)"
+  - type: project
+    title: Learning and Formalizing Commutative Algebra
+    id: learning-and-formalizing-commutative-algebra
+    style: heading
+    details:
+      - label: "Area:"
+        content: AI for math learning and education
+      - label: "Project Leader:"
+        content: Tyson Klingner
+      - label: "Members:"
+        content: Drew Bladek, Escher Crawford
+      - label: "Description:"
+        content: Learn commutative algebra while formalizing a fundamental result in Lean. This summer
+          primer will prepare the team to begin a larger formalization in Autumn with the goal of
+          contributing it to mathlib.
+  - type: heading
+    title: Returning Projects
+    id: returning-projects
+    level: 2
+  - type: text
+    content: These six teams are continuing projects from Spring 2026, carrying established
+      formalization, evaluation, and machine-learning work into the summer.
+  - type: project
+    title: Geometric Measure Theory
+    id: geometric-measure-theory
+    style: heading
+    details:
+      - label: "Project Leader:"
+        content: Ignacio Tejeda
+      - label: "Formalization target:"
+        content: Theorem 4.2 in Falconer's _Geometry of Fractal Sets_.
+      - label: "Code:"
+        content: "[GitHub repo](https://github.com/uw-math-ai/FormalizingGMT)"
+      - label: "Mathlib PRs:"
+        content: "[1](https://github.com/leanprover-community/mathlib4/pull/32824),
+          [2](https://github.com/leanprover-community/mathlib4/pull/32851)"
+      - label: "Members:"
+        content: Theo Meek, Nathan Pao, Annie Cao, Josh
+      - label: "Prerequisites:"
+        content: Lean
+  - type: project
+    title: "LeanGCD: Stabilizing Lean Generation"
+    id: leangcd-stabilizing-lean-generation
+    style: heading
+    details:
+      - label: "Project Leaders:"
+        content: Dean Light and Michael Theologitis
+      - label: "Description:"
+        content: "LeanGCD aims to improve Lean proof generation by frontier large language models using
+          inference-time stabilization methods rather than retraining. The project adapts
+          [grammar-constrained decoding techniques](https://arxiv.org/abs/2305.13971) with Lean's
+          [syntax
+          extensions](https://lean-lang.org/doc/reference/latest/Notations-and-Macros/Defining-New-\
+          Syntax/). Planned contributions: a Lean-specific GCD implementation that plugs into
+          HuggingFace/vLLM inference pipelines, and empirical evaluation on MiniF2F, ProverBench,
+          and PutnamBench. **Goal:** ICML 2026 (October) or 2027 (January)."
+      - label: "Code:"
+        content: "[GitHub repo](https://github.com/DeanLight/LeanGCD)"
+      - label: "Members:"
+        content: Evan Wang, Ben Bioren, Naren P Ramakrishnan, Nhan Pham
+      - label: "Prerequisites:"
+        content: Python, ML / LLM inference experience
+  - type: project
+    title: Provable Computation in Lean
+    id: provable-computation-in-lean
+    style: heading
+    details:
+      - label: "Project Leader:"
+        content: Dhruv Bhatia
+      - label: "Description:"
+        content: While Lean has seen extensive use as a theorem-proving assistant, its capabilities as a
+          computational programming language have been underutilized. The goal of this project is to
+          begin filling that gap. Along the way, we will learn the basics of functional programming,
+          monads, and Lean's metaprogramming framework to implement algorithms that can both be run
+          efficiently and be reasoned about. Our main goal is to implement basic algorithms with
+          applications to linear algebra while also proving (in Lean) correctness of said
+          algorithms.
+      - label: "Members:"
+        content: Joseph Qian, Junye Ji, Veer Shukla, Alan Chang
+      - label: "Code:"
+        content: "[GitHub repo](https://github.com/uw-math-ai/provable_computation)"
+  - type: project
+    title: Mechanistic Interpretability beyond Groups
+    id: mechanistic-interpretability-beyond-groups
+    style: heading
+    details:
+      - label: "Project Leader:"
+        content: Junaid Hasan
+      - label: "Description:"
+        content: "Transformers can learn modular arithmetic, but prior mechanistic work focused on
+          invertible operations like cyclic addition and group composition: cases with clean, global
+          algebraic structure. Modular multiplication over composite moduli (a monoid) breaks this:
+          zero-divisors make the operation non-invertible, and no single global representation space
+          suffices. The authors show that transformers handle this by partitioning inputs into local
+          hierarchical regions where group-like structure is preserved, enabling localized Fourier
+          mechanisms."
+      - label: "Members:"
+        content: Andrew (Zitong) Chen, Akhil Srinivasan, Hemkesh Bandi
+      - label: "Paper:"
+        content: "[Draft PDF](https://junaidhasan.com/assets/interpreting-monoids.pdf)"
+  - type: project
+    title: Reinforcement Learning for Polynomials
+    id: reinforcement-learning-for-polynomials
+    style: heading
+    details:
+      - label: "Project Leaders:"
+        content: Michael R. Zeng, Jarod Alper
+      - label: "Description:"
+        content: Use RL to find efficient arithmetic circuits for polynomials.
+      - label: "Continuation:"
+        content: Continued through Summer 2026.
+      - label: "Paper:"
+        content: "[CircuitBuilder: From Polynomials to Circuits via Reinforcement
+          Learning](https://arxiv.org/abs/2603.17075)"
+      - label: "Members:"
+        content: Kyle Zhang, Rohan Pandey, Kaijie Jin, Naomi Morato, Archit Ganapule, Bhaumik Mehta
+      - label: "Code:"
+        content: "[GitHub repo](https://github.com/uw-math-ai/PolyArithmeticCircuitsRL)"
+  - type: project
+    title: "CayleyPy: Search on Massive Combinatorial Graphs"
+    id: cayleypy-search-on-massive-combinatorial-graphs
+    style: heading
+    details:
+      - label: "Project Leaders:"
+        content: Michael R. Zeng, Junaid Hasan, Vasily Ilin
+      - label: "Description:"
+        content: "Optimize [CayleyPy](https://github.com/cayleypy/cayleypy), make a CLI, and use it on
+          various combinatorial problems, such as estimating diameters of symmetric groups. Goal:
+          submission to ICLR 2027 in September."
+      - label: "Continuation:"
+        content: Continued through Summer 2026.
+      - label: "Members:"
+        content: Merav Frank, Sambhu Ganesan, Gaurang Pendharkar, Rithikesh Muddana, Danny Zhang
+      - label: "Prerequisites:"
+        content: solid Python, some group theory or combinatorics.

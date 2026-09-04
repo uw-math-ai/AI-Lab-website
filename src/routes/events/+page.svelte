@@ -1,8 +1,43 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
-		import { labEvents } from '$lib/data/events';
+	import Seo from '$lib/components/Seo.svelte';
+	import { labEvents } from '$lib/data/events';
+	import { pages } from '$lib/data/pages';
 	import { sitePath } from '$lib/paths';
-	import { canonicalUrl } from '$lib/seo';
+	import { collectionPage, graph, organizationId } from '$lib/structuredData';
+
+	const { title, description } = pages.events;
+	const eventsJsonLd = graph(
+		collectionPage(title, '/events/', description),
+		{
+			'@type': 'ItemList',
+			name: 'UW Math AI Lab events',
+			itemListElement: labEvents
+				.filter((event) => /^\d{4}-\d{2}-\d{2}$/.test(event.date))
+				.map((event, index) => ({
+					'@type': 'ListItem',
+					position: index + 1,
+					item: {
+						'@type': 'Event',
+						name: event.title,
+						startDate: `${event.date}T${event.startTime}:00`,
+						endDate: `${event.date}T${event.endTime}:00`,
+						location: {
+							'@type': event.location === 'Online' ? 'VirtualLocation' : 'Place',
+							name: event.location,
+							...(event.location === 'Online' ? { url: event.sourceUrl ?? 'https://ai.math.uw.edu/events/' } : {})
+						},
+						eventAttendanceMode:
+							event.location === 'Online'
+								? 'https://schema.org/OnlineEventAttendanceMode'
+								: 'https://schema.org/OfflineEventAttendanceMode',
+						organizer: { '@id': organizationId },
+						...(event.abstract ? { description: event.abstract } : {}),
+						...(event.sourceUrl ? { url: event.sourceUrl } : {})
+					}
+				}))
+		}
+	);
 
 	let query = $state('');
 	let type = $state('all');
@@ -48,12 +83,7 @@
 	);
 </script>
 
-<svelte:head>
-	<title>Events | Math AI Lab</title>
-	<link rel="canonical" href={canonicalUrl('/events/')} />
-	<meta property="og:title" content="Events | Math AI Lab" />
-	<meta property="og:url" content={canonicalUrl('/events/')} />
-</svelte:head>
+<Seo {title} {description} path="/events/" jsonLd={eventsJsonLd} />
 
 <section class="page-shell hero compact-hero single">
 	<div>

@@ -1,0 +1,19 @@
+# Edit this file to update the website. See docs/content-editing.md.
+blocks:
+  - type: heading
+    title: Math AI Courses at UW
+    id: math-ai-courses-at-uw
+    level: 2
+  - type: quote
+    content: >-
+      Rigor has ceased to be thought of as a cumbersome style of formal dress that one has to wear on
+      state occasions and discards with a sigh of relief as soon as one comes home. We do not ask any
+      more whether a theorem has been rigorously proved but whether it has been proved.
+    attribution: "-- André Weil (1956)"
+  - type: text
+    content: |-
+      -   [EE 598: Automated Mathematics](https://klavinslab.org/LeanW26/), Winter 2026, Eric Klavins.
+      -   [Math 480: Introduction to Mathematical Formalization](https://sites.math.washington.edu/~jarod/math480-spring25.html), Spring 2025, Jarod Alper
+      -   [CSE 505: Programming Languages](https://sites.google.com/cs.washington.edu/cse505-25sp), Spring 2025, Zachary Tatlock and James Wilcox.
+      -   [EE 546: Knowledge Representation and Reasoning](https://github.com/klavins/EE546_W25), Winter 2025, Eric Klavins.
+      -   Math 480: Introduction to Mathematical Formalization, Spring 2024, Vasily Ilin.

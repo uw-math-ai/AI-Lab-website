@@ -1,37 +1,37 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
 	import AsciiMap from '$lib/components/AsciiMap.svelte';
-		import { projectQuarters, totalProjectCount } from '$lib/data/projects';
+	import Seo from '$lib/components/Seo.svelte';
+	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
+	import { pages } from '$lib/data/pages';
 	import { sitePath } from '$lib/paths';
-	import { canonicalUrl } from '$lib/seo';
+	import { searchableContent } from '$lib/content/text';
+	import { breadcrumbs, collectionPage, graph } from '$lib/structuredData';
+
+	const { title, description } = pages.projects;
 
 	let query = $state('');
 
-	function searchableProjectText(html: string) {
-		return html
-			.replace(/<script[\s\S]*?<\/script>/gi, ' ')
-			.replace(/<style[\s\S]*?<\/style>/gi, ' ')
-			.replace(/<[^>]+>/g, ' ')
-			.replace(/&amp;/g, '&')
-			.replace(/&nbsp;/g, ' ')
-			.replace(/\s+/g, ' ')
-			.toLowerCase();
-	}
-
 	let filtered = $derived(
 		projectQuarters.filter((quarter) => {
-			const haystack = `${quarter.label} ${quarter.summary} ${searchableProjectText(quarter.html)}`.toLowerCase();
+			const haystack = `${quarter.label} ${quarter.summary} ${searchableContent(quarter.blocks)}`.toLowerCase();
 			return haystack.includes(query.toLowerCase());
 		})
 	);
 </script>
 
-<svelte:head>
-	<title>Projects | Math AI Lab</title>
-	<link rel="canonical" href={canonicalUrl('/projects/')} />
-	<meta property="og:title" content="Projects | Math AI Lab" />
-	<meta property="og:url" content={canonicalUrl('/projects/')} />
-</svelte:head>
+<Seo
+	{title}
+	{description}
+	path="/projects/"
+	jsonLd={graph(
+		collectionPage(title, '/projects/', description),
+		breadcrumbs([
+			{ name: 'Home', path: '/' },
+			{ name: 'Projects', path: '/projects/' }
+		])
+	)}
+/>
 
 <section class="page-shell hero compact-hero">
 	<div>

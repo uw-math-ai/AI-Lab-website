@@ -1,16 +1,10 @@
 import { projectQuarters } from '$lib/data/projects';
 import { canonicalUrl } from '$lib/seo';
+import { pages } from '$lib/data/pages';
 
 export const prerender = true;
 
-const staticRoutes = [
-	{ path: '/', priority: '1.0', changefreq: 'weekly' },
-	{ path: '/projects/', priority: '0.9', changefreq: 'weekly' },
-	{ path: '/research/', priority: '0.9', changefreq: 'monthly' },
-	{ path: '/people/', priority: '0.8', changefreq: 'monthly' },
-	{ path: '/events/', priority: '0.8', changefreq: 'weekly' },
-	{ path: '/resources/', priority: '0.7', changefreq: 'monthly' }
-];
+const staticRoutes = Object.values(pages);
 
 function escapeXml(value: string) {
 	return value
@@ -22,18 +16,16 @@ function escapeXml(value: string) {
 }
 
 export function GET() {
-	const projectRoutes = projectQuarters.map((quarter, index) => ({
+	const projectRoutes = projectQuarters.map((quarter) => ({
 		path: `/projects/${quarter.slug}/`,
-		priority: index === 0 ? '0.8' : '0.6',
-		changefreq: quarter.status === 'current' ? 'weekly' : 'yearly'
+		lastmod: quarter.lastmod
 	}));
 
 	const urls = [...staticRoutes, ...projectRoutes]
 		.map(
 			(route) => `  <url>
     <loc>${escapeXml(canonicalUrl(route.path))}</loc>
-    <changefreq>${route.changefreq}</changefreq>
-    <priority>${route.priority}</priority>
+    <lastmod>${route.lastmod}</lastmod>
   </url>`
 		)
 		.join('\n');

@@ -1,8 +1,33 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
+	import Seo from '$lib/components/Seo.svelte';
 	import { initials, labPhotos, leadership, members, projectLeaders } from '$lib/data/people';
+	import { pages } from '$lib/data/pages';
 	import { sitePath } from '$lib/paths';
-	import { canonicalUrl } from '$lib/seo';
+	import { collectionPage, graph, organizationId } from '$lib/structuredData';
+
+	const { title, description } = pages.people;
+	const roster = [...leadership, ...projectLeaders, ...members].filter(
+		(person, index, people) => people.findIndex((candidate) => candidate.name === person.name) === index
+	);
+	const peopleJsonLd = graph(
+		collectionPage(title, '/people/', description),
+		{
+			'@type': 'ItemList',
+			name: 'UW Math AI Lab people',
+			itemListElement: roster.map((person, index) => ({
+				'@type': 'ListItem',
+				position: index + 1,
+				item: {
+					'@type': 'Person',
+					name: person.name,
+					jobTitle: person.role,
+					...(person.url ? { url: person.url } : {}),
+					affiliation: { '@id': organizationId }
+				}
+			}))
+		}
+	);
 
 	function sortKey(name: string) {
 		const parts = name.trim().split(/\s+/);
@@ -17,16 +42,7 @@
 	const alphabeticalMembers = [...members].sort(byName);
 </script>
 
-<svelte:head>
-	<title>People | Math AI Lab</title>
-	<meta
-		name="description"
-		content="People of the University of Washington Math AI Lab through Summer 2026."
-	/>
-	<link rel="canonical" href={canonicalUrl('/people/')} />
-	<meta property="og:title" content="People | Math AI Lab" />
-	<meta property="og:url" content={canonicalUrl('/people/')} />
-</svelte:head>
+<Seo {title} {description} path="/people/" jsonLd={peopleJsonLd} />
 
 <section class="page-shell presenters-section">
 	<span class="eyebrow">People</span>

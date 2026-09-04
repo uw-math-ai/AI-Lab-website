@@ -1,0 +1,175 @@
+# Edit this file to update the website. See docs/content-editing.md.
+slug: winter-2025
+legacyFile: winter2025.html
+label: Winter 2025
+term: Winter
+year: 2025
+status: archive
+lastmod: 2026-06-01
+summary: Winter 2025 formalization, metaprogramming, reinforcement learning, and neural theorem
+  proving projects.
+blocks:
+  - type: project
+    title: Formalizing Central Limit Theorem
+    id: formalizing-central-limit-theorem
+    style: list
+    details:
+      - label: "Mentors:"
+        content: Vasily Ilin (lead)
+      - label: "Students:"
+        content: Siyuan Ge
+      - label: "Description:"
+        content: Formalize the Central Limit Theorem in Lean 4.
+      - label: "Code:"
+        content: "[github](https://github.com/uw-math-ai/central_limit_theorem)"
+  - type: project
+    title: Examples and Counterexamples in Commutative Algebra
+    id: examples-and-counterexamples-in-commutative-algebra
+    style: list
+    details:
+      - label: "Mentors:"
+        content: Jarod Alper (lead), Arkamouli Debnath
+      - label: "Students:"
+        content: Kaira N
+      - label: "Description:"
+        content: "Construct various examples of commutative rings in Lean. To start, construct an example of
+          a ring that is not an integral domain. (Tricky question: is the zero ring an integral
+          domain and can you formalize it?) How about a ring that is not a PID or not a UFD? Or a
+          non-noetherian ring? Or a noetherian local ring that is not regular. Once we construct
+          together a few basic examples, we will pursue further examples depending on the interests
+          of the students."
+      - label: "Presentation:"
+        content: "[slides](</slides/winter2025/Examples in commutative algebra.pdf>)"
+  - type: project
+    title: Formalizing Polyhedral Geometry
+    id: formalizing-polyhedral-geometry
+    style: list
+    details:
+      - label: "Mentors:"
+        content: Caelan Ritter (lead), Freda Zhang
+      - label: "Students:"
+        content: Seven Lewis
+      - label: "Description:"
+        content: A polyhedron is a generalization of a polygon to n dimensions. We can define it either as
+          an intersection of finitely many half-spaces (i.e., the closure of one "side" of a
+          hyperplane) or, if it is bounded, as the "convex hull" of finitely many points. The goal
+          of this project is to formalize enough of the basic definitions and results in polyhedral
+          geometry so that we can write down the equivalence of the two definitions above. We will
+          follow the proof outline in chapter 1 of Gaku Liu's notes.
+      - label: "Code:"
+        content: "[github](https://github.com/uw-math-ai/lean-polyhedral-geometry)"
+      - label: "Presentation:"
+        content: "[slides](</slides/winter2025/Formalizing Polyhedral Geometry.pdf>)"
+  - type: project
+    title: Metaprogramming and Writing New Tactics
+    id: metaprogramming-and-writing-new-tactics
+    style: list
+    details:
+      - label: "Mentors:"
+        content: Dhruv Bhatia (lead)
+      - label: "Students:"
+        content: Dhruv Ashok and Joseph Qian
+      - label: "Description:"
+        content: Learn Lean's metaprogramming framework for tactic writing. Use this to write new tactics.
+          The current task at hand is to write a tactic that can, given a set of hypotheses of the
+          form a < b where a and b come from a partially ordered type, prove a goal of the same form
+          by chaining together relevant hypotheses. If we are able to finish this project, we will
+          move on to other tactics/help with the metaprogramming groundwork for Vas's
+          Auto-formalization project.
+  - type: project
+    title: Reinforcement Learning for Efficiently Compute Polynomials Generation
+    id: reinforcement-learning-for-efficiently-compute-polynomials-generation
+    style: list
+    details:
+      - label: "Mentors:"
+        content: Jarod Alper (lead), William Dudarov
+      - label: "Students:"
+        content: Hansel Lee, Hanson Mo, Weikun (Kyle) Zhang, Junbo (Niko) Huang
+      - label: "Description:"
+        content: We will attempt to use reinforcement learning to train computers to search for efficient
+          arithmetic circuits computing specific polynomials. In some sense, this is a simplified
+          version of proof generation, where computers are trained to search for proofs of theorems,
+          except that in this case the search space is smaller. Our inspiration is the AlphaZero
+          algorithm for two-players games, which we will adapt to a one-player game. The problem we
+          will attack is to find efficient ways to compute a polynomial f(x\_1, ..., x\_n) using an
+          arithmetic circuit consisting of + and x gates together with scalar multiplication. Our
+          strategy is to use Monte Carlo Tree Search to train a deep neural network to learn an
+          effective evaluation function (giving a score of how close the current state is from
+          computing the polynomial) and a policy (a probability distribution over the next moves,
+          with higher probability given to moves that simplify the expression). The computer is
+          rewarded when it finds efficient arithmetic circuits.
+      - label: "Code:"
+        content: "[github](https://github.com/kyleAlexandad/RL-group-6Ver-new)"
+      - label: "Presentation:"
+        content: "[slides](</slides/winter2025/WI 2025 Reinforcement Learning.pdf>)"
+  - type: project
+    title: Auto-formalization with LLMs
+    id: auto-formalization-with-llms
+    style: list
+    details:
+      - label: "Mentors:"
+        content: Vasily Ilin (lead), Zihong Lin
+      - label: "Students:"
+        content: Attila Jamilov , Henry Adams, Elizabeth Wang
+      - label: "Description:"
+        content: Formalization is the process of translating human-written mathematical proofs into a form
+          that can be verified by a computer. A popular tool for this is Lean, a proof assistant
+          that represents proofs as code. However, the process of formalizing proofs in Lean can be
+          slow and time-consuming. Our research explores neural theorem proving strategies, which
+          aim to automate the generation of Lean proofs. We propose a tree-based search framework to
+          formalize mathematical theorems in Lean using Language Models. This approach explores
+          potential proof steps as branches in a tree, using AI models to suggest "tactics" at each
+          node. This has the benefit of avoiding hallucinations by rigorously checking that AI
+          suggestions represent valid Lean code. We employ both Large Language Models such as Claude
+          Sonnet 3.5 and specialized fine-tuned Small Language Models such as Lean-Dojo. We use
+          Pantograph to interact with Lean, leveraging its native support of Monte Carlo tree
+          search. We assemble a small set of simple and medium-difficulty mathematical theorems to
+          benchmark against, called nanoF2F. Additionally, we benchmark our system on the
+          well-established miniF2F benchmark created by OpenAI.
+      - label: "Code:"
+        content: "[github](https://github.com/uw-math-ai/autoformalization-with-llms)"
+      - label: "Presentation:"
+        content: "[slides](</slides/winter2025/Auto-formalisations with LLMs - Math AI Lab.pdf>)"
+  - type: project
+    title: What Mathematical Functions Can Neural Networks Learn?
+    id: what-mathematical-functions-can-neural-networks-learn
+    style: list
+    details:
+      - label: "Mentors:"
+        content: Jarod Alper (lead), Michael R. Zeng
+      - label: "Students:"
+        content: Claire Xu, Srishti Bakshi, Chileil Chen Yiqiao (Jeremy) Peng, Hilal Mufti
+      - label: "Description:"
+        content: We will investigate to what extent certain mathematical functions can be efficiently
+          learned by multilayered neural networks. Can a neural network be trained to compute
+          modular arithmetic? Modular arithmetic is important in cryptography, and some
+          cryptosystems use the fact that linear regression (i.e., given an integer N and pairs
+          (x\_i,y\_i), find m and b such that y = mx+b (mod N) closely approximates (x\_i, y\_i)).
+          Can certain number theoretic functions be computed such as the Mobius function \\mu(n)?
+          Can transformers be trained to make linear algebra computations?
+      - label: "Code:"
+        content: "[github](https://github.com/hilalmufti/what-functions-can-nns-learn)"
+      - label: "Presentation:"
+        content: "[slides](</slides/winter2025/Functions NN's Can Learn.pdf>)"
+  - type: project
+    title: Formalizing Zariski Spaces
+    id: formalizing-zariski-spaces
+    style: list
+    details:
+      - label: "Mentors:"
+        content: Leo Mayer (lead)
+      - label: "Students:"
+        content: Maria Berova (mberova@uw.edu)
+      - label: "Description:"
+        content: The goal is to formalize solutions Exercises II.3.18-19 from Robin Hartshorne's "Algebraic
+          Geometry"
+      - label: "Code:"
+        content: "[github](https://github.com/leomayer1/zariski_spaces)"
+      - label: "Presentation:"
+        content: "[slides](</slides/winter2025/Topology for Algebraic Geometry in Lean.pdf>)"
+  - type: image
+    src: /photos/winter2025.jpg
+    alt: Winter 2025 Math AI Lab
+    width: 500
+  - type: text
+    content: Winter 2025 Math AI Lab Group Photo

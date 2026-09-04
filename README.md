@@ -44,20 +44,14 @@ Console checklist.
 The Lean Hackathon site is maintained separately at `https://uw2026leanhackathon.github.io/`; this
 repo links to it but does not build that app.
 
-## Events
+## Editing content
 
-The event calendar is repo-owned data in `src/lib/data/events.ts`. To add an event, append one object with:
+Edit YAML in `src/content/` to update project quarters, events, people, publications, homepage tool
+cards, resources, and page metadata. Project descriptions support Markdown, so no HTML editing is
+needed. New quarter files are discovered automatically, and invalid YAML fails validation before deployment.
 
-- `title`
-- `speaker`
-- `date` as `YYYY-MM-DD`
-- `startTime` and `endTime` as 24-hour `HH:mm`
-- `location`
-- `type`
-- optional `sourceUrl`
-- optional `abstract`
-
-Use UW Math event pages as the source URL whenever possible.
+See [the content editing guide](docs/content-editing.md) for file locations, examples, and publishing
+instructions. Run `npm run check && npm run build && npm run test:site` after editing.
 
 ## Home page hero data
 
