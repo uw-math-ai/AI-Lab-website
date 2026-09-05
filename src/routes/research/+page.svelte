@@ -52,6 +52,13 @@
 
 <Seo {title} {description} path="/research/" jsonLd={researchJsonLd} />
 
+{#snippet counter(value: number, label: string)}
+	<span class="research-stat">
+		<strong>{value}</strong>
+		<span class="research-stat-label">{label}</span>
+	</span>
+{/snippet}
+
 <section class="page-shell hero research-hero">
 	<div>
 		<span class="eyebrow">Publications & Preprints</span>
@@ -67,13 +74,14 @@
 	</div>
 	<Reveal class="research-index-reveal">
 		<nav class="research-index interactive-surface" aria-label="Research sections">
-			<strong>{allItems.length}</strong>
-			<span>listed works</span>
-			{#each researchSections as section}
-				<a href={`#${section.id}`}>
-					{section.title} ({filteredSections.find((result) => result.id === section.id)?.items.length ?? 0})
-				</a>
-			{/each}
+			{@render counter(allItems.length, 'listed works')}
+			<div class="research-index-sections">
+				{#each researchSections as section}
+					<a href={`#${section.id}`}>
+						{@render counter(filteredSections.find((result) => result.id === section.id)?.items.length ?? 0, section.title)}
+					</a>
+				{/each}
+			</div>
 		</nav>
 	</Reveal>
 </section>
@@ -90,8 +98,11 @@
 		<Reveal>
 			<div class="section-header">
 				<span class="eyebrow">Research</span>
-				<h2>{section.title} <span class="section-count">({section.items.length})</span></h2>
+				<h2>{section.title}</h2>
 				<p>{section.description}</p>
+				<div class="section-count">
+					{@render counter(section.items.length, query.trim() ? 'matching works' : 'listed works')}
+				</div>
 			</div>
 
 			<div class="research-grid">
@@ -168,10 +179,11 @@
 
 <style>
 	.section-count {
-		color: var(--muted);
-		font-size: 0.7em;
-		font-variant-numeric: tabular-nums;
-		white-space: nowrap;
+		grid-column: 2;
+		grid-row: 2 / span 2;
+		padding-left: 1.25rem;
+		border-left: 1px solid var(--line);
+		min-width: 8rem;
 	}
 
 	.research-hero {
@@ -181,13 +193,19 @@
 
 	.research-index {
 		display: grid;
-		gap: 0.35rem;
+		gap: 1.25rem;
 		min-width: 0;
 		padding-left: 1.25rem;
 		border-left: 1px solid var(--line);
 	}
 
-	.research-index strong {
+	.research-stat {
+		display: grid;
+		gap: 0.5rem;
+		align-content: start;
+	}
+
+	.research-stat strong {
 		font-family: var(--font-mono);
 		font-variant-numeric: tabular-nums;
 		font-weight: 600;
@@ -197,26 +215,32 @@
 		color: var(--heading);
 	}
 
-	.research-index span {
+	.research-stat-label {
 		font-family: var(--font-sans);
 		font-size: 0.72rem;
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: var(--muted);
-		margin-bottom: 0.5rem;
+		line-height: 1.5;
+	}
+
+	.research-index-sections {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 1.25rem 1rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid var(--line);
 	}
 
 	.research-index a {
-		font-family: var(--font-sans);
-		font-size: 0.86rem;
-		color: var(--text);
 		text-decoration: none;
-		overflow-wrap: anywhere;
+		min-width: 0;
 	}
 
-	.research-index a:hover {
+	.research-index a:hover .research-stat-label {
 		text-decoration: underline;
+		text-underline-offset: 0.2em;
 	}
 
 	.research-controls {
@@ -435,9 +459,23 @@
 			border-top: 1px solid var(--line);
 			padding-top: 1rem;
 		}
+
+		.research-index-sections {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+
+		.section-count {
+			grid-column: 1;
+			grid-row: auto;
+			margin-top: 0.75rem;
+		}
 	}
 
 	@media (max-width: 640px) {
+		.research-index-sections {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+
 		.research-card {
 			grid-template-columns: 1fr;
 		}

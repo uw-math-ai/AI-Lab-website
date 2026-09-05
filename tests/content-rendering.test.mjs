@@ -17,17 +17,25 @@ const attr = (node, name) => node.attrs?.find((item) => item.name === name)?.val
 const compact = (value) => value.replace(/\s/g, '');
 const markdownText = (value) => compact(text(parseHtml(markdown.render(value))));
 
-test('research headings and section index show counts from the YAML data', async () => {
+test('research totals, section headings, and index share number-and-label counters', async () => {
 	const sections = parseYaml(await readFile('src/content/research.yaml', 'utf8'));
 	const page = parseHtml(await readFile('build/research/index.html', 'utf8'));
 	const nav = all(page, (node) => node.tagName === 'nav' && attr(node, 'aria-label') === 'Research sections')[0];
+	const assertCounter = (node, count, label) => {
+		const counter = all(node, (child) => attr(child, 'class')?.split(' ').includes('research-stat'))[0];
+		assert.ok(counter, 'uses the shared counter treatment');
+		assert.equal(text(all(counter, (child) => child.tagName === 'strong')[0]), String(count));
+		assert.equal(text(all(counter, (child) => attr(child, 'class')?.split(' ').includes('research-stat-label'))[0]), label);
+		assert.doesNotMatch(text(counter), /\(\d+\)/);
+	};
+	assertCounter(nav, sections.reduce((total, section) => total + section.items.length, 0), 'listed works');
 	for (const section of sections) {
 		const renderedSection = all(page, (node) => attr(node, 'id') === section.id)[0];
 		const heading = all(renderedSection, (node) => node.tagName === 'h2')[0];
 		const link = all(nav, (node) => attr(node, 'href') === `#${section.id}`)[0];
-		const expected = `${section.title} (${section.items.length})`;
-		assert.equal(text(heading).trim(), expected);
-		assert.equal(text(link).trim(), expected);
+		assert.equal(text(heading).trim(), section.title);
+		assertCounter(renderedSection, section.items.length, 'listed works');
+		assertCounter(link, section.items.length, section.title);
 		assert.equal(all(renderedSection, (node) => node.tagName === 'article').length, section.items.length);
 	}
 });
