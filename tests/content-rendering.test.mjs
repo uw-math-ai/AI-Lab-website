@@ -17,6 +17,21 @@ const attr = (node, name) => node.attrs?.find((item) => item.name === name)?.val
 const compact = (value) => value.replace(/\s/g, '');
 const markdownText = (value) => compact(text(parseHtml(markdown.render(value))));
 
+test('research headings and section index show counts from the YAML data', async () => {
+	const sections = parseYaml(await readFile('src/content/research.yaml', 'utf8'));
+	const page = parseHtml(await readFile('build/research/index.html', 'utf8'));
+	const nav = all(page, (node) => node.tagName === 'nav' && attr(node, 'aria-label') === 'Research sections')[0];
+	for (const section of sections) {
+		const renderedSection = all(page, (node) => attr(node, 'id') === section.id)[0];
+		const heading = all(renderedSection, (node) => node.tagName === 'h2')[0];
+		const link = all(nav, (node) => attr(node, 'href') === `#${section.id}`)[0];
+		const expected = `${section.title} (${section.items.length})`;
+		assert.equal(text(heading).trim(), expected);
+		assert.equal(text(link).trim(), expected);
+		assert.equal(all(renderedSection, (node) => node.tagName === 'article').length, section.items.length);
+	}
+});
+
 test('all YAML blocks survive prerendering with their text, links, and bookmarks intact', async () => {
 	const quarters = (await readdir('src/content/projects')).filter((filename) => filename.endsWith('.yaml'));
 	const sources = quarters.map((filename) => ({ filename: `src/content/projects/${filename}`, route: `projects/${filename.replace('.yaml', '')}`, index: 0 }));

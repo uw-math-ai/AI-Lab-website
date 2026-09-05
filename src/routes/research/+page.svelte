@@ -70,7 +70,9 @@
 			<strong>{allItems.length}</strong>
 			<span>listed works</span>
 			{#each researchSections as section}
-				<a href={`#${section.id}`}>{section.title}</a>
+				<a href={`#${section.id}`}>
+					{section.title} ({filteredSections.find((result) => result.id === section.id)?.items.length ?? 0})
+				</a>
 			{/each}
 		</nav>
 	</Reveal>
@@ -88,7 +90,7 @@
 		<Reveal>
 			<div class="section-header">
 				<span class="eyebrow">Research</span>
-				<h2>{section.title}</h2>
+				<h2>{section.title} <span class="section-count">({section.items.length})</span></h2>
 				<p>{section.description}</p>
 			</div>
 
@@ -165,6 +167,13 @@
 {/each}
 
 <style>
+	.section-count {
+		color: var(--muted);
+		font-size: 0.7em;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+	}
+
 	.research-hero {
 		grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.32fr);
 		align-items: end;
