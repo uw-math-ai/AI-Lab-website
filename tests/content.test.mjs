@@ -9,6 +9,7 @@ const { parseContent } = await server.ssrLoadModule('/scripts/yaml-content.ts');
 const { projectQuarters, getProjectQuarter, totalProjectCount } = await server.ssrLoadModule('/src/lib/data/projects.ts');
 const { labEvents, eventDate } = await server.ssrLoadModule('/src/lib/data/events.ts');
 const { labNews } = await server.ssrLoadModule('/src/lib/data/news.ts');
+const { researchSections, totalPaperCount } = await server.ssrLoadModule('/src/lib/data/research.ts');
 const { renderMarkdown, renderInline } = await server.ssrLoadModule('/src/lib/content/markdown.ts');
 
 test('every editable YAML file validates through the production content loader', async () => {
@@ -103,4 +104,33 @@ test('news has independent historical dates, chronological ordering, and unique 
 	const item = JSON.stringify({ id: 'news-fixture', date: '2026-08-19', title: 'News', summary: 'Summary', links: [{ label: 'Source', url: 'https://example.com/' }] });
 	assert.throws(() => parseContent(`[${item},${item}]`, 'src/content/news.yaml'), /Duplicate news ID/);
 	assert.throws(() => parseContent(`[${item.replace('2026-08-19', '2026-02-30')}]`, 'src/content/news.yaml'), /date/);
+});
+
+test('historical mathlib entries retain named credits, dates, and distinct PR status', () => {
+	const artifacts = researchSections.find((section) => section.id === 'research-artifacts');
+	assert.equal(artifacts.countsAsPaper, false);
+	assert.equal(totalPaperCount, researchSections.filter((section) => section.countsAsPaper).reduce((sum, section) => sum + section.items.length, 0));
+	const expected = [
+		[37527, 2026, 'Bryan Boehnke, George Peykanu, Bianca Viray, Grant Yang'],
+		[36421, 2026, 'Grant Yang, George Peykanu, Bryan Boehnke, Bianca Viray'],
+		[32851, 2026, 'Theodore Meek'],
+		[32824, 2025, 'Vasily Ilin, Leo Mayer'],
+		[29574, 2025, 'Jarod Alper, Brian Nugent'],
+		[19886, 2025, 'Vasily Ilin, Siyuan Ge'],
+		[19896, 2025, 'Vasily Ilin, Siyuan Ge'],
+		[19798, 2024, 'Vasily Ilin, Siyuan Ge'],
+		[4593, 2023, 'Anne Baanen, Sam v. Gool, Leo Mayer, Brendan S. Murphy']
+	];
+	for (const [id, year, authors] of expected) {
+		const matches = artifacts.items.filter((item) => item.url === `https://github.com/leanprover-community/mathlib4/pull/${id}`);
+		assert.equal(matches.length, 1);
+		assert.equal(matches[0].authors, authors);
+		assert.equal(matches[0].venue, `Mathlib ${id === 29574 ? 'Pull Request' : 'Contribution'}, ${year}`);
+		assert.equal(matches[0].badge, id === 29574 ? 'Open PR' : 'Merged');
+	}
+	assert.equal(new Set(artifacts.items.map((item) => item.url)).size, artifacts.items.length);
+	for (const item of artifacts.items) assert.doesNotMatch(item.authors, /UW Math AI Lab|group/i);
+	for (const year of [2022, 2023, 2024, 2025]) {
+		assert.ok(artifacts.items.some((item) => item.linkLabel === 'Code' && item.venue.includes(String(year))));
+	}
 });

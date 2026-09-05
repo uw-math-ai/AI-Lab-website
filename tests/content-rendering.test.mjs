@@ -107,3 +107,30 @@ test('conference structured data uses local offsets and external organizers', as
 	assert.equal(tag.startDate, '2026-08-19T10:20:00-04:00');
 	assert.equal(tag.organizer.name, 'TAG-DS');
 });
+
+test('research artifacts render their credits and links without being marked as papers', async () => {
+	const sections = parseYaml(await readFile('src/content/research.yaml', 'utf8'));
+	const artifacts = sections.find((section) => section.id === 'research-artifacts');
+	const page = parseHtml(await readFile('build/research/index.html', 'utf8'));
+	const section = all(page, (node) => attr(node, 'id') === artifacts.id)[0];
+	const cards = all(section, (node) => node.tagName === 'article');
+	assert.equal(cards.length, artifacts.items.length);
+	for (const item of artifacts.items) {
+		const matches = cards.filter((card) => all(card, (node) => node.tagName === 'h3' && text(node) === item.title).length);
+		assert.equal(matches.length, 1);
+		assert.ok(text(matches[0]).includes(item.authors));
+		assert.ok(text(matches[0]).includes(item.abstract));
+		if (item.badge) assert.ok(text(matches[0]).includes(item.badge));
+		assert.equal(all(matches[0], (node) => attr(node, 'href') === item.url).length, 1);
+		assert.doesNotMatch(text(matches[0]), /Read the abstract/);
+	}
+	const script = all(page, (node) => node.tagName === 'script' && attr(node, 'type') === 'application/ld+json')[0];
+	const graph = JSON.parse(script.childNodes.map((node) => node.value ?? '').join(''))['@graph'];
+	const works = graph.find((item) => item['@type'] === 'ItemList').itemListElement.map((entry) => entry.item);
+	for (const source of sections) {
+		for (const item of source.items) {
+			const work = works.find((entry) => entry.url === item.url);
+			assert.equal(work['@type'], source.countsAsPaper ? 'ScholarlyArticle' : 'CreativeWork');
+		}
+	}
+});

@@ -237,24 +237,149 @@
       linkLabel: arXiv:2606.25363
 - id: research-artifacts
   title: Research Artifacts
-  description: Software, formalization contributions, and manuscripts connected to current lab projects.
+  description: Mathlib pull requests, Lean projects, and tools from the lab and XLL archives.
   countsAsPaper: false
   items:
+    # Credits, dates, and archive sources: docs/research-artifact-sources.md.
     - venue: Mathlib Contribution, 2026
+      badge: Merged
+      title: Finite Étale Extensions of Local Rings Are Monogenic
+      authors: Bryan Boehnke, George Peykanu, Bianca Viray, Grant Yang
+      abstract: Formalizes finite étale local-ring monogenicity and the unit derivative of a
+        generator's minimal polynomial.
+      url: https://github.com/leanprover-community/mathlib4/pull/37527
+      linkLabel: "Mathlib PR #37527"
+    - venue: Mathlib Contribution, 2026
+      badge: Merged
       title: mkOfAdjoinEqTop' for Adjoined Roots
-      authors: UW Math AI Lab Algebraic Geometry group
-      abstract: A mathlib contribution supporting the monogenic extensions project, generalizing an
-        existing adjoined-root theorem by replacing an integrally closed hypothesis with a freeness
-        hypothesis.
+      authors: Grant Yang, George Peykanu, Bryan Boehnke, Bianca Viray
+      abstract: Generalizes an adjoined-root construction, replacing the integrally closed
+        hypothesis with module freeness.
       url: https://github.com/leanprover-community/mathlib4/pull/36421
       linkLabel: "Mathlib PR #36421"
     - venue: Mathlib Contribution, 2026
-      title: Finite Étale Extensions of Local Rings Are Monogenic
-      authors: UW Math AI Lab Algebraic Geometry group
-      abstract: A formalization of finite étale local-ring monogenicity from arXiv:2503.07846, including
-        supporting intermediate lemmas for broader monogenic extensions work.
-      url: https://github.com/leanprover-community/mathlib4/pull/37527
-      linkLabel: "Mathlib PR #37527"
+      badge: Merged
+      title: Accumulation Points under Atomless Measures
+      authors: Theodore Meek
+      abstract: Positive-measure sets under atomless measures have accumulation points.
+        Initial proofs by Harmonic's Aristotle, refactored by Meek.
+      url: https://github.com/leanprover-community/mathlib4/pull/32851
+      linkLabel: "Mathlib PR #32851"
+    - venue: Mathlib Contribution, 2025
+      badge: Merged
+      title: Diameters of Euclidean Balls and Spheres
+      authors: Vasily Ilin, Leo Mayer
+      abstract: Diameter formulas for Euclidean balls, closed balls, and spheres.
+        Initial proofs by Harmonic's Aristotle, revised by Ilin and Mayer.
+      url: https://github.com/leanprover-community/mathlib4/pull/32824
+      linkLabel: "Mathlib PR #32824"
+    - venue: Mathlib Pull Request, 2025
+      badge: Open PR
+      title: Regular Local Rings Are Domains
+      authors: Jarod Alper, Brian Nugent
+      abstract: Defines regular local rings and formalizes a proof that they are integral domains.
+      url: https://github.com/leanprover-community/mathlib4/pull/29574
+      linkLabel: "Mathlib PR #29574"
+    - venue: Mathlib Contribution, 2025
+      badge: Merged
+      title: Moment-Generating Functions of Independent Sums
+      authors: Vasily Ilin, Siyuan Ge
+      abstract: Moment-generating function lemmas for identically distributed variables and sums
+        of independent, identically distributed variables.
+      url: https://github.com/leanprover-community/mathlib4/pull/19886
+      linkLabel: "Mathlib PR #19886"
+    - venue: Mathlib Contribution, 2025
+      badge: Merged
+      title: Gaussian Moment-Generating Function
+      authors: Vasily Ilin, Siyuan Ge
+      abstract: Computes the moment-generating function of a Gaussian distribution.
+      url: https://github.com/leanprover-community/mathlib4/pull/19896
+      linkLabel: "Mathlib PR #19896"
+    - venue: Mathlib Contribution, 2024
+      badge: Merged
+      title: Moment-Generating Functions under Scalar Multiplication
+      authors: Vasily Ilin, Siyuan Ge
+      abstract: Describes how scaling a random variable changes its moment-generating function.
+      url: https://github.com/leanprover-community/mathlib4/pull/19798
+      linkLabel: "Mathlib PR #19798"
+    - venue: Mathlib Contribution, 2023
+      badge: Merged
+      title: Adjunction between Topological Spaces and Locales
+      authors: Anne Baanen, Sam v. Gool, Leo Mayer, Brendan S. Murphy
+      abstract: Constructs the points functor from locales to topological spaces and its adjunction.
+      url: https://github.com/leanprover-community/mathlib4/pull/4593
+      linkLabel: "Mathlib PR #4593"
+    - venue: Lean Project, 2025
+      title: Polyhedral Geometry
+      authors: Caelan Ritter, Freda Zhang, Seven Lewis, George Peykanu
+      abstract: Lean development of polyhedra, convex cones, and separation lemmas.
+      url: https://github.com/uw-math-ai/lean-polyhedral-geometry
+      linkLabel: Code
+    - venue: Lean Project, 2024–2025
+      title: Zariski Spaces
+      authors: Leo Mayer, Maria Berova
+      abstract: Lean development of topology exercises from Hartshorne's Algebraic Geometry.
+      url: https://github.com/leomayer1/zariski_spaces
+      linkLabel: Code
+    - venue: Lean Tool, 2024
+      title: LatexInLean
+      authors: Herman Chau
+      abstract: A Lean infoview widget that renders LaTeX from module documentation.
+      url: https://github.com/kcaze/LatexInLean
+      linkLabel: Code
+    - venue: Lean Project, 2024
+      title: Generating Functions
+      authors: Herman Chau
+      abstract: Lean development of generating functions for Fibonacci numbers, Catalan numbers,
+        and powers of two.
+      url: https://github.com/kcaze/generating-functions
+      linkLabel: Code
+    - venue: Lean Project, 2024
+      title: FRACTRAN in Lean
+      authors: Vasily Ilin, Alexander Sanchez, Mitchell Levy
+      abstract: An implementation of Conway's FRACTRAN language in Lean, with programs and proofs
+        about their behavior.
+      url: https://github.com/sanchace/FRACTRAN
+      linkLabel: Code
+    - venue: Lean Project, 2023–2024
+      title: Continued Fractions
+      authors: Xinyan Li, Leo Mayer, Christie Yang
+      abstract: Lean development of continued fractions, focused on the expansion of e.
+      url: https://github.com/leomayer1/cont_frac
+      linkLabel: Code
+    - venue: Lean Project, 2023–2024
+      title: Formalizing Math 300
+      authors: Yanzhe (Steven) Zhong, Anthony Xing, Zilu (Luca) Li, Chengyu (Kenneth) Gong,
+        Rina Reimer, Tess Gerrard
+      abstract: Lean exercises and a student guide accompanying Conroy and Taggart's
+        An Introduction to Mathematical Reasoning.
+      url: https://github.com/StevennZZZ/FormalizingMATH300
+      linkLabel: Code
+    - venue: Lean Project, 2023
+      title: Erdős–Rényi Random Graphs
+      authors: Zhongrui An, Herman Chau, Vasily Ilin, George King, Benjamin Li, Yu He Zhang
+      abstract: Lean development of the Erdős–Rényi random graph model and its probability lemmas.
+      url: https://github.com/uw-math-ai/random_graphs
+      linkLabel: Code
+    - venue: Lean Project, 2022
+      title: Linear Algebra Done Right
+      authors: Vasily Ilin, Leo Mayer
+      abstract: Selected exercises from the third edition of Axler's Linear Algebra Done Right in Lean.
+      url: https://github.com/Vilin97/linear-algebra-done-right
+      linkLabel: Code
+    - venue: Lean Project, 2022
+      title: Hopf Algebras
+      authors: Leo Mayer, Vasily Ilin
+      abstract: Lean development of Hopf algebras, comodules, and affine group schemes.
+      url: https://github.com/leomayer1/Hopf
+      linkLabel: Code
+    - venue: XLL Project, Spring 2022
+      title: Hilbert's Basis Theorem
+      authors: Griffin Golias, Kevin Kuei, Brendan Murphy, Alex Scheffelin, Runchi Tan,
+        Jarod Alper, Vasily Ilin, Leo Mayer
+      abstract: A Lean library of ideals and a formalization of Hilbert's finite-generation proof.
+      url: https://github.com/leomayer1/WXML_Sp2022
+      linkLabel: Code
 - id: other-publications
   title: Other Publications
   description: Essays and public-facing research perspectives connected to the lab.

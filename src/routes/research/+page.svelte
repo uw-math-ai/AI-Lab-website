@@ -6,17 +6,19 @@
 	import { collectionPage, graph } from '$lib/structuredData';
 
 	const { title, description } = pages.research;
-	const researchItems = researchSections.flatMap((section) => section.items);
+	const researchItems = researchSections.flatMap((section) =>
+		section.items.map((item) => ({ ...item, countsAsPaper: section.countsAsPaper }))
+	);
 	const researchJsonLd = graph(
 		collectionPage(title, '/research/', description),
 		{
 			'@type': 'ItemList',
-			name: 'UW Math AI Lab papers and preprints',
+			name: 'UW Math AI Lab research',
 			itemListElement: researchItems.map((item, index) => ({
 				'@type': 'ListItem',
 				position: index + 1,
 				item: {
-					'@type': 'ScholarlyArticle',
+					'@type': item.countsAsPaper ? 'ScholarlyArticle' : 'CreativeWork',
 					name: item.title,
 					author: item.authors.split(', ').map((name) => ({ '@type': 'Person', name })),
 					description: item.abstract,
@@ -142,7 +144,7 @@
 								aria-expanded={expanded.has(item.url)}
 								onclick={() => (expanded = toggle(expanded, item.url))}
 							>
-								{expanded.has(item.url) ? 'Less' : 'Read the abstract'}
+								{expanded.has(item.url) ? 'Less' : section.countsAsPaper ? 'Read the abstract' : 'Details'}
 							</button>
 							<a class="snippet-source" href={item.url} target="_blank" rel="noreferrer">
 								{item.linkLabel}
