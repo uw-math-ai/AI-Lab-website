@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { after, test } from 'node:test';
 import { readFile, readdir } from 'node:fs/promises';
 import { createServer } from 'vite';
+import { gzipSync } from 'node:zlib';
 
 const server = await createServer({ server: { middlewareMode: true, hmr: false, ws: false, watch: null } });
 after(() => server.close());
@@ -11,6 +12,10 @@ const { labEvents, eventDate } = await server.ssrLoadModule('/src/lib/data/event
 const { labNews } = await server.ssrLoadModule('/src/lib/data/news.ts');
 const { researchSections, totalPaperCount, searchResearch } = await server.ssrLoadModule('/src/lib/data/research.ts');
 const { renderMarkdown, renderInline } = await server.ssrLoadModule('/src/lib/content/markdown.ts');
+const { compileMathSymbols } = await server.ssrLoadModule('/scripts/math-symbols.ts');
+const { createSymbolPicker, symbolSize } = await server.ssrLoadModule('/src/lib/ambient-symbols.ts');
+const mathSource = parseContent(await readFile('src/content/math-symbols.yaml', 'utf8'), 'src/content/math-symbols.yaml');
+const mathAtlas = await compileMathSymbols(mathSource);
 
 test('every editable YAML file validates through the production content loader', async () => {
 	async function visit(directory) {
@@ -160,4 +165,73 @@ test('research search handles word order, whitespace, accents, clearing, and no 
 	assert.deepEqual(searchResearch(' \n\t '), researchSections);
 	assert.deepEqual(searchResearch('no-such-research-xyz'), []);
 	assert.deepEqual(searchResearch(''), researchSections);
+});
+
+test('all curated notation compiles to a compact, self-contained vector atlas', () => {
+	const items = mathSource.flatMap((group) => group.items);
+	assert.equal(mathAtlas.symbols.length, items.length);
+	assert.ok(mathSource.length >= 12);
+	assert.ok(items.length >= 100);
+	assert.match(mathAtlas.svg, /<path /);
+	assert.doesNotMatch(mathAtlas.svg, /<(?:text|image|foreignObject|script)\b|(?:href|url\()|merror|data-mjx-error/i);
+	assert.ok(gzipSync(mathAtlas.svg).length < 100_000, 'compressed atlas stays under 100 KB');
+	const width = Number(mathAtlas.svg.match(/width="(\d+)"/)[1]);
+	const height = Number(mathAtlas.svg.match(/height="(\d+)"/)[1]);
+	for (const symbol of mathAtlas.symbols) {
+		assert.ok(symbol.width > 0 && symbol.height > 0);
+		assert.ok(symbol.x >= 0 && symbol.y >= 0 && symbol.x + symbol.width <= width && symbol.y + symbol.height <= height);
+		for (const other of mathAtlas.symbols) {
+			if (other === symbol) continue;
+			assert.ok(symbol.x + symbol.width <= other.x || other.x + other.width <= symbol.x
+				|| symbol.y + symbol.height <= other.y || other.y + other.height <= symbol.y, 'atlas cells do not overlap');
+		}
+	}
+	assert.ok(items.some((item) => item.id === 'serre-spectral-sequence' && item.note.includes('simply connected')));
+	for (const id of ['pointed-curves', 'motivic-k-theory', 'chromatic-sphere', 'bundles', 'boltzmann-equation', 'wrapped-fukaya', 'o-minimal-structure', 'kakeya-dimension']) {
+		assert.ok(items.some((item) => item.id === id), id);
+	}
+	assert.ok(!items.some((item) => ['(A,I)', '\\varphi', 'X^\\flat', '\\mathcal R'].includes(item.tex)), 'omit context-free fragments');
+});
+
+test('equations retain both sides and operators in a single atlas cell', async () => {
+	const compile = (tex) => compileMathSymbols([{ id: 'test', title: 'Test', items: [{ id: 'equation', name: 'Equation', tex }] }]);
+	const [left, equation] = await Promise.all([compile('A'), compile('A=B+C')]);
+	assert.ok(equation.symbols[0].width > left.symbols[0].width * 4);
+	assert.equal((equation.svg.match(/<path\b/g) ?? []).length, 5, 'A, equals, B, plus, and C are all present');
+});
+
+test('notation validation rejects duplicate entries and invalid TeX with the entry ID', async () => {
+	const sample = [{ id: 'test-field', title: 'Test', items: [{ id: 'test-expression', name: 'Test expression', tex: '\\frac{' }] }];
+	await assert.rejects(compileMathSymbols(sample), /test-field\.test-expression/);
+	sample[0].items[0].tex = '\\NotARealMathCommand';
+	await assert.rejects(compileMathSymbols(sample), /test-field\.test-expression/);
+	sample[0].items[0].tex = '\\mathbb S';
+	sample[0].items.push({ ...sample[0].items[0] });
+	assert.throws(() => parseContent(JSON.stringify(sample), 'src/content/math-symbols.yaml'), /Duplicate math symbol ID/);
+	sample[0].items[1].id = 'another-expression';
+	assert.throws(() => parseContent(JSON.stringify(sample), 'src/content/math-symbols.yaml'), /Duplicate math notation/);
+});
+
+test('notation selection balances fields, avoids repeats, and preserves readable mobile dimensions', () => {
+	const pick = createSymbolPicker(mathAtlas.symbols, () => 0.4);
+	const fields = new Set(mathAtlas.symbols.filter((symbol) => symbol.kind === 'object' && symbol.width / 64 * 14 <= 220).map((symbol) => symbol.field));
+	const seen = new Set();
+	const used = new Set();
+	for (let i = 0; i < fields.size; i++) {
+		const symbol = pick('object', 220, used);
+		assert.ok(!seen.has(symbol.field));
+		assert.ok(!used.has(symbol.id));
+		seen.add(symbol.field);
+		used.add(symbol.id);
+	}
+	for (const kind of ['symbol', 'object', 'formula']) {
+		for (let i = 0; i < 100; i++) {
+			const symbol = pick(kind, 220);
+			const size = symbolSize(symbol, 24, 220);
+			assert.equal(symbol.kind, kind);
+			assert.ok(size.width <= 220 + 0.001 && size.height > 0);
+			assert.ok(size.width / symbol.width * 64 >= 14 - 0.001, 'never shrink below 14px type');
+			assert.ok(Math.abs(size.width / size.height - symbol.width / symbol.height) < 0.001);
+		}
+	}
 });

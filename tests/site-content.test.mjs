@@ -15,6 +15,18 @@ function countMatches(content, pattern) {
 	return content.match(pattern)?.length ?? 0;
 }
 
+test('floating notation ships as one local vector atlas and stays decorative', async () => {
+	const assets = await readdir(new URL('../build/_app/immutable/assets/', import.meta.url));
+	const atlases = assets.filter((name) => /^math-symbols\..+\.svg$/.test(name));
+	assert.equal(atlases.length, 1);
+	const atlas = await readFile(new URL(`../build/_app/immutable/assets/${atlases[0]}`, import.meta.url), 'utf8');
+	assert.match(atlas, /<path\b/);
+	assert.doesNotMatch(atlas, /<(?:script|text|image|foreignObject)\b|(?:href|src)="https?:/i);
+	const page = await renderedPage('research');
+	assert.match(page, /<canvas[^>]*class="math-canvas[^>]*aria-hidden="true"/);
+	assert.doesNotMatch(page, /<script[^>]*src="[^"]*mathjax/i);
+});
+
 test('prerendered canonical pages expose complete, unique search metadata', async () => {
 	const projectEntries = await readdir(new URL('../build/projects/', import.meta.url), {
 		withFileTypes: true

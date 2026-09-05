@@ -1,45 +1,15 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
-
-	const symbols = [
-		'∑',
-		'∫',
-		'∇',
-		'∂',
-		'∈',
-		'ℝ',
-		'ℂ',
-		'π',
-		'λ',
-		'φ',
-		'α',
-		'β',
-		'γ',
-		'Δ',
-		'Ω',
-		'ε',
-		'δ',
-		'∀',
-		'∃',
-		'√',
-		'∞',
-		'⊂',
-		'≡',
-		'⊗',
-		'⟨',
-		'⟩',
-		'θ',
-		'μ',
-		'σ',
-		'ρ'
-	];
+	import { atlasUrl, symbols } from 'virtual:math-symbols';
+	import { createSymbolPicker, symbolSize, type AmbientSymbol } from '$lib/ambient-symbols';
 
 	type Particle = {
 		x: number;
 		y: number;
-		symbol: string;
-		size: number;
+		symbol: AmbientSymbol;
+		width: number;
+		height: number;
 		alpha: number;
 		vx: number;
 		vy: number;
@@ -91,7 +61,16 @@
 		const context = maybeContext;
 
 		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const atlas = new Image();
+		const tintedAtlas = document.createElement('canvas');
+		const tint = tintedAtlas.getContext('2d');
+		if (!tint) return;
+		const pickSymbol = createSymbolPicker(symbols);
+		let disposed = false;
+		let ready = false;
 		let frame = 0;
+		let previousTime = 0;
+		let haloColor = '';
 		let particles: Particle[] = [];
 
 		function color(name: string, fallback: string) {
@@ -99,7 +78,7 @@
 		}
 
 		function resize() {
-			const scale = window.devicePixelRatio || 1;
+			const scale = Math.min(window.devicePixelRatio || 1, 2);
 			canvas.width = Math.floor(window.innerWidth * scale);
 			canvas.height = Math.floor(window.innerHeight * scale);
 			canvas.style.width = `${window.innerWidth}px`;
@@ -107,75 +86,128 @@
 			context.setTransform(scale, 0, 0, scale, 0, 0);
 		}
 
-		function makeParticle(fromBottom = false): Particle {
-			return {
-				x: Math.random() * window.innerWidth,
-				y: fromBottom ? window.innerHeight + 28 : Math.random() * window.innerHeight,
-				symbol: symbols[Math.floor(Math.random() * symbols.length)],
-				size: 12 + Math.random() * 18,
-				alpha: 0.035 + Math.random() * 0.085,
+		function makeParticle(kind: AmbientSymbol['kind'], fromBottom = false): Particle {
+			const mobile = window.innerWidth < 700;
+			const maxWidth = Math.min(mobile ? 220 : 340, window.innerWidth * 0.7);
+			const symbol = pickSymbol(kind, maxWidth, new Set(particles.map((particle) => particle.symbol.id)));
+			const fontSize = kind === 'formula' ? 17 + Math.random() * 3 : (mobile ? 20 : 23) + Math.random() * 7;
+			const size = symbolSize(symbol, fontSize, maxWidth);
+			const particle = {
+				x: 0,
+				y: fromBottom ? window.innerHeight + 24 : 0,
+				symbol,
+				...size,
+				alpha: kind === 'formula' ? 0.045 + Math.random() * 0.025 : 0.04 + Math.random() * 0.065,
 				vx: (Math.random() - 0.5) * 0.18,
 				vy: -0.08 - Math.random() * 0.18,
 				phase: Math.random() * Math.PI * 2
 			};
+			// Longer labels need room at spawn; don't lay a full formula over another object.
+			for (let attempt = 0; attempt < 30; attempt++) {
+				particle.x = 12 + Math.random() * Math.max(0, window.innerWidth - size.width - 24);
+				if (!fromBottom) particle.y = 12 + Math.random() * Math.max(0, window.innerHeight - size.height - 24);
+				if (!particles.some((other) => particle.x < other.x + other.width + 12 && particle.x + size.width + 12 > other.x
+					&& particle.y < other.y + other.height + 12 && particle.y + size.height + 12 > other.y)) break;
+			}
+			return particle;
 		}
 
 		function resetParticles() {
-			const count = window.innerWidth < 700 ? 26 : 46;
-			particles = Array.from({ length: count }, () => makeParticle(false));
+			// Fewer particles than the single-glyph version; equations occupy roughly one in fourteen slots.
+			const count = window.innerWidth < 700 ? 20 : 34;
+			particles = [];
+			for (let i = 0; i < count; i++) particles.push(makeParticle(i % 14 === 0 ? 'formula' : i % 5 === 0 ? 'symbol' : 'object'));
 		}
 
-		function draw() {
+		function draw(time = performance.now()) {
+			const delta = previousTime ? Math.min((time - previousTime) / (1000 / 60), 2) : 0;
+			previousTime = time;
 			context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-			const symbolColor = color('--ambient-symbol', color('--gold', '#d6a900'));
-			const haloColor = color('--ambient-halo', color('--purple', '#32006e'));
 
 			for (let index = 0; index < particles.length; index += 1) {
 				const particle = particles[index];
 				context.save();
 				context.globalAlpha = particle.alpha;
-				context.fillStyle = symbolColor;
 				context.shadowColor = haloColor;
-				context.shadowBlur = 10;
-				context.font = `${particle.size}px "STIX Two Text", "Times New Roman", serif`;
-				context.fillText(
-					particle.symbol,
+				context.shadowBlur = 6;
+				context.drawImage(
+					tintedAtlas,
+					particle.symbol.x, particle.symbol.y, particle.symbol.width, particle.symbol.height,
 					particle.x + Math.sin(particle.phase) * 5,
-					particle.y
+					particle.y, particle.width, particle.height
 				);
 				context.restore();
 
 				if (!reducedMotion.matches) {
-					particle.x += particle.vx;
-					particle.y += particle.vy;
-					particle.phase += 0.006;
+					particle.x += particle.vx * delta;
+					particle.y += particle.vy * delta;
+					particle.phase += 0.006 * delta;
 				}
 
-				if (particle.y < -36 || particle.x < -52 || particle.x > window.innerWidth + 52) {
-					particles[index] = makeParticle(true);
+				if (particle.y + particle.height < -24 || particle.x + particle.width < -24 || particle.x > window.innerWidth + 24) {
+					particles[index] = makeParticle(particle.symbol.kind, true);
 				}
 			}
 
-			if (!reducedMotion.matches) {
+			if (!reducedMotion.matches && !document.hidden && !disposed) {
 				frame = requestAnimationFrame(draw);
 			}
 		}
 
 		function start() {
 			cancelAnimationFrame(frame);
+			if (!ready || disposed) return;
 			resize();
 			resetParticles();
+			previousTime = 0;
 			draw();
 		}
 
+		function updateTheme() {
+			if (!ready || disposed || !tint) return;
+			tint.clearRect(0, 0, tintedAtlas.width, tintedAtlas.height);
+			tint.drawImage(atlas, 0, 0);
+			tint.globalCompositeOperation = 'source-in';
+			tint.fillStyle = color('--ambient-symbol', color('--gold', '#d6a900'));
+			tint.fillRect(0, 0, tintedAtlas.width, tintedAtlas.height);
+			tint.globalCompositeOperation = 'source-over';
+			haloColor = color('--ambient-halo', color('--purple', '#32006e'));
+			cancelAnimationFrame(frame);
+			previousTime = 0;
+			draw();
+		}
+
+		function resume() {
+			cancelAnimationFrame(frame);
+			previousTime = 0;
+			if (ready && !document.hidden) draw();
+		}
+
+		const themeObserver = new MutationObserver(updateTheme);
+		themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		atlas.onload = () => {
+			if (disposed) return;
+			tintedAtlas.width = atlas.naturalWidth;
+			tintedAtlas.height = atlas.naturalHeight;
+			ready = true;
+			updateTheme();
+			start();
+		};
+		// If the decorative image fails, leave the existing gradient background intact.
+		atlas.src = atlasUrl;
+
 		window.addEventListener('resize', start);
 		reducedMotion.addEventListener('change', start);
-		start();
+		document.addEventListener('visibilitychange', resume);
 
 		return () => {
+			disposed = true;
+			atlas.onload = null;
 			cancelAnimationFrame(frame);
+			themeObserver.disconnect();
 			window.removeEventListener('resize', start);
 			reducedMotion.removeEventListener('change', start);
+			document.removeEventListener('visibilitychange', resume);
 		};
 	});
 </script>

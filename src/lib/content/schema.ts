@@ -144,6 +144,33 @@ export type LabTool = z.infer<typeof tool>;
 const page = z.strictObject({ title: text, description: text, path: url, lastmod: date });
 export const pagesSchema = z.strictObject({ home: page, projects: page, research: page, people: page, events: page, resources: page });
 
+export const mathSymbolsSchema = z.array(z.strictObject({
+	id,
+	title: text,
+	items: z.array(z.strictObject({
+		id,
+		name: text,
+		tex: text,
+		kind: z.enum(['symbol', 'object', 'formula']).default('object'),
+		note: text.optional(),
+		source: z.url().optional()
+	})).min(1)
+})).min(1).superRefine((groups, ctx) => {
+	const ids = new Set<string>();
+	const formulas = new Set<string>();
+	for (const [g, group] of groups.entries()) {
+		if (ids.has(group.id)) ctx.addIssue({ code: 'custom', path: [g, 'id'], message: 'Duplicate math group ID' });
+		ids.add(group.id);
+		for (const [i, item] of group.items.entries()) {
+			if (ids.has(item.id)) ctx.addIssue({ code: 'custom', path: [g, 'items', i, 'id'], message: 'Duplicate math symbol ID' });
+			if (formulas.has(item.tex)) ctx.addIssue({ code: 'custom', path: [g, 'items', i, 'tex'], message: 'Duplicate math notation' });
+			ids.add(item.id);
+			formulas.add(item.tex);
+		}
+	}
+});
+export type MathSymbolGroups = z.infer<typeof mathSymbolsSchema>;
+
 export function schemaForContentFile(filename: string) {
 	if (/\/projects\/[^/]+\.yaml$/.test(filename)) return projectQuarterSchema;
 	if (/\/resources\/[^/]+\.yaml$/.test(filename)) return resourceSchema;
@@ -153,5 +180,6 @@ export function schemaForContentFile(filename: string) {
 	if (filename.endsWith('/research.yaml')) return z.array(researchSection).min(1);
 	if (filename.endsWith('/tools.yaml')) return z.array(tool).min(1);
 	if (filename.endsWith('/pages.yaml')) return pagesSchema;
+	if (filename.endsWith('/math-symbols.yaml')) return mathSymbolsSchema;
 	throw new Error(`No content schema registered for ${filename}`);
 }

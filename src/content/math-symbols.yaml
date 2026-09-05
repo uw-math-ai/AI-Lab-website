@@ -1,0 +1,251 @@
+# Decorative notation, not publication credits. See docs/content-editing.md.
+# Use single-quoted TeX so backslashes stay literal. Prefer identifiable objects;
+# omit generic tuples, unnamed operators, and formulas requiring hidden hypotheses.
+- id: foundations
+  title: Foundations
+  items:
+    - { id: sum, name: Summation, tex: '\sum', kind: symbol }
+    - { id: integral, name: Integral, tex: '\int', kind: symbol }
+    - { id: gradient, name: Gradient, tex: '\nabla', kind: symbol }
+    - { id: infinity, name: Infinity, tex: '\infty', kind: symbol }
+    - { id: real-numbers, name: Real numbers, tex: '\mathbb R', kind: symbol }
+    - { id: complex-numbers, name: Complex numbers, tex: '\mathbb C', kind: symbol }
+    - { id: for-all, name: Universal quantifier, tex: '\forall', kind: symbol }
+    - { id: exists, name: Existential quantifier, tex: '\exists', kind: symbol }
+    - { id: aleph-zero, name: Countable cardinal, tex: '\aleph_0', kind: symbol }
+    - { id: typing-judgment, name: Type-theoretic judgment, tex: '\Gamma\vdash t:A' }
+    - { id: dependent-product, name: Dependent function type, tex: '\prod_{x:A}B(x)' }
+- id: algebra
+  title: Algebra and representation theory
+  items:
+    - { id: kernel, name: Kernel, tex: '\ker f' }
+    - { id: cokernel, name: Cokernel, tex: '\operatorname{coker}f' }
+    - { id: endomorphisms, name: Endomorphism algebra, tex: '\operatorname{End}(V)' }
+    - { id: exterior-power, name: Exterior power, tex: '\bigwedge^k V' }
+    - { id: ext, name: Ext groups, tex: '\operatorname{Ext}^i_R(M,N)' }
+    - { id: tor, name: Tor groups, tex: '\operatorname{Tor}^R_i(M,N)' }
+    - { id: sl-two, name: Special linear Lie algebra, tex: '\mathfrak{sl}_2' }
+    - { id: special-unitary, name: Special unitary group, tex: '\operatorname{SU}(n)' }
+    - { id: enveloping-algebra, name: Universal enveloping algebra, tex: 'U(\mathfrak g)' }
+    - { id: short-exact, name: Short exact sequence, tex: '0\to A\to B\to C\to0', kind: formula }
+- id: algebraic-geometry
+  title: Algebraic geometry and moduli
+  items:
+    - { id: pointed-curves, name: Moduli of pointed curves, tex: '\mathscr M_{g,n}' }
+    - { id: stable-curves, name: Moduli of stable pointed curves, tex: '\overline{\mathcal M}_{g,n}' }
+    - { id: projective-space, name: Projective space, tex: '\mathbb P^n' }
+    - { id: grassmannian, name: Grassmannian, tex: '\operatorname{Gr}(k,n)' }
+    - { id: flag-variety, name: Complete flag variety, tex: '\operatorname{Fl}_n' }
+    - { id: spectrum, name: Prime spectrum, tex: '\operatorname{Spec}R' }
+    - { id: picard-group, name: Picard group, tex: '\operatorname{Pic}(X)' }
+    - id: abelian-moduli
+      name: Moduli of principally polarized abelian varieties
+      tex: '\mathcal A_g'
+      note: Central to Tsimerman's André–Oort work; not notation introduced by him.
+      source: https://www.mathunion.org/fileadmin/documents/2026-07/Jacob_Tsimerman_Citations.pdf
+    - id: weil-petersson-volume
+      name: Weil–Petersson volume polynomial
+      tex: 'V_{g,n}(L_1,\ldots,L_n)'
+      note: Mirzakhani's work on volumes of moduli spaces of bordered hyperbolic surfaces.
+      source: https://www.mathunion.org/imu-awards/fields-medal/fields-medals-2014
+- id: arithmetic-geometry
+  title: Arithmetic geometry and Langlands
+  items:
+    - { id: finite-field, name: Finite field, tex: '\mathbb F_q' }
+    - { id: p-adic-field, name: p-adic numbers, tex: '\mathbb Q_p' }
+    - { id: galois-group, name: Galois group, tex: '\operatorname{Gal}(L/K)' }
+    - id: adic-spectrum
+      name: Adic spectrum
+      tex: '\operatorname{Spa}(R,R^+)'
+      note: Adic-space notation used in perfectoid geometry, associated with Scholze's 2018 citation.
+      source: https://www.mathunion.org/imu-awards/fields-medal/fields-medals-2018
+    - { id: diamond, name: Diamond spectrum, tex: '\operatorname{Spd}\mathbb Q_p' }
+    - id: prismatic-cohomology
+      name: Prismatic cohomology
+      tex: 'R\Gamma_{\Delta}(X/A)'
+      note: Bhatt–Scholze; introduced after Scholze's 2018 medal.
+      source: https://arxiv.org/abs/1905.08229
+    - { id: bundles, name: Moduli stack of G-bundles, tex: '\operatorname{Bun}_G' }
+    - { id: local-systems, name: Langlands-dual local systems, tex: '\operatorname{LocSys}_{\check G}' }
+    - { id: affine-grassmannian, name: Affine Grassmannian, tex: '\operatorname{Gr}_G' }
+    - id: period-map
+      name: Period map
+      tex: '\Phi:S\to\Gamma\backslash D'
+      kind: formula
+      note: Hodge-theoretic period maps in Tsimerman's joint work; the map is not asserted to be an equivalence.
+      source: https://www.mathunion.org/fileadmin/documents/2026-07/Jacob_Tsimerman_Citations.pdf
+    - id: o-minimal-structure
+      name: Restricted analytic-exponential structure
+      tex: '\mathbb R_{\mathrm{an},\exp}'
+      note: A central o-minimal structure used in arithmetic geometry, not introduced by Tsimerman.
+      source: https://www.mathunion.org/fileadmin/documents/2026-07/Jacob_Tsimerman_Citations.pdf
+- id: number-theory
+  title: Analytic number theory and sphere packing
+  items:
+    - { id: zeta, name: Riemann zeta function, tex: '\zeta(s)' }
+    - { id: dirichlet-l, name: Dirichlet L-function, tex: 'L(s,\chi)' }
+    - id: e-eight
+      name: E8 lattice
+      tex: 'E_8'
+      note: Viazovska's optimal sphere packing in dimension eight.
+      source: https://arxiv.org/abs/1603.04246
+    - id: leech-lattice
+      name: Leech lattice
+      tex: '\Lambda_{24}'
+      note: Dimension-24 packing work of Cohn, Kumar, Miller, Radchenko, and Viazovska.
+      source: https://arxiv.org/abs/1603.06518
+    - id: sphere-packing-density
+      name: Optimal eight-dimensional sphere-packing density
+      tex: '\Delta_8=\frac{\pi^4}{384}'
+      kind: formula
+      source: https://arxiv.org/abs/1603.04246
+    - id: bounded-prime-gaps
+      name: Bounded gaps between primes
+      tex: '\liminf_{n\to\infty}(p_{n+m}-p_n)<\infty'
+      kind: formula
+      note: Maynard's theorem for each fixed positive integer m; p_n is the nth prime.
+      source: https://arxiv.org/abs/1311.4600
+- id: topology
+  title: Topology and homotopy theory
+  items:
+    - { id: homotopy-group, name: Homotopy group, tex: '\pi_n(X)' }
+    - { id: cohomology, name: Cohomology ring, tex: 'H^*(X;R)' }
+    - { id: classifying-space, name: Classifying space, tex: 'BG' }
+    - { id: eilenberg-maclane, name: Eilenberg–MacLane space, tex: 'K(\mathbb Z,n)' }
+    - { id: sphere-spectrum, name: Sphere spectrum, tex: '\mathbb S' }
+    - { id: suspension-spectrum, name: Suspension spectrum, tex: '\Sigma^\infty X_+' }
+    - { id: motivic-k-theory, name: Motivic algebraic K-theory spectrum, tex: '\mathrm{KGL}' }
+    - { id: motivic-cobordism, name: Algebraic cobordism spectrum, tex: '\mathrm{MGL}' }
+    - { id: chromatic-sphere, name: K(n)-local sphere, tex: 'L_{K(n)}\mathbb S' }
+    - { id: topological-modular-forms, name: Topological modular forms, tex: '\mathrm{tmf}' }
+    - { id: topological-hochschild, name: Topological Hochschild homology, tex: '\mathrm{THH}(R)' }
+    - { id: cyclotomic-trace, name: Cyclotomic trace, tex: 'K(R)\to\mathrm{TC}(R)', kind: formula }
+    - id: serre-spectral-sequence
+      name: Serre cohomology spectral sequence
+      tex: 'H^p(B;H^q(F;R))\Rightarrow H^{p+q}(E;R)'
+      kind: formula
+      note: For a Serre fibration F → E → B with simply connected base; the left side is the E2 page.
+      source: https://pi.math.cornell.edu/~hatcher/SSAT/SSATpage.html
+- id: higher-structures
+  title: Higher categories and derived geometry
+  items:
+    - { id: infinity-categories, name: Infinity-category of small infinity-categories, tex: '\mathrm{Cat}_\infty' }
+    - { id: commutative-ring-spectra, name: Commutative ring spectra, tex: '\operatorname{CAlg}(\mathrm{Sp})' }
+    - { id: little-disks, name: Little n-disks operad, tex: '\mathbb E_n' }
+    - { id: perfect-complexes, name: Perfect complexes, tex: '\operatorname{Perf}(X)' }
+    - { id: quasi-coherent, name: Quasi-coherent complexes, tex: '\operatorname{QCoh}(X)' }
+    - { id: ind-coherent, name: Ind-coherent sheaves, tex: '\operatorname{IndCoh}(X)' }
+    - { id: cotangent-complex, name: Relative cotangent complex, tex: '\mathbb L_{X/S}' }
+    - { id: hochschild-cohomology, name: Hochschild cohomology, tex: 'HH^*(A)' }
+    - { id: maurer-cartan, name: Maurer–Cartan equation, tex: 'd\alpha+\tfrac12[\alpha,\alpha]=0', kind: formula }
+- id: symplectic-geometry
+  title: Symplectic and enumerative geometry
+  items:
+    - { id: cotangent-bundle, name: Cotangent bundle, tex: 'T^*M' }
+    - { id: floer-cohomology, name: Lagrangian Floer cohomology, tex: 'HF^*(L_0,L_1)' }
+    - { id: symplectic-cohomology, name: Symplectic cohomology, tex: 'SH^*(X)' }
+    - { id: quantum-cohomology, name: Quantum cohomology, tex: 'QH^*(X)' }
+    - id: wrapped-fukaya
+      name: Wrapped Fukaya category
+      tex: '\mathcal W(X)'
+      note: Pardon with Ganatra and Shende; wrapped Fukaya categories of Liouville sectors.
+      source: https://www.mathunion.org/fileadmin/documents/2026-07/John_Pardon_Citations.pdf
+    - id: virtual-fundamental-class
+      name: Virtual fundamental class of stable maps
+      tex: '[\overline{\mathcal M}_{g,n}(X,\beta)]^{\mathrm{vir}}'
+      note: Notation for curve-counting machinery central to Pardon's cited work, not a claim of sole authorship.
+      source: https://www.mathunion.org/fileadmin/documents/2026-07/John_Pardon_Citations.pdf
+    - id: holomorphic-curves
+      name: Pseudoholomorphic curve equation
+      tex: '\bar\partial_Ju=0'
+      kind: formula
+      source: https://www.mathunion.org/fileadmin/documents/2026-07/John_Pardon_Citations.pdf
+- id: analysis
+  title: Analysis and differential geometry
+  items:
+    - { id: lp-space, name: Lebesgue space, tex: 'L^p(\Omega)' }
+    - { id: sobolev-space, name: Sobolev space, tex: 'H^s(\Omega)' }
+    - { id: schwartz-space, name: Schwartz space, tex: '\mathcal S(\mathbb R^n)' }
+    - { id: hilbert-sequences, name: Square-summable sequences, tex: '\ell^2' }
+    - { id: gamma-function, name: Gamma function, tex: '\Gamma(z)' }
+    - { id: bessel-function, name: Bessel function, tex: 'J_\nu(z)' }
+    - { id: residue, name: Complex residue, tex: '\operatorname{Res}_{z=0}f' }
+    - { id: ricci-curvature, name: Ricci curvature, tex: '\operatorname{Ric}(g)' }
+    - { id: stokes-theorem, name: Stokes theorem, tex: '\int_M d\omega=\int_{\partial M}\omega', kind: formula }
+- id: harmonic-analysis
+  title: Harmonic analysis and microlocal geometry
+  items:
+    - id: fourier-extension
+      name: Fourier extension operator
+      tex: '\widehat{f\,d\sigma}'
+      note: Restriction and extension operators in the harmonic analysis recognized in Hong Wang's citation.
+      source: https://www.mathunion.org/fileadmin/documents/2026-07/Hong_Wang_Citations.pdf
+    - id: wave-propagator
+      name: Half-wave propagator
+      tex: 'e^{it\sqrt{-\Delta}}f'
+      note: Local smoothing for wave equations; Hong Wang with Guth and Zhang.
+      source: https://www.mathunion.org/fileadmin/documents/2026-07/Hong_Wang_Citations.pdf
+    - { id: wavefront-set, name: Wavefront set, tex: '\operatorname{WF}(u)' }
+    - { id: microsupport, name: Microsupport of a sheaf, tex: '\operatorname{SS}(\mathcal F)' }
+    - { id: microlocal-hom, name: Microlocal Hom, tex: '\mu\mathrm{hom}(\mathcal F,\mathcal G)' }
+    - { id: semiclassical-operator, name: Semiclassical pseudodifferential operator, tex: '\operatorname{Op}_h(a)' }
+    - id: kakeya-dimension
+      name: Three-dimensional Kakeya theorem
+      tex: '\dim_{\mathrm H}K=3\quad(K\subset\mathbb R^3\text{ Kakeya})'
+      kind: formula
+      note: Wang–Zahl. The Kakeya condition is displayed, not silently omitted.
+      source: https://arxiv.org/abs/2502.17655
+- id: probability-pde
+  title: Probability and partial differential equations
+  items:
+    - { id: conditional-expectation, name: Conditional expectation, tex: '\mathbb E[X\mid\mathcal F]' }
+    - { id: gaussian-distribution, name: Multivariate Gaussian, tex: '\mathcal N(0,\Sigma)' }
+    - { id: brownian-differential, name: Brownian stochastic differential, tex: 'dW_t' }
+    - { id: ising-correlation, name: Ising spin correlation, tex: '\langle\sigma_0\sigma_x\rangle_\beta', note: 'Statistical mechanics associated with Duminil-Copin; not notation introduced by him.', source: 'https://www.mathunion.org/imu-awards/fields-medal/fields-medals-2022' }
+    - { id: heat-equation, name: Heat equation, tex: '\partial_tu=\Delta u', kind: formula }
+    - id: boltzmann-equation
+      name: Boltzmann equation
+      tex: '\partial_tf+v\cdot\nabla_xf=Q(f,f)'
+      kind: formula
+      note: Kinetic equation derived from hard-sphere dynamics by Deng, Hani, and Ma; not an equation they introduced.
+      source: https://arxiv.org/abs/2408.07818
+    - id: nonlinear-schrodinger
+      name: Cubic nonlinear Schrödinger equation
+      tex: 'i\partial_tu+\Delta u=|u|^2u'
+      kind: formula
+      note: Representative defocusing cubic NLS, not a statement of the scope of Deng's theorems.
+      source: https://www.mathunion.org/fileadmin/documents/2026-07/Yu_Deng_Citations.pdf
+- id: combinatorics
+  title: Combinatorics and Hodge theory
+  items:
+    - { id: binomial, name: Binomial coefficient, tex: '\binom nk' }
+    - { id: random-graph, name: Erdős–Rényi random graph, tex: 'G(n,p)' }
+    - { id: chromatic-polynomial, name: Chromatic polynomial, tex: '\chi_G(q)' }
+    - { id: tutte-polynomial, name: Tutte polynomial, tex: 'T_G(x,y)' }
+    - { id: schur-function, name: Schur symmetric function, tex: 's_\lambda' }
+    - id: matroid-characteristic
+      name: Reduced characteristic polynomial of a matroid
+      tex: '\overline\chi_M(t)'
+      note: Combinatorial Hodge theory of Adiprasito, Huh, and Katz.
+      source: https://web.math.princeton.edu/~huh/MatroidHodge.pdf
+    - id: matroid-lefschetz
+      name: Hard Lefschetz for matroids
+      tex: '\ell^{r-2k}:A^k(M)\xrightarrow{\sim}A^{r-k}(M)'
+      kind: formula
+      note: Adiprasito–Huh–Katz; real Chow ring of a loopless rank-(r+1) matroid, ample ell, 0 ≤ k ≤ r/2.
+      source: https://web.math.princeton.edu/~huh/MatroidHodge.pdf
+- id: optimization
+  title: Optimization and numerical analysis
+  items:
+    - { id: minimizer, name: Optimization minimizer, tex: '\operatorname*{arg\,min}_x f(x)' }
+    - { id: hessian, name: Hessian, tex: '\nabla^2f' }
+    - { id: proximal-operator, name: Proximal operator, tex: '\operatorname{prox}_{\lambda f}' }
+    - { id: condition-number, name: Matrix condition number, tex: '\kappa(A)' }
+    - { id: qr-factorization, name: QR factorization, tex: 'A=QR', kind: formula }
+    - { id: wasserstein, name: Quadratic Wasserstein distance, tex: 'W_2(\mu,\nu)', note: 'Optimal transport associated with Figalli’s 2018 citation; standard notation, not introduced by him.', source: 'https://www.mathunion.org/imu-awards/fields-medal/fields-medals-2018' }
+- id: operator-algebras
+  title: Operator algebras
+  items:
+    - { id: reduced-group-algebra, name: Reduced group C-star algebra, tex: 'C_r^*(G)' }
+    - { id: group-von-neumann, name: Group von Neumann algebra, tex: 'W^*(G)' }
+    - { id: kasparov, name: Kasparov KK-theory, tex: 'KK(A,B)' }

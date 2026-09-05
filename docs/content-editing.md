@@ -14,6 +14,7 @@ No HTML source pages or conversion scripts are needed.
 | Homepage tool cards, statistics, and links | `src/content/tools.yaml` |
 | Course, seminar, and reading lists | `src/content/resources/*.yaml` |
 | Page titles, SEO descriptions, and sitemap dates | `src/content/pages.yaml` |
+| Floating mathematical notation, names, and source notes | `src/content/math-symbols.yaml` |
 
 Layout, navigation, and reusable presentation styles remain in Svelte components.
 The TypeScript modules in `src/lib/data/` load YAML and compute sorting/filtering/counts.
@@ -114,6 +115,31 @@ links use full `https://…` URLs. Existing Google verification files must remai
 
 When content changes, update the corresponding quarter's `lastmod`, or the page's date in
 `pages.yaml`. These are content dates, not automatically generated build dates.
+
+## Floating mathematical notation
+
+`math-symbols.yaml` groups notation by field. Each entry has a unique `id`, a readable `name`,
+and single-quoted `tex` (without `$` delimiters). `kind` is `object` by default; use `symbol`
+for elementary glyphs and `formula` for equations. Optional `note` and `source` record context,
+hypotheses, and joint work; they are editorial metadata, not floating captions or publication credits.
+
+```yaml
+- id: motivic-k-theory
+  name: Motivic algebraic K-theory spectrum
+  tex: '\mathrm{KGL}'
+```
+
+Prefer identifiable objects such as `\operatorname{Bun}_G` or `L_{K(n)}\mathbb S` over
+context-free tuples and isolated operators. A Fields Medal connection does not imply that
+the medalist invented the notation or worked alone. Keep source notes for such connections.
+
+MathJax runs only at build/dev time and produces one self-contained SVG atlas. The browser
+loads that local image and draws/tints it on the existing canvas; it does not load MathJax,
+external math fonts, or a CDN. Invalid TeX fails with the entry ID. All atlas cells have padding
+for superscripts and subscripts. The picker cycles through fields, avoids simultaneous duplicate
+entries, and gives long formulas roughly one in fourteen particle slots. Expressions too wide
+for readable mobile type are excluded on mobile. Reduced motion produces a still background;
+theme changes recolor it without requiring an animation loop.
 
 ## Verify and publish
 
