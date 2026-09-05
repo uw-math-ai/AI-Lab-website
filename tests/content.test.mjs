@@ -9,7 +9,7 @@ const { parseContent } = await server.ssrLoadModule('/scripts/yaml-content.ts');
 const { projectQuarters, getProjectQuarter, totalProjectCount } = await server.ssrLoadModule('/src/lib/data/projects.ts');
 const { labEvents, eventDate } = await server.ssrLoadModule('/src/lib/data/events.ts');
 const { labNews } = await server.ssrLoadModule('/src/lib/data/news.ts');
-const { researchSections, totalPaperCount } = await server.ssrLoadModule('/src/lib/data/research.ts');
+const { researchSections, totalPaperCount, searchResearch } = await server.ssrLoadModule('/src/lib/data/research.ts');
 const { renderMarkdown, renderInline } = await server.ssrLoadModule('/src/lib/content/markdown.ts');
 
 test('every editable YAML file validates through the production content loader', async () => {
@@ -133,4 +133,31 @@ test('historical mathlib entries retain named credits, dates, and distinct PR st
 	for (const year of [2022, 2023, 2024, 2025]) {
 		assert.ok(artifacts.items.some((item) => item.linkLabel === 'Code' && item.venue.includes(String(year))));
 	}
+});
+
+test('research search covers every section and card field, including links and badges', () => {
+	for (const section of researchSections) {
+		for (const query of [section.title, section.description]) {
+			assert.deepEqual(searchResearch(query).find((result) => result.id === section.id)?.items, section.items, query);
+		}
+		for (const item of section.items) {
+			for (const field of ['title', 'authors', 'abstract', 'venue', 'badge', 'linkLabel', 'url']) {
+				if (!item[field]) continue;
+				assert.ok(searchResearch(item[field]).flatMap((result) => result.items).includes(item), `${item.title}: ${field}`);
+			}
+		}
+	}
+	assert.equal(searchResearch('37527').flatMap((section) => section.items)[0].url, 'https://github.com/leanprover-community/mathlib4/pull/37527');
+});
+
+test('research search handles word order, whitespace, accents, clearing, and no matches', () => {
+	const matches = (query) => searchResearch(query).flatMap((section) => section.items);
+	// Includes the numerical-analysis paper: Siyuan is an author and its abstract mentions Mathlib.
+	assert.equal(matches('  SIYUAN   mathlib  ').length, 4);
+	assert.deepEqual(matches('mathlib Siyuan'), matches('Siyuan mathlib'));
+	assert.ok(matches('etale').some((item) => item.url.endsWith('/37527')));
+	assert.ok(matches('Hilbert’s Basis').some((item) => item.url.endsWith('/WXML_Sp2022')));
+	assert.deepEqual(searchResearch(' \n\t '), researchSections);
+	assert.deepEqual(searchResearch('no-such-research-xyz'), []);
+	assert.deepEqual(searchResearch(''), researchSections);
 });

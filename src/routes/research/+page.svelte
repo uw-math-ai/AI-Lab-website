@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
 	import Seo from '$lib/components/Seo.svelte';
-	import { researchSections } from '$lib/data/research';
+	import { researchSections, searchResearch } from '$lib/data/research';
 	import { pages } from '$lib/data/pages';
 	import { collectionPage, graph } from '$lib/structuredData';
 
@@ -47,17 +47,7 @@
 	}
 
 	const allItems = $derived(researchSections.flatMap((section) => section.items));
-	const filteredSections = $derived(
-		researchSections
-			.map((section) => ({
-				...section,
-				items: section.items.filter((item) => {
-					const haystack = `${item.venue} ${item.title} ${item.authors} ${item.abstract}`.toLowerCase();
-					return haystack.includes(query.trim().toLowerCase());
-				})
-			}))
-			.filter((section) => section.items.length)
-	);
+	const filteredSections = $derived(searchResearch(query));
 </script>
 
 <Seo {title} {description} path="/research/" jsonLd={researchJsonLd} />
@@ -89,7 +79,7 @@
 <section class="page-shell section research-controls">
 	<label>
 		<span>Search research</span>
-		<input type="search" bind:value={query} placeholder="Title, author, venue, keyword" />
+		<input type="search" bind:value={query} placeholder="Search all research" />
 	</label>
 </section>
 
@@ -169,7 +159,7 @@
 	<section class="page-shell section">
 		<div class="card empty-state interactive-surface">
 			<h2>No matching research</h2>
-			<p>Try a different title, author, venue, or keyword.</p>
+			<p>Try a title, author, topic, status, or reference.</p>
 		</div>
 	</section>
 {/each}
