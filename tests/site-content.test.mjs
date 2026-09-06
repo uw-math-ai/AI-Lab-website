@@ -44,6 +44,18 @@ test('prerendered canonical pages expose complete, unique search metadata', asyn
 
 	for (const route of routes) {
 		const page = await renderedPage(route);
+		const trackers = page.match(/<script\b[^>]*src="https:\/\/cloud\.umami\.is\/script\.js"[^>]*><\/script>/g) ?? [];
+		assert.equal(trackers.length, 1, `${route || '/'} has exactly one Umami tracker`);
+		assert.match(page.slice(0, page.indexOf('</head>')), /src="https:\/\/cloud\.umami\.is\/script\.js"/);
+		for (const setting of [
+			'defer',
+			'data-website-id="84390274-89b9-440f-aa94-e7194281b4cf"',
+			'data-domains="ai.math.uw.edu"',
+			'data-auto-track="false"',
+			'data-do-not-track="true"',
+			'data-exclude-search="true"',
+			'data-exclude-hash="true"'
+		]) assert.ok(trackers[0].includes(setting), `${route || '/'} retains ${setting}`);
 		assert.equal(countMatches(page, /<meta name="description"/g), 1, `${route || '/'} has one description`);
 		assert.equal(countMatches(page, /<link rel="canonical"/g), 1, `${route || '/'} has one canonical`);
 		assert.equal(countMatches(page, /<meta property="og:image"/g), 1, `${route || '/'} has one Open Graph image`);
