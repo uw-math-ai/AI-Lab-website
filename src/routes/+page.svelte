@@ -93,9 +93,10 @@
 				<span class="eyebrow">Fall 2026</span>
 				<h2 id="fall-2026-applications-heading">Explore this fall’s projects</h2>
 				<p>{fallProjects.blocks.filter((block) => block.type === 'project').length} projects selected for September 30 – December 11.</p>
+				<p>Member application deadline: Tuesday, September 22, 2026.</p>
 			</div>
 			<div class="actions">
-				<button class="button primary" type="button" disabled>Project member application coming soon!</button>
+				<a class="button primary" href="https://forms.gle/dRoo1jHayR95JHzm8" target="_blank" rel="noreferrer">Project member application</a>
 				<a class="button" href={sitePath('/projects/fall-2026')}>Fall 2026 Projects</a>
 			</div>
 		</div>
@@ -424,11 +425,6 @@
 	.home-announcement .actions {
 		justify-content: flex-end;
 		max-width: 28rem;
-	}
-
-	.home-announcement button:disabled {
-		cursor: default;
-		white-space: normal;
 	}
 
 	/* ---------- Stats ---------- */
