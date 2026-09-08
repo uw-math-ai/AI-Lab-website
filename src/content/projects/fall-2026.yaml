@@ -7,12 +7,11 @@ term: Fall
 year: 2026
 status: current
 lastmod: 2026-09-08
-summary: Thirteen projects selected for Fall 2026 (September 30 – December 11). Project member
-  applications are due Tuesday, September 22, 2026.
+summary: We are happy to announce 13 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
 blocks:
   - type: text
     content: |-
-      Thirteen projects selected for Fall 2026 (September 30 – December 11).
+      Fall 2026 projects. (September 30 – December 11).
 
       [Project member application](https://forms.gle/dRoo1jHayR95JHzm8) — **Deadline: Tuesday, September 22, 2026.**
   - type: heading
@@ -77,19 +76,10 @@ blocks:
           research. Building on Albilich v1's auditable proof-state architecture, v2 will turn
           research experience itself into a source of improvement: learning from successful
           reductions, failed strategies, verifier feedback, literature use, tool calls, and software
-          failures. The system will have three parts, an unchanged proof-integrity kernel, an
-          evolvable research policy section, and a self-debugging infrastructure. Further, we
-          maintain and develops persistent domain-specific skill memory across multiple areas of
-          mathematics.
-
-          The central goal is to move beyond static mathematical agents toward systems that "become
-          better researchers over time" so that it can eventually becoming better at producing
-          improved versions of themselves. The project will develop controlled experiments to
-          distinguish genuine recursive improvement from increased compute, memorization, or
-          benchmark overfitting.
+          failures. 
 
           Some of the wanted outcomes are to study whether mathematical ability of harness can be
-          improved recursively, as well as to study whether AI's ability in a specific area can be
+         improved recursively, as well as to study whether AI's ability in a specific area can be
           improved via learnt skills with small amount of data.
       - label: "Internal tools:"
         content: "Host and maintain the lab's internal tools on EC2: the Albilich autoresearch system,
