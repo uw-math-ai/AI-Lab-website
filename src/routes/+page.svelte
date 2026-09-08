@@ -13,7 +13,7 @@
 	import { sitePath } from '$lib/paths';
 	import { graph, organization, website } from '$lib/structuredData';
 
-	const applicationAnnouncement = labEvents.find((event) => event.type === 'Announcement');
+	const fallProjects = projectQuarters.find((quarter) => quarter.slug === 'fall-2026');
 
 	const upcoming = labEvents
 		.filter(
@@ -86,25 +86,17 @@
 	</div>
 </section>
 
-{#if applicationAnnouncement}
+{#if fallProjects}
 	<section class="page-shell" aria-labelledby="fall-2026-applications-heading">
 		<div class="home-announcement interactive-surface">
 			<div>
-				<span class="eyebrow">Applications open for Fall 2026</span>
-				<h2 id="fall-2026-applications-heading">Lead a Math AI Lab project this fall</h2>
-				<p>
-					Apply by Monday, September 7 at 11:59 pm. Earlier applications receive priority, and
-					mentors of continuing projects should also apply.
-				</p>
+				<span class="eyebrow">Fall 2026</span>
+				<h2 id="fall-2026-applications-heading">Explore this fall’s projects</h2>
+				<p>{fallProjects.blocks.filter((block) => block.type === 'project').length} projects selected for September 30 – December 11.</p>
 			</div>
 			<div class="actions">
-				{#each applicationAnnouncement.links ?? [] as link, index}
-					{#if link.url.startsWith('/')}
-						<a class="button" class:primary={index === 0} href={sitePath(link.url)}>{link.label}</a>
-					{:else}
-						<a class="button" class:primary={index === 0} href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
-					{/if}
-				{/each}
+				<button class="button primary" type="button" disabled>Project member application coming soon!</button>
+				<a class="button" href={sitePath('/projects/fall-2026')}>Fall 2026 Projects</a>
 			</div>
 		</div>
 	</section>
@@ -431,6 +423,12 @@
 
 	.home-announcement .actions {
 		justify-content: flex-end;
+		max-width: 28rem;
+	}
+
+	.home-announcement button:disabled {
+		cursor: default;
+		white-space: normal;
 	}
 
 	/* ---------- Stats ---------- */

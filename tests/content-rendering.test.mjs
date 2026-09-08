@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 import { readFile, readdir } from 'node:fs/promises';
 import test from 'node:test';
 import { parse as parseYaml } from 'yaml';
@@ -16,6 +17,45 @@ function text(node) {
 const attr = (node, name) => node.attrs?.find((item) => item.name === name)?.value;
 const compact = (value) => value.replace(/\s/g, '');
 const markdownText = (value) => compact(text(parseHtml(markdown.render(value))));
+
+test('Fall 2026 retains the definitive titles and verbatim abstracts in four groups', async () => {
+	// Hashes captured directly from the supplied lineup; only Lean Refactor uses
+	// the user-approved placeholder. Updating prose requires explicit approval.
+	const approved = JSON.parse(await readFile('tests/fixtures/fall-2026-approved.json', 'utf8'));
+	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
+	const projects = quarter.blocks.filter((block) => block.type === 'project');
+	assert.equal(projects.length, 13);
+	assert.equal(approved.length, 13);
+	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
+	for (const original of approved) {
+		const project = projects.find((item) => item.id === original.id);
+		assert.ok(project, original.title);
+		assert.equal(project.title, original.title);
+		const abstract = project.details.find((detail) => detail.label.startsWith('Abstract')).content;
+		assert.equal(createHash('sha256').update(abstract).digest('hex'), original.abstractSha256, `${original.title}: unchanged abstract`);
+		const heading = all(page, (node) => attr(node, 'id') === original.id)[0];
+		assert.equal(text(heading), original.title);
+		const labels = all(page, (node) => node.tagName === 'b' && text(node).startsWith('Abstract'));
+		assert.ok(labels.some((label) => compact(text(label.parentNode).slice(text(label).length)) === compact(abstract)), `${original.title}: rendered abstract is verbatim`);
+	}
+	const expected = [
+		['Autoresearch', [2, 3, 4, 12]],
+		['Formalization & Autoformalization', [0, 1, 5]],
+		['Mathematical Machine Learning', [10, 11]],
+		['Math Education', [6, 7, 8, 9]]
+	];
+	let group = -1;
+	const actual = [];
+	for (const block of quarter.blocks) {
+		if (block.type === 'heading') { group++; actual.push([block.title, []]); }
+		if (block.type === 'project') actual[group][1].push(block.id);
+	}
+	assert.deepEqual(actual, expected.map(([title, indices]) => [title, indices.map((index) => approved[index].id)]));
+	const toc = all(page, (node) => attr(node, 'aria-label') === 'Page sections')[0];
+	assert.ok(toc);
+	assert.deepEqual(all(toc, (node) => node.tagName === 'a').map(text), expected.map(([title]) => title));
+	assert.doesNotMatch(text(page), /ABSTRACT NEEDED|Proposed New Projects|Possibly Returning|Applications for Fall 2026 project leaders are open/);
+});
 
 test('research totals, section headings, and index share number-and-label counters', async () => {
 	const sections = parseYaml(await readFile('src/content/research.yaml', 'utf8'));

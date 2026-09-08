@@ -1,0 +1,67 @@
+[
+  {
+    "id": "formalizing-algebra-of-resultants-and-determinantal-polynomials",
+    "title": "Formalizing Algebra of Resultants and Determinantal Polynomials",
+    "abstractSha256": "dc50d6409176efa03e8247baeaa40692bd6451c3a0a8a42a6f3392b664e83b7d"
+  },
+  {
+    "id": "formalizing-the-kls-conjecture-and-stochastic-localization",
+    "title": "Formalizing the KLS Conjecture & Stochastic Localization",
+    "abstractSha256": "604c4871299f3d3ab8cbfdb88fe468339cbb560aeb610c18a9ffd40180474837"
+  },
+  {
+    "id": "ai-assisted-proof-discovery-in-inverse-boundary-problems",
+    "title": "AI-Assisted Proof Discovery in Inverse Boundary Problems",
+    "abstractSha256": "664889f597a7d24ef1dc050e39e611892f3599b6591c9a0b22a402c0f614f116"
+  },
+  {
+    "id": "lean-refactor",
+    "title": "Lean Refactor",
+    "abstractSha256": "d9fb39580635d8d3cd171fc8d04c31d01877f07dfbfd8bd0600a3b6938eb09b0"
+  },
+  {
+    "id": "albilich",
+    "title": "Albilich v2 + Internal Tools",
+    "abstractSha256": "3ee623f19fb96b760832cef296ef0daf16fd04db8422fa078849c80f3ac3f924"
+  },
+  {
+    "id": "autoformalizing-mathematical-benchmarks",
+    "title": "Autoformalizing Mathematical Benchmarks",
+    "abstractSha256": "41037cafb1fe0f5ef402f682f2836ddbfe6ccaa3c9e59fb981578ccf21c5a42b"
+  },
+  {
+    "id": "math-tutor-polya",
+    "title": "Math Tutor / Polya",
+    "abstractSha256": "9223d58b43af4411c4762ba79342975c6f7fcaf404fb0a919875fa671ca3ab3f"
+  },
+  {
+    "id": "ai-math-textbook",
+    "title": "AI Math Textbook",
+    "abstractSha256": "894be5a1f6b03f887f2e7864f2eb4e13db912791875f74aa788825226dae71f8"
+  },
+  {
+    "id": "code-certifications",
+    "title": "Code Certifications",
+    "abstractSha256": "310e0bb98164dd03052d394b279593dcc547480f92e1f20f85fdd9dc1a48426e"
+  },
+  {
+    "id": "the-scientific-method",
+    "title": "Formalizing the Scientific Method",
+    "abstractSha256": "246953fedf0b1af5e78d2f9b6ca2db4237b4f3588edb7f0de9668cf0dca059ef"
+  },
+  {
+    "id": "permuformer-2",
+    "title": "PermuFormer 2",
+    "abstractSha256": "78beebe3c510deb5cb4ffb7090ba7ab004d31560318a8374d6fdd0735721b59a"
+  },
+  {
+    "id": "proofmem-separating-proof-replay-from-proof-pattern-generalization-in-lean-theorem-proving",
+    "title": "ProofMem: Separating Proof Replay from Proof-Pattern Generalization in Lean Theorem Proving",
+    "abstractSha256": "6900c6b7462e9a99eb82117a193042e58b41fbd455198ab687697d1e2b568032"
+  },
+  {
+    "id": "learning-conditional-return-laws-from-financial-trading-signals",
+    "title": "Learning Conditional Return Laws from Financial Trading Signals",
+    "abstractSha256": "2a43ca8e13e88270e9ea630c5656ef9acc5357740ca5dd3b34f6ee2b9ae8b8af"
+  }
+]
