@@ -31,6 +31,19 @@ test('Fall 2026 retains the definitive titles and verbatim abstracts in four gro
 		const project = projects.find((item) => item.id === original.id);
 		assert.ok(project, original.title);
 		assert.equal(project.title, original.title);
+		if (original.placeholder) {
+			assert.equal(project.content, original.placeholder);
+			assert.equal(project.details, undefined);
+			assert.equal(project.intro, undefined);
+			const heading = all(page, (node) => attr(node, 'id') === original.id)[0];
+			assert.equal(text(heading), original.title);
+			const siblings = heading.parentNode.childNodes.filter((node) => node.tagName);
+			const next = siblings[siblings.indexOf(heading) + 1];
+			assert.equal(next.tagName, 'p');
+			assert.equal(text(next), original.placeholder);
+			assert.equal(siblings[siblings.indexOf(heading) + 2].tagName, 'h3');
+			continue;
+		}
 		const abstract = project.details.find((detail) => detail.label.startsWith('Abstract')).content;
 		assert.equal(createHash('sha256').update(abstract).digest('hex'), original.abstractSha256, `${original.title}: unchanged abstract`);
 		const heading = all(page, (node) => attr(node, 'id') === original.id)[0];

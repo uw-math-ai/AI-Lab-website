@@ -1,5 +1,5 @@
 # Definitive lineup supplied September 8, 2026. Titles and abstracts are verbatim.
-# KLS and Lean Refactor: abstracts forthcoming, confirmed by the user.
+# KLS details and Lean Refactor abstract forthcoming, confirmed by the user.
 slug: fall-2026
 legacyFile: fall2026.html
 label: Fall 2026
@@ -140,13 +140,7 @@ blocks:
     title: Formalizing the KLS Conjecture & Stochastic Localization
     id: formalizing-the-kls-conjecture-and-stochastic-localization
     style: heading
-    details:
-      - label: "Area:"
-        content: Formalization
-      - label: "Project Leader:"
-        content: Brayden Letwin <letwin@uw.edu>
-      - label: "Abstract:"
-        content: Abstract forthcoming
+    content: Details forthcoming.
   - type: project
     title: Autoformalizing Mathematical Benchmarks
     id: autoformalizing-mathematical-benchmarks
