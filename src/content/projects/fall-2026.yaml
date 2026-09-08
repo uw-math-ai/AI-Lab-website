@@ -76,10 +76,10 @@ blocks:
           research. Building on Albilich v1's auditable proof-state architecture, v2 will turn
           research experience itself into a source of improvement: learning from successful
           reductions, failed strategies, verifier feedback, literature use, tool calls, and software
-          failures. 
+          failures.
 
           Some of the wanted outcomes are to study whether mathematical ability of harness can be
-         improved recursively, as well as to study whether AI's ability in a specific area can be
+          improved recursively, as well as to study whether AI's ability in a specific area can be
           improved via learnt skills with small amount of data.
       - label: "Internal tools:"
         content: "Host and maintain the lab's internal tools on EC2: the Albilich autoresearch system,
