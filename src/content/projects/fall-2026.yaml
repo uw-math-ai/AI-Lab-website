@@ -1,5 +1,5 @@
 # September 8, 2026 lineup, with subsequent user-approved revisions and additions.
-# KLS details and Lean Refactor abstract forthcoming, confirmed by the user.
+# KLS details forthcoming, confirmed by the user.
 slug: fall-2026
 legacyFile: fall2026.html
 label: Fall 2026
@@ -106,7 +106,12 @@ blocks:
         content: Evan Wang <aurasoph@uw.edu>, Dean Light <deanlcs@cs.washington.edu>, Michael Theologitis
           <mthe@cs.washington.edu>
       - label: "Abstract:"
-        content: Abstract forthcoming.
+        content: |-
+          Participation in the Lean Refactor competition for AI for Verifiable Coding @ Neurips 2026. Given a compiling Lean proof, can we make it “better”? Better being defined along 3 dimensions: compilation time, length, and version-robustness. There are two tracks, Closed Source and Open Source, and we will approach them both. Required to have an interest in harness engineering or familiarity with tuning open source models. Lean familiarity not required, somewhat encouraged.
+
+          Competition ends November 8th, so this is a fast paced project that encompasses the first half of the quarter. The second half will be focused on generalizing the harness to be useful for refactoring Lean in the context of general projects.
+      - label: "Links:"
+        content: "[Workshop](https://vericodegen.github.io/) · [Competition](https://huggingface.co/spaces/delta-lab-ai/lean-refactor-arena)"
   - type: project
     title: Albilich v2 + Internal Tools
     id: albilich
