@@ -20,7 +20,7 @@ const markdownText = (value) => compact(text(parseHtml(markdown.render(value))))
 
 test('Fall 2026 retains the approved titles and abstracts in four groups', async () => {
 	// Hashes track the supplied lineup and subsequent user-approved revisions,
-	// including the KLS placeholder and the submitted Lean Refactor description.
+	// including the submitted probability and Lean Refactor descriptions.
 	const approved = JSON.parse(await readFile('tests/fixtures/fall-2026-approved.json', 'utf8'));
 	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
 	const projects = quarter.blocks.filter((block) => block.type === 'project');
@@ -31,25 +31,12 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 		const project = projects.find((item) => item.id === original.id);
 		assert.ok(project, original.title);
 		assert.equal(project.title, original.title);
-		if (original.placeholder) {
-			assert.equal(project.content, original.placeholder);
-			assert.equal(project.details, undefined);
-			assert.equal(project.intro, undefined);
-			const heading = all(page, (node) => attr(node, 'id') === original.id)[0];
-			assert.equal(text(heading), original.title);
-			const siblings = heading.parentNode.childNodes.filter((node) => node.tagName);
-			const next = siblings[siblings.indexOf(heading) + 1];
-			assert.equal(next.tagName, 'p');
-			assert.equal(text(next), original.placeholder);
-			assert.equal(siblings[siblings.indexOf(heading) + 2].tagName, 'h3');
-			continue;
-		}
 		const abstract = project.details.find((detail) => detail.label.startsWith('Abstract')).content;
 		assert.equal(createHash('sha256').update(abstract).digest('hex'), original.abstractSha256, `${original.title}: unchanged abstract`);
 		const heading = all(page, (node) => attr(node, 'id') === original.id)[0];
 		assert.equal(text(heading), original.title);
 		const labels = all(page, (node) => node.tagName === 'b' && text(node).startsWith('Abstract'));
-		assert.ok(labels.some((label) => compact(text(label.parentNode).slice(text(label).length)) === compact(abstract)), `${original.title}: rendered abstract is verbatim`);
+		assert.ok(labels.some((label) => compact(text(label.parentNode).slice(text(label).length)) === markdownText(abstract)), `${original.title}: rendered abstract is verbatim`);
 	}
 	const expected = [
 		['Autoresearch', [2, 13, 3, 4, 12]],

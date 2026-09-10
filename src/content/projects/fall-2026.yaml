@@ -1,5 +1,4 @@
 # September 8, 2026 lineup, with subsequent user-approved revisions and additions.
-# KLS details forthcoming, confirmed by the user.
 slug: fall-2026
 legacyFile: fall2026.html
 label: Fall 2026
@@ -190,10 +189,19 @@ blocks:
           treated in https://arxiv.org/abs/2205.05267. Assuming sufficient progress is made, we will
           submit Mathlib PR's every quarter."
   - type: project
-    title: Formalizing the KLS Conjecture & Stochastic Localization
+    title: Formalizing modern techniques in probability theory
     id: formalizing-the-kls-conjecture-and-stochastic-localization
     style: heading
-    content: Details forthcoming.
+    details:
+      - label: "Area:"
+        content: Formalization
+      - label: "Project Leader:"
+        content: Brayden Letwin <letwin@uw.edu>
+      - label: "Abstract:"
+        content: |-
+          In 2012, Ronen Eldan introduced a remarkable new technique in probability theory, now broadly known as **stochastic localization**. Since its introduction, stochastic localization (and, more generally, the philosophy behind it) has become an extremely powerful tool, leading to major advances in probability, convex geometry, and theoretical computer science. The goal of this project is to formalize stochastic localization and related ideas from the literature in Lean/Mathlib.
+
+          We will begin by formalizing the techniques developed in Eldan’s foundational paper ([https://arxiv.org/pdf/1203.0893](https://arxiv.org/pdf/1203.0893)). In addition to contributing directly to the formalization, the project leader will serve as a mentor and help coordinate the mathematical direction of the project. This will include explaining the underlying probability theory, and helping participants navigate the mathematical literature. At the same time, the project is intended to be a collaborative learning experience. Participants will be encouraged to learn the theory together, propose directions, take ownership of individual components, and contribute to the broader development of stochastic localization in Mathlib. Motivated students with an interest in probability theory, convex geometry, theoretical computer science, or formalization of mathematics are encouraged to participate.
   - type: project
     title: Autoformalizing Mathematical Benchmarks
     id: autoformalizing-mathematical-benchmarks
