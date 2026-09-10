@@ -1,4 +1,4 @@
-# Definitive lineup supplied September 8, 2026. Titles and abstracts are verbatim.
+# September 8, 2026 lineup, with subsequent user-approved revisions and additions.
 # KLS details and Lean Refactor abstract forthcoming, confirmed by the user.
 slug: fall-2026
 legacyFile: fall2026.html
@@ -6,8 +6,8 @@ label: Fall 2026
 term: Fall
 year: 2026
 status: current
-lastmod: 2026-09-08
-summary: We are happy to announce 13 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
+lastmod: 2026-09-09
+summary: We are happy to announce 14 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
 blocks:
   - type: text
     content: |-
@@ -47,6 +47,54 @@ blocks:
           of candidate arguments. A formalization of new intermediate results for the partial data
           Calderón problem with applied voltages and measured currents restricted to the same
           arbitrary open subset of the boundary, which can be included in a mathematical paper."
+  - type: project
+    title: "Mathematical Taste: Recognizing Progress Beyond Generation"
+    id: mathematical-taste-recognizing-progress-beyond-generation
+    style: heading
+    details:
+      - label: "Area:"
+        content: Autoresearch
+      - label: "Project Leader:"
+        content: Zihong Lin <zhlin@uw.edu>
+      - label: "Abstract:"
+        content: >-
+          Can a language model recognize a breakthrough it cannot discover on its own?
+          Mathematical research requires judging which incomplete arguments are worth pursuing
+          before a full proof is available.
+
+          We will build a benchmark to test how models distinguish promising partial arguments
+          from plausible but unproductive reasoning, including ideas beyond their demonstrated
+          solving ability.
+
+          We will also test whether model hidden states contain signals of mathematical promise
+          that predict later progress more reliably than verbal judgments or confidence reports.
+
+          Such signals could help long-running AI proof agents choose which directions to pursue
+          and how much computation to invest.
+      - label: "Goals:"
+        content: >-
+          Build a benchmark of partial arguments with key insights and convincing but stalled
+          attempts, with mathematical review and checks for possible prior exposure to solutions.
+
+          Compare models' ability to generate promising ideas, recognize supplied ideas, and
+          continue the arguments under a fixed compute budget.
+
+          Test whether hidden-state probes in open-weight models generalize across problems and
+          add information beyond correctness judgments, including on problems the model can
+          already solve.
+
+          Release an open-source benchmark and reproducible evaluation code, and prepare a paper.
+          Follow-up work could use the findings to guide proof search.
+      - label: "Timeline:"
+        content: |-
+          - **Fall 2026:** Build the dataset and evaluation setup, compare initial models, and present preliminary findings by quarter's end.
+          - **Winter 2027:** Refine the evaluation, study generation, recognition, and continuation, and explore hidden-state probes.
+          - **Spring 2027:** Complete the study and release the benchmark and code. Aim for a submission-ready paper by May 1, 2027, tentatively targeting NeurIPS 2027; its official deadline is not yet confirmed.
+      - label: "Prerequisites:"
+        content: |-
+          1. Experience with coding agents or a comparable technical background, plus clear communication (strongly required).
+          2. Familiarity with proof-based mathematics, linear algebra, and multivariable calculus (highly desirable).
+          3. Strong understanding of transformer architecture (desirable).
   - type: project
     title: Lean Refactor
     id: lean-refactor

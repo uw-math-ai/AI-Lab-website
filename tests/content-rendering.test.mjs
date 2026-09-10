@@ -18,14 +18,14 @@ const attr = (node, name) => node.attrs?.find((item) => item.name === name)?.val
 const compact = (value) => value.replace(/\s/g, '');
 const markdownText = (value) => compact(text(parseHtml(markdown.render(value))));
 
-test('Fall 2026 retains the definitive titles and verbatim abstracts in four groups', async () => {
+test('Fall 2026 retains the approved titles and abstracts in four groups', async () => {
 	// Hashes track the supplied lineup and subsequent user-approved revisions,
 	// including the KLS and Lean Refactor placeholders.
 	const approved = JSON.parse(await readFile('tests/fixtures/fall-2026-approved.json', 'utf8'));
 	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
 	const projects = quarter.blocks.filter((block) => block.type === 'project');
-	assert.equal(projects.length, 13);
-	assert.equal(approved.length, 13);
+	assert.equal(projects.length, 14);
+	assert.equal(approved.length, 14);
 	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
 	for (const original of approved) {
 		const project = projects.find((item) => item.id === original.id);
@@ -52,7 +52,7 @@ test('Fall 2026 retains the definitive titles and verbatim abstracts in four gro
 		assert.ok(labels.some((label) => compact(text(label.parentNode).slice(text(label).length)) === compact(abstract)), `${original.title}: rendered abstract is verbatim`);
 	}
 	const expected = [
-		['Autoresearch', [2, 3, 4, 12]],
+		['Autoresearch', [2, 13, 3, 4, 12]],
 		['Formalization & Autoformalization', [0, 1, 5]],
 		['Mathematical Machine Learning', [10, 11]],
 		['Math Education', [6, 7, 8, 9]]

@@ -152,7 +152,7 @@ test('Fall member applications link to the form and September 22 deadline while 
 	assert.ok(announcement.links.some((link) => link.url === '/projects/fall-2026'));
 
 	assert.match(home, /class="home-announcement interactive-surface[^"\n]*"/);
-	assert.match(home, /13 projects selected for September 30 – December 11/);
+	assert.match(home, /14 projects selected for September 30 – December 11/);
 	const fall = await renderedPage('projects/fall-2026');
 	for (const page of [home, fall]) {
 		assert.match(page, /<a[^>]*href="https:\/\/forms\.gle\/dRoo1jHayR95JHzm8"[^>]*>Project member application<\/a>/);
