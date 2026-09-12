@@ -25,7 +25,7 @@ blocks:
       - label: "Area:"
         content: Autoresearch
       - label: "Project Leaders:"
-        content: Ruirui Wu <ruirwu@uw.edu>, Zihong Lin <zhlin@uw.edu>
+        content: Ruirui Wu <ruirwu@uw.edu>
       - label: "Abstract:"
         content: >-
           Inverse problems seek to determine properties of a medium by exterior measurements. As a
