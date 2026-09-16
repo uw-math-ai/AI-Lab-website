@@ -170,17 +170,21 @@ blocks:
         content: Joe Rogge <jwrogge@uw.edu>, Bryan Boehnke <boehnkeb@uw.edu>, Shaoda Ji <shaodj@uw.edu>
       - label: "Abstract:"
         content: The principal minor map, sending an nxn matrix to its vector of 2^n principal minors, has
-          been extensively studied, with many properties of its fiber understood. The primary tools
+          been extensively studied, with many properties of its image and fiber understood. The primary tools
           used in studying this map are determinantal polynomials (multiaffine polynomials
           organizing principal minors) and resultants, allowing elementary but powerful analysis of
           principal minor questions. Principal minors are of special interest because of so-called
           determinantal point processes (DPP's), probability distributions on subsets of [n] defined
-          by the principal minors of an nxn matrix. In this project, we will formalize some recently
+          by the principal minors of an nxn matrix, which have applications in pure math as well as
+          physics and machine learning. In this project, we will formalize some recently
           published results on principal minors, and along the way we will formalize some classical
-          theorems about determinants which are not yet in Mathlib. This project provides an
-          accessible entry point both to cutting edge mathematics and to formalization, with some
-          easy results ready to be formalized and a clear ladder of results of increasing
-          difficulty.
+          theorems about determinants which are not yet in Mathlib. Students will learn some cutting
+          edge math, build Lean programming skills, and contribute several pull requests to mathlib.
+      - label: "Prerequisites:"
+        content: |-
+          - Linear algebra (208 or equivalent) is a must for this project
+          - Having taken a proofs class is strongly preferred
+          - Some lean experience would be helpful but is not necessary
       - label: "Goal:"
         content: "Formalize theorems about resultants and multiaffine polynomials from the following paper:
           https://arxiv.org/abs/2309.00806. The natural starting point is theorem 2.1 (proven as
