@@ -57,6 +57,21 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 	assert.doesNotMatch(text(page), /ABSTRACT NEEDED|Proposed New Projects|Possibly Returning|Applications for Fall 2026 project leaders are open/);
 });
 
+test('Fall 2026 highlights Wednesday meetings and credits both co-mentorships', async () => {
+	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
+	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
+	const meeting = all(page, (node) => node.tagName === 'p' && text(node).startsWith('Project meetings:'))[0];
+	assert.ok(meeting);
+	assert.equal(text(meeting), 'Project meetings: Monday & Wednesday.');
+	assert.deepEqual(all(meeting, (node) => node.tagName === 'strong').map(text), ['Wednesday']);
+	for (const id of ['mathematical-taste-recognizing-progress-beyond-generation', 'formalizing-the-kls-conjecture-and-stochastic-localization']) {
+		const project = quarter.blocks.find((block) => block.id === id);
+		assert.equal(project.details.find((detail) => detail.label === 'Co-mentor:').content, 'William Dudarov');
+	}
+	const mentors = all(page, (node) => node.tagName === 'b' && text(node) === 'Co-mentor:');
+	assert.equal(mentors.filter((label) => text(label.parentNode).includes('William Dudarov')).length, 2);
+});
+
 test('research totals, section headings, and index share number-and-label counters', async () => {
 	const sections = parseYaml(await readFile('src/content/research.yaml', 'utf8'));
 	const page = parseHtml(await readFile('build/research/index.html', 'utf8'));

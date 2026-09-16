@@ -5,12 +5,14 @@ label: Fall 2026
 term: Fall
 year: 2026
 status: current
-lastmod: 2026-09-09
+lastmod: 2026-09-16
 summary: We are happy to announce 14 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
 blocks:
   - type: text
     content: |-
       Fall 2026 projects. (September 30 – December 11).
+
+      Project meetings: Monday & **Wednesday**.
 
       [Project member application](https://forms.gle/dRoo1jHayR95JHzm8) — **Deadline: Tuesday, September 22, 2026.**
   - type: heading
@@ -55,6 +57,8 @@ blocks:
         content: Autoresearch
       - label: "Project Leader:"
         content: Zihong Lin <zhlin@uw.edu>
+      - label: "Co-mentor:"
+        content: William Dudarov
       - label: "Abstract:"
         content: >-
           Can a language model recognize a breakthrough it cannot discover on its own?
@@ -197,6 +201,8 @@ blocks:
         content: Formalization
       - label: "Project Leader:"
         content: Brayden Letwin <letwin@uw.edu>
+      - label: "Co-mentor:"
+        content: William Dudarov
       - label: "Abstract:"
         content: |-
           In 2012, Ronen Eldan introduced a remarkable new technique in probability theory, now broadly known as **stochastic localization**. Since its introduction, stochastic localization (and, more generally, the philosophy behind it) has become an extremely powerful tool, leading to major advances in probability, convex geometry, and theoretical computer science. The goal of this project is to formalize stochastic localization and related ideas from the literature in Lean/Mathlib.
