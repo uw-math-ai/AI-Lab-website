@@ -24,8 +24,8 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 	const approved = JSON.parse(await readFile('tests/fixtures/fall-2026-approved.json', 'utf8'));
 	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
 	const projects = quarter.blocks.filter((block) => block.type === 'project');
-	assert.equal(projects.length, 14);
-	assert.equal(approved.length, 14);
+	assert.equal(projects.length, 15);
+	assert.equal(approved.length, 15);
 	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
 	for (const original of approved) {
 		const project = projects.find((item) => item.id === original.id);
@@ -41,7 +41,7 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 	const expected = [
 		['Autoresearch', [2, 13, 3, 4, 12]],
 		['Formalization & Autoformalization', [0, 1, 5]],
-		['Mathematical Machine Learning', [10, 11]],
+		['Mathematical Machine Learning', [10, 11, 14]],
 		['Math Education', [6, 7, 8, 9]]
 	];
 	let group = -1;
@@ -55,6 +55,18 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 	assert.ok(toc);
 	assert.deepEqual(all(toc, (node) => node.tagName === 'a').map(text), expected.map(([title]) => title));
 	assert.doesNotMatch(text(page), /ABSTRACT NEEDED|Proposed New Projects|Possibly Returning|Applications for Fall 2026 project leaders are open/);
+});
+
+test('Fall 2026 restores the Spring Math2Vec description verbatim', async () => {
+	const spring = parseYaml(await readFile('src/content/projects/spring-2026.yaml', 'utf8'));
+	const fall = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
+	const previous = spring.blocks.find((block) => block.id === 'mathematician-s-copilot-math2vec');
+	const restored = fall.blocks.find((block) => block.id === previous.id);
+	assert.equal(restored.title, previous.title);
+	assert.equal(restored.details.find((detail) => detail.label === 'Abstract:').content,
+		previous.details.find((detail) => detail.label === 'Description:').content);
+	assert.deepEqual(restored.details.find((detail) => detail.label === 'Project Leader:'),
+		previous.details.find((detail) => detail.label === 'Project Leader:'));
 });
 
 test('Fall 2026 highlights Wednesday meetings and credits both co-mentorships', async () => {

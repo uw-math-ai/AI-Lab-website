@@ -6,7 +6,7 @@ term: Fall
 year: 2026
 status: current
 lastmod: 2026-09-16
-summary: We are happy to announce 14 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
+summary: We are happy to announce 15 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
 blocks:
   - type: text
     content: |-
@@ -262,6 +262,20 @@ blocks:
           evaluation framework that distinguishes exact proof replay from genuine proof-pattern
           generalization, testing robustness under theorem perturbations, transfer to sibling
           theorems, and retention after further fine-tuning.
+  - type: project
+    title: "Mathematician's copilot: Math2Vec"
+    id: mathematician-s-copilot-math2vec
+    style: heading
+    details:
+      - label: "Area:"
+        content: Mathematical Machine Learning
+      - label: "Project Leader:"
+        content: Henry Kvinge (PNNL)
+      - label: "Abstract:"
+        content: "Train a text embedder that understands math, LaTeX and Lean. This will improve search over
+          Lean, and natural language theorem search. It can be used for RAG as well. Use arXiv,
+          MathOverflow, mathlib, Lean Reservoir, and possibly other sources. Create an evaluation
+          benchmark as well. Goal: submit to EMNLP 2026 in May."
   - type: heading
     title: Math Education
     id: math-education

@@ -68,5 +68,10 @@
     "id": "mathematical-taste-recognizing-progress-beyond-generation",
     "title": "Mathematical Taste: Recognizing Progress Beyond Generation",
     "abstractSha256": "abb705fb4d2320d58fe1bc8e0e050097d27760f427d6782844185e4c79917afd"
+  },
+  {
+    "id": "mathematician-s-copilot-math2vec",
+    "title": "Mathematician's copilot: Math2Vec",
+    "abstractSha256": "334acb0b33f46a0926d9527a6465355391aed8eb8a9179a3917f206d54a44fd8"
   }
 ]
