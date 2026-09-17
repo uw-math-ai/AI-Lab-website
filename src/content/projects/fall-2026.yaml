@@ -5,7 +5,7 @@ label: Fall 2026
 term: Fall
 year: 2026
 status: current
-lastmod: 2026-09-16
+lastmod: 2026-09-17
 summary: We are happy to announce 15 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
 blocks:
   - type: text
@@ -155,6 +155,21 @@ blocks:
           beyond expected return to model volatility, tail risk, and downside probability. The
           learned distributions will be evaluated using calibration, probability integral transform
           diagnostics, value-at-risk violations, and proper scoring rules.
+  - type: project
+    title: Formalizing the Scientific Method
+    id: the-scientific-method
+    style: heading
+    details:
+      - label: "Area:"
+        content: Autoresearch
+      - label: "Project Leader:"
+        content: Eric Klavins <klavins@uw.edu>
+      - label: "Abstract:"
+        content: "The goal of this project is to formalize the scientific method in Lean and LLMs in an
+          attempt to answer the question: Can the experiments done in a given scientific paper
+          refute hypotheses derived from a mathematical model of the physics involved. For example,
+          given a model of a gene network, a hypothesis about a particular gene interaction, and a
+          molecular perturbation, does the perturbation provide information about the interaction?"
   - type: heading
     title: Formalization & Autoformalization
     id: formalization-autoformalization
@@ -228,6 +243,22 @@ blocks:
           using an agentic workflow in which AI agents check and refine one another's work. Every
           resulting statement also receives human review and is classified as faithful, uncertain,
           or unfaithful.
+  - type: project
+    title: Code Certifications
+    id: code-certifications
+    style: heading
+    details:
+      - label: "Area:"
+        content: Formalization & Autoformalization
+      - label: "Project Leaders:"
+        content: Eric Klavins <klavins@uw.edu>, Dhruv Bhatia <dbhatia1@uw.edu>
+      - label: "Abstract:"
+        content: When an LLM produces, say, Python code for your project, how do you know that code is
+          correct? One approach is to have it also produce a logical specification of what the code
+          should do, together with a proof that the code meets the specification. For example, if
+          you asked for code that sorts lists, you would get a function from lists to lists and a
+          proof that the function is decidable and correct. The team will build a custom agentic
+          harness and a Lean evaluator, and use an off-the-shelf Lean to Python translator.
   - type: heading
     title: Mathematical Machine Learning
     id: mathematical-machine-learning
@@ -319,34 +350,3 @@ blocks:
           holds the whole paper in context so the learner can ask questions in real time. The
           embellished version should contain far more flowcharts, mindmaps, and schematics, with two
           levels of presentation: undergraduate and graduate/researcher."
-  - type: project
-    title: Code Certifications
-    id: code-certifications
-    style: heading
-    details:
-      - label: "Area:"
-        content: AI for math learning and education
-      - label: "Project Leaders:"
-        content: Eric Klavins <klavins@uw.edu>, Dhruv Bhatia <dbhatia1@uw.edu>
-      - label: "Abstract:"
-        content: When an LLM produces, say, Python code for your project, how do you know that code is
-          correct? One approach is to have it also produce a logical specification of what the code
-          should do, together with a proof that the code meets the specification. For example, if
-          you asked for code that sorts lists, you would get a function from lists to lists and a
-          proof that the function is decidable and correct. The team will build a custom agentic
-          harness and a Lean evaluator, and use an off-the-shelf Lean to Python translator.
-  - type: project
-    title: Formalizing the Scientific Method
-    id: the-scientific-method
-    style: heading
-    details:
-      - label: "Area:"
-        content: AI for math learning and education
-      - label: "Project Leader:"
-        content: Eric Klavins <klavins@uw.edu>
-      - label: "Abstract:"
-        content: "The goal of this project is to formalize the scientific method in Lean and LLMs in an
-          attempt to answer the question: Can the experiments done in a given scientific paper
-          refute hypotheses derived from a mathematical model of the physics involved. For example,
-          given a model of a gene network, a hypothesis about a particular gene interaction, and a
-          molecular perturbation, does the perturbation provide information about the interaction?"

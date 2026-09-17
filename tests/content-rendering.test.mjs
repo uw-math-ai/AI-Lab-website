@@ -39,10 +39,10 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 		assert.ok(labels.some((label) => compact(text(label.parentNode).slice(text(label).length)) === markdownText(abstract)), `${original.title}: rendered abstract is verbatim`);
 	}
 	const expected = [
-		['Autoresearch', [2, 13, 3, 4, 12]],
-		['Formalization & Autoformalization', [0, 1, 5]],
+		['Autoresearch', [2, 13, 3, 4, 12, 9]],
+		['Formalization & Autoformalization', [0, 1, 5, 8]],
 		['Mathematical Machine Learning', [10, 11, 14]],
-		['Math Education', [6, 7, 8, 9]]
+		['Math Education', [6, 7]]
 	];
 	let group = -1;
 	const actual = [];
