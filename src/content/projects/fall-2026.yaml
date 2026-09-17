@@ -323,8 +323,7 @@ blocks:
       - label: "Area:"
         content: AI for math learning and education
       - label: "Project Leaders:"
-        content: Eric Klavins <klavins@uw.edu>; Dan Mikulincer <danmiku@uw.edu> [tentative — intent to be
-          confirmed]
+        content: Eric Klavins <klavins@uw.edu>; Dan Mikulincer <danmiku@uw.edu>
       - label: "Abstract:"
         content: The goal of this project is to teach mathematics to a student in a goal-directed approach
           informed by an estimation of the student's knowledge built up from assessing their
