@@ -5,7 +5,7 @@ label: Fall 2026
 term: Fall
 year: 2026
 status: current
-lastmod: 2026-09-17
+lastmod: 2026-09-21
 summary: We are happy to announce 15 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
 blocks:
   - type: text
@@ -30,24 +30,16 @@ blocks:
         content: Ruirui Wu <ruirwu@uw.edu>
       - label: "Abstract:"
         content: >-
-          Inverse problems seek to determine properties of a medium by exterior measurements. As a
-          prototypical example, the Calderón problem asks whether we can determine the electrical
-          conductivity of a medium by making voltage and current measurements on the boundary.
-
-          This project investigates how AI can assist in the discovery of proof in inverse boundary
-          problems. Our main target is to relax the data observation set geometry requirement for
-          the partial data Calderón problem in dimension 3 or higher: when both applied voltages and
-          measured currents are restricted to the same arbitrary open subset of the boundary.
-
-          We will use AI to analyze existing results and proofs, identify obstacles to extending
-          them, and develop and attempt new proofs. The mathematical correctness will be audited by
-          the project leader and possibly team members with corresponding math background.
-      - label: "Planned contributions:"
-        content: "We plan two connected contributions: An open-source workflow for AI-assisted proof
-          development, including retrieval of relevant results and iterative proposal and criticism
-          of candidate arguments. A formalization of new intermediate results for the partial data
-          Calderón problem with applied voltages and measured currents restricted to the same
-          arbitrary open subset of the boundary, which can be included in a mathematical paper."
+          This project explores AI-assisted mathematical discovery in inverse boundary problems,
+          focusing on the partial data Calderón problem. We will develop and evaluate AI workflows
+          to analyze existing proofs, identify obstacles, and propose new lemmas and proof strategies,
+          with experts reviewing mathematical claims. The project aims to advance understanding of
+          partial-data uniqueness and produce open-source tools and documented experiments assessing
+          AI’s contribution to research mathematics.
+      - label: "Suggested references:"
+        content: |-
+          1. Sections 2.7 and 2.8 of the book ["The Calderón Problem: An Introduction"](https://bookstore.ams.org/GSM/253) by Feldman, Salo, and Uhlmann. Basic real analysis knowledge may be required to follow these sections directly.
+          2. Introduction section of the core research paper ["The Calderón problem with partial data"](https://annals.math.princeton.edu/wp-content/uploads/annals-v165-n2-p05.pdf) by Kenig, Sjöstrand, and Uhlmann.
   - type: project
     title: "Mathematical Taste: Recognizing Progress Beyond Generation"
     id: mathematical-taste-recognizing-progress-beyond-generation
