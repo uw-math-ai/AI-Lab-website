@@ -5,7 +5,7 @@ label: Fall 2026
 term: Fall
 year: 2026
 status: current
-lastmod: 2026-09-21
+lastmod: 2026-09-23
 summary: We are happy to announce 15 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
 blocks:
   - type: text
@@ -154,8 +154,8 @@ blocks:
     details:
       - label: "Area:"
         content: Autoresearch
-      - label: "Project Leader:"
-        content: Eric Klavins <klavins@uw.edu>
+      - label: "Project Leaders:"
+        content: Eric Klavins <klavins@uw.edu>, Bryan Boehnke <boehnkeb@uw.edu>
       - label: "Abstract:"
         content: "The goal of this project is to formalize the scientific method in Lean and LLMs in an
           attempt to answer the question: Can the experiments done in a given scientific paper
@@ -174,7 +174,7 @@ blocks:
       - label: "Area:"
         content: Formalization
       - label: "Project Leaders:"
-        content: Joe Rogge <jwrogge@uw.edu>, Bryan Boehnke <boehnkeb@uw.edu>, Shaoda Ji <shaodj@uw.edu>
+        content: Joe Rogge <jwrogge@uw.edu>, Shaoda Ji <shaodj@uw.edu>
       - label: "Abstract:"
         content: The principal minor map, sending an nxn matrix to its vector of 2^n principal minors, has
           been extensively studied, with many properties of its image and fiber understood. The primary tools
