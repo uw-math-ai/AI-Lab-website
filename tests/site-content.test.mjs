@@ -142,7 +142,7 @@ test('the July 20 mid-summer social remains in the event calendar data', async (
 	assert.equal(event.abstract, 'Come join us on Monday July 20th in OUG 136 to chat with your colleagues about their exciting research! Food and board games provided');
 });
 
-test('Fall member applications link to the form and September 22 deadline while the lead announcement stays archived', async () => {
+test('Fall rosters replace the closed member application while the lead announcement stays archived', async () => {
 	const [home, events] = await Promise.all([renderedPage(''), renderedPage('events')]);
 
 	assert.match(events, /Fall 2026 project leader applications open/);
@@ -152,12 +152,11 @@ test('Fall member applications link to the form and September 22 deadline while 
 	assert.ok(announcement.links.some((link) => link.url === '/projects/fall-2026'));
 
 	assert.match(home, /class="home-announcement interactive-surface[^"\n]*"/);
-	assert.match(home, /15 projects selected for September 30 – December 11/);
+	assert.match(home, /14 projects · 61 students · September 30 – December 11/);
 	const fall = await renderedPage('projects/fall-2026');
 	for (const page of [home, fall]) {
-		assert.match(page, /<a[^>]*href="https:\/\/forms\.gle\/dRoo1jHayR95JHzm8"[^>]*>Project member application<\/a>/);
-		assert.match(page, /Tuesday, September 22, 2026/);
-		assert.doesNotMatch(page, /Project member application coming soon/);
+		assert.match(page, /Fall 2026 applications are closed/);
+		assert.doesNotMatch(page, /forms\.gle\/dRoo1jHayR95JHzm8|Tuesday, September 22, 2026|Project member application coming soon/);
 	}
 	assert.doesNotMatch(home, /Lead a Math AI Lab project this fall|Apply by Monday, September 7|1Bl1wNdIGdc8jHBaaXI/);
 	assert.match(home, /Fall 2026 Projects/);

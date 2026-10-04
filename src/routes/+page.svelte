@@ -87,17 +87,17 @@
 </section>
 
 {#if fallProjects}
-	<section class="page-shell" aria-labelledby="fall-2026-applications-heading">
+	<section class="page-shell" aria-labelledby="fall-2026-rosters-heading">
 		<div class="home-announcement interactive-surface">
 			<div>
 				<span class="eyebrow">Fall 2026</span>
-				<h2 id="fall-2026-applications-heading">Explore this fall’s projects</h2>
-				<p>{fallProjects.blocks.filter((block) => block.type === 'project').length} projects selected for September 30 – December 11.</p>
-				<p>Member application deadline: Tuesday, September 22, 2026.</p>
+				<h2 id="fall-2026-rosters-heading">Meet this fall’s teams</h2>
+				<p>{fallProjects.blocks.filter((block) => block.type === 'project').length} projects · 61 students · September 30 – December 11.</p>
+				<p>Monday &amp; Wednesday, 4–5:30 p.m. · OUG 136</p>
+				<p>Fall 2026 applications are closed. Thank you to everyone who applied!</p>
 			</div>
 			<div class="actions">
-				<a class="button primary" href="https://forms.gle/dRoo1jHayR95JHzm8" target="_blank" rel="noreferrer">Project member application</a>
-				<a class="button" href={sitePath('/projects/fall-2026')}>Fall 2026 Projects</a>
+				<a class="button primary" href={sitePath('/projects/fall-2026')}>Fall 2026 team rosters</a>
 			</div>
 		</div>
 	</section>

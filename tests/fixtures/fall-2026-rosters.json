@@ -1,0 +1,246 @@
+{
+  "as_of": "2026-10-04",
+  "source": "Rosters supplied by Michael in this conversation, October 4, 2026.",
+  "student_count": 61,
+  "student_placements": 62,
+  "projects": [
+    {
+      "key": "inverse",
+      "id": "ai-assisted-proof-discovery-in-inverse-boundary-problems",
+      "title": "AI-Assisted Proof Discovery in Inverse Boundary Problems",
+      "leads": [
+        "Ruirui Wu"
+      ],
+      "students": [
+        "Annie Feng",
+        "Kevin Wei",
+        "Kushal Kothapalli",
+        "Shiqi Yang",
+        "Harrison Bruechert"
+      ]
+    },
+    {
+      "key": "taste",
+      "id": "mathematical-taste-recognizing-progress-beyond-generation",
+      "title": "Mathematical Taste: Recognizing Progress Beyond Generation",
+      "leads": [
+        "Zihong Lin"
+      ],
+      "co_mentors": [
+        "Will Dudarov"
+      ],
+      "students": [
+        "Ganesh Ravichandran",
+        "David An",
+        "Annie Cao",
+        "Duc Huy Nguyen",
+        "Bhuvan Gundela",
+        "Armen Agalyan"
+      ]
+    },
+    {
+      "key": "refactor",
+      "id": "lean-refactor",
+      "title": "Lean Refactor",
+      "leads": [
+        "Evan Wang"
+      ],
+      "students": [
+        "Kedar Chintalapati",
+        "David Javnozon",
+        "Chuhan Li",
+        "Evan Gubarev"
+      ],
+      "schedule": "Competition ends November 8."
+    },
+    {
+      "key": "albilich",
+      "id": "albilich",
+      "title": "Albilich v2 + Internal Tools",
+      "leads": [
+        "Ting Gong",
+        "Michael R. Zeng",
+        "Dean Light",
+        "Michael Theologitis"
+      ],
+      "students": [],
+      "schedule": "Metaharness meets Mondays, 3–4 p.m."
+    },
+    {
+      "key": "returns",
+      "id": "learning-conditional-return-laws-from-financial-trading-signals",
+      "title": "Learning Conditional Return Laws from Financial Trading Signals",
+      "leads": [
+        "Freda Zhang",
+        "Yue Wu"
+      ],
+      "students": [
+        "Daran Xu",
+        "Belinda Krista",
+        "Rithikesh Muddana",
+        "Archit Ganapule",
+        "Chaoxiang Zhang"
+      ]
+    },
+    {
+      "key": "scientific",
+      "id": "the-scientific-method",
+      "title": "Formalizing the Scientific Method",
+      "leads": [
+        "Eric Klavins",
+        "Bryan Boehnke"
+      ],
+      "students": [
+        "Kavi Mahajan",
+        "Rohith Kala",
+        "Aiden Hoang"
+      ]
+    },
+    {
+      "key": "resultants",
+      "id": "formalizing-algebra-of-resultants-and-determinantal-polynomials",
+      "title": "Formalizing Algebra of Resultants and Determinantal Polynomials",
+      "leads": [
+        "Joe Rogge",
+        "Shaoda Ji"
+      ],
+      "students": [
+        "Grant Yang",
+        "Anders Lewis",
+        "Liron Shani",
+        "Nhi Bach",
+        "David Javnozon"
+      ],
+      "schedule": "Meets at an alternate time; coordinate with the project leaders."
+    },
+    {
+      "key": "probability",
+      "id": "formalizing-the-kls-conjecture-and-stochastic-localization",
+      "title": "Formalizing Modern Techniques in Probability Theory",
+      "leads": [
+        "Brayden Letwin"
+      ],
+      "co_mentors": [
+        "Will Dudarov"
+      ],
+      "students": [
+        "Cosun Zhou",
+        "Aarush Sharma",
+        "Elisa Regueros",
+        "Owen Parks"
+      ]
+    },
+    {
+      "key": "benchmarks",
+      "id": "autoformalizing-mathematical-benchmarks",
+      "title": "Autoformalizing Mathematical Benchmarks",
+      "leads": [
+        "Theodore Meek"
+      ],
+      "students": [
+        "Pei Li"
+      ],
+      "continuing_members": [
+        "Michael R. Zeng"
+      ]
+    },
+    {
+      "key": "certification",
+      "id": "code-certifications",
+      "title": "Code Certifications",
+      "leads": [
+        "Eric Klavins",
+        "Dhruv Bhatia"
+      ],
+      "students": [
+        "Owen Fei",
+        "Sriram Marasanapalle-Kalle",
+        "Connor Zacharias",
+        "Yash Meher"
+      ]
+    },
+    {
+      "key": "permuformer",
+      "id": "permuformer-2",
+      "title": "PermuFormer 2",
+      "leads": [
+        "Henry Kvinge",
+        "Michael R. Zeng",
+        "Junaid Hasan"
+      ],
+      "graduate_mentors": [
+        "Treanungkur Mal",
+        "Ron Cherny"
+      ],
+      "students": [
+        "James Kwong",
+        "Emily Meng",
+        "Bhargava Perumalla",
+        "Onkit Samanta",
+        "Allen (Ailun) Shen",
+        "Yash Pratik Solanki",
+        "Mayee Sun",
+        "William Tran",
+        "Xuanyu Yang",
+        "Billy (Yinqi) Zhao"
+      ],
+      "schedule": "First meeting: Wednesday, October 7, 4–5:30 p.m.",
+      "paper": "https://arxiv.org/abs/2609.25438",
+      "paper_title": "PermuFormer: Multi-Task Pretraining for Permutation Representation in Algebraic Combinatorics"
+    },
+    {
+      "key": "math2vec",
+      "id": "mathematician-s-copilot-math2vec",
+      "title": "Mathematician's Copilot: Math2Vec",
+      "leads": [
+        "Henry Kvinge"
+      ],
+      "students": [
+        "Cecilia (Jiaying) Ye",
+        "Samarth Rao",
+        "Vaibhav Jasti",
+        "George Peykanu",
+        "Arnav Jain",
+        "Prithvi Aravind"
+      ],
+      "continuing_students": [
+        "Cecilia (Jiaying) Ye",
+        "Samarth Rao"
+      ],
+      "schedule": "First meeting: Wednesday, October 7, starting at 4:45 p.m.",
+      "paper": "https://arxiv.org/abs/2606.23959",
+      "paper_title": "Does My Embedding Reflect That A = B? Evaluating Mathematical Equivalence in Embedding Models"
+    },
+    {
+      "key": "polya",
+      "id": "math-tutor-polya",
+      "title": "Math Tutor / Polya",
+      "leads": [
+        "Eric Klavins",
+        "Dan Mikulincer"
+      ],
+      "students": [
+        "Jake Malody",
+        "Hayden Guo",
+        "Amey Bharambe",
+        "Eshaan Kumar"
+      ]
+    },
+    {
+      "key": "textbook",
+      "id": "ai-math-textbook",
+      "title": "AI Math Textbook",
+      "leads": [
+        "Giovanni Inchiostro",
+        "Dhruv Bhatia"
+      ],
+      "students": [
+        "Ethan Wang",
+        "Aarnith Netrawali",
+        "Saksham Singh",
+        "Nicole Ham",
+        "Abel Mesfin"
+      ]
+    }
+  ]
+}

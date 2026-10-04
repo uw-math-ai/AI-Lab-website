@@ -24,8 +24,8 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 	const approved = JSON.parse(await readFile('tests/fixtures/fall-2026-approved.json', 'utf8'));
 	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
 	const projects = quarter.blocks.filter((block) => block.type === 'project');
-	assert.equal(projects.length, 15);
-	assert.equal(approved.length, 15);
+	assert.equal(projects.length, 14);
+	assert.equal(approved.length, 14);
 	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
 	for (const original of approved) {
 		const project = projects.find((item) => item.id === original.id);
@@ -39,9 +39,9 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 		assert.ok(labels.some((label) => compact(text(label.parentNode).slice(text(label).length)) === markdownText(abstract)), `${original.title}: rendered abstract is verbatim`);
 	}
 	const expected = [
-		['Autoresearch', [2, 13, 3, 4, 12, 9]],
+		['Autoresearch', [2, 12, 3, 4, 11, 9]],
 		['Formalization & Autoformalization', [0, 1, 5, 8]],
-		['Mathematical Machine Learning', [10, 11, 14]],
+		['Mathematical Machine Learning', [10, 13]],
 		['Math Education', [6, 7]]
 	];
 	let group = -1;
@@ -57,16 +57,16 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 	assert.doesNotMatch(text(page), /ABSTRACT NEEDED|Proposed New Projects|Possibly Returning|Applications for Fall 2026 project leaders are open/);
 });
 
-test('Fall 2026 restores the Spring Math2Vec description verbatim', async () => {
+test('Fall 2026 Math2Vec retains its description with the expired deadline removed', async () => {
 	const spring = parseYaml(await readFile('src/content/projects/spring-2026.yaml', 'utf8'));
 	const fall = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
 	const previous = spring.blocks.find((block) => block.id === 'mathematician-s-copilot-math2vec');
 	const restored = fall.blocks.find((block) => block.id === previous.id);
-	assert.equal(restored.title, previous.title);
+	assert.equal(restored.title, "Mathematician's Copilot: Math2Vec");
 	assert.equal(restored.details.find((detail) => detail.label === 'Abstract:').content,
-		previous.details.find((detail) => detail.label === 'Description:').content);
-	assert.deepEqual(restored.details.find((detail) => detail.label === 'Project Leader:'),
-		previous.details.find((detail) => detail.label === 'Project Leader:'));
+		previous.details.find((detail) => detail.label === 'Description:').content.replace(' Goal: submit to EMNLP 2026 in May.', ''));
+	assert.equal(restored.details.find((detail) => detail.label === 'Project Leader:').content, 'Henry Kvinge');
+	assert.match(restored.details.find((detail) => detail.label === 'Start here:').content, /2606\.23959/);
 });
 
 test('Fall 2026 highlights Wednesday meetings and credits both co-mentorships', async () => {
@@ -74,14 +74,36 @@ test('Fall 2026 highlights Wednesday meetings and credits both co-mentorships', 
 	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
 	const meeting = all(page, (node) => node.tagName === 'p' && text(node).startsWith('Project meetings:'))[0];
 	assert.ok(meeting);
-	assert.equal(text(meeting), 'Project meetings: Monday & Wednesday.');
-	assert.deepEqual(all(meeting, (node) => node.tagName === 'strong').map(text), ['Wednesday']);
+	assert.equal(text(meeting), 'Project meetings: Monday & Wednesday, 4–5:30 p.m., OUG 136. Project-specific exceptions are listed below.');
+	assert.deepEqual(all(meeting, (node) => node.tagName === 'strong').map(text), ['Wednesday', '4–5:30 p.m., OUG 136']);
 	for (const id of ['mathematical-taste-recognizing-progress-beyond-generation', 'formalizing-the-kls-conjecture-and-stochastic-localization']) {
 		const project = quarter.blocks.find((block) => block.id === id);
-		assert.equal(project.details.find((detail) => detail.label === 'Co-mentor:').content, 'William Dudarov');
+		assert.equal(project.details.find((detail) => detail.label === 'Co-mentor:').content, 'Will Dudarov');
 	}
 	const mentors = all(page, (node) => node.tagName === 'b' && text(node) === 'Co-mentor:');
-	assert.equal(mentors.filter((label) => text(label.parentNode).includes('William Dudarov')).length, 2);
+	assert.equal(mentors.filter((label) => text(label.parentNode).includes('Will Dudarov')).length, 2);
+});
+
+test('Fall rosters include all 61 students and distinguish student placements from other roles', async () => {
+	const roster = JSON.parse(await readFile('tests/fixtures/fall-2026-rosters.json', 'utf8'));
+	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
+	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
+	const students = roster.projects.flatMap((project) => project.students);
+	assert.equal(students.length, 62);
+	assert.equal(new Set(students).size, 61);
+	assert.deepEqual([...new Set(students.filter((name, i) => students.indexOf(name) !== i))], ['David Javnozon']);
+	for (const expected of roster.projects) {
+		const project = quarter.blocks.find((block) => block.id === expected.id);
+		assert.ok(project, expected.title);
+		const members = project.details.find((detail) => detail.label === `Student members (${expected.students.length}):`);
+		assert.equal(members?.content, expected.students.length ? expected.students.join(', ') : 'No student members.');
+		for (const name of [...expected.leads, ...expected.students, ...(expected.co_mentors ?? []), ...(expected.graduate_mentors ?? []), ...(expected.continuing_members ?? [])]) {
+			assert.ok(text(page).includes(name), `${expected.title}: ${name} is visible`);
+		}
+	}
+	const benchmarks = quarter.blocks.find((block) => block.id === 'autoformalizing-mathematical-benchmarks');
+	assert.equal(benchmarks.details.find((detail) => detail.label === 'Continuing member:').content, 'Michael R. Zeng');
+	assert.doesNotMatch(text(page), /ProofMem|Naomi Morato|Donovan Falls|Ben Eng|Ruoke Zhang|Junye Ji|not confirmed|rejection email/i);
 });
 
 test('research totals, section headings, and index share number-and-label counters', async () => {

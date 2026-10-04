@@ -6,7 +6,7 @@
   },
   {
     "id": "formalizing-the-kls-conjecture-and-stochastic-localization",
-    "title": "Formalizing modern techniques in probability theory",
+    "title": "Formalizing Modern Techniques in Probability Theory",
     "abstractSha256": "93ec4f887cfa798c30b421ee2f672e0783fc416eb96c6dc3ed10babf3750ba40"
   },
   {
@@ -32,7 +32,7 @@
   {
     "id": "math-tutor-polya",
     "title": "Math Tutor / Polya",
-    "abstractSha256": "9223d58b43af4411c4762ba79342975c6f7fcaf404fb0a919875fa671ca3ab3f"
+    "abstractSha256": "cccdf7680cb261de71c9788e10398dde425da63db5426c4102e975d35eebd9d9"
   },
   {
     "id": "ai-math-textbook",
@@ -52,12 +52,7 @@
   {
     "id": "permuformer-2",
     "title": "PermuFormer 2",
-    "abstractSha256": "78beebe3c510deb5cb4ffb7090ba7ab004d31560318a8374d6fdd0735721b59a"
-  },
-  {
-    "id": "proofmem-separating-proof-replay-from-proof-pattern-generalization-in-lean-theorem-proving",
-    "title": "ProofMem: Separating Proof Replay from Proof-Pattern Generalization in Lean Theorem Proving",
-    "abstractSha256": "6900c6b7462e9a99eb82117a193042e58b41fbd455198ab687697d1e2b568032"
+    "abstractSha256": "eac0615615e1fc204ea647f0e20f0e8807a3eecb3cb22265d9fc5756d77de382"
   },
   {
     "id": "learning-conditional-return-laws-from-financial-trading-signals",
@@ -71,7 +66,7 @@
   },
   {
     "id": "mathematician-s-copilot-math2vec",
-    "title": "Mathematician's copilot: Math2Vec",
-    "abstractSha256": "334acb0b33f46a0926d9527a6465355391aed8eb8a9179a3917f206d54a44fd8"
+    "title": "Mathematician's Copilot: Math2Vec",
+    "abstractSha256": "8bfce77e9be7887175c80e7680d195f8b563d57dd876728a697a0b1863a3283c"
   }
 ]

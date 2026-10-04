@@ -48,8 +48,8 @@
 	<span class="eyebrow">People</span>
 	<h1 class="page-title">Math AI Lab People</h1>
 	<p class="people-intro lead">
-		The people of the UW Math AI Lab through Summer 2026. For the projects themselves, see the quarterly pages under
-		<a href={sitePath('/projects/summer-2026')}>Projects</a>.
+		The directory below covers the UW Math AI Lab through Summer 2026. For the current teams, see the
+		<a href={sitePath('/projects/fall-2026')}>Fall 2026 team rosters</a>.
 	</p>
 </section>
 
