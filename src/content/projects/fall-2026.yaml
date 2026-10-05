@@ -1,20 +1,26 @@
-# September 8, 2026 lineup, with subsequent user-approved revisions and additions.
+# Fall 2026 rosters and dates from the saved inaugural-meeting slides, October 4, 2026.
 slug: fall-2026
 legacyFile: fall2026.html
 label: Fall 2026
 term: Fall
 year: 2026
 status: current
-lastmod: 2026-09-23
-projectsLaunched: 10
+lastmod: '2026-10-04'
+projectsLaunched: 9
 returningProjects: 5
-summary: We are happy to announce 15 projects for Fall 2026 (September 30 - December 11).
+summary: 14 projects and 61 students for Fall 2026 (September 30 – December 11). Team rosters updated October 4.
 blocks:
   - type: text
     content: |-
       **Dates:** September 30 - December 11
 
-      **Project meetings:** Mondays & Wednesdays, 4:00 - 5:30 pm
+      **Project meetings:** Mondays & Wednesdays, 4:00 - 5:30 pm, OUG 136. Teams may use different meeting times, but must meet in person at least once a week. Project-specific schedules are listed below.
+
+      **Social event:** Wednesday, November 4
+
+      **Final presentations:** Wednesday, December 9
+
+      **Rosters:** 14 projects · 61 students as of October 4, 2026. The rosters contain 62 student placements: David Javnozon participates in both Resultants and Lean Refactor. Project leaders, mentors, and other non-student participants are listed separately.
   - type: heading
     title: Autoresearch
     id: autoresearch
@@ -24,68 +30,53 @@ blocks:
     id: ai-assisted-proof-discovery-in-inverse-boundary-problems
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Autoresearch
-      - label: "Project Leaders:"
+      - label: 'Project Leader:'
         content: Ruirui Wu <ruirwu@uw.edu>
-      - label: "Abstract:"
-        content: >-
-          This project explores AI-assisted mathematical discovery in inverse boundary problems,
-          focusing on the partial data Calderón problem. We will develop and evaluate AI workflows
-          to analyze existing proofs, identify obstacles, and propose new lemmas and proof strategies,
-          with experts reviewing mathematical claims. The project aims to advance understanding of
-          partial-data uniqueness and produce open-source tools and documented experiments assessing
-          AI's contribution to research mathematics.
-      - label: "Suggested references:"
+      - label: 'Student members (5):'
+        content: Annie Feng, Kevin Wei, Kushal Kothapalli, Shiqi Yang, Harrison Bruechert
+      - label: 'Abstract:'
+        content: This project explores AI-assisted mathematical discovery in inverse boundary problems, focusing
+          on the partial data Calderón problem. We will develop and evaluate AI workflows to analyze existing proofs,
+          identify obstacles, and propose new lemmas and proof strategies, with experts reviewing mathematical claims.
+          The project aims to advance understanding of partial-data uniqueness and produce open-source tools and
+          documented experiments assessing AI’s contribution to research mathematics.
+      - label: 'Suggested references:'
         content: |-
           1. Sections 2.7 and 2.8 of the book ["The Calderón Problem: An Introduction"](https://bookstore.ams.org/GSM/253) by Feldman, Salo, and Uhlmann. Basic real analysis knowledge may be required to follow these sections directly.
           2. Introduction section of the core research paper ["The Calderón problem with partial data"](https://annals.math.princeton.edu/wp-content/uploads/annals-v165-n2-p05.pdf) by Kenig, Sjöstrand, and Uhlmann.
   - type: project
-    title: "Mathematical Taste: Recognizing Progress Beyond Generation"
+    title: 'Mathematical Taste: Recognizing Progress Beyond Generation'
     id: mathematical-taste-recognizing-progress-beyond-generation
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Autoresearch
-      - label: "Project Leader:"
+      - label: 'Project Leader:'
         content: Zihong Lin <zhlin@uw.edu>
-      - label: "Co-mentor:"
-        content: William Dudarov
-      - label: "Abstract:"
-        content: >-
-          Can a language model recognize a breakthrough it cannot discover on its own?
-          Mathematical research requires judging which incomplete arguments are worth pursuing
-          before a full proof is available.
-
-          We will build a benchmark to test how models distinguish promising partial arguments
-          from plausible but unproductive reasoning, including ideas beyond their demonstrated
-          solving ability.
-
-          We will also test whether model hidden states contain signals of mathematical promise
-          that predict later progress more reliably than verbal judgments or confidence reports.
-
-          Such signals could help long-running AI proof agents choose which directions to pursue
-          and how much computation to invest.
-      - label: "Goals:"
-        content: >-
-          Build a benchmark of partial arguments with key insights and convincing but stalled
-          attempts, with mathematical review and checks for possible prior exposure to solutions.
-
-          Compare models' ability to generate promising ideas, recognize supplied ideas, and
-          continue the arguments under a fixed compute budget.
-
-          Test whether hidden-state probes in open-weight models generalize across problems and
-          add information beyond correctness judgments, including on problems the model can
-          already solve.
-
-          Release an open-source benchmark and reproducible evaluation code, and prepare a paper.
-          Follow-up work could use the findings to guide proof search.
-      - label: "Timeline:"
+      - label: 'Co-mentor:'
+        content: Will Dudarov
+      - label: 'Student members (6):'
+        content: Ganesh Ravichandran, David An, Annie Cao, Duc Huy Nguyen, Bhuvan Gundela, Armen Agalyan
+      - label: 'Abstract:'
+        content: |-
+          Can a language model recognize a breakthrough it cannot discover on its own? Mathematical research requires judging which incomplete arguments are worth pursuing before a full proof is available.
+          We will build a benchmark to test how models distinguish promising partial arguments from plausible but unproductive reasoning, including ideas beyond their demonstrated solving ability.
+          We will also test whether model hidden states contain signals of mathematical promise that predict later progress more reliably than verbal judgments or confidence reports.
+          Such signals could help long-running AI proof agents choose which directions to pursue and how much computation to invest.
+      - label: 'Goals:'
+        content: |-
+          Build a benchmark of partial arguments with key insights and convincing but stalled attempts, with mathematical review and checks for possible prior exposure to solutions.
+          Compare models' ability to generate promising ideas, recognize supplied ideas, and continue the arguments under a fixed compute budget.
+          Test whether hidden-state probes in open-weight models generalize across problems and add information beyond correctness judgments, including on problems the model can already solve.
+          Release an open-source benchmark and reproducible evaluation code, and prepare a paper. Follow-up work could use the findings to guide proof search.
+      - label: 'Timeline:'
         content: |-
           - **Fall 2026:** Build the dataset and evaluation setup, compare initial models, and present preliminary findings by quarter's end.
           - **Winter 2027:** Refine the evaluation, study generation, recognition, and continuation, and explore hidden-state probes.
           - **Spring 2027:** Complete the study and release the benchmark and code. Aim for a submission-ready paper by May 1, 2027, tentatively targeting NeurIPS 2027; its official deadline is not yet confirmed.
-      - label: "Prerequisites:"
+      - label: 'Prerequisites:'
         content: |-
           1. Experience with coding agents or a comparable technical background, plus clear communication (strongly required).
           2. Familiarity with proof-based mathematics, linear algebra, and multivariable calculus (highly desirable).
@@ -95,73 +86,75 @@ blocks:
     id: lean-refactor
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Autoresearch; Recursive Self Improvement
-      - label: "Project Leaders:"
-        content: Evan Wang <aurasoph@uw.edu>, Dean Light <deanlcs@cs.washington.edu>, Michael Theologitis
-          <mthe@cs.washington.edu>
-      - label: "Abstract:"
+      - label: 'Project Leader:'
+        content: Evan Wang <aurasoph@uw.edu>
+      - label: 'Student members (4):'
+        content: Kedar Chintalapati, David Javnozon, Chuhan Li, Evan Gubarev
+      - label: 'Schedule:'
+        content: Competition ends November 8.
+      - label: 'Abstract:'
         content: |-
           Participation in the Lean Refactor competition for AI for Verifiable Coding @ Neurips 2026. Given a compiling Lean proof, can we make it “better”? Better being defined along 3 dimensions: compilation time, length, and version-robustness. There are two tracks, Closed Source and Open Source, and we will approach them both. Required to have an interest in harness engineering or familiarity with tuning open source models. Lean familiarity not required, somewhat encouraged.
 
           Competition ends November 8th, so this is a fast paced project that encompasses the first half of the quarter. The second half will be focused on generalizing the harness to be useful for refactoring Lean in the context of general projects.
-      - label: "Links:"
-        content: "[Workshop](https://vericodegen.github.io/) · [Competition](https://huggingface.co/spaces/delta-lab-ai/lean-refactor-arena)"
+      - label: 'Links:'
+        content: '[Workshop](https://vericodegen.github.io/) · [Competition](https://huggingface.co/spaces/delta-lab-ai/lean-refactor-arena)'
   - type: project
-    title: Albilich v2 + Internal Tools
+    title: 'Albilich v2: Math Metaharness'
     id: albilich
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Autoresearch and autoformalization infrastructure
-      - label: "Project Leaders:"
-        content: Ting Gong <tgong2@uw.edu>, Michael R. Zeng <zengrf@uw.edu>, Dean Light
-          <deanlcs@cs.washington.edu>, Michael Theologitis <mthe@cs.washington.edu> [Dean and
-          Michael T. on the recursive self-improvement (RSI) aspects]
-      - label: "Abstract (Albilich v2):"
-        content: >-
-          This project develops Albilich v2, a recursively self-improving AI system for mathematical
-          research. Building on Albilich v1's auditable proof-state architecture, v2 will turn
-          research experience itself into a source of improvement: learning from successful
-          reductions, failed strategies, verifier feedback, literature use, tool calls, and software
-          failures.
-
-          Some of the wanted outcomes are to study whether mathematical ability of harness can be
-          improved recursively, as well as to study whether AI's ability in a specific area can be
-          improved via learnt skills with small amount of data.
-      - label: "Internal tools:"
-        content: "Host and maintain the lab's internal tools on EC2: the Albilich autoresearch system,
-          autoformalization tools (Polya and the benchmark tool), MCP tool calling, and
-          TheoremSearch."
+      - label: 'Project Leaders:'
+        content: Ting Gong <tgong2@uw.edu>, Michael R. Zeng <zengrf@uw.edu>, Dean Light <deanlcs@cs.washington.edu>,
+          Michael Theologitis <mthe@cs.washington.edu>, Evan Wang <aurasoph@uw.edu>
+      - label: 'Student members (0):'
+        content: No student members.
+      - label: 'Schedule:'
+        content: Metaharness meets Mondays, 3–4 p.m.
+      - label: 'Abstract (Albilich v2):'
+        content: |-
+          This project develops Albilich v2, a recursively self-improving AI system for mathematical research. Building on Albilich v1's auditable proof-state architecture, v2 will turn research experience itself into a source of improvement: learning from successful reductions, failed strategies, verifier feedback, literature use, tool calls, and software failures.
+          Some of the wanted outcomes are to study whether mathematical ability of harness can be improved recursively, as well as to study whether AI's ability in a specific area can be improved via learnt skills with small amount of data.
+      - label: 'Internal tools:'
+        content: 'Host and maintain the lab''s internal tools on EC2: the Albilich autoresearch system, autoformalization
+          tools (Polya and the benchmark tool), MCP tool calling, and TheoremSearch.'
   - type: project
     title: Learning Conditional Return Laws from Financial Trading Signals
     id: learning-conditional-return-laws-from-financial-trading-signals
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Autoresearch
-      - label: "Project Leaders:"
+      - label: 'Project Leaders:'
         content: Freda Zhang <qzhang52@uw.edu>, Yue Wu <yuew29@uw.edu>
-      - label: "Abstract:"
-        content: Learn the full conditional distribution of future asset returns from trading signals, going
-          beyond expected return to model volatility, tail risk, and downside probability. The
-          learned distributions will be evaluated using calibration, probability integral transform
-          diagnostics, value-at-risk violations, and proper scoring rules.
+      - label: 'Student members (5):'
+        content: Daran Xu, Belinda Krista, Rithikesh Muddana, Archit Ganapule, Chaoxiang Zhang
+      - label: 'Abstract:'
+        content: Learn the full conditional distribution of future asset returns from trading signals, going beyond
+          expected return to model volatility, tail risk, and downside probability. The learned distributions will
+          be evaluated using calibration, probability integral transform diagnostics, value-at-risk violations,
+          and proper scoring rules.
   - type: project
     title: Formalizing the Scientific Method
     id: the-scientific-method
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Autoresearch
-      - label: "Project Leaders:"
+      - label: 'Project Leaders:'
         content: Eric Klavins <klavins@uw.edu>, Bryan Boehnke <boehnkeb@uw.edu>
-      - label: "Abstract:"
-        content: "The goal of this project is to formalize the scientific method in Lean and LLMs in an
-          attempt to answer the question: Can the experiments done in a given scientific paper
-          refute hypotheses derived from a mathematical model of the physics involved. For example,
-          given a model of a gene network, a hypothesis about a particular gene interaction, and a
-          molecular perturbation, does the perturbation provide information about the interaction?"
+      - label: 'Student members (3):'
+        content: Kavi Mahajan, Rohith Kala, Aiden Hoang
+      - label: 'Abstract:'
+        content: 'The goal of this project is to formalize the scientific method in Lean and LLMs in an attempt
+          to answer the question: Can the experiments done in a given scientific paper refute hypotheses derived
+          from a mathematical model of the physics involved. For example, given a model of a gene network, a hypothesis
+          about a particular gene interaction, and a molecular perturbation, does the perturbation provide information
+          about the interaction?'
   - type: heading
     title: Formalization & Autoformalization
     id: formalization-autoformalization
@@ -171,50 +164,53 @@ blocks:
     id: formalizing-algebra-of-resultants-and-determinantal-polynomials
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Formalization
-      - label: "Project Leaders:"
+      - label: 'Project Leaders:'
         content: Joe Rogge <jwrogge@uw.edu>, Shaoda Ji <shaodj@uw.edu>
-      - label: "Abstract:"
-        content: The principal minor map, sending an nxn matrix to its vector of 2^n principal minors, has
-          been extensively studied, with many properties of its image and fiber understood. The primary tools
-          used in studying this map are determinantal polynomials (multiaffine polynomials
-          organizing principal minors) and resultants, allowing elementary but powerful analysis of
-          principal minor questions. Principal minors are of special interest because of so-called
-          determinantal point processes (DPP's), probability distributions on subsets of [n] defined
-          by the principal minors of an nxn matrix, which have applications in pure math as well as
-          physics and machine learning. In this project, we will formalize some recently
-          published results on principal minors, and along the way we will formalize some classical
-          theorems about determinants which are not yet in Mathlib. Students will learn some cutting
-          edge math, build Lean programming skills, and contribute several pull requests to mathlib.
-      - label: "Prerequisites:"
+      - label: 'Student members (5):'
+        content: Grant Yang, Anders Lewis, Liron Shani, Nhi Bach, David Javnozon
+      - label: 'Schedule:'
+        content: Meets at an alternate time; coordinate with the project leaders.
+      - label: 'Abstract:'
+        content: The principal minor map, sending an nxn matrix to its vector of 2^n principal minors, has been
+          extensively studied, with many properties of its image and fiber understood. The primary tools used in
+          studying this map are determinantal polynomials (multiaffine polynomials organizing principal minors)
+          and resultants, allowing elementary but powerful analysis of principal minor questions. Principal minors
+          are of special interest because of so-called determinantal point processes (DPP's), probability distributions
+          on subsets of [n] defined by the principal minors of an nxn matrix, which have applications in pure math
+          as well as physics and machine learning. In this project, we will formalize some recently published results
+          on principal minors, and along the way we will formalize some classical theorems about determinants which
+          are not yet in Mathlib. Students will learn some cutting edge math, build Lean programming skills, and
+          contribute several pull requests to mathlib.
+      - label: 'Prerequisites:'
         content: |-
           - Linear algebra (208 or equivalent) is a must for this project
           - Having taken a proofs class is strongly preferred
           - Some lean experience would be helpful but is not necessary
-      - label: "Goal:"
-        content: "Formalize theorems about resultants and multiaffine polynomials from the following paper:
-          https://arxiv.org/abs/2309.00806. The natural starting point is theorem 2.1 (proven as
-          theorem 3.1 in https://arxiv.org/abs/2205.05267 by ~3 pages of natural language), which
-          should on its own provide a challenging but achievable goal. Formalizing this proof will
-          involve formalizing the Desnanot-Jacobi identity, an important determinantal identity not
-          yet in Mathlib; this project would contribute classical as well as cutting edge results to
-          Mathlib. Natural extensions would be formalizing so-called principal minor equivalence,
-          treated in https://arxiv.org/abs/2410.01961, or Hermitian determinantal representations,
-          treated in https://arxiv.org/abs/2205.05267. Assuming sufficient progress is made, we will
-          submit Mathlib PR's every quarter."
+      - label: 'Goal:'
+        content: 'Formalize theorems about resultants and multiaffine polynomials from the following paper: https://arxiv.org/abs/2309.00806.
+          The natural starting point is theorem 2.1 (proven as theorem 3.1 in https://arxiv.org/abs/2205.05267 by
+          ~3 pages of natural language), which should on its own provide a challenging but achievable goal. Formalizing
+          this proof will involve formalizing the Desnanot–Jacobi identity, an important determinantal identity
+          not yet in Mathlib; this project would contribute classical as well as cutting edge results to Mathlib.
+          Natural extensions would be formalizing so-called principal minor equivalence, treated in https://arxiv.org/abs/2410.01961,
+          or Hermitian determinantal representations, treated in https://arxiv.org/abs/2205.05267. Assuming sufficient
+          progress is made, we will submit Mathlib PR''s every quarter.'
   - type: project
-    title: Formalizing modern techniques in probability theory
+    title: Formalizing Modern Techniques in Probability Theory
     id: formalizing-the-kls-conjecture-and-stochastic-localization
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Formalization
-      - label: "Project Leader:"
+      - label: 'Project Leader:'
         content: Brayden Letwin <letwin@uw.edu>
-      - label: "Co-mentor:"
-        content: William Dudarov
-      - label: "Abstract:"
+      - label: 'Co-mentor:'
+        content: Will Dudarov
+      - label: 'Student members (4):'
+        content: Cosun Zhou, Aarush Sharma, Elisa Regueros, Owen Parks
+      - label: 'Abstract:'
         content: |-
           In 2012, Ronen Eldan introduced a remarkable new technique in probability theory, now broadly known as **stochastic localization**. Since its introduction, stochastic localization (and, more generally, the philosophy behind it) has become an extremely powerful tool, leading to major advances in probability, convex geometry, and theoretical computer science. The goal of this project is to formalize stochastic localization and related ideas from the literature in Lean/Mathlib.
 
@@ -224,33 +220,33 @@ blocks:
     id: autoformalizing-mathematical-benchmarks
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Autoformalization
-      - label: "Project Leader:"
-        content: Theodore Meek
-      - label: "Members (continuing):"
-        content: Michael R. Zeng <zengrf@uw.edu>, Pei Li <peilinli@uw.edu>
-      - label: "Abstract:"
-        content: Formalize two natural-language, research-level benchmarks, LemmaBench and OpenConjecture,
-          using an agentic workflow in which AI agents check and refine one another's work. Every
-          resulting statement also receives human review and is classified as faithful, uncertain,
-          or unfaithful.
+      - label: 'Project Leader:'
+        content: Theodore Meek <theomeek@uw.edu>
+      - label: 'Continuing members:'
+        content: Michael R. Zeng, Pei Li, Simon Kurgan
+      - label: 'Abstract:'
+        content: Formalize two natural-language, research-level benchmarks, LemmaBench and OpenConjecture, using
+          an agentic workflow in which AI agents check and refine one another's work. Every resulting statement
+          also receives human review and is classified as faithful, uncertain, or unfaithful.
   - type: project
     title: Code Certifications
     id: code-certifications
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Formalization & Autoformalization
-      - label: "Project Leaders:"
+      - label: 'Project Leaders:'
         content: Eric Klavins <klavins@uw.edu>, Dhruv Bhatia <dbhatia1@uw.edu>
-      - label: "Abstract:"
-        content: When an LLM produces, say, Python code for your project, how do you know that code is
-          correct? One approach is to have it also produce a logical specification of what the code
-          should do, together with a proof that the code meets the specification. For example, if
-          you asked for code that sorts lists, you would get a function from lists to lists and a
-          proof that the function is decidable and correct. The team will build a custom agentic
-          harness and a Lean evaluator, and use an off-the-shelf Lean to Python translator.
+      - label: 'Student members (4):'
+        content: Owen Fei, Sriram Marasanapalle-Kalle, Connor Zacharias, Yash Meher
+      - label: 'Abstract:'
+        content: When an LLM produces, say, Python code for your project, how do you know that code is correct?
+          One approach is to have it also produce a logical specification of what the code should do, together with
+          a proof that the code meets the specification. For example, if you asked for code that sorts lists, you
+          would get a function from lists to lists and a proof that the function is decidable and correct. The team
+          will build a custom agentic harness and a Lean evaluator, and use an off-the-shelf Lean to Python translator.
   - type: heading
     title: Mathematical Machine Learning
     id: mathematical-machine-learning
@@ -260,49 +256,46 @@ blocks:
     id: permuformer-2
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: AI and machine learning for math
-      - label: "Project Leaders:"
-        content: Henry Kvinge <hjk3@uw.edu>, Michael R. Zeng <zengrf@uw.edu>, Junaid Hasan
-          <junaid01@uw.edu>; graduate mentors Treanungkur Mal <maltreanungkur@gmail.com>, Ron Cherny
-          <rcherny@uw.edu>
-      - label: "Abstract:"
-        content: "The continuation of Permuformer: train a small language model on a broad curriculum of
-          algebraic combinatorics tasks, building balanced training and evaluation sets for
-          partitions, Young tableaux, and other core combinatorial objects. We might gain the
-          following two kinds of results: - a better understanding of how complex reasoning ability
-          emerge from modern LLMs; - new conjectures and theorems from patterns captured by these
-          specialized models."
+      - label: 'Project Leader:'
+        content: Henry Kvinge <hjk3@uw.edu>
+      - label: 'Graduate mentors:'
+        content: Michael R. Zeng <zengrf@uw.edu>, Junaid Hasan <junaid01@uw.edu>, Treanungkur Mal, Ron Cherny
+      - label: 'Student members (10):'
+        content: James Kwong, Emily Meng, Bhargava Perumalla, Onkit Samanta, Allen (Ailun) Shen, Yash Pratik Solanki,
+          Mayee Sun, William Tran, Xuanyu Yang, Billy (Yinqi) Zhao
+      - label: 'Schedule:'
+        content: 'First meeting: Wednesday, October 7, 4 p.m.'
+      - label: 'Start here:'
+        content: '[PermuFormer: Multi-Task Pretraining for Permutation Representation in Algebraic Combinatorics](https://arxiv.org/abs/2609.25438)'
+      - label: 'Abstract:'
+        content: 'The continuation of Permuformer: train a small language model on a broad curriculum of algebraic
+          combinatorics tasks, building balanced training and evaluation sets for partitions, Young tableaux, and
+          other core combinatorial objects. We might gain the following two kinds of results: - a better understanding
+          of how complex reasoning ability emerges from modern LLMs; - new conjectures and theorems from patterns
+          captured by these specialized models.'
   - type: project
-    title: "ProofMem: Separating Proof Replay from Proof-Pattern Generalization in Lean Theorem Proving"
-    id: proofmem-separating-proof-replay-from-proof-pattern-generalization-in-lean-theorem-proving
-    style: heading
-    details:
-      - label: "Area:"
-        content: AI and machine learning for math
-      - label: "Project Leader:"
-        content: Yue Wu <yuew29@uw.edu>
-      - label: "Members (continuing):"
-        content: Zhi Chen, Jayme Kim <hyungoo@uw.edu>
-      - label: "Abstract:"
-        content: Do LLMs memorize proof logic, or just do pattern matching? Build a controlled Lean
-          evaluation framework that distinguishes exact proof replay from genuine proof-pattern
-          generalization, testing robustness under theorem perturbations, transfer to sibling
-          theorems, and retention after further fine-tuning.
-  - type: project
-    title: "Mathematician's copilot: Math2Vec"
+    title: 'Mathematician''s Copilot: Math2Vec'
     id: mathematician-s-copilot-math2vec
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: Mathematical Machine Learning
-      - label: "Project Leader:"
-        content: Henry Kvinge (PNNL)
-      - label: "Abstract:"
-        content: "Train a text embedder that understands math, LaTeX and Lean. This will improve search over
-          Lean, and natural language theorem search. It can be used for RAG as well. Use arXiv,
-          MathOverflow, mathlib, Lean Reservoir, and possibly other sources. Create an evaluation
-          benchmark as well. Goal: submit to EMNLP 2026 in May."
+      - label: 'Project Leader:'
+        content: Henry Kvinge
+      - label: 'Student members (6):'
+        content: Cecilia (Jiaying) Ye, Samarth Rao, Vaibhav Jasti, George Peykanu, Arnav Jain, Prithvi Aravind
+      - label: 'Continuing students:'
+        content: Cecilia (Jiaying) Ye, Samarth Rao
+      - label: 'Schedule:'
+        content: 'First meeting: Wednesday, October 7, starting at 4:45 p.m.'
+      - label: 'Start here:'
+        content: '[Does My Embedding Reflect That A = B? Evaluating Mathematical Equivalence in Embedding Models](https://arxiv.org/abs/2606.23959)'
+      - label: 'Abstract:'
+        content: Train a text embedder that understands math, LaTeX and Lean. This will improve search over Lean,
+          and natural language theorem search. It can be used for RAG as well. Use arXiv, MathOverflow, mathlib,
+          Lean Reservoir, and possibly other sources. Create an evaluation benchmark as well.
   - type: heading
     title: Math Education
     id: math-education
@@ -312,32 +305,34 @@ blocks:
     id: math-tutor-polya
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: AI for math learning and education
-      - label: "Project Leaders:"
-        content: Eric Klavins <klavins@uw.edu>; Dan Mikulincer <danmiku@uw.edu>
-      - label: "Abstract:"
-        content: The goal of this project is to teach mathematics to a student in a goal-directed approach
-          informed by an estimation of the student's knowledge built up from assessing their
-          performance on a set of problems. Using a combination of agent-based LLMs, the Lean proof
-          assistant, and model-predictive students are served custom made problems that extend their
-          knowledge and skills optimally fast. A prototype of this approach, called Polya, has been
-          developed by the Klavins lab and can teach basic topology among other subjects. Students
-          working on this project will extend the approach by designing and and testing new agentic
-          harnesses and by developing new curricula.
+      - label: 'Project Leaders:'
+        content: Eric Klavins <klavins@uw.edu>, Dan Mikulincer <danmiku@uw.edu>
+      - label: 'Student members (4):'
+        content: Jake Malody, Hayden Guo, Amey Bharambe, Eshaan Kumar
+      - label: 'Abstract:'
+        content: The goal of this project is to teach mathematics to a student in a goal-directed approach informed
+          by an estimation of the student's knowledge built up from assessing their performance on a set of problems.
+          Using a combination of agent-based LLMs, the Lean proof assistant, and model-predictive control, students
+          are served custom-made problems that extend their knowledge and skills optimally fast. A prototype of
+          this approach, called Polya, has been developed by the Klavins lab and can teach basic topology among
+          other subjects. Students working on this project will extend the approach by designing and testing new
+          agentic harnesses and by developing new curricula.
   - type: project
     title: AI Math Textbook
     id: ai-math-textbook
     style: heading
     details:
-      - label: "Area:"
+      - label: 'Area:'
         content: AI for math learning and education
-      - label: "Project Leaders:"
+      - label: 'Project Leaders:'
         content: Giovanni Inchiostro, Dhruv Bhatia <dbhatia1@uw.edu>
-      - label: "Abstract:"
-        content: "Turn an existing wall-of-text PDF into an interactive, HTML-based learning experience.
-          Every piece of terminology becomes clickable, opening a hovering window with the full
-          definition, and every cross-reference opens the full statement the same way. A chatbot
-          holds the whole paper in context so the learner can ask questions in real time. The
-          embellished version should contain far more flowcharts, mindmaps, and schematics, with two
-          levels of presentation: undergraduate and graduate/researcher."
+      - label: 'Student members (5):'
+        content: Ethan Wang, Aarnith Netrawali, Saksham Singh, Nicole Ham, Abel Mesfin
+      - label: 'Abstract:'
+        content: 'Turn an existing wall-of-text PDF into an interactive, HTML-based learning experience. Every piece
+          of terminology becomes clickable, opening a hovering window with the full definition, and every cross-reference
+          opens the full statement the same way. A chatbot holds the whole paper in context so the learner can ask
+          questions in real time. The embellished version should contain far more flowcharts, mindmaps, and schematics,
+          with two levels of presentation: undergraduate and graduate/researcher.'

@@ -39,6 +39,11 @@
 	<div>
 		<a class="back-link" href={sitePath('/projects')}><span aria-hidden="true">←</span> All projects</a>
 		<h1>{quarter.label} Projects</h1>
+		{#if quarter.slug === 'fall-2026'}
+			<div class="actions">
+				<a class="button primary" href={sitePath('/slides/fall-2026/')}>Inaugural meeting slides</a>
+			</div>
+		{/if}
 	</div>
 </section>
 

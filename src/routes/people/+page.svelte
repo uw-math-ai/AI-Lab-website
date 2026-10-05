@@ -47,7 +47,8 @@
 <section class="page-shell presenters-section">
 	<h1 class="page-title">People</h1>
 	<p class="people-intro lead">
-		All members as of Summer 2026.
+		The directory below covers the UW Math AI Lab through Summer 2026. For the current teams, see the
+		<a href={sitePath('/projects/fall-2026')}>Fall 2026 team rosters</a>.
 	</p>
 </section>
 

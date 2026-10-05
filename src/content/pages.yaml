@@ -5,14 +5,14 @@ home:
     The University of Washington Math AI Lab: undergraduate and graduate research on AI for
     mathematics, Lean formalization, and automated theorem proving.
   path: /
-  lastmod: 2026-09-16
+  lastmod: 2026-10-04
 projects:
   title: Research Projects by Quarter — UW Math AI Lab
   description: >-
     All Math AI research projects since 2022, organized by academic quarter —
     autoformalization, Lean, and machine learning for mathematics.
   path: /projects/
-  lastmod: 2026-09-16
+  lastmod: 2026-10-04
 research:
   title: Research & Publications — UW Math AI Lab
   description: >-
@@ -26,7 +26,7 @@ people:
     Faculty, graduate students, and undergraduate researchers of the University of Washington
     Math AI Lab, with project mentors by quarter.
   path: /people/
-  lastmod: 2026-07-18
+  lastmod: 2026-10-04
 events:
   title: Seminars & Events — UW Math AI Lab
   description: >-

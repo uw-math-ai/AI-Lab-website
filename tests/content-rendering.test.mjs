@@ -24,8 +24,8 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 	const approved = JSON.parse(await readFile('tests/fixtures/fall-2026-approved.json', 'utf8'));
 	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
 	const projects = quarter.blocks.filter((block) => block.type === 'project');
-	assert.equal(projects.length, 15);
-	assert.equal(approved.length, 15);
+	assert.equal(projects.length, 14);
+	assert.equal(approved.length, 14);
 	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
 	for (const original of approved) {
 		const project = projects.find((item) => item.id === original.id);
@@ -39,9 +39,9 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 		assert.ok(labels.some((label) => compact(text(label.parentNode).slice(text(label).length)) === markdownText(abstract)), `${original.title}: rendered abstract is verbatim`);
 	}
 	const expected = [
-		['Autoresearch', [2, 13, 3, 4, 12, 9]],
+		['Autoresearch', [2, 12, 3, 4, 11, 9]],
 		['Formalization & Autoformalization', [0, 1, 5, 8]],
-		['Mathematical Machine Learning', [10, 11, 14]],
+		['Mathematical Machine Learning', [10, 13]],
 		['Math Education', [6, 7]]
 	];
 	let group = -1;
@@ -57,16 +57,16 @@ test('Fall 2026 retains the approved titles and abstracts in four groups', async
 	assert.doesNotMatch(text(page), /ABSTRACT NEEDED|Proposed New Projects|Possibly Returning|Applications for Fall 2026 project leaders are open/);
 });
 
-test('Fall 2026 restores the Spring Math2Vec description verbatim', async () => {
+test('Fall 2026 Math2Vec retains its description with the expired deadline removed', async () => {
 	const spring = parseYaml(await readFile('src/content/projects/spring-2026.yaml', 'utf8'));
 	const fall = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
 	const previous = spring.blocks.find((block) => block.id === 'mathematician-s-copilot-math2vec');
 	const restored = fall.blocks.find((block) => block.id === previous.id);
-	assert.equal(restored.title, previous.title);
+	assert.equal(restored.title, "Mathematician's Copilot: Math2Vec");
 	assert.equal(restored.details.find((detail) => detail.label === 'Abstract:').content,
-		previous.details.find((detail) => detail.label === 'Description:').content);
-	assert.deepEqual(restored.details.find((detail) => detail.label === 'Project Leader:'),
-		previous.details.find((detail) => detail.label === 'Project Leader:'));
+		previous.details.find((detail) => detail.label === 'Description:').content.replace(' Goal: submit to EMNLP 2026 in May.', ''));
+	assert.equal(restored.details.find((detail) => detail.label === 'Project Leader:').content, 'Henry Kvinge');
+	assert.match(restored.details.find((detail) => detail.label === 'Start here:').content, /2606\.23959/);
 });
 
 test('Fall 2026 labels its dates and meetings and credits both co-mentorships', async () => {
@@ -74,15 +74,58 @@ test('Fall 2026 labels its dates and meetings and credits both co-mentorships', 
 	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
 	const meeting = all(page, (node) => node.tagName === 'p' && text(node).startsWith('Project meetings:'))[0];
 	assert.ok(meeting);
-	assert.equal(text(meeting), 'Project meetings: Mondays & Wednesdays, 4:00 - 5:30 pm');
+	assert.equal(text(meeting), 'Project meetings: Mondays & Wednesdays, 4:00 - 5:30 pm, OUG 136. Teams may use different meeting times, but must meet in person at least once a week. Project-specific schedules are listed below.');
 	assert.deepEqual(all(meeting, (node) => node.tagName === 'strong').map(text), ['Project meetings:']);
 	assert.doesNotMatch(text(page), /Applications closed/);
 	for (const id of ['mathematical-taste-recognizing-progress-beyond-generation', 'formalizing-the-kls-conjecture-and-stochastic-localization']) {
 		const project = quarter.blocks.find((block) => block.id === id);
-		assert.equal(project.details.find((detail) => detail.label === 'Co-mentor:').content, 'William Dudarov');
+		assert.equal(project.details.find((detail) => detail.label === 'Co-mentor:').content, 'Will Dudarov');
 	}
 	const mentors = all(page, (node) => node.tagName === 'b' && text(node) === 'Co-mentor:');
-	assert.equal(mentors.filter((label) => text(label.parentNode).includes('William Dudarov')).length, 2);
+	assert.equal(mentors.filter((label) => text(label.parentNode).includes('Will Dudarov')).length, 2);
+});
+
+test('Fall rosters include all 61 students and distinguish student placements from other roles', async () => {
+	const roster = JSON.parse(await readFile('tests/fixtures/fall-2026-rosters.json', 'utf8'));
+	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
+	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
+	const students = roster.projects.flatMap((project) => project.students);
+	assert.equal(students.length, 62);
+	assert.equal(new Set(students).size, 61);
+	assert.deepEqual([...new Set(students.filter((name, i) => students.indexOf(name) !== i))], ['David Javnozon']);
+	for (const expected of roster.projects) {
+		const project = quarter.blocks.find((block) => block.id === expected.id);
+		assert.ok(project, expected.title);
+		const members = project.details.find((detail) => detail.label === (expected.roster_label ?? `Student members (${expected.students.length}):`));
+		assert.equal(members?.content, expected.roster_label ? expected.continuing_members.join(', ') : expected.students.length ? expected.students.join(', ') : 'No student members.');
+		const names = (content) => content.replace(/<[^>]+>/g, '').split(',').map((name) => name.trim());
+		assert.deepEqual(names(project.details.find((detail) => /^Project Leaders?:$/.test(detail.label)).content), expected.leads);
+		if (expected.graduate_mentors) assert.deepEqual(names(project.details.find((detail) => detail.label === 'Graduate mentors:').content), expected.graduate_mentors);
+		for (const name of [...expected.leads, ...expected.students, ...(expected.co_mentors ?? []), ...(expected.graduate_mentors ?? []), ...(expected.continuing_members ?? [])]) {
+			assert.ok(text(page).includes(name), `${expected.title}: ${name} is visible`);
+		}
+	}
+	const benchmarks = quarter.blocks.find((block) => block.id === 'autoformalizing-mathematical-benchmarks');
+	assert.equal(benchmarks.details.find((detail) => detail.label === 'Continuing members:').content, 'Michael R. Zeng, Pei Li, Simon Kurgan');
+	assert.doesNotMatch(text(page), /ProofMem|Naomi Morato|Donovan Falls|Ben Eng|Ruoke Zhang|Junye Ji|not confirmed|rejection email/i);
+});
+
+test('Fall meeting slides are linked from the home announcement and the Fall page, and dates match the saved deck', async () => {
+	const home = parseHtml(await readFile('build/index.html', 'utf8'));
+	const fall = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
+	const buttons = (page) => all(page, (node) => node.tagName === 'a' && attr(node, 'class')?.split(' ').includes('button') && attr(node, 'href')?.endsWith('/slides/fall-2026/'));
+	// The home hero no longer carries a slides button; the announcement section does.
+	assert.equal(buttons(home).length, 1);
+	assert.equal(buttons(fall).length, 1);
+	assert.match(text(fall), /Social event: Wednesday, November 4/);
+	assert.match(text(fall), /Final presentations: Wednesday, December 9/);
+	assert.doesNotMatch(text(fall), /Final presentations: Thursday, December 10/);
+	assert.match(text(fall), /must meet in person at least once a week/);
+	const audience = parseHtml(await readFile('build/slides/fall-2026/index.html', 'utf8'));
+	const data = JSON.parse(all(audience, (node) => attr(node, 'id') === 'audience-data')[0].childNodes[0].value);
+	assert.equal(data.slides.length, 24);
+	assert.equal(data.slides.at(-1).id, 'slide-1791162535932');
+	assert.ok(!all(audience, (node) => attr(node, 'id') === 'editor').length);
 });
 
 test('research totals and the section index share number-and-label counters', async () => {
