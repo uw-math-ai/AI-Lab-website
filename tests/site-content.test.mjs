@@ -143,10 +143,10 @@ test('Fall rosters replace the closed member application while the lead announce
 	assert.ok(announcement.links.some((link) => link.url === '/projects/fall-2026'));
 
 	assert.match(home, /class="home-announcement interactive-surface[^"\n]*"/);
-	assert.match(home, /14 projects · 61 students · September 30 – December 11/);
+	assert.match(home, /We are excited to run 14 projects involving 61 students!/);
 	const fall = await renderedPage('projects/fall-2026');
-	// The home page shows a disabled button now that applications have closed.
-	assert.match(home, /<button[^>]*disabled[^>]*>Applications closed<\/button>/);
+	// The home page no longer carries an application button at all.
+	assert.doesNotMatch(home, /Applications closed<\/button>/);
 	for (const page of [home, fall]) {
 		assert.doesNotMatch(page, /forms\.gle\/dRoo1jHayR95JHzm8|Tuesday, September 22, 2026|Project member application coming soon/);
 	}

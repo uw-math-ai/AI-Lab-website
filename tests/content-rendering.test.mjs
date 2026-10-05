@@ -96,7 +96,7 @@ test('Fall rosters include all 61 students and distinguish student placements fr
 	for (const expected of roster.projects) {
 		const project = quarter.blocks.find((block) => block.id === expected.id);
 		assert.ok(project, expected.title);
-		const members = project.details.find((detail) => detail.label === (expected.roster_label ?? `Student members (${expected.students.length}):`));
+		const members = project.details.find((detail) => detail.label === (expected.roster_label ?? 'Student members:'));
 		assert.equal(members?.content, expected.roster_label ? expected.continuing_members.join(', ') : expected.students.length ? expected.students.join(', ') : 'No student members.');
 		const names = (content) => content.replace(/<[^>]+>/g, '').split(',').map((name) => name.trim());
 		assert.deepEqual(names(project.details.find((detail) => /^Project Leaders?:$/.test(detail.label)).content), expected.leads);

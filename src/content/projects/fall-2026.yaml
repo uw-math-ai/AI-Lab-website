@@ -20,7 +20,7 @@ blocks:
 
       **Final presentations:** Wednesday, December 9
 
-      **Rosters:** 14 projects · 61 students as of October 4, 2026. The rosters contain 62 student placements: David Javnozon participates in both Resultants and Lean Refactor. Project leaders, mentors, and other non-student participants are listed separately.
+      **Rosters:** 14 projects · 61 students
   - type: heading
     title: Autoresearch
     id: autoresearch
@@ -34,7 +34,7 @@ blocks:
         content: Autoresearch
       - label: 'Project Leader:'
         content: Ruirui Wu <ruirwu@uw.edu>
-      - label: 'Student members (5):'
+      - label: 'Student members:'
         content: Annie Feng, Kevin Wei, Kushal Kothapalli, Shiqi Yang, Harrison Bruechert
       - label: 'Abstract:'
         content: This project explores AI-assisted mathematical discovery in inverse boundary problems, focusing
@@ -57,7 +57,7 @@ blocks:
         content: Zihong Lin <zhlin@uw.edu>
       - label: 'Co-mentor:'
         content: Will Dudarov
-      - label: 'Student members (6):'
+      - label: 'Student members:'
         content: Ganesh Ravichandran, David An, Annie Cao, Duc Huy Nguyen, Bhuvan Gundela, Armen Agalyan
       - label: 'Abstract:'
         content: |-
@@ -90,7 +90,7 @@ blocks:
         content: Autoresearch; Recursive Self Improvement
       - label: 'Project Leader:'
         content: Evan Wang <aurasoph@uw.edu>
-      - label: 'Student members (4):'
+      - label: 'Student members:'
         content: Kedar Chintalapati, David Javnozon, Chuhan Li, Evan Gubarev
       - label: 'Schedule:'
         content: Competition ends November 8.
@@ -111,7 +111,7 @@ blocks:
       - label: 'Project Leaders:'
         content: Ting Gong <tgong2@uw.edu>, Michael R. Zeng <zengrf@uw.edu>, Dean Light <deanlcs@cs.washington.edu>,
           Michael Theologitis <mthe@cs.washington.edu>, Evan Wang <aurasoph@uw.edu>
-      - label: 'Student members (0):'
+      - label: 'Student members:'
         content: No student members.
       - label: 'Schedule:'
         content: Metaharness meets Mondays, 3–4 p.m.
@@ -131,7 +131,7 @@ blocks:
         content: Autoresearch
       - label: 'Project Leaders:'
         content: Freda Zhang <qzhang52@uw.edu>, Yue Wu <yuew29@uw.edu>
-      - label: 'Student members (5):'
+      - label: 'Student members:'
         content: Daran Xu, Belinda Krista, Rithikesh Muddana, Archit Ganapule, Chaoxiang Zhang
       - label: 'Abstract:'
         content: Learn the full conditional distribution of future asset returns from trading signals, going beyond
@@ -147,7 +147,7 @@ blocks:
         content: Autoresearch
       - label: 'Project Leaders:'
         content: Eric Klavins <klavins@uw.edu>, Bryan Boehnke <boehnkeb@uw.edu>
-      - label: 'Student members (3):'
+      - label: 'Student members:'
         content: Kavi Mahajan, Rohith Kala, Aiden Hoang
       - label: 'Abstract:'
         content: 'The goal of this project is to formalize the scientific method in Lean and LLMs in an attempt
@@ -168,7 +168,7 @@ blocks:
         content: Formalization
       - label: 'Project Leaders:'
         content: Joe Rogge <jwrogge@uw.edu>, Shaoda Ji <shaodj@uw.edu>
-      - label: 'Student members (5):'
+      - label: 'Student members:'
         content: Grant Yang, Anders Lewis, Liron Shani, Nhi Bach, David Javnozon
       - label: 'Schedule:'
         content: Meets at an alternate time; coordinate with the project leaders.
@@ -208,7 +208,7 @@ blocks:
         content: Brayden Letwin <letwin@uw.edu>
       - label: 'Co-mentor:'
         content: Will Dudarov
-      - label: 'Student members (4):'
+      - label: 'Student members:'
         content: Cosun Zhou, Aarush Sharma, Elisa Regueros, Owen Parks
       - label: 'Abstract:'
         content: |-
@@ -239,7 +239,7 @@ blocks:
         content: Formalization & Autoformalization
       - label: 'Project Leaders:'
         content: Eric Klavins <klavins@uw.edu>, Dhruv Bhatia <dbhatia1@uw.edu>
-      - label: 'Student members (4):'
+      - label: 'Student members:'
         content: Owen Fei, Sriram Marasanapalle-Kalle, Connor Zacharias, Yash Meher
       - label: 'Abstract:'
         content: When an LLM produces, say, Python code for your project, how do you know that code is correct?
@@ -262,7 +262,7 @@ blocks:
         content: Henry Kvinge <hjk3@uw.edu>
       - label: 'Graduate mentors:'
         content: Michael R. Zeng <zengrf@uw.edu>, Junaid Hasan <junaid01@uw.edu>, Treanungkur Mal, Ron Cherny
-      - label: 'Student members (10):'
+      - label: 'Student members:'
         content: James Kwong, Emily Meng, Bhargava Perumalla, Onkit Samanta, Allen (Ailun) Shen, Yash Pratik Solanki,
           Mayee Sun, William Tran, Xuanyu Yang, Billy (Yinqi) Zhao
       - label: 'Schedule:'
@@ -284,7 +284,7 @@ blocks:
         content: Mathematical Machine Learning
       - label: 'Project Leader:'
         content: Henry Kvinge
-      - label: 'Student members (6):'
+      - label: 'Student members:'
         content: Cecilia (Jiaying) Ye, Samarth Rao, Vaibhav Jasti, George Peykanu, Arnav Jain, Prithvi Aravind
       - label: 'Continuing students:'
         content: Cecilia (Jiaying) Ye, Samarth Rao
@@ -309,7 +309,7 @@ blocks:
         content: AI for math learning and education
       - label: 'Project Leaders:'
         content: Eric Klavins <klavins@uw.edu>, Dan Mikulincer <danmiku@uw.edu>
-      - label: 'Student members (4):'
+      - label: 'Student members:'
         content: Jake Malody, Hayden Guo, Amey Bharambe, Eshaan Kumar
       - label: 'Abstract:'
         content: The goal of this project is to teach mathematics to a student in a goal-directed approach informed
@@ -328,7 +328,7 @@ blocks:
         content: AI for math learning and education
       - label: 'Project Leaders:'
         content: Giovanni Inchiostro, Dhruv Bhatia <dbhatia1@uw.edu>
-      - label: 'Student members (5):'
+      - label: 'Student members:'
         content: Ethan Wang, Aarnith Netrawali, Saksham Singh, Nicole Ham, Abel Mesfin
       - label: 'Abstract:'
         content: 'Turn an existing wall-of-text PDF into an interactive, HTML-based learning experience. Every piece

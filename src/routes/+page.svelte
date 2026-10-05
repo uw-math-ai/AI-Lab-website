@@ -84,13 +84,10 @@
 		</div>
 		<div class="home-announcement interactive-surface">
 			<div>
-				<p>{fallProjects.blocks.filter((block) => block.type === 'project').length} projects · 61 students · September 30 – December 11.</p>
-				<p>Monday &amp; Wednesday, 4–5:30 p.m. · OUG 136</p>
-				<p>We expect to reopen applications in December for Winter 2027.</p>
+				<p>We are excited to run {fallProjects.blocks.filter((block) => block.type === 'project').length} projects involving 61 students! Meetings are scheduled for Mondays & Wednesdays from September 30 - December 11. We expect to reopen applications in December for Winter 2027.</p>
 			</div>
 			<div class="actions">
-				<button type="button" class="button" disabled>Applications closed</button>
-				<a class="button primary" href={sitePath('/projects/fall-2026')}>Fall 2026 team rosters</a>
+				<a class="button primary" href={sitePath('/projects/fall-2026')}>Fall 2026 Projects</a>
 				<a class="button" href={sitePath('/slides/fall-2026/')}>Inaugural meeting slides</a>
 			</div>
 		</div>
