@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
 	import Seo from '$lib/components/Seo.svelte';
-	import NewsList from '$lib/components/NewsList.svelte';
 	import { labEvents, eventDate } from '$lib/data/events';
 	import { pages } from '$lib/data/pages';
 	import { sitePath } from '$lib/paths';
+	import { googleCalendarUrl, hasHours, icsFile, outlookCalendarUrl, timeRange } from '$lib/calendar';
 	import { collectionPage, graph, organizationId } from '$lib/structuredData';
 
 	const { title, description } = pages.events;
@@ -23,13 +23,11 @@
 						name: event.title,
 						startDate: `${event.date}T${event.startTime}:00${event.utcOffset ?? ''}`,
 						endDate: `${event.date}T${event.endTime}:00${event.utcOffset ?? ''}`,
-						location: {
-							'@type': event.location === 'Online' ? 'VirtualLocation' : 'Place',
-							name: event.location,
-							...(event.location === 'Online' ? { url: event.sourceUrl ?? 'https://ai.math.uw.edu/events/' } : {})
-						},
+						location: event.location
+							? { '@type': 'Place', name: event.location }
+							: { '@type': 'VirtualLocation', url: event.sourceUrl ?? 'https://ai.math.uw.edu/events/' },
 						eventAttendanceMode:
-							event.location === 'Online'
+							!event.location
 								? 'https://schema.org/OnlineEventAttendanceMode'
 								: 'https://schema.org/OfflineEventAttendanceMode',
 						organizer: event.organizer ? { '@type': 'Organization', ...event.organizer } : { '@id': organizationId },
@@ -42,10 +40,13 @@
 
 	let query = $state('');
 	let type = $state('all');
-	let mode = $state('upcoming');
+	let showAllUpcoming = $state(false);
+	let showAllPast = $state(false);
 
+	const UPCOMING_LIMIT = 3;
+	const PAST_LIMIT = 5;
+	const now = new Date();
 	const types = ['all', ...Array.from(new Set(labEvents.map((event) => event.type)))];
-	const icmlEvent = labEvents.find((event) => event.title === 'ICML 2026');
 
 	function formatDate(value: string) {
 		return new Date(`${value}T00:00:00`).toLocaleDateString('en-US', {
@@ -56,438 +57,221 @@
 		});
 	}
 
-	function formatTime(value: string) {
-		const [hour, minute] = value.split(':').map(Number);
-		return new Date(2026, 0, 1, hour, minute).toLocaleTimeString('en-US', {
-			hour: 'numeric',
-			minute: '2-digit'
-		});
-	}
-
-	let visibleEvents = $derived(
-		labEvents
-			.filter((event) => {
-				const isUpcoming = eventDate(event) >= new Date();
-				const matchesMode = mode === 'all' || (mode === 'upcoming' ? isUpcoming : !isUpcoming);
-				const matchesType = type === 'all' || event.type === type;
-				const haystack = `${event.title} ${event.speaker} ${event.location} ${event.abstract ?? ''} ${(event.details ?? []).join(' ')} ${(event.papers ?? []).map((paper) => paper.title).join(' ')}`.toLowerCase();
-				return matchesMode && matchesType && haystack.includes(query.toLowerCase());
-			})
-			.sort((a, b) => {
-				const direction = mode === 'upcoming' ? 1 : -1;
-				return direction * (eventDate(a).getTime() - eventDate(b).getTime());
-			})
+	const searching = $derived(query.trim() !== '' || type !== 'all');
+	const matching = $derived(
+		labEvents.filter((event) => {
+			const haystack = `${event.title} ${event.speaker ?? ''} ${event.location ?? ''} ${event.abstract ?? ''} ${(event.details ?? []).join(' ')} ${(event.papers ?? []).map((paper) => paper.title).join(' ')}`.toLowerCase();
+			return (type === 'all' || event.type === type) && haystack.includes(query.trim().toLowerCase());
+		})
 	);
+	// Soonest first for what is coming up, most recent first for what has passed.
+	const upcoming = $derived(
+		matching.filter((event) => eventDate(event) >= now).sort((a, b) => eventDate(a).getTime() - eventDate(b).getTime())
+	);
+	const past = $derived(
+		matching.filter((event) => eventDate(event) < now).sort((a, b) => eventDate(b).getTime() - eventDate(a).getTime())
+	);
+	// A search shows every match; otherwise each list is cut short until "view all" is chosen.
+	const shownUpcoming = $derived(searching || showAllUpcoming ? upcoming : upcoming.slice(0, UPCOMING_LIMIT));
+	const shownPast = $derived(searching || showAllPast ? past : past.slice(0, PAST_LIMIT));
 </script>
 
 <Seo {title} {description} path="/events/" jsonLd={eventsJsonLd} />
 
+{#snippet eventRow(event: (typeof labEvents)[number], index: number)}
+	<article class="event-row" data-reveal-item style={`--reveal-delay: ${Math.min(index, 3) * 55}ms`}>
+		<div class="date-block interactive-surface">
+			<strong>{formatDate(event.date).split(',')[0]}</strong>
+			<span>{formatDate(event.date).replace(/^.*?, /, '')}</span>
+		</div>
+		<div class="event-body interactive-surface">
+			<div class="meta">
+				<span class="pill">{event.type}</span>
+				{#if timeRange(event)}<span class="pill">{timeRange(event)}</span>{/if}
+				{#if event.location}<span class="pill">{event.location}</span>{/if}
+			</div>
+			<h3>{event.title}</h3>
+			{#if event.speaker}<p class="speaker">{event.speaker}</p>{/if}
+			{#if event.abstract}
+				<div class="abstract">
+					{#each event.abstract.split(/\n\s*\n/) as paragraph}
+						<p>{paragraph.trim()}</p>
+					{/each}
+				</div>
+			{/if}
+			{#if event.photos?.length && !event.papers?.length}
+				<div class="event-photos">
+					{#each event.photos as photo}
+						<figure style={`--ar: ${(photo.width ?? 16) / (photo.height ?? 9)}`}>
+							<img
+								src={sitePath(photo.src)}
+								alt={photo.alt}
+								width={photo.width}
+								height={photo.height}
+								loading="lazy"
+								decoding="async"
+							/>
+							<figcaption>{photo.caption}</figcaption>
+						</figure>
+					{/each}
+				</div>
+			{/if}
+			{#if event.details?.length}
+				<ul class="event-details">
+					{#each event.details as detail}
+						<li>{detail}</li>
+					{/each}
+				</ul>
+			{/if}
+			{#if hasHours(event) && eventDate(event) >= now}
+				<p class="add-to-calendar">
+					<span>Add to calendar</span>
+					<a href={googleCalendarUrl(event)} target="_blank" rel="noreferrer">Google<span class="sr-only"> Calendar (opens in new tab)</span></a>
+					<a href={outlookCalendarUrl(event)} target="_blank" rel="noreferrer">Outlook<span class="sr-only"> (opens in new tab)</span></a>
+					<a href={icsFile(event).href} download={icsFile(event).filename}>Apple / .ics<span class="sr-only"> file</span></a>
+				</p>
+			{/if}
+			{#if event.sourceUrl || event.links?.length}
+				<div class="event-links">
+					{#if event.sourceUrl}
+						<a class="button" href={event.sourceUrl} target="_blank" rel="noreferrer">{event.sourceLabel ?? 'UW Math source'}</a>
+					{/if}
+					{#each event.links ?? [] as link}
+						{#if link.closed}
+							<button type="button" class="button" disabled>{link.label} (closed)</button>
+						{:else if link.url.startsWith('/')}
+							<a class="button" href={sitePath(link.url)}>{link.label}</a>
+						{:else}
+							<a class="button" href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
+						{/if}
+					{/each}
+				</div>
+			{/if}
+		</div>
+	</article>
+{/snippet}
+
 <section class="page-shell hero compact-hero single">
 	<div>
-		<span class="eyebrow">Calendar</span>
 		<h1>Events</h1>
-		<p>
-			Agenda and archive for Math AI Seminar activity at UW. Calendar data lives in the repo so new
-			entries are one-object updates.
-		</p>
+		<div class="events-search">
+			<label>
+				<span>Search events</span>
+				<input bind:value={query} type="search" placeholder="Search title, speaker, location" />
+			</label>
+			<label>
+				<span>Type</span>
+				<select bind:value={type}>
+					{#each types as option}
+						<option value={option}>{option === 'all' ? 'All types' : option}</option>
+					{/each}
+				</select>
+			</label>
+		</div>
 	</div>
 </section>
 
-{#if icmlEvent}
-	<section class="page-shell section icml-feature" id="icml-2026" aria-labelledby="icml-heading">
-		<Reveal class="feature-reveal">
-			<article class="icml-card interactive-surface">
-				<div class="icml-top">
-				<div class="icml-copy" data-reveal-item style="--reveal-delay: 0ms">
-					<div>
-						<span class="eyebrow">Eight accepted papers at ICML 2026</span>
-						<h2 id="icml-heading">Congratulations to our ICML authors</h2>
-						<p>{icmlEvent.abstract}</p>
-						<div class="meta icml-meta">
-							<span class="pill">July 6–11, 2026</span>
-							<span class="pill">COEX, Seoul, Korea</span>
-						</div>
-					</div>
-					<a class="button" href={icmlEvent.sourceUrl} target="_blank" rel="noreferrer">ICML 2026</a>
-				</div>
-
-				{#if icmlEvent.photos?.length}
-					<div class="icml-gallery" aria-label="Photos from ICML 2026 at COEX">
-						{#each icmlEvent.photos as photo, index}
-							<figure
-								class="icml-photo interactive-surface"
-								data-reveal-item
-								style={`--reveal-delay: ${60 + Math.min(index, 3) * 55}ms`}
-							>
-								<img
-									src={sitePath(photo.src)}
-									alt={photo.alt}
-									width={photo.width}
-									height={photo.height}
-									loading="lazy"
-									decoding="async"
-								/>
-								<figcaption>{photo.caption}</figcaption>
-							</figure>
-						{/each}
-					</div>
-				{/if}
-				</div>
-
-				{#if icmlEvent.papers?.length}
-					<div class="icml-papers">
-						<div class="icml-papers-heading" data-reveal-item style="--reveal-delay: 120ms">
-							<span class="eyebrow">Accepted work</span>
-							<h3>Eight papers from across the lab</h3>
-						</div>
-						<ol class="icml-paper-list">
-							{#each icmlEvent.papers as paper, index}
-								<li
-									class="interactive-surface"
-									data-reveal-item
-									class:honored={paper.badge}
-									style={`--reveal-delay: ${170 + (index % 2) * 60}ms`}
-								>
-									<a href={paper.url} target="_blank" rel="noreferrer">
-										<span>{paper.title}</span>
-										{#if paper.badge}<em>{paper.badge}</em>{/if}
-									</a>
-								</li>
-							{/each}
-						</ol>
-					</div>
-				{/if}
-			</article>
-		</Reveal>
-	</section>
-{/if}
-
-<section class="page-shell section hackathon-feature" aria-labelledby="hackathon-heading">
+<section class="page-shell section list-start" aria-labelledby="upcoming-heading">
 	<Reveal>
-		<div class="hackathon-card interactive-surface">
-			<div class="hackathon-banner">
-				<img
-					src={sitePath('/logos/uw-2026-lean-hackathon-banner.png')}
-					alt="UW 2026 Lean Hackathon banner"
-					width="1440"
-					height="810"
-				/>
-			</div>
-			<div class="hackathon-copy">
-				<div>
-					<span class="eyebrow">Hosted by Math AI Lab</span>
-					<h2 id="hackathon-heading">UW 2026 Lean Hackathon</h2>
-					<p>
-						We hosted the Lean Hackathon as a focused gathering for Lean, formalized mathematics, and AI-assisted
-						mathematics at the University of Washington.
-					</p>
-				</div>
-				<div class="actions">
-					<a class="button primary" href="https://uw2026leanhackathon.github.io/" target="_blank" rel="noreferrer">
-						Hackathon site
-					</a>
-				</div>
-			</div>
+		<div class="section-header">
+			<h2 id="upcoming-heading">Upcoming</h2>
 		</div>
+		<div class="event-timeline">
+			{#each shownUpcoming as event, index (event.title + event.date)}
+				{@render eventRow(event, index)}
+			{:else}
+				<p class="empty">{searching ? 'No upcoming events match your search.' : 'No upcoming events are scheduled right now.'}</p>
+			{/each}
+		</div>
+		{#if !searching && upcoming.length > UPCOMING_LIMIT}
+			<button type="button" class="view-all" aria-expanded={showAllUpcoming} onclick={() => (showAllUpcoming = !showAllUpcoming)}>
+				{showAllUpcoming ? 'Show fewer upcoming events' : `View all ${upcoming.length} upcoming events`}
+			</button>
+		{/if}
 	</Reveal>
 </section>
 
-<NewsList />
-
-<section class="page-shell section">
+<section class="page-shell section" aria-labelledby="past-heading">
 	<Reveal>
-		<div class="calendar-toolbar">
-			<div class="segmented" aria-label="Calendar mode">
-				<button class:active={mode === 'upcoming'} type="button" onclick={() => (mode = 'upcoming')}>Upcoming</button>
-				<button class:active={mode === 'past'} type="button" onclick={() => (mode = 'past')}>Archive</button>
-				<button class:active={mode === 'all'} type="button" onclick={() => (mode = 'all')}>All</button>
-			</div>
-			<input bind:value={query} type="search" placeholder="Search title, speaker, location" aria-label="Search events" />
-			<select bind:value={type} aria-label="Filter event type">
-				{#each types as option}
-					<option value={option}>{option === 'all' ? 'All types' : option}</option>
-				{/each}
-			</select>
+		<div class="section-header">
+			<h2 id="past-heading">Past events</h2>
 		</div>
-
 		<div class="event-timeline">
-			{#each visibleEvents as event, index}
-				<article
-					class="event-row"
-					data-reveal-item
-					style={`--reveal-delay: ${Math.min(index, 3) * 55}ms`}
-				>
-					<div class="date-block interactive-surface">
-						<strong>{formatDate(event.date).split(',')[0]}</strong>
-						<span>{formatDate(event.date).replace(/^.*?, /, '')}</span>
-					</div>
-					<div class="event-body interactive-surface">
-						<div class="meta">
-							<span class="pill">{event.type}</span>
-							{#if event.startTime !== event.endTime}
-								<span class="pill">{formatTime(event.startTime)}-{formatTime(event.endTime)}{event.timeZoneLabel ? ` ${event.timeZoneLabel}` : ''}</span>
-							{/if}
-							<span class="pill">{event.location}</span>
-						</div>
-						<h2>{event.title}</h2>
-						<p class="speaker">{event.speaker}</p>
-						{#if event.abstract}
-							<div class="abstract">
-								{#each event.abstract.split(/\n\s*\n/) as paragraph}
-									<p>{paragraph.trim()}</p>
-								{/each}
-							</div>
-						{/if}
-						{#if event.details?.length}
-							<ul class="event-details">
-								{#each event.details as detail}
-									<li>{detail}</li>
-								{/each}
-							</ul>
-						{/if}
-						{#if event.sourceUrl || event.links?.length}
-							<div class="event-links">
-								{#if event.sourceUrl}
-									<a class="button" href={event.sourceUrl} target="_blank" rel="noreferrer">{event.sourceLabel ?? 'UW Math source'}</a>
-								{/if}
-								{#each event.links ?? [] as link}
-									{#if link.url.startsWith('/')}
-										<a class="button" href={sitePath(link.url)}>{link.label}</a>
-									{:else}
-										<a class="button" href={link.url} target="_blank" rel="noreferrer">{link.label}</a>
-									{/if}
-								{/each}
-							</div>
-						{/if}
-					</div>
-				</article>
+			{#each shownPast as event, index (event.title + event.date)}
+				{@render eventRow(event, index)}
 			{:else}
-				<div class="card interactive-surface">
-					<h2>No matching events</h2>
-					<p>Try a broader search or switch between upcoming and archive views.</p>
-				</div>
+				<p class="empty">{searching ? 'No past events match your search.' : 'No past events yet.'}</p>
 			{/each}
 		</div>
+		{#if !searching && past.length > PAST_LIMIT}
+			<button type="button" class="view-all" aria-expanded={showAllPast} onclick={() => (showAllPast = !showAllPast)}>
+				{showAllPast ? 'Show fewer past events' : `View all ${past.length} past events`}
+			</button>
+		{/if}
 	</Reveal>
 </section>
 
 <style>
-	.compact-hero {
-		min-height: 24rem;
+	/* The first list sits close under the search box. */
+	.list-start {
+		padding-top: 1.5rem;
 	}
 
-	.icml-feature,
-	.hackathon-feature {
-		padding-top: 0;
-	}
-
-	.icml-feature {
-		scroll-margin-top: 6rem;
-	}
-
-	.icml-feature :global(.reveal),
-	.hackathon-feature :global(.reveal) {
-		display: block;
-	}
-
-	.icml-card {
-		border-top: 1px solid var(--line-strong);
-		border-bottom: 1px solid var(--line);
-		padding: clamp(1.5rem, 3vw, 2.5rem) 0;
-	}
-
-	.icml-top {
-		display: grid;
-		grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-		gap: clamp(1.5rem, 4vw, 3.5rem);
-		align-items: start;
-	}
-
-	.icml-copy {
-		display: grid;
-		gap: 1.25rem;
-		justify-items: start;
-	}
-
-	.icml-copy h2 {
-		margin: 0.35rem 0 0.75rem;
-		font-size: clamp(1.9rem, 3.6vw, 2.8rem);
-		line-height: 1.05;
-	}
-
-	.icml-copy p {
-		margin: 0;
-		max-width: 60ch;
-		color: var(--muted);
-		font-size: 1.02rem;
-	}
-
-	.icml-meta {
-		margin: 1rem 0 0;
-	}
-
-	.icml-gallery {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0.75rem;
-	}
-
-	.icml-photo {
-		margin: 0;
-		min-width: 0;
-	}
-
-	.icml-photo:first-child {
-		grid-column: 1 / -1;
-	}
-
-	.icml-photo img {
-		display: block;
-		width: 100%;
-		height: auto;
-		border: 1px solid var(--line);
-	}
-
-	.icml-photo figcaption {
-		margin-top: 0.4rem;
-		color: var(--muted);
-		font-family: var(--font-sans);
-		font-size: 0.76rem;
-		line-height: 1.4;
-	}
-
-	.icml-papers {
-		margin-top: clamp(1.5rem, 3vw, 2.5rem);
-	}
-
-	.icml-papers-heading h3 {
-		margin: 0.3rem 0 0.5rem;
-		font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-		line-height: 1.1;
-	}
-
-	.icml-paper-list {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0 2.5rem;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-		border-top: 1px solid var(--line-strong);
-	}
-
-	.icml-paper-list li {
-		min-width: 0;
-		border-bottom: 1px solid var(--line);
-	}
-
-	.icml-paper-list a {
-		display: grid;
-		gap: 0.25rem;
-		justify-items: start;
-		padding: 0.8rem 0;
-		color: var(--heading);
-		font-size: 1.05rem;
-		font-weight: 500;
-		line-height: 1.35;
-		text-decoration: none;
-	}
-
-	.icml-paper-list a:hover span {
-		text-decoration: underline;
-	}
-
-	.icml-paper-list em {
-		font-family: var(--font-sans);
-		font-size: 0.72rem;
-		font-weight: 600;
-		font-style: normal;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		color: var(--gold-ink);
-	}
-
-	.hackathon-card {
-		display: grid;
-		grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
-		gap: clamp(1.5rem, 4vw, 3rem);
-		align-items: center;
-		border-bottom: 1px solid var(--line);
-		padding: clamp(1.5rem, 3vw, 2rem) 0;
-	}
-
-	.hackathon-banner img {
-		display: block;
-		width: 100%;
-		height: auto;
-		border: 1px solid var(--line);
-	}
-
-	.hackathon-copy {
-		display: grid;
-		gap: 1.25rem;
-		justify-items: start;
-	}
-
-	.hackathon-copy h2 {
-		margin: 0.35rem 0 0.5rem;
-		font-size: clamp(1.7rem, 3vw, 2.4rem);
-		line-height: 1.05;
-	}
-
-	.hackathon-copy p {
-		margin: 0;
-		max-width: 60ch;
-		color: var(--muted);
-		font-size: 1.02rem;
-	}
-
-	.calendar-toolbar {
+	.events-search {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.6rem;
-		margin-bottom: 1rem;
-		align-items: center;
+		gap: 1rem;
+		margin-top: 2rem;
 	}
 
-	.calendar-toolbar input {
+	.events-search label {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.events-search label:first-child {
 		flex: 1 1 18rem;
+		max-width: 34rem;
 	}
 
-	.calendar-toolbar select {
-		flex: 0 1 12rem;
-	}
-
-	.segmented {
-		display: inline-flex;
-		border: 1px solid var(--line-strong);
-		border-radius: var(--radius);
-		overflow: hidden;
-	}
-
-	.segmented button {
-		border: 0;
-		background: transparent;
-		color: var(--muted);
+	.events-search label span {
 		font-family: var(--font-sans);
-		font-size: 0.84rem;
+		font-size: var(--text-xs);
 		font-weight: 600;
-		padding: 0.55rem 0.9rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+
+	.events-search input {
+		width: 100%;
+	}
+
+	.empty {
+		margin: 0;
+		padding: 1.25rem 0;
+		color: var(--muted);
+	}
+
+	.view-all {
+		margin-top: 1rem;
+		border: 0;
+		border-bottom: 1px solid color-mix(in srgb, var(--purple) 40%, transparent);
+		background: none;
+		padding: 0 0 0.1rem;
+		font-family: var(--font-sans);
+		font-size: var(--text-sm);
+		font-weight: 600;
+		color: var(--purple);
 		cursor: pointer;
 	}
 
-	.segmented button + button {
-		border-left: 1px solid var(--line);
-	}
-
-	.segmented button.active {
-		background: var(--text);
-		color: var(--bg);
+	.view-all:hover {
+		border-bottom-color: var(--purple);
 	}
 
 	.event-timeline {
 		display: grid;
-		border-top: 1px solid var(--line-strong);
 	}
 
 	.event-row {
@@ -506,9 +290,9 @@
 	}
 
 	.date-block strong {
-		font-family: var(--font-mono);
+		font-family: var(--font-sans);
 		font-variant-numeric: tabular-nums;
-		font-size: 1rem;
+		font-size: var(--text-base);
 		font-weight: 600;
 		line-height: 1.2;
 		color: var(--heading);
@@ -516,7 +300,7 @@
 
 	.date-block span {
 		font-family: var(--font-sans);
-		font-size: 0.78rem;
+		font-size: var(--text-xs);
 		color: var(--muted);
 	}
 
@@ -524,9 +308,9 @@
 		margin: 0 0 0.4rem;
 	}
 
-	.event-body h2 {
+	.event-body h3 {
 		margin: 0 0 0.25rem;
-		font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+		font-size: var(--text-subtitle);
 		line-height: 1.2;
 	}
 
@@ -538,7 +322,41 @@
 
 	.event-body .abstract {
 		white-space: pre-line;
-		font-size: 0.98rem;
+		font-size: var(--text-base);
+	}
+
+	/* Justified row, like the People gallery: equal heights, flush edges, no cropping. */
+	.event-photos {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 1rem;
+	}
+
+	.event-photos::after {
+		content: '';
+		flex-grow: 999;
+	}
+
+	.event-photos figure {
+		flex: var(--ar) 1 calc(var(--ar) * 11rem);
+		min-width: 0;
+		margin: 0;
+	}
+
+	.event-photos img {
+		display: block;
+		width: 100%;
+		height: auto;
+		border: 1px solid var(--line);
+	}
+
+	.event-photos figcaption {
+		margin-top: 0.4rem;
+		font-family: var(--font-sans);
+		font-size: var(--text-xs);
+		line-height: 1.4;
+		color: var(--muted);
 	}
 
 	.event-body .event-details {
@@ -555,7 +373,30 @@
 	.event-body .speaker {
 		color: var(--text);
 		font-family: var(--font-sans);
-		font-size: 0.9rem;
+		font-size: var(--text-sm);
+	}
+
+	.add-to-calendar {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.25rem 1rem;
+		margin: 0.75rem 0 0;
+		font-family: var(--font-sans);
+		font-size: var(--text-sm);
+	}
+
+	.add-to-calendar span:first-child {
+		font-size: var(--text-xs);
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+
+	.add-to-calendar a {
+		font-weight: 600;
+		color: var(--purple);
 	}
 
 	.event-links {
@@ -565,36 +406,15 @@
 		margin-top: 0.75rem;
 	}
 
-	@media (max-width: 900px) {
-		.icml-top,
-		.hackathon-card {
-			grid-template-columns: 1fr;
-		}
-
-		.icml-paper-list {
-			grid-template-columns: 1fr;
-		}
-	}
-
 	@media (max-width: 720px) {
 		.event-row {
 			grid-template-columns: 1fr;
 			gap: 0.5rem;
 		}
 
-		.calendar-toolbar {
-			align-items: stretch;
-		}
-
-		.segmented,
-		.calendar-toolbar input,
-		.calendar-toolbar select {
+		.events-search label,
+		.events-search select {
 			width: 100%;
-		}
-
-		.segmented {
-			display: grid;
-			grid-template-columns: repeat(3, minmax(0, 1fr));
 		}
 	}
 </style>

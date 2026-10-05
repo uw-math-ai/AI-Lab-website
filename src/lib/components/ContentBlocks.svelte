@@ -115,19 +115,18 @@
 
 	.toc span {
 		font-family: var(--font-sans);
-		font-size: 0.72rem;
+		font-size: var(--text-xs);
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: var(--muted);
 		padding-bottom: 0.5rem;
 		margin-bottom: 0.25rem;
-		border-bottom: 1px solid var(--line-strong);
 	}
 
 	.toc a {
 		font-family: var(--font-sans);
-		font-size: 0.86rem;
+		font-size: var(--text-sm);
 		line-height: 1.3;
 		color: var(--text);
 		text-decoration: none;
@@ -141,14 +140,14 @@
 	.toc a.h3 {
 		padding-left: 0.75rem;
 		border-left: 1px solid var(--line);
-		font-size: 0.8rem;
+		font-size: var(--text-sm);
 		color: var(--muted);
 	}
 
 	.legacy-content {
 		order: 1;
 		min-width: 0;
-		font-size: 1rem;
+		font-size: var(--text-base);
 		line-height: 1.6;
 		overflow-wrap: break-word;
 	}
@@ -171,24 +170,23 @@
 	}
 
 	.legacy-content :global(h1) {
-		font-size: clamp(2rem, 4vw, 3.2rem);
+		font-size: var(--text-display);
 		line-height: 1.05;
 		margin: 0 0 1rem;
 		color: var(--heading);
 	}
 
 	.legacy-content :global(h2) {
-		font-size: clamp(1.5rem, 2.6vw, 2rem);
+		font-size: var(--text-title);
 		line-height: 1.15;
 		margin: 3rem 0 1.25rem;
 		padding-bottom: 0.6rem;
 		color: var(--heading);
-		border-bottom: 1px solid var(--line-strong);
 	}
 
 	.legacy-content :global(h3) {
 		margin: 1.6rem 0 0.5rem;
-		font-size: 1.2rem;
+		font-size: var(--text-lg);
 		line-height: 1.3;
 		font-weight: 500;
 		color: var(--heading);
@@ -218,7 +216,7 @@
 	.legacy-content :global(h1 + p) {
 		max-width: 72ch;
 		color: var(--muted);
-		font-size: 1.05rem;
+		font-size: var(--text-base);
 	}
 
 	/* Non-project legacy pages: entries separated by rules, no boxes. */
@@ -240,7 +238,6 @@
 	}
 
 	.content-layout:not(.project-mode) .legacy-content :global(h3 + ul) {
-		border-top: 1px solid var(--line-strong);
 		padding-top: 0.25rem;
 	}
 
@@ -253,7 +250,7 @@
 	.content-layout:not(.project-mode) .legacy-content :global(.project-detail summary) {
 		cursor: pointer;
 		color: var(--heading);
-		font-size: 1.12rem;
+		font-size: var(--text-md);
 		font-weight: 500;
 		line-height: 1.3;
 	}
@@ -279,7 +276,6 @@
 		gap: 0 2.5rem;
 		padding-left: 0;
 		list-style: none;
-		border-top: 1px solid var(--line-strong);
 	}
 
 	.content-layout.flat .legacy-content :global(section > ul > li),
@@ -292,7 +288,6 @@
 	}
 
 	.content-layout.flat .legacy-content :global(h3 + ul) {
-		border-top: 1px solid var(--line-strong);
 		padding: 0;
 	}
 
@@ -329,7 +324,7 @@
 
 	.content-layout.project-mode .legacy-content :global(h3) {
 		margin: 1.5rem 0 0.4rem;
-		font-size: 1.22rem;
+		font-size: var(--text-lg);
 	}
 
 	.content-layout.project-mode .legacy-content :global(h3 + ul) {
@@ -390,7 +385,7 @@
 		border-left: 1px solid var(--line-strong);
 		font-style: italic;
 		font-family: var(--font-serif);
-		font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+		font-size: var(--text-lg);
 		line-height: 1.4;
 	}
 
@@ -402,7 +397,7 @@
 		display: block;
 		margin-top: 0.6rem;
 		font-family: var(--font-sans);
-		font-size: 0.8rem;
+		font-size: var(--text-sm);
 		font-style: normal;
 		line-height: 1.3;
 		text-align: right;
@@ -412,7 +407,7 @@
 	.legacy-content :global(.epigraph footer),
 	.legacy-content :global(.epigraph cite) {
 		font-family: var(--font-sans);
-		font-size: 0.8rem;
+		font-size: var(--text-sm);
 		font-style: normal;
 		color: var(--muted);
 	}
@@ -479,7 +474,7 @@
 
 	@media (max-width: 720px) {
 		.legacy-content {
-			font-size: 0.96rem;
+			font-size: var(--text-base);
 			line-height: 1.6;
 		}
 

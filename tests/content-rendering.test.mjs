@@ -69,13 +69,14 @@ test('Fall 2026 restores the Spring Math2Vec description verbatim', async () => 
 		previous.details.find((detail) => detail.label === 'Project Leader:'));
 });
 
-test('Fall 2026 highlights Wednesday meetings and credits both co-mentorships', async () => {
+test('Fall 2026 labels its dates and meetings and credits both co-mentorships', async () => {
 	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
 	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
 	const meeting = all(page, (node) => node.tagName === 'p' && text(node).startsWith('Project meetings:'))[0];
 	assert.ok(meeting);
-	assert.equal(text(meeting), 'Project meetings: Monday & Wednesday.');
-	assert.deepEqual(all(meeting, (node) => node.tagName === 'strong').map(text), ['Wednesday']);
+	assert.equal(text(meeting), 'Project meetings: Mondays & Wednesdays, 4:00 - 5:30 pm');
+	assert.deepEqual(all(meeting, (node) => node.tagName === 'strong').map(text), ['Project meetings:']);
+	assert.doesNotMatch(text(page), /Applications closed/);
 	for (const id of ['mathematical-taste-recognizing-progress-beyond-generation', 'formalizing-the-kls-conjecture-and-stochastic-localization']) {
 		const project = quarter.blocks.find((block) => block.id === id);
 		assert.equal(project.details.find((detail) => detail.label === 'Co-mentor:').content, 'William Dudarov');
@@ -84,7 +85,7 @@ test('Fall 2026 highlights Wednesday meetings and credits both co-mentorships', 
 	assert.equal(mentors.filter((label) => text(label.parentNode).includes('William Dudarov')).length, 2);
 });
 
-test('research totals, section headings, and index share number-and-label counters', async () => {
+test('research totals and the section index share number-and-label counters', async () => {
 	const sections = parseYaml(await readFile('src/content/research.yaml', 'utf8'));
 	const page = parseHtml(await readFile('build/research/index.html', 'utf8'));
 	const nav = all(page, (node) => node.tagName === 'nav' && attr(node, 'aria-label') === 'Research sections')[0];
@@ -101,7 +102,6 @@ test('research totals, section headings, and index share number-and-label counte
 		const heading = all(renderedSection, (node) => node.tagName === 'h2')[0];
 		const link = all(nav, (node) => attr(node, 'href') === `#${section.id}`)[0];
 		assert.equal(text(heading).trim(), section.title);
-		assertCounter(renderedSection, section.items.length, 'listed works');
 		assertCounter(link, section.items.length, section.title);
 		assert.equal(all(renderedSection, (node) => node.tagName === 'article').length, section.items.length);
 	}
@@ -155,19 +155,22 @@ test('resource redirects preserve the hosting prefix and section fragment', asyn
 	}
 });
 
-test('dated news and its links render on both the homepage and Events page', async () => {
+test('dated news and its links render on the News page', async () => {
 	const news = parseYaml(await readFile('src/content/news.yaml', 'utf8'));
-	for (const route of ['', 'events']) {
-		const page = parseHtml(await readFile(`build/${route}/index.html`, 'utf8'));
-		for (const item of news) {
-			const cards = all(page, (node) => attr(node, 'id') === item.id);
-			assert.equal(cards.length, 1);
-			assert.ok(text(cards[0]).includes(item.title));
-			assert.ok(text(cards[0]).includes(item.summary));
-			assert.equal(attr(all(cards[0], (node) => node.tagName === 'time')[0], 'datetime'), item.date);
-			for (const link of item.links) {
-				assert.ok(all(cards[0], (node) => attr(node, 'href') === link.url).length === 1);
-			}
+	const page = parseHtml(await readFile('build/news/index.html', 'utf8'));
+	for (const item of news) {
+		const cards = all(page, (node) => attr(node, 'id') === item.id);
+		assert.equal(cards.length, 1);
+		assert.ok(text(cards[0]).includes(item.title));
+		assert.ok(text(cards[0]).includes(item.summary));
+		assert.equal(attr(all(cards[0], (node) => node.tagName === 'time')[0], 'datetime'), item.date);
+		for (const link of item.links) {
+			// Site-internal links are rewritten relative to the page by sitePath().
+			const matches = all(cards[0], (node) => {
+				const href = attr(node, 'href');
+				return href === link.url || (link.url.startsWith('/') && href?.endsWith(link.url.slice(1)));
+			});
+			assert.equal(matches.length, 1);
 		}
 	}
 });
@@ -177,25 +180,21 @@ test('StabilizerBench moves to conference papers without duplication', async () 
 	const papers = sections.flatMap((section) => section.items);
 	const matches = papers.filter((paper) => paper.url === 'https://arxiv.org/abs/2604.21287');
 	assert.equal(matches.length, 1);
-	assert.equal(matches[0].badge, 'Accepted');
-	assert.equal(matches[0].venue, 'IEEE QCE 2026, QSYS track');
+	assert.equal(matches[0].venues[0].badge, 'Poster');
+	assert.equal(matches[0].venues[0].name, 'IEEE QCE 2026, QSYS track');
 	assert.ok(sections.find((section) => section.id === 'conference-workshop-papers').items.includes(matches[0]));
 	const page = parseHtml(await readFile('build/research/index.html', 'utf8'));
 	assert.equal(all(page, (node) => node.tagName === 'h3' && text(node) === matches[0].title).length, 1);
 });
 
-test('conference structured data uses local offsets and external organizers', async () => {
+test('event structured data lists the calendar, including the hackathon, with full timestamps', async () => {
 	const html = parseHtml(await readFile('build/events/index.html', 'utf8'));
 	const script = all(html, (node) => node.tagName === 'script' && attr(node, 'type') === 'application/ld+json')[0];
 	const graph = JSON.parse(script.childNodes.map((node) => node.value ?? '').join(''))['@graph'];
 	const events = graph.find((item) => item['@type'] === 'ItemList').itemListElement.map((entry) => entry.item);
-	const ieee = events.find((event) => event.name === 'StabilizerBench at IEEE QCE 2026');
-	assert.equal(ieee.startDate, '2026-09-13T13:00:00-04:00');
-	assert.equal(ieee.endDate, '2026-09-13T14:30:00-04:00');
-	assert.equal(ieee.organizer.name, 'IEEE Quantum Week');
-	const tag = events.find((event) => event.name.startsWith('TAG-DS spotlight:'));
-	assert.equal(tag.startDate, '2026-08-19T10:20:00-04:00');
-	assert.equal(tag.organizer.name, 'TAG-DS');
+	assert.ok(events.some((event) => event.name.startsWith('UW 2026 Lean Hackathon')));
+	for (const event of events) assert.match(event.startDate, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:00/);
+	assert.ok(!events.some((event) => /ICML 2026|IEEE QCE|TAG-DS spotlight/.test(event.name)));
 });
 
 test('research artifacts render their credits and links without being marked as papers', async () => {
@@ -210,9 +209,12 @@ test('research artifacts render their credits and links without being marked as 
 		assert.equal(matches.length, 1);
 		assert.ok(text(matches[0]).includes(item.authors));
 		assert.ok(text(matches[0]).includes(item.abstract));
-		if (item.badge) assert.ok(text(matches[0]).includes(item.badge));
+		for (const venue of item.venues) {
+			assert.ok(text(matches[0]).includes(venue.name));
+			if (venue.badge) assert.ok(text(matches[0]).includes(venue.badge));
+		}
 		assert.equal(all(matches[0], (node) => attr(node, 'href') === item.url).length, 1);
-		assert.doesNotMatch(text(matches[0]), /Read the abstract/);
+		assert.doesNotMatch(text(matches[0]), /Show full (abstract|description)/);
 	}
 	const script = all(page, (node) => node.tagName === 'script' && attr(node, 'type') === 'application/ld+json')[0];
 	const graph = JSON.parse(script.childNodes.map((node) => node.value ?? '').join(''))['@graph'];

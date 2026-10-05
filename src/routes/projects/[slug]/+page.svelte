@@ -1,6 +1,5 @@
 <script lang="ts">
 	import ContentBlocks from '$lib/components/ContentBlocks.svelte';
-	import AsciiMap from '$lib/components/AsciiMap.svelte';
 	import Reveal from '$lib/components/Reveal.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 	import type { ProjectQuarter } from '$lib/data/projects';
@@ -38,13 +37,9 @@
 
 <section class="page-shell hero quarter-hero">
 	<div>
-		<span class="eyebrow">{quarter.term} {quarter.year}</span>
+		<a class="back-link" href={sitePath('/projects')}><span aria-hidden="true">←</span> All projects</a>
 		<h1>{quarter.label} Projects</h1>
-		<div class="actions">
-			<a class="button" href={sitePath('/projects')}>All projects</a>
-		</div>
 	</div>
-	<div class="hero-aside"><AsciiMap cols={44} rows={20} /></div>
 </section>
 
 <section class="page-shell section project-content">
@@ -54,16 +49,8 @@
 </section>
 
 <style>
-	.quarter-hero {
-		min-height: auto;
-		padding: 2.2rem 0 1rem;
-	}
-
 	.quarter-hero h1 {
-		font-size: clamp(2.2rem, 5vw, 4rem);
+		font-size: var(--text-display);
 	}
 
-	.project-content {
-		padding-top: 1rem;
-	}
 </style>

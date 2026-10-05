@@ -6,6 +6,7 @@ term: Fall
 year: 2024
 status: archive
 lastmod: 2026-06-01
+returningProjects: 0
 summary: Formalizing examples, tactics, generating functions, CLT, and topology for algebraic geometry.
 blocks:
   - type: project

@@ -6,13 +6,14 @@ term: Winter
 year: 2026
 status: recent
 lastmod: 2026-06-01
+returningProjects: 8
 venue: Denny Hall 303 / CMU B-006
 summary: Formalization projects, AI projects, and Lean Together meetings from Winter 2026.
 blocks:
   - type: text
     content: |-
-      Project teams meet Mondays and Wednesdays from 4–5:30 pm in Denny Hall 303.\
-      Lean Together meets Fridays 3:30–6 pm in CMU B-006.
+      Project teams meet Mondays and Wednesdays from 4-5:30 pm in Denny Hall 303.\
+      Lean Together meets Fridays 3:30-6 pm in CMU B-006.
 
       The goal of projects is a **publication** or a **significant open-source contribution**, e.g. to [mathlib4](https://github.com/leanprover-community/mathlib4). Students are expected to commit at least 5 hours per week to their project outside of meeting times.
   - type: heading
@@ -164,7 +165,7 @@ blocks:
     level: 2
   - type: text
     content: The goal of autoformalization projects is to use Lean-specific AI assistants such as
-      Harmonic’s [Aristotle](https://aristotle.harmonic.fun/) to formalize large chunks of
+      Harmonic's [Aristotle](https://aristotle.harmonic.fun/) to formalize large chunks of
       mathematics, and contribute to [mathlib4](https://github.com/leanprover-community/mathlib4).
   - type: project
     title: Geometric Measure Theory
@@ -174,7 +175,7 @@ blocks:
       - label: "Project Leader:"
         content: Ignacio Tejeda
       - label: "Formalization target:"
-        content: Theorem 4.2 in Falconer’s _Geometry of Fractal Sets_.
+        content: Theorem 4.2 in Falconer's _Geometry of Fractal Sets_.
       - label: "Code:"
         content: "[GitHub repo](https://github.com/uw-math-ai/FormalizingGMT)"
       - label: "Mathlib PRs:"
@@ -220,7 +221,7 @@ blocks:
       - label: "Project Leader:"
         content: Nelson Niu
       - label: "Formalization target:"
-        content: Nelson Niu & David Spivak’s Polynomial Functors
+        content: Nelson Niu & David Spivak's Polynomial Functors
           [textbook](https://toposinstitute.github.io/poly/poly-book.pdf).
       - label: "Members:"
         content: Sukhman Singh
@@ -232,7 +233,7 @@ blocks:
     style: heading
     details:
       - label: "Project Leaders:"
-        content: Eric Klavins and Alexandra Aiello
+        content: Eric Klavins and Lexi Aiello
       - label: "Description:"
         content: We would outline a framework for verifying mathematical theorems while keeping the
           respective proofs secret by leveraging dependent combinatory logic as a host language for
@@ -254,7 +255,7 @@ blocks:
         content: While Lean has seen extensive use as a theorem-proving assistant, its capabilities as a
           computational programming language have been underutilized. The goal of this project is to
           begin filling that gap. Along the way, we will learn the basics of functional programming,
-          monads, and Lean’s metaprogramming framework to implement algorithms that can both be run
+          monads, and Lean's metaprogramming framework to implement algorithms that can both be run
           efficiently and be reasoned about. Our main goal is to implement basic algorithms with
           applications to linear algebra while also proving (in Lean) correctness of said
           algorithms.

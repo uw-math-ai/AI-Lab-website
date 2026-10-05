@@ -6,6 +6,7 @@ term: Fall
 year: 2025
 status: recent
 lastmod: 2026-06-01
+returningProjects: 2
 venue: OUG 136
 summary: Fall 2025 project teams across Lean formalization, theorem search, number theory, quantum
   compilation, and more.
@@ -190,7 +191,7 @@ blocks:
         content: While lean has seen extensive use as a theorem proving assistant, its capabilities as a
           computational programming language have been left underutilized. The goal of this project
           will be to start filling this gap. Along the way, we will learn the basics of functional
-          programming, monads, and Lean’s meta-programming framework to begin implementing
+          programming, monads, and Lean's meta-programming framework to begin implementing
           algorithms that can both be run efficiently and be reasoned about. Our main goal will be
           to implement basic algorithms with applications to linear algebra while also proving (in
           Lean) correctness of said algorithms.

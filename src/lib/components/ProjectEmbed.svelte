@@ -28,10 +28,10 @@
 </script>
 
 <figure class="embed" style={`--ratio: ${ratio}`}>
-	<div class="chrome" aria-hidden="true">
-		<span class="dots"><i></i><i></i><i></i></span>
+	<div class="chrome">
+		<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
 		<span class="url">{host}</span>
-		<a class="open" href={src} target="_blank" rel="noreferrer" aria-hidden="false" tabindex="0">Open ↗</a>
+		<a class="open" href={src} target="_blank" rel="noreferrer">Open<span class="sr-only"> {title} in a new tab</span> <span aria-hidden="true">↗</span></a>
 	</div>
 	<div class="viewport">
 		{#if live}
@@ -53,7 +53,7 @@
 					{loadLabel}
 				</button>
 			{:else}
-				<span class="loading">Loading {host}…</span>
+				<span class="loading" role="status">Loading {host}…</span>
 			{/if}
 		{/if}
 	</div>
@@ -77,7 +77,7 @@
 		border-bottom: 1px solid var(--line);
 		background: var(--soft);
 		font-family: var(--font-sans);
-		font-size: 0.74rem;
+		font-size: var(--text-xs);
 		color: var(--muted);
 	}
 
@@ -89,13 +89,13 @@
 	.dots i {
 		width: 9px;
 		height: 9px;
-		border-radius: 50%;
+		border-radius: 0;
 		background: var(--line-strong);
 	}
 
 	.url {
 		flex: 1;
-		font-family: var(--font-mono);
+		font-family: var(--font-sans);
 		text-align: center;
 	}
 
@@ -151,24 +151,19 @@
 		background: #fff;
 		color: #1b1e23;
 		font-family: var(--font-sans);
-		font-size: 0.9rem;
+		font-size: var(--text-sm);
 		font-weight: 600;
 		padding: 0.75rem 1.3rem 0.75rem 1rem;
 		cursor: pointer;
-		box-shadow: 0 6px 24px rgba(27, 30, 35, 0.14);
-		transition:
-			transform var(--motion-fast),
-			background var(--motion-fast);
 	}
 
 	.load:hover {
 		background: #1b1e23;
 		color: #fff;
-		transform: translate(-50%, -50%) scale(1.03);
 	}
 
 	.play {
-		font-size: 0.7rem;
+		font-size: var(--text-xs);
 	}
 
 	.loading {
@@ -177,11 +172,11 @@
 		top: 50%;
 		transform: translate(-50%, -50%);
 		font-family: var(--font-sans);
-		font-size: 0.85rem;
+		font-size: var(--text-sm);
 		color: #1b1e23;
 		background: rgba(255, 255, 255, 0.9);
 		padding: 0.4rem 0.8rem;
-		border-radius: 999px;
+		border-radius: 0;
 	}
 
 	@media (max-width: 700px) {
@@ -192,13 +187,13 @@
 		.load {
 			width: max-content;
 			max-width: calc(100% - 2rem);
-			font-size: 0.82rem;
+			font-size: var(--text-sm);
 			padding: 0.6rem 1rem 0.6rem 0.85rem;
 			white-space: nowrap;
 		}
 
 		.chrome {
-			font-size: 0.75rem;
+			font-size: var(--text-xs);
 			gap: 0.5rem;
 		}
 

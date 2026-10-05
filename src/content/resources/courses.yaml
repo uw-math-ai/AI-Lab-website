@@ -1,9 +1,5 @@
 # Edit this file to update the website. See docs/content-editing.md.
 blocks:
-  - type: heading
-    title: Math AI Courses at UW
-    id: math-ai-courses-at-uw
-    level: 2
   - type: quote
     content: >-
       Rigor has ceased to be thought of as a cumbersome style of formal dress that one has to wear on

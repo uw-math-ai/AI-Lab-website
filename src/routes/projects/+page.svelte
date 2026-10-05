@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
-	import AsciiMap from '$lib/components/AsciiMap.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 	import { projectQuarters, totalProjectCount } from '$lib/data/projects';
 	import { pages } from '$lib/data/pages';
@@ -9,6 +8,21 @@
 	import { breadcrumbs, collectionPage, graph } from '$lib/structuredData';
 
 	const { title, description } = pages.projects;
+
+	// Each card lists the quarter's actual project titles. Older pages also use project blocks for
+	// "Faculty mentors" / "Student participants"; those are people, not projects.
+	const notAProject = /mentors|participants/i;
+	function projectTitles(quarter: (typeof projectQuarters)[number]) {
+		return quarter.blocks
+			.filter((block) => block.type === 'project' && !notAProject.test(block.title))
+			.map((block) => (block as { title: string }).title.replace(/[_*]/g, ''));
+	}
+
+	// Show the first few titles and say how many more there are, so no title is cut mid-word.
+	function titleLine(titles: string[]) {
+		if (titles.length <= 5) return titles.join(' · ');
+		return `${titles.slice(0, 4).join(' · ')} · and ${titles.length - 4} more`;
+	}
 
 	let query = $state('');
 
@@ -35,16 +49,14 @@
 
 <section class="page-shell hero compact-hero">
 	<div>
-		<span class="eyebrow">Projects</span>
-		<h1>Projects by Quarter</h1>
+		<h1>Projects</h1>
 		<p>
-			All {totalProjectCount} Math AI Lab projects by academic quarter, ordered newest to oldest.
+			All {totalProjectCount} Math AI Lab projects by academic quarter.
 		</p>
 	</div>
-	<div class="hero-aside"><AsciiMap cols={44} rows={20} /></div>
 </section>
 
-<section class="page-shell section">
+<section class="page-shell section search-section">
 	<Reveal>
 		<div class="filter-row">
 			<input bind:value={query} type="search" placeholder="Search project titles, descriptions, or quarters" aria-label="Search projects" />
@@ -58,12 +70,18 @@
 					style={`--reveal-delay: ${(index % 3) * 55}ms`}
 					href={sitePath(`/projects/${quarter.slug}`)}
 				>
-					<div class="meta">
-						<span class="pill">{quarter.label}</span>
-						{#if quarter.status === 'current'}<span class="pill">current</span>{/if}
-					</div>
 					<h2>{quarter.label}</h2>
-					<p>{quarter.summary}</p>
+					{#if projectTitles(quarter).length}
+						<p class="count">
+							{projectTitles(quarter).length} {projectTitles(quarter).length === 1 ? 'project' : 'projects'}
+							{#if quarter.returningProjects !== undefined}
+								<span class="breakdown">{projectTitles(quarter).length - quarter.returningProjects} new · {quarter.returningProjects} returning</span>
+							{/if}
+						</p>
+						<p class="titles">{titleLine(projectTitles(quarter))}</p>
+					{:else}
+						<p class="titles">{quarter.summary}</p>
+					{/if}
 				</a>
 			{/each}
 		</div>
@@ -71,13 +89,14 @@
 </section>
 
 <style>
-	.compact-hero {
-		min-height: 24rem;
+
+
+
+
+	/* The search box sits close under the page title. */
+	.search-section {
+		padding-top: 1.5rem;
 	}
-
-
-
-
 
 	.filter-row {
 		margin-bottom: 0.5rem;
@@ -91,14 +110,12 @@
 	.quarter-grid {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
-		border-top: 1px solid var(--line-strong);
 		margin-top: 1rem;
 	}
 
 	.quarter-card {
 		display: grid;
-		grid-template-columns: 11rem minmax(0, 1fr);
-		gap: 0.4rem 2rem;
+		gap: 0.3rem;
 		padding: 1rem 0;
 		border: 0;
 		border-bottom: 1px solid var(--line);
@@ -108,15 +125,9 @@
 		color: var(--text);
 	}
 
-	.quarter-card .meta {
-		margin: 0;
-		align-content: start;
-		padding-top: 0.2rem;
-	}
-
 	.quarter-card h2 {
 		margin: 0;
-		font-size: 1.22rem;
+		font-size: var(--text-lg);
 		font-weight: 500;
 		line-height: 1.3;
 		color: var(--heading);
@@ -127,20 +138,20 @@
 	}
 
 	.quarter-card p {
-		grid-column: 2;
 		margin: 0;
 		color: var(--muted);
-		font-size: 0.98rem;
+		font-size: var(--text-base);
 		max-width: 72ch;
 	}
 
-	@media (max-width: 640px) {
-		.quarter-card {
-			grid-template-columns: 1fr;
-		}
-
-		.quarter-card p {
-			grid-column: 1;
-		}
+	.quarter-card .count {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 1rem;
+		font-family: var(--font-sans);
+		font-size: var(--text-xs);
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 	}
 </style>

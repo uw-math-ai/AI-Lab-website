@@ -1,185 +1,121 @@
 # Edit this file to update the website. See docs/content-editing.md.
-- title: StabilizerBench at IEEE QCE 2026
-  speaker: StabilizerBench authors
-  date: 2026-09-13
-  startTime: "13:00"
-  endTime: "14:30"
-  utcOffset: "-04:00"
-  timeZoneLabel: EDT
-  location: Room 801A, Metro Toronto Convention Centre, Toronto, Canada
-  type: Conference
-  sourceUrl: https://qce.quantum.ieee.org/2026/qce26-schedule/paper-schedule/
-  sourceLabel: IEEE program
-  organizer:
-    name: IEEE Quantum Week
-    url: https://qce.quantum.ieee.org/2026/
-  abstract: >-
-    Accepted technical paper at the IEEE International Conference on Quantum Computing and
-    Engineering (QCE 2026), in the QSYS track. Listed in the AI-Assisted Quantum Software
-    Engineering session; times shown are for the full session.
-  links:
-    - label: Paper
-      url: https://arxiv.org/abs/2604.21287
+- title: Inaugural lab meeting
+  date: 2026-10-05
+  startTime: 16:00
+  endTime: 17:30
+  location: OUG 136
+  type: Lab event
+  abstract: We're kicking off the quarter with our inaugural lab meeting. We'll introduce the
+    different projects happening in the lab, share some logistics for how things will run this
+    quarter, and give everyone a chance to get oriented and meet the broader lab community. All
+    participants and visitors are welcome to join!
 - title: Fall 2026 project leader applications open
-  speaker: Math AI Lab
   date: 2026-09-07
   startTime: 23:59
   endTime: 23:59
-  location: Online
-  type: Announcement
+  type: Lab event
   links:
     - label: Project Lead application form
       url: https://docs.google.com/forms/d/1Bl1wNdIGdc8jHBaaXI-REYfBaGwLFUDu4n3dRab2t40/viewform
+      closed: true
     - label: Proposed Fall 2026 projects
       url: /projects/fall-2026
   abstract: |-
     Project leader applications for Fall 2026 are open! We are recruiting leaders for projects in four areas: machine learning and AI for math, formalization and autoformalization, autoresearch, and AI for math education and learning.
 
     Applications are due Monday, September 7 at 11:59 pm, and earlier applications have priority. Mentors of continuing projects are required to fill it out. The project descriptions are linked below.
-- title: "TAG-DS spotlight: Does My Embedding Reflect That A = B?"
-  speaker: Samarth Rao
-  date: 2026-08-19
-  startTime: "10:20"
-  endTime: "10:40"
-  utcOffset: "-04:00"
-  timeZoneLabel: EDT
-  location: Curry Student Center Ballroom, Northeastern University, Boston, MA
-  type: Conference
-  sourceUrl: https://www.tagds.com/events/tag-ds-2026#h.basnxbwm14nc
-  sourceLabel: TAG-DS 2026
-  organizer:
-    name: TAG-DS
-    url: https://www.tagds.com/
-  abstract: >-
-    Samarth Rao presented “Does My Embedding Reflect That A = B? Evaluating Mathematical
-    Equivalence in Embedding Models” as a spotlight talk at TAG-DS 2026.
-  links:
-    - label: Slides
-      url: https://docs.google.com/presentation/d/13TMYcYC61R5DncvyIFGe_LLyjlJx0WloeLjd73mmaws/edit?slide=id.p#slide=id.p
-    - label: Paper
-      url: https://openreview.net/forum?id=kwzRA4f5zB
-    - label: Schedule
-      url: https://docs.google.com/document/d/1kDGjtp87ieDgwV534WTEOZPGBX05PsZZP9G82zQEnSc/preview
 - title: Mid-summer social event
-  speaker: Math AI Lab
   date: 2026-07-20
   startTime: 16:00
   endTime: 17:30
   location: OUG 136
-  type: Social
+  type: Lab event
   abstract: Come join us on Monday July 20th in OUG 136 to chat with your colleagues about their
     exciting research! Food and board games provided
-- title: ICML 2026
-  speaker: Math AI Lab
-  date: 2026-07-06
-  startTime: 09:00
-  endTime: 17:00
-  location: COEX Convention & Exhibition Center, Seoul, South Korea
-  type: Conference
-  sourceUrl: https://icml.cc/Conferences/2026
-  sourceLabel: ICML 2026
-  abstract: The UW Math AI Lab celebrates eight papers accepted to ICML 2026 and its workshops.
-    Congratulations to every author and project team represented in Seoul. DiScoFormer was selected
-    for an oral presentation, and Multiplication Beyond Groups received a Spotlight at the
-    Mechanistic Interpretability Workshop.
-  papers:
-    - title: "DiScoFormer: Plug-In Density and Score Estimation with Transformers"
-      url: https://arxiv.org/abs/2511.05924
-      badge: Oral presentation
-    - title: "Formalizing Numerical Analysis: An Agent Pipeline and Quality Audit Beyond Kernel
-        Acceptance"
-      url: https://arxiv.org/abs/2606.14000
-    - title: Does My Embedding Reflect That A = B? Evaluating Mathematical Equivalence in Embedding Models
-      url: https://arxiv.org/abs/2606.23959
-    - title: "Sorries Are Not the Hard Part: An Expert-Review Case Study of a Semi-Autonomous
-        Formalization"
-      url: https://arxiv.org/abs/2606.13925
-    - title: "Multiplication Beyond Groups: Stratified Fourier Mechanisms in Transformer Circuits"
-      url: https://arxiv.org/abs/2607.07066
-      badge: Spotlight
-    - title: Semi-Autonomous Formalization of the Vlasov-Maxwell-Landau Equilibrium
-      url: https://arxiv.org/abs/2603.15929
-    - title: Learned Interventions Inside Lean 4's grind
-      url: https://openreview.net/forum?id=3mZmYmeRDr
-    - title: "FactorLibrary: From Polynomials to Circuits via Recursive Subgoals"
-      url: https://arxiv.org/abs/2606.25394
   photos:
-    - src: /photos/icml-2026-coex-1.webp
-      alt: Math AI Lab members at ICML 2026 at COEX in Seoul
-      caption: Math AI Lab at ICML 2026 · COEX, Seoul, Korea
-      width: 2720
-      height: 1532
-    - src: /photos/icml-2026-coex-2.webp
-      alt: Math AI Lab group at ICML 2026 in COEX, Seoul
-      caption: ICML 2026 group photo
-      width: 2720
-      height: 1532
-    - src: /photos/icml-2026-coex-3.webp
-      alt: Math AI Lab members in front of the ICML 2026 sign at COEX
-      caption: ICML 2026 · COEX, Seoul, Korea
-      width: 932
-      height: 700
-    - src: /photos/icml-2026-coex-4.webp
-      alt: Three Math AI Lab members at ICML 2026 at COEX
-      caption: Math AI Lab members at ICML 2026 · COEX, Seoul, Korea
-      width: 2062
-      height: 1546
-    - src: /photos/icml-2026-coex-5.webp
-      alt: Five Math AI Lab members at the ICML 2026 display at COEX
-      caption: Math AI Lab at ICML 2026 · COEX, Seoul, Korea
-      width: 2720
-      height: 1532
+    - src: /photos/summer-social-2026.jpg
+      alt: Math AI Lab members seated at tables with laptops, smiling for a selfie at the summer 2026 social
+      caption: Summer social, July 20, 2026
+      width: 2880
+      height: 2160
 - title: Spring quarter poster session
-  speaker: Math AI Lab
   date: 2026-06-08
   startTime: 17:30
   endTime: 19:00
-  location: Odegaard 136 & 141
-  type: Poster Session
+  location: OUG 136 & 141
+  type: Lab event
   abstract: The spring quarter poster session will bring together every Math AI Lab team, with each
     team represented through a poster or interactive demo.
+  photos:
+    - src: /photos/spring2026-demo-day-group.jpg
+      alt: Math AI Lab members and project teams standing together at Spring 2026 demo day
+      caption: Spring 2026 demo day, June 8, 2026
+      width: 2000
+      height: 1126
+    - src: /photos/spring2026-demo-day-certificates.jpg
+      alt: Seven Math AI Lab members each holding a certificate of recognition at Spring 2026 demo day
+      caption: Certificates of recognition, Spring 2026 demo day
+      width: 2000
+      height: 1126
 - title: Neural Methods for Plasma Simulation and Mathematical Formalization
   speaker: Vasily Ilin
   date: 2026-06-05
   startTime: 14:00
   endTime: 16:00
   location: SMI 307
-  type: Final Exam
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2026-06-05/neural-methods-plasma-simulation-and-mathematical-formalization
   abstract: |-
-    Vasily Ilin's PhD defense.
-
     I will summarize my PhD research, concentrating on two areas: machine learning for plasma simulation, and AI for formalizing mathematics in Lean.
 - title: Math AI Lab social day
-  speaker: Math AI Lab
   date: 2026-06-03
   startTime: 16:00
   endTime: 17:30
-  location: Odegaard 136
-  type: Social
+  location: OUG 136
+  type: Lab event
   abstract: Join us for a Math AI Lab social day with board games, pizza, and time to celebrate the
     Lab's spring achievements, including ICLR publications, undergraduate research symposium
     posters, and mathlib contributions.
+- title: UW 2026 Lean Hackathon (May 8-10)
+  date: 2026-05-08
+  startTime: 09:00
+  endTime: 09:00
+  location: University of Washington
+  type: Workshop
+  sourceUrl: https://uw2026leanhackathon.github.io/
+  sourceLabel: Hackathon site
+  abstract: We hosted the Lean Hackathon as a focused gathering for Lean, formalized mathematics,
+    and AI-assisted mathematics at the University of Washington.
+  photos:
+    - src: /photos/lean-hackathon.jpg
+      alt: Participants at the UW 2026 Lean Hackathon
+      caption: UW Lean Hackathon
+      width: 2000
+      height: 584
+    - src: /photos/lean-hackathon-team.jpg
+      alt: UW Lean Hackathon team
+      caption: UW Lean Hackathon team
+      width: 1843
+      height: 1900
 - title: "Lean: Machine-Checked Mathematics and AI Collaboration"
   speaker: Leonardo de Moura, Senior Principal Applied Scientist in the Automated Reasoning Group at
-    AW and creator of Lean FRO
+    AWS and creator of Lean FRO
   date: 2026-05-08
   startTime: 15:30
   endTime: 16:30
   location: ECE 105
-  type: Colloquium
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2026-05-08/lean-machine-checked-mathematics-and-ai-collaboration
   abstract: |-
     Lean is a proof assistant and programming language designed to make formal verification practical. In this talk, I will describe how Lean works, what it can do today, and where it is going.
     The core idea is simple: every mathematical claim and every program can be checked by a machine. This changes what collaboration looks like: between mathematicians, between engineers, and increasingly between humans and AI systems. When a proof is machine-checked, you do not need to trust the author. You just check it.
     I will discuss recent work on proof automation and AI-assisted formalization, including experiments where multi-agent AI systems work autonomously on Lean tasks. I will also describe the Lean FRO, a nonprofit building Lean as long-term open infrastructure for mathematics and verified software.
 - title: Math AI Lab poster session
-  speaker: Math AI Lab
   date: 2026-03-16
   startTime: 16:00
   endTime: 18:00
-  location: ODE 136 & 141
-  type: Poster Session
+  location: OUG 136 & 141
+  type: Lab event
   sourceUrl: https://math.washington.edu/events/2026-03-16/math-ai-lab-poster-session
   abstract: |-
     Lean Projects
@@ -262,7 +198,7 @@
   startTime: 15:30
   endTime: 16:30
   location: PCAR 192
-  type: Colloquium
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2026-02-06/recent-advances-llms-mathematics
   abstract: I will review the progress of large language models for mathematics over the last 3 years,
     from barely solving high school level mathematics to solving some minor open problems in convex
@@ -284,7 +220,7 @@
   startTime: 15:30
   endTime: 16:30
   location: CMU B-006
-  type: Seminar
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2026-01-23/verifiable-pde-reasoning-and-modeling-neurosymbolics
   abstract: |-
     Recent progress in LLMs has transformed text and code generation, yet models still falter on PDEs (partial differential equation) where correctness, constraints, and physical consequences are critical. This talk explores how formal LLM reasoning can advance symbolic PDE modeling. First, our PDE-Controller formalizes informal PDEs, synthesizes solver-ready code, and plans subgoals to tackle nonconvex control via interactions with external solvers.
@@ -309,12 +245,11 @@
   sourceUrl: https://math.washington.edu/events/2026-01-09/lean-together
   abstract: Weekly event to learn Lean in a collaborative way. There are no prerequisites to participate.
 - title: Math AI Lab Poster Presentations
-  speaker: Math AI Lab
   date: 2025-12-10
   startTime: 16:00
   endTime: 17:30
   location: OUG 136 & 141
-  type: Poster Session
+  type: Lab event
   sourceUrl: https://math.washington.edu/events/2025-12-10/math-ai-lab-poster-presentations
   abstract: |-
     Please join us to hear about all the exciting work the Math AI Lab has been up to this quarter. This quarter's projects have been:
@@ -336,7 +271,7 @@
   startTime: 12:30
   endTime: 13:30
   location: PDL C-38
-  type: Seminar
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2025-12-05/geometry-and-expressivity-neuromanifolds-where-algebraic-geometry-meets-neural
   abstract: |-
     In this talk, I will give an overview of neuroalgebraic geometry, a new field, analogous to algebraic statistics, that uses algebraic geometry to understand different neural network architectures. Our main object of study will be a neuromanifold and its expressivity.
@@ -351,13 +286,13 @@
   date: 2025-11-21
   startTime: 12:30
   endTime: 13:30
-  location: C-038
-  type: Seminar
+  location: PDL C-38
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2025-11-21/machine-learning-accelerating-mathematical-discovery-algebraic-combinatorics-nbsp
   abstract: |-
-    Examples play a critical role in the mathematician’s workflow, enabling us to explore unfamiliar mathematical landscapes, building intuition and generating conjectures along the way. Of course, there are many settings where a far greater number of examples can be generated than could be manually examined by any one person. On the other hand, recent progress in AI has resulted in pattern recognition capabilities that can capture nuanced structural features in data at huge scales.
+    Examples play a critical role in the mathematician's workflow, enabling us to explore unfamiliar mathematical landscapes, building intuition and generating conjectures along the way. Of course, there are many settings where a far greater number of examples can be generated than could be manually examined by any one person. On the other hand, recent progress in AI has resulted in pattern recognition capabilities that can capture nuanced structural features in data at huge scales.
 
-    In this talk we discuss the use of AI for conjecture generation in algebraic combinatorics. We will start by describing what we have learned about the process of putting together a ‘math dataset’ aimed at machine learning. We then describe our Algebraic Combinatorics Dataset Repository where we translated open problems and foundational results into a machine learning friendly format.
+    In this talk we discuss the use of AI for conjecture generation in algebraic combinatorics. We will start by describing what we have learned about the process of putting together a ‘math dataset' aimed at machine learning. We then describe our Algebraic Combinatorics Dataset Repository where we translated open problems and foundational results into a machine learning friendly format.
 
     We then discuss a specific example where we used graph neural networks and mechanistic interpretability to re-discover several theorems which characterize mutation equivalence classes of quivers.
 - title: "Proving and Improving: Language Models for Theorem Proving and Proof Shortening in Lean"
@@ -365,8 +300,8 @@
   date: 2025-10-31
   startTime: 12:30
   endTime: 13:30
-  location: PDL C-038
-  type: Seminar
+  location: PDL C-38
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2025-10-31/proving-and-improving-language-models-theorem-proving-and-proof-shortening-lean
   abstract: |-
     Large language models (LLMs) have made steady progress in formal mathematics, achieving near-International Mathematical Olympiad (IMO) performance. This talk presents two complementary advances toward more capable and interpretable formal proving systems. First, we introduce LeanDojo, a foundational open-source toolkit bridging ML and Lean, enabling large-scale data extraction, interactive training, and the development of ReProver, a retrieval-augmented Lean prover.
@@ -391,8 +326,8 @@
   date: 2025-10-24
   startTime: 12:30
   endTime: 13:30
-  location: PDL-C38 and Zoom
-  type: Seminar
+  location: PDL C-38 and Zoom
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2025-10-24/cayleypy-artificial-intelligence-methods-group-and-graph-theories
   abstract: |-
     We will present an AI-based open source Python library "CayleyPy" which can handle googol-size Cayley graphs and significantly outperforms classical computer algebra systems GAP/SAGE for several tasks. Hundreds conjectures and several results were obtained with its help. Classical group theory tasks e.g. decomposition of the group elements, can be rephrased as standard reinforcement learning tasks, and approached in a similar manner as Google Deepmind's AlphaGo/Zero.
@@ -403,8 +338,8 @@
   date: 2025-10-17
   startTime: 12:30
   endTime: 13:30
-  location: PDL-C38 and Zoom
-  type: Seminar
+  location: PDL C-38 and Zoom
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2025-10-17/seed-prover-deep-and-broad-reasoning-automated-theorem-proving
   abstract: Seed-Prover is the current best Lean model, achieving 100% on minif2f, 50% on PutnamBench
     and gold-level performance on the 2025 IMO. I will briefly survey the history of formal theorem
@@ -416,7 +351,7 @@
   startTime: 15:30
   endTime: 16:30
   location: PDL C-38
-  type: Seminar
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2025-05-30/ai-meets-mathematics-survey-recent-breakthroughs-and-emerging-directions
   abstract: |-
     Abstract:
@@ -428,12 +363,12 @@
     2. Automated theorem proving using LLMs, where transformer-based models now guide symbolic search of formal proofs and achieve competitive performances on benchmarks such as Mini-F2F and PutnamBench.
     3. Conjecturing, where programming language helps with new knowledge generation in Euclidean Geometry and pairing conjecturer and prover gives advances in performance.
 - title: Formalizing Engineering Mathematics with Lean
-  speaker: Eric Klavins, Proffessor at ECE, UW
+  speaker: Eric Klavins, Professor at ECE, UW
   date: 2025-04-17
   startTime: 15:00
   endTime: 16:00
   location: PDL C-38
-  type: Seminar
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2025-04-17/formalizing-engineering-mathematics-lean
   abstract: |-
     I will describe our recent efforts to formalize, in Lean, fundamental concepts from engineering mathematics including signal processing, control theory, and formal verification. I'll start with an overview of the relationship between programming languages and formal logic, which provides an astounding avenue for programmers and engineers to learn and hopefully contribute to mathematics. I will give several examples of projects engineering students have explored.
@@ -445,19 +380,18 @@
   startTime: 14:30
   endTime: 15:30
   location: PDL C-38
-  type: Seminar
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2025-03-18/lower-bounds-neural-networks-and-slicing-hypercube
   abstract: |-
     Abstract:
 
     What is the size of the smallest neural network that computes the parity function? How many hyperplanes are needed to slice the Boolean hypercube? In this talk we will discuss the connection between the problems as well as lower bounds, using methods from convex geometry, probability and combinatorics.
 - title: Math AI Lab Winter 2025 Projects
-  speaker: Math AI Lab
   date: 2025-03-14
   startTime: 14:30
   endTime: 16:00
   location: CMU B-006
-  type: Poster Session
+  type: Lab event
   sourceUrl: https://math.washington.edu/events/2025-03-14/math-ai-lab-winter-2025-projects
   abstract: |-
     Come see what the Math AI Lab (aka eXperimental Lean Lab) has been up to this quarter. Undergraduates will present their work on the following projects:
@@ -475,18 +409,17 @@
   startTime: 12:30
   endTime: 13:30
   location: PDL C-401
-  type: Seminar
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2025-01-30/diffusion-generative-modeling-making-pictures-noise-math
   abstract: How does ChatGPT make pictures? Turns out it's a lot of SDEs, probability and a bit of
     optimization. I will introduce the basic building blocks of the algorithm, such as reversing the
     OU process, and will show some examples using the MNIST dataset of handwritten digits.
 - title: Formalizing mathematics in the eXperimental Lean Lab
-  speaker: Experimental Lean Lab
   date: 2024-12-03
   startTime: 16:30
   endTime: 17:30
   location: CMU B-006
-  type: Information Session
+  type: Lab event
   sourceUrl: https://math.washington.edu/events/2024-12-03/formalizing-mathematics-experimental-lean-lab
   abstract: |-
     The eXperimental Lean Lab will showcase using Lean to formalize real mathematics. We have five groups formalizing 1) generating functions, 2) central limit theorem, 3) topology for algebraic geometry, 4) examples in commutative algebra, and 5) metaprogramming in Lean.
@@ -497,8 +430,8 @@
   date: 2024-05-20
   startTime: 13:00
   endTime: 14:20
-  location: Denny Hall (DEN), 113
-  type: Seminar
+  location: DEN 113
+  type: Talk
   sourceUrl: https://math.washington.edu/events/2024-05-20/generating-functions-lean
   abstract: In this talk, we will walk through how to formalize some examples from Herbert Wilf's
     "generatingfunctionology". We'll see how to define and work with power series in Lean, and work

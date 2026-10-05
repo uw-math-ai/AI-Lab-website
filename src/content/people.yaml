@@ -145,7 +145,7 @@ members:
     role: Deep Learning for Number Theory
   - name: Alan Chang
     role: Provable Computation
-  - name: Alexandra Aiello
+  - name: Lexi Aiello
     role: Zero-Knowledge Proofs
   - name: Alexandre Borentain
     role: RL for Polynomials
@@ -346,21 +346,46 @@ members:
     studentLevel: undergraduate
     counterStartQuarter: summer-2026
 photos:
+  - src: /photos/spring2026-demo-day-group.jpg
+    alt: Math AI Lab members and project teams standing together at Spring 2026 demo day
+    caption: Spring 2026 demo day, June 8, 2026
+    width: 2000
+    height: 1126
+  - src: /photos/spring2026-demo-day-certificates.jpg
+    alt: Seven Math AI Lab members each holding a certificate of recognition at Spring 2026 demo day
+    caption: Certificates of recognition, Spring 2026 demo day
+    width: 2000
+    height: 1126
+  - src: /photos/summer-social-2026.jpg
+    alt: Math AI Lab members seated at tables with laptops, smiling for a selfie at the summer 2026 social
+    caption: Summer social, July 20, 2026
+    width: 2880
+    height: 2160
   - src: /photos/fall2025.jpg
     alt: Fall 2025 Math AI Lab
     caption: Fall 2025 Math AI Lab
+    width: 3024
+    height: 1702
   - src: /photos/winter2025.jpg
     alt: Winter 2025 Math AI Lab
     caption: Winter 2025 Math AI Lab
+    width: 3313
+    height: 1863
   - src: /photos/lean-hackathon.jpg
     alt: UW Lean Hackathon
     caption: UW Lean Hackathon
+    width: 2000
+    height: 584
   - src: /photos/iclr-2026.jpg
     alt: ICLR 2026, Rio de Janeiro
     caption: ICLR 2026, Rio de Janeiro
+    width: 1500
+    height: 844
   - src: /photos/lean-hackathon-team.jpg
     alt: UW Lean Hackathon team
     caption: UW Lean Hackathon
+    width: 1843
+    height: 1900
   - src: /photos/icml-2026-coex-1.webp
     alt: Math AI Lab members at ICML 2026 at COEX in Seoul
     caption: Math AI Lab at ICML 2026 · COEX, Seoul, Korea

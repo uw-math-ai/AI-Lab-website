@@ -1,353 +1,446 @@
 # Edit this file to update the website. See docs/content-editing.md.
 - id: conference-workshop-papers
-  title: Conference & Workshop Papers
-  description: Peer-reviewed and workshop papers by Math AI Lab members across machine learning,
-    theorem proving, plasma physics, and mathematical search.
+  title: Publications
+  description: Peer-reviewed papers at conferences and workshops.
   countsAsPaper: true
   items:
-    - venue: IEEE QCE 2026, QSYS track
-      badge: Accepted
+    - venues:
+        - name: IEEE QCE 2026, QSYS track
+          badge: Poster
       title: "StabilizerBench: A Benchmark for AI-Assisted Quantum Error Correction Circuit Synthesis"
       authors: Andres Paz, Christian Tarta, Cordelia Yuqiao Li, Mayee Sun, Sarju Patel, Sylvie Lausier
-      abstract: A benchmark suite for evaluating AI systems on synthesizing quantum error-correcting
-        stabilizer circuits, with systematic coverage of code families and circuit constraints
-        relevant to near-term quantum hardware.
+      abstract: >-
+        As quantum hardware scales toward fault tolerant operation, the demand for correct quantum error
+        correction (QEC) circuits far outpaces manual design capacity. AI agents offer a promising path
+        to automating this synthesis, yet no benchmark exists to measure their progress on the
+        specialized task of generating QEC circuits. We introduce StabilizerBench, a benchmark suite of
+        192 stabilizer codes spanning 12 families, 4-196 qubits, and distances 2-21, organized into
+        three tasks of increasing difficulty: state preparation circuit generation, circuit optimization
+        under semantic constraints, and fault tolerant circuit synthesis. Although motivated by QEC,
+        stabilizer circuits exercise core competencies required for general quantum programming,
+        including gate decomposition, qubit routing, and semantic preserving transformations, while
+        admitting efficient verification via the Gottesman Knill theorem, enabling the benchmark to
+        scale to large codes without the exponential cost of full unitary comparison. We define a
+        unified generator weighted scoring system with two tiers: a capability score measuring breadth
+        of success and a quality score capturing circuit merit. We also introduce continuous fault
+        tolerance and optimization metrics that grade error resilience and circuit improvements beyond
+        binary pass or fail. Following the design of classical benchmarks such as SWE-bench,
+        StabilizerBench specifies inputs, verification oracles, and scoring but leaves prompts and agent
+        strategies open. We evaluate three frontier AI agents and find the benchmark discriminates
+        across models and tasks with substantial headroom for improvement.
       url: https://arxiv.org/abs/2604.21287
       linkLabel: arXiv:2604.21287
-    - venue: ICML 2026
-      badge: Oral presentation
-      featured: true
+    - venues:
+        - name: ICML 2026
+          badge: Oral presentation
+      featured: 1
       title: "DiScoFormer: Plug-In Density and Score Estimation with Transformers"
       authors: Vasily Ilin, Peter Sushko, Ranjay Krishna
-      abstract: "Estimating probability density and its score from samples remains a core problem in
-        generative modeling, Bayesian inference, and kinetic theory. Existing methods are
-        bifurcated: classical kernel density estimators (KDE) generalize across distributions but
-        suffer from the curse of dimensionality, while modern neural score models achieve high
-        precision but require retraining for every target distribution. We introduce DiScoFormer
-        (Density and Score Transformer), a “train-once, infer-anywhere” equivariant Transformer that
-        maps i.i.d. samples to both density values and score vectors, generalizing across
-        distributions and sample sizes. Analytically, we prove that self-attention can recover
-        normalized KDE, establishing it as a functional generalization of kernel methods;
-        empirically, individual attention heads learn multi-scale, kernel-like behaviors. The model
-        converges faster and achieves higher precision than KDE for density estimation, and provides
-        a high-fidelity plug-in score oracle for score-debiased KDE, Fisher information computation,
-        and Fokker-Planck-type PDEs."
+      abstract: >-
+        Estimating probability density and its score from samples remains a core problem in generative
+        modeling, Bayesian inference, and kinetic theory. Existing methods are bifurcated: classical
+        kernel density estimators (KDE) generalize across distributions but suffer from the curse of
+        dimensionality, while modern neural score models achieve high precision but require retraining
+        for every target distribution. We introduce DiScoFormer (Density and Score Transformer), a
+        "train-once, infer-anywhere" equivariant Transformer that maps i.i.d. samples to both density
+        values and score vectors, generalizing across distributions and sample sizes. Analytically, we
+        prove that self-attention can recover normalized KDE, establishing it as a functional
+        generalization of kernel methods; empirically, individual attention heads learn multi-scale,
+        kernel-like behaviors. The model converges faster and achieves higher precision than KDE for
+        density estimation, and provides a high-fidelity plug-in score oracle for score-debiased KDE,
+        Fisher information computation, and Fokker-Planck-type PDEs.
       url: https://arxiv.org/abs/2511.05924
       linkLabel: arXiv:2511.05924
-    - venue: ICML 2026 Workshop
-      featured: true
+    - venues:
+        - name: ICML 2026, AI for Math Workshop
+          badge: Poster
       title: "Formalizing Numerical Analysis: An Agent Pipeline and Quality Audit Beyond Kernel
         Acceptance"
       authors: Theodore Meek, Siyuan Ge, Di Qiu Xiang, Simon Chess, Vasily Ilin
-      abstract: "Recent work has demonstrated that coding agents can formalize entire advanced mathematics
+      abstract: >-
+        Recent work has demonstrated that coding agents can formalize entire advanced mathematics
         textbooks in Lean 4, yet existing efforts concentrate on branches of mathematics already
         well-represented in mathlib and measure success solely through kernel acceptance. We address
         both limitations by applying a coding agent to formalize Numerical Methods for Ordinary
-        Differential Equations, a textbook in numerical analysis that is largely absent from
-        mathlib, stressing the agent's capacity to develop new theory from scratch. We further
-        introduce a systematic, reproducible three-dimensional framework for evaluating the quality
-        of agent-produced formalizations beyond compilation: semantic correctness, Mathlib reuse,
-        and cross-file reuse via LLM-as-judge methods. Applying this framework to our own
-        formalization and to the released outputs of RepoProver and M2F, we uncover recurring
-        unfaithful formalization patterns, including incomplete multi-part statements, added
-        weakening hypotheses, and parameter restrictions, that kernel acceptance entirely obscures.
-        Our results suggest that compilation-based metrics substantially overstate formalization
-        quality, and we provide a reproducible audit methodology to support more rigorous evaluation
-        of future autoformalization systems."
+        Differential Equations, a textbook in numerical analysis that is largely absent from mathlib,
+        stressing the agent's capacity to develop new theory from scratch. We further introduce a
+        systematic, reproducible three-dimensional framework for evaluating the quality of
+        agent-produced formalizations beyond compilation: semantic correctness, Mathlib reuse, and
+        cross-file reuse via LLM-as-judge methods. Applying this framework to our own formalization and
+        to the released outputs of RepoProver and M2F, we uncover recurring unfaithful formalization
+        patterns, including incomplete multi-part statements, added weakening hypotheses, and parameter
+        restrictions, that kernel acceptance entirely obscures. Our results suggest that
+        compilation-based metrics substantially overstate formalization quality, and we provide a
+        reproducible audit methodology to support more rigorous evaluation of future autoformalization
+        systems.
       url: https://arxiv.org/abs/2606.14000
       linkLabel: arXiv:2606.14000
-    - venue: TAG-DS 2026; ICML 2026 Workshop
-      badge: TAG-DS Spotlight
+    - venues:
+        - name: TAG-DS 2026
+          badge: Spotlight
+        - name: ICML 2026, AI for Math Workshop
+          badge: Poster
       featured: true
       title: Does My Embedding Reflect That A = B? Evaluating Mathematical Equivalence in Embedding Models
       authors: Jiaying Ye, Samarth Rao, Leo Carlin, Kedar Chintalapati, Saharsh Bhargava, Rachit Jaiswal,
         Michael Zhou, Jared Darlington, Jiahe Lu, Jarod Alper, Vasily Ilin, Henry Kvinge
-      abstract: Because mathematics is highly abstract, a single statement can take very different forms
-        depending on what subfield it is framed in. There are many examples where breakthroughs
-        occurred after researchers discovered that a question had already been answered in a
-        different field. At the same time, the growth of new resources related to formalization has
-        increased the need for tools that enable efficient and reliable navigation between
-        mathematical “languages” (e.g., from Lean to natural language). In this paper, we
-        investigate whether current embedding models capture mathematical equivalence. To do this,
-        we introduce the Mathematically Equivalent but Lexically Different Pairs (MELD) Dataset, a
-        collection of mathematically equivalent statements that are expressed in very different
-        language. We show that current state-of-the-art embedding models tend to group statements by
-        the terminology used to make them instead of the underlying math. Motivated by this, we
-        propose a contrastive approach to learning embeddings of mathematical text that focuses on
-        aligning informal statements with different formalizations. Our experiments demonstrate that
-        this leads to improvements not only on informal-formal retrieval tasks but also on MELD,
-        which only contains natural language statements.
+      abstract: >-
+        Because mathematics is highly abstract, a single statement can take very different forms
+        depending on what subfield it is framed in. There are many examples where breakthroughs occurred
+        after researchers discovered that a question had already been answered in a different field. At
+        the same time, the growth of new resources related to formalization has increased the need for
+        tools that enable efficient and reliable navigation between mathematical 'languages' (e.g., from
+        Lean to natural language). In this paper, we investigate whether current embedding models
+        capture mathematical equivalence. To do this, we introduce the Mathematically Equivalent but
+        Lexically Different Pairs (MELD) Dataset, a collection of mathematically equivalent statements
+        that are expressed in very different language. We show that current state-of-the-art embedding
+        models tend to group statements by the terminology used to make them instead of the underlying
+        math. Motivated by this, we propose a contrastive approach to learning embeddings of
+        mathematical text that focuses on aligning informal statements with different formalizations.
+        Our experiments demonstrate that this leads to improvements not only on informal-formal
+        retrieval tasks but also on MELD, which only contains natural language statements.
       url: https://arxiv.org/abs/2606.23959
       linkLabel: arXiv:2606.23959
-    - venue: ICML 2026 Workshop
-      featured: true
+    - venues:
+        - name: ICML 2026, AI for Math Workshop
+          badge: Poster
       title: "Sorries Are Not the Hard Part: An Expert-Review Case Study of a Semi-Autonomous
         Formalization"
       authors: Vasily Ilin, Brian Nugent
-      abstract: "Large language models can often close proof gaps in interactive theorem provers, but a
-        verified theorem is not the same thing as a reusable library contribution. We study this
-        distinction through a detailed case study: a semi-autonomous formalization of Grothendieck's
-        vanishing theorem. The initial version compiles with no sorries, but an expert review found
-        serious problems in definitions, theorem generality, file organization, and the API. We then
-        ran a review-driven refactor and compression process and obtained a second expert review.
-        The before-and-after comparison shows a sharp split: agents adapted well to local,
-        mechanically checkable feedback, but remained weak at choosing definitions and designing
-        APIs. We argue that autoformalization should be evaluated not only by closed sorries, but by
-        whether the resulting formalization survives expert review."
+      abstract: >-
+        Large language models can often close proof gaps in interactive theorem provers, but a verified
+        theorem is not the same thing as a reusable library contribution. We study this distinction
+        through a detailed case study: a semi-autonomous formalization of Grothendieck's vanishing
+        theorem. The initial version compiles with no sorries, but an expert review found serious
+        problems in definitions, theorem generality, file organization, and the API. We then ran a
+        review-driven refactor and compression process and obtained a second expert review. The
+        before-and-after comparison shows a sharp split: agents adapted well to local, mechanically
+        checkable feedback, but remained weak at choosing definitions and designing APIs. We argue that
+        autoformalization should be evaluated not only by closed sorries, but by whether the resulting
+        formalization survives expert review.
       url: https://arxiv.org/abs/2606.13925
       linkLabel: arXiv:2606.13925
-    - venue: ICML 2026, Mechanistic Interpretability Workshop
-      badge: Spotlight
+    - venues:
+        - name: ICML 2026, Mechanistic Interpretability Workshop
+          badge: Spotlight
       featured: true
       title: "Multiplication Beyond Groups: Stratified Fourier Mechanisms in Transformer Circuits"
       authors: Zitong Andrew Chen, Junaid Hasan, Akhil Srinivasan, Hemkesh Bandi, Jarod Alper
-      abstract: "Transformers have demonstrated a remarkable ability to learn algorithmic reasoning, yet
+      abstract: >-
+        Transformers have demonstrated a remarkable ability to learn algorithmic reasoning, yet
         mechanistic analyses have mostly focused on globally invertible operations such as cyclic
         addition and group composition. In this work, we investigate how small transformers learn
-        modular integer multiplication over composite moduli, a fundamentally non-invertible
-        operation due to the presence of zero-divisors. We propose the monoid extension: a localized
+        modular integer multiplication over composite moduli, a fundamentally non-invertible operation
+        due to the presence of zero-divisors. We propose the monoid extension: a localized
         generalization of Group Composition via Representation (GCR) that suggests the learned
-        computation does not rely on a single global representation space. Instead, the model
-        partitions the input space into local hierarchical algebraic regions, where group-like
-        structure survives and Fourier mechanisms can be applied. In transformers trained on
-        square-free modular multiplication, we find that embeddings organize around these regions,
-        attention exhibits class-sensitive routing and low-rank write directions, and local
-        character features explain a large fraction of the model's output logits. Our results
-        suggest that representation-theoretic mechanisms previously identified for group operations
-        can extend beyond groups to more general structures."
+        computation does not rely on a single global representation space. Instead, the model partitions
+        the input space into local hierarchical algebraic regions, where group-like structure survives
+        and Fourier mechanisms can be applied. In transformers trained on square-free modular
+        multiplication, we find that embeddings organize around these regions, attention exhibits
+        class-sensitive routing and low-rank write directions, and local character features explain a
+        large fraction of the model's output logits. Our results suggest that representation-theoretic
+        mechanisms previously identified for group operations can extend beyond groups to more general
+        structures.
       url: https://arxiv.org/abs/2607.07066
       linkLabel: arXiv:2607.07066
-    - venue: ICML 2026 Workshop
+    - venues:
+        - name: ICML 2026, AI for Math Workshop
+          badge: Poster
       featured: true
       title: Semi-Autonomous Formalization of the Vlasov-Maxwell-Landau Equilibrium
       authors: Vasily Ilin
-      abstract: "We present a complete Lean 4 formalization of the equilibrium characterization in the
-        Vlasov-Maxwell-Landau (VML) system, which describes the motion of charged plasma. The
-        project demonstrates the full AI-assisted mathematical research loop: an AI reasoning model
-        (Gemini DeepThink) generated the proof from a conjecture, an agentic coding tool (Claude
-        Code) translated it into Lean from natural-language prompts, a specialized prover
-        (Aristotle) closed 111 lemmas, and the Lean kernel verified the result. A single
-        mathematician supervised the process over 10 days at a cost of $200, writing zero lines of
-        code. The entire development process is public: all 229 human prompts, and 213 git commits
-        are archived in the repository. We report detailed lessons on AI failure modes — hypothesis
-        creep, definition-alignment bugs, agent avoidance behaviors — and on what worked: the
-        abstract/concrete proof split, adversarial self-review, and the critical role of human
-        review of key definitions and theorem statements. Notably, the formalization was completed
-        before the final draft of the corresponding math paper was finished."
+      abstract: >-
+        We present a complete Lean 4 formalization of the equilibrium characterization in the
+        Vlasov-Maxwell-Landau (VML) system, which describes the motion of charged plasma. The project
+        demonstrates the full AI-assisted mathematical research loop: an AI reasoning model (Gemini
+        DeepThink) generated the proof from a conjecture, an agentic coding tool (Claude Code)
+        translated it into Lean from natural-language prompts, a specialized prover (Aristotle) closed
+        111 lemmas, and the Lean kernel verified the result. A single mathematician supervised the
+        process over 10 days at a cost of $200, writing zero lines of code. The entire development
+        process is public: all 229 human prompts, and 213 git commits are archived in the repository. We
+        report detailed lessons on AI failure modes -- hypothesis creep, definition-alignment bugs,
+        agent avoidance behaviors -- and on what worked: the abstract/concrete proof split, adversarial
+        self-review, and the critical role of human review of key definitions and theorem statements.
+        Notably, the formalization was completed before the final draft of the corresponding math paper
+        was finished.
       url: https://arxiv.org/abs/2603.15929
       linkLabel: arXiv:2603.15929
-    - venue: ICML 2026 Workshop
-      featured: true
+    - venues:
+        - name: ICML 2026, AI for Math Workshop
+          badge: Poster
       title: Learned Interventions Inside Lean 4's grind
       authors: Evan Wang, Simon Chess, Sophie Szeto, Theodore Meek
-      abstract: "Lean 4's grind tactic combines congruence closure, e-matching, and case-splitting into a
-        single automated solver, and like any such solver, it relies on hand-tuned heuristics to
-        decide what to instantiate and where to case-split. These heuristics are tempting targets
-        for learning, but there is a catch: because grind's search is non-monotone, a learned
-        heuristic that helps one proof can break another, and an always-on replacement usually nets
-        out near zero. We avoid this by invoking a learned intervention only after stock grind has
-        already failed: a failure-triggered cascade that, by construction, cannot lose a proof grind
-        already had. We apply it to two of grind's internal decisions. A cost-aware e-match filter
-        solves two more theorems on a held-out set of 855 and runs about 5% faster. A lookahead
-        step, run only where stock grind fails, proves five theorems it otherwise times out on. We
-        also report the negative result that motivated the design: across four feature-based models,
-        statically predicting the correct case split is no better than random, because whether a
-        split explodes is a runtime property that the features do not capture. Our results suggest
-        that learning within theorem-proving tactics is most effective as a mechanism for deciding
-        when and how to spend bounded search, backed by a reliable symbolic fallback."
-      url: https://openreview.net/forum?id=3mZmYmeRDr
-      linkLabel: OpenReview
-    - venue: ICML 2026 Workshop
+      abstract: >-
+        Lean 4's grind tactic combines congruence closure, E-matching, and case-splitting into a single
+        automated solver, and like any such solver, it relies on hand-tuned heuristics to decide what to
+        instantiate and where to case-split. These heuristics are tempting targets for learning, but
+        there is a catch: because grind's search is non-monotone, a learned heuristic that helps one
+        proof can break another, and an always-on replacement usually nets out near zero. We avoid this
+        by invoking a learned intervention only after stock grind has already failed: a
+        failure-triggered cascade that, by construction, cannot lose a proof grind already had. We apply
+        it to two of grind's internal decisions. A cost-aware E-matching filter solves slightly more
+        problems and runs about 5% faster. A lookahead step proves five theorems it otherwise times out
+        on. We also report the negative result that motivated the design: across four feature-based
+        models, statically predicting the correct case split is no better than random, because whether a
+        split explodes is a runtime property that the features do not capture. Our results suggest that
+        learning within theorem-proving tactics is most effective as a mechanism for deciding when and
+        how to spend bounded search, backed by a reliable symbolic fallback.
+      url: https://arxiv.org/abs/2607.22972
+      linkLabel: arXiv:2607.22972
+    - venues:
+        - name: ICML 2026, AI for Math Workshop
+          badge: Poster
       featured: true
       title: "FactorLibrary: From Polynomials to Circuits via Recursive Subgoals"
       authors: Rohan Pandey, Michael Ruofan Zeng, Weikun K. Zhang, Kaijie Jin, Naomi Morato, Archit
         Ganapule, Bhaumik Mehta, Jarod Alper
-      abstract: Finding minimal arithmetic circuits for polynomials over finite fields is a
-        combinatorially hard problem central to algebraic complexity theory. We formulate it as a
-        reinforcement learning problem in two directions, bottom-up and top-down. To address the
-        challenge of a fast-growing combinatorial search space, we introduce FactorLibrary, which
-        stores factorizable subexpressions that serve as reusable subgoals across training episodes.
-        We trained a bottom-up agent with Gumbel-PPO-MCTS and two top-down agents with PPO+MCTS and
-        SAC. The PPO+MCTS top-down agent exhibited the most stable performance, finding certified
-        optimal circuits up to complexity 8 with a success rate of 91.8%.
+      abstract: >-
+        Finding minimal arithmetic circuits for polynomials over finite fields is a combinatorially hard
+        problem central to algebraic complexity theory. We formulate it as a reinforcement learning
+        problem in two directions, bottom-up and top-down. To address the challenge of a fast-growing
+        combinatorial search space, we introduce FactorLibrary, which stores factorizable subexpressions
+        that serve as reusable subgoals across training episodes. We trained a bottom-up agent with
+        Gumbel-PPO-MCTS and two top-down agents with PPO+MCTS and SAC. The PPO+MCTS top-down agent
+        exhibited the most stable performance, finding certified optimal circuits up to complexity 8
+        with a success rate of 91.8%.
       url: https://arxiv.org/abs/2606.25394
       linkLabel: arXiv:2606.25394
-    - venue: ICLR 2026, Logical Reasoning of LLMs Workshop
+    - venues:
+        - name: NeurIPS 2026 Evaluations and Datasets Track
+          badge: Poster
+        - name: ICLR 2026, Logical Reasoning of LLMs Workshop
+          badge: Poster
+          showOnHome: false
+      featured: 2
       title: Semantic Search over 9 Million Mathematical Theorems
       authors: Luke Alexander, Eric Leonen, Sophie Szeto, Artemii Remizov, Ignacio Tejeda, Jarod Alper,
         Giovanni Inchiostro, Vasily Ilin
-      abstract: Searching for mathematical results remains difficult because most tools retrieve entire
-        papers, while mathematicians and theorem-proving agents often seek a specific theorem. This
-        work introduces semantic theorem retrieval across a unified corpus of 9.2 million theorem
-        statements.
-      url: https://openreview.net/forum?id=4dyJvwEyaT
-      linkLabel: OpenReview
-    - venue: ICLR 2026, VerifAI Workshop
+      abstract: >-
+        Searching for mathematical results remains difficult: most existing tools retrieve entire
+        papers, while mathematicians and theorem-proving agents often seek a specific theorem, lemma, or
+        proposition that answers a query. While semantic search has seen rapid progress, its behavior on
+        large, highly technical corpora such as research-level mathematical theorems remains poorly
+        understood. In this work, we introduce and study semantic theorem retrieval at scale over a
+        unified corpus of 9.2 million theorem statements extracted from arXiv and seven other sources,
+        representing the largest publicly available corpus of human-authored, research-level theorems.
+        We represent each theorem with a short natural-language description as a retrieval
+        representation and systematically analyze how representation context, language model choice,
+        embedding model, and prompting strategy affect retrieval quality. On a curated evaluation set of
+        theorem-search queries written by professional mathematicians, our approach substantially
+        improves both theorem-level and paper-level retrieval compared to existing baselines,
+        demonstrating that semantic theorem search is feasible and effective at web scale. The project
+        page, search tool, dataset, REST API, and MCP server are available at theoremsearch.com.
+      url: https://arxiv.org/abs/2602.05216
+      linkLabel: arXiv:2602.05216
+    - venues:
+        - name: ICLR 2026, VerifAI Workshop
+          badge: Poster
       title: Learning to Repair Lean Proofs from Compiler Feedback
       authors: Evan Wang, Simon Chess, Daniel Lee, Siyuan Ge, Ajit Mallavarapu, Jarod Alper, Vasily Ilin
-      abstract: As neural theorem provers become increasingly agentic, the ability to interpret and act on
-        compiler feedback is critical. This work studies a fine-tuned repair model trained on
-        erroneous Lean proofs paired with compiler diagnostics and corrections.
-      url: https://openreview.net/forum?id=fF46jVTjS8
-      linkLabel: OpenReview
-    - venue: ICLR 2026, AI with Recursive Self-Improvement Workshop
+      abstract: >-
+        As neural theorem provers become increasingly agentic, the ability to interpret and act on
+        compiler feedback is critical. However, existing Lean datasets consist almost exclusively of
+        correct proofs, offering little supervision for understanding and repairing failures. We study
+        Lean proof repair as a supervised learning problem: given an erroneous proof and compiler
+        feedback, predict both a corrected proof and a natural-language diagnosis grounded in the same
+        feedback. We introduce APRIL (Automated Proof Repair in Lean), a dataset of 260,000 supervised
+        tuples pairing systematically generated proof failures with compiler diagnostics and aligned
+        repair and explanation targets. Training language models on APRIL substantially improves repair
+        accuracy and feedback-conditioned reasoning; in our single-shot repair evaluation setting, a
+        finetuned 4B-parameter model outperforms the strongest open-source baseline. We view
+        diagnostic-conditioned supervision as a complementary training signal for feedback-using
+        provers. Our dataset is available at huggingface.co/datasets/uw-math-ai/APRIL.
+      url: https://arxiv.org/abs/2602.02990
+      linkLabel: arXiv:2602.02990
+    - venues:
+        - name: ICLR 2026, AI with Recursive Self-Improvement Workshop
+          badge: Poster
       title: "CircuitBuilder: From Polynomials to Circuits via Reinforcement Learning"
       authors: Weikun K. Zhang, Rohan Pandey, Bhaumik Mehta, Kaijie Jin, Naomi Morato, Archit Ganapule,
         Michael Ruofan Zeng, Jarod Alper
-      abstract: Motivated by auto-proof generation and Valiant's VP vs. VNP conjecture, this project
-        formulates arithmetic circuit discovery as a single-player game where a reinforcement
-        learning agent builds a circuit within a fixed number of operations.
-      url: https://openreview.net/forum?id=JNsTWIukjQ
-      linkLabel: OpenReview
-    - venue: ICLR 2026, AI & PDE Workshop
+      abstract: >-
+        Motivated by auto-proof generation and Valiant's VP vs. VNP conjecture, we study the problem of
+        discovering efficient arithmetic circuits to compute polynomials, using addition and
+        multiplication gates. We formulate this problem as a single-player game, where an RL agent
+        attempts to build the circuit within a fixed number of operations. We implement an
+        AlphaZero-style training loop and compare two approaches: Proximal Policy Optimization with
+        Monte Carlo Tree Search (PPO+MCTS) and Soft Actor-Critic (SAC). SAC achieves the highest success
+        rates on two-variable targets, while PPO+MCTS scales to three variables and demonstrates steady
+        improvement on harder instances. These results suggest that polynomial circuit synthesis is a
+        compact, verifiable setting for studying self-improving search policies.
+      url: https://arxiv.org/abs/2603.17075
+      linkLabel: arXiv:2603.17075
+    - venues:
+        - name: ICLR 2026, AI & PDE Workshop
+          badge: Poster
       title: A Neural Score-Based Particle Method for the Vlasov-Maxwell-Landau System
       authors: Vasily Ilin, Jingwei Hu
       abstract: Plasma modeling is central to the design of nuclear fusion reactors, but simulating
         collisional plasma kinetics from first principles remains computationally challenging. This
         work introduces a neural score-based approach for the Vlasov-Maxwell-Landau system.
-      url: https://openreview.net/forum?id=0wp8jxxxGT
-      linkLabel: OpenReview
+      url: https://arxiv.org/abs/2603.25832
+      linkLabel: arXiv:2603.25832
 - id: preprints
   title: Preprints
-  description: Current preprints and project papers from the lab.
+  description: Current working papers.
   countsAsPaper: true
   items:
-    - venue: arXiv Preprint
+    - venues:
+        - name: arXiv Preprint
       title: "TheoremGraph: Bridging Formal and Informal Mathematics"
       authors: Simon Kurgan, Evan Wang, Eric Leonen, Sophie Szeto, Luke Alexander, Artemii Remizov, Jarod
         Alper, Giovanni Inchiostro, Vasily Ilin
-      abstract: "Mathematical knowledge is organized around statements and their dependencies, but this
-        structure is exposed unevenly: informal papers cite mostly at the document level, while
-        formal libraries record fine-grained dependencies over a much smaller body of mathematics.
-        We introduce TheoremGraph, a unified statement-level dependency graph spanning both informal
-        and formal mathematics. On the informal side, we parse 11.7M theorem-like environments from
-        mathematics arXiv and recover 18.3M candidate directed dependencies, each labeled by the
-        extractor that proposed it so downstream users can trade coverage for precision. On the
-        formal side, we release LeanGraph, a Lean 4 elaborator-level extractor producing 388,105
-        declaration nodes and 11.3M typed edges across 25 Lean projects. We bridge the two graphs by
-        embedding generated natural-language slogans into a shared semantic space, linking related
-        statements across papers and across the informal/formal divide; an LLM judge affirms 47,952
-        such matches above a 0.8 cosine floor, with the judge-acceptance rate rising from 48% across
-        the floor to 87% in the >=0.9 tier. On formal concept retrieval, our name-and-signature
-        representation with graph expansion comes within 0.5pp of LeanSearch v2's reranked Recall@10
-        (0.775 vs. 0.780) without an LM reranker. We release the dataset, extractors, HTTP API, and
-        MCP interface as infrastructure for mathematical search, attribution, and
-        retrieval-augmented reasoning."
+      abstract: >-
+        Mathematical knowledge is organized around statements and their dependencies, but this structure
+        is exposed unevenly: informal papers cite mostly at the document level, while formal libraries
+        record fine-grained dependencies over a much smaller body of mathematics. We introduce
+        TheoremGraph, a unified statement-level dependency graph spanning both informal and formal
+        mathematics. On the informal side, we parse 11.7M theorem-like environments from mathematics
+        arXiv and recover 18.3M candidate directed dependencies, each labeled by the extractor that
+        proposed it so downstream users can trade coverage for precision. On the formal side, we release
+        LeanGraph, a Lean 4 elaborator-level extractor producing 388,105 declaration nodes and 11.3M
+        typed edges across 25 Lean projects. We bridge the two graphs by embedding generated
+        natural-language slogans into a shared semantic space, linking related statements across papers
+        and across the informal/formal divide; an LLM judge affirms 47,952 such matches above a 0.8
+        cosine floor, with the judge-acceptance rate rising from 48% across the floor to 87% in the
+        >=0.9 tier. On formal concept retrieval, our name-and-signature representation with graph
+        expansion comes within 0.5pp of LeanSearch v2's reranked Recall@10 (0.775 vs. 0.780) without an
+        LM reranker. We release the dataset, extractors, HTTP API, and MCP interface as infrastructure
+        for mathematical search, attribution, and retrieval-augmented reasoning, available at
+        theoremsearch.com and huggingface.co/datasets/uw-math-ai/theorem-matching.
       url: https://arxiv.org/abs/2606.25363
       linkLabel: arXiv:2606.25363
 - id: research-artifacts
-  title: Research Artifacts
-  description: Mathlib pull requests, Lean projects, and tools from the lab and XLL archives.
+  title: Lean Projects
+  description: Mathlib pull requests and Lean projects.
   countsAsPaper: false
   items:
     # Credits, dates, and archive sources: docs/research-artifact-sources.md.
-    - venue: Mathlib Contribution, 2026
-      badge: Merged
+    - venues:
+        - name: Mathlib Contribution, 2026
+          badge: Merged
+      featured: true
       title: Finite Étale Extensions of Local Rings Are Monogenic
       authors: Bryan Boehnke, George Peykanu, Bianca Viray, Grant Yang
       abstract: Formalizes finite étale local-ring monogenicity and the unit derivative of a
         generator's minimal polynomial.
       url: https://github.com/leanprover-community/mathlib4/pull/37527
       linkLabel: "Mathlib PR #37527"
-    - venue: Mathlib Contribution, 2026
-      badge: Merged
+    - venues:
+        - name: Mathlib Contribution, 2026
+          badge: Merged
+      featured: true
       title: mkOfAdjoinEqTop' for Adjoined Roots
       authors: Grant Yang, George Peykanu, Bryan Boehnke, Bianca Viray
       abstract: Generalizes an adjoined-root construction, replacing the integrally closed
         hypothesis with module freeness.
       url: https://github.com/leanprover-community/mathlib4/pull/36421
       linkLabel: "Mathlib PR #36421"
-    - venue: Mathlib Contribution, 2026
-      badge: Merged
+    - venues:
+        - name: Mathlib Contribution, 2026
+          badge: Merged
       title: Accumulation Points under Atomless Measures
       authors: Theodore Meek
       abstract: Positive-measure sets under atomless measures have accumulation points.
         Initial proofs by Harmonic's Aristotle, refactored by Meek.
       url: https://github.com/leanprover-community/mathlib4/pull/32851
       linkLabel: "Mathlib PR #32851"
-    - venue: Mathlib Contribution, 2025
-      badge: Merged
+    - venues:
+        - name: Mathlib Contribution, 2025
+          badge: Merged
       title: Diameters of Euclidean Balls and Spheres
       authors: Vasily Ilin, Leo Mayer
       abstract: Diameter formulas for Euclidean balls, closed balls, and spheres.
         Initial proofs by Harmonic's Aristotle, revised by Ilin and Mayer.
       url: https://github.com/leanprover-community/mathlib4/pull/32824
       linkLabel: "Mathlib PR #32824"
-    - venue: Mathlib Pull Request, 2025
-      badge: Open PR
+    - venues:
+        - name: Mathlib Pull Request, 2025
+          badge: Open PR
       title: Regular Local Rings Are Domains
       authors: Jarod Alper, Brian Nugent
       abstract: Defines regular local rings and formalizes a proof that they are integral domains.
       url: https://github.com/leanprover-community/mathlib4/pull/29574
       linkLabel: "Mathlib PR #29574"
-    - venue: Mathlib Contribution, 2025
-      badge: Merged
+    - venues:
+        - name: Mathlib Contribution, 2025
+          badge: Merged
       title: Moment-Generating Functions of Independent Sums
       authors: Vasily Ilin, Siyuan Ge
       abstract: Moment-generating function lemmas for identically distributed variables and sums
         of independent, identically distributed variables.
       url: https://github.com/leanprover-community/mathlib4/pull/19886
       linkLabel: "Mathlib PR #19886"
-    - venue: Mathlib Contribution, 2025
-      badge: Merged
+    - venues:
+        - name: Mathlib Contribution, 2025
+          badge: Merged
       title: Gaussian Moment-Generating Function
       authors: Vasily Ilin, Siyuan Ge
       abstract: Computes the moment-generating function of a Gaussian distribution.
       url: https://github.com/leanprover-community/mathlib4/pull/19896
       linkLabel: "Mathlib PR #19896"
-    - venue: Mathlib Contribution, 2024
-      badge: Merged
+    - venues:
+        - name: Mathlib Contribution, 2024
+          badge: Merged
       title: Moment-Generating Functions under Scalar Multiplication
       authors: Vasily Ilin, Siyuan Ge
       abstract: Describes how scaling a random variable changes its moment-generating function.
       url: https://github.com/leanprover-community/mathlib4/pull/19798
       linkLabel: "Mathlib PR #19798"
-    - venue: Mathlib Contribution, 2023
-      badge: Merged
+    - venues:
+        - name: Mathlib Contribution, 2023
+          badge: Merged
       title: Adjunction between Topological Spaces and Locales
       authors: Anne Baanen, Sam v. Gool, Leo Mayer, Brendan S. Murphy
       abstract: Constructs the points functor from locales to topological spaces and its adjunction.
       url: https://github.com/leanprover-community/mathlib4/pull/4593
       linkLabel: "Mathlib PR #4593"
-    - venue: Lean Project, 2025
+    - venues:
+        - name: Lean Project, 2025
       title: Polyhedral Geometry
       authors: Caelan Ritter, Freda Zhang, Seven Lewis, George Peykanu
       abstract: Lean development of polyhedra, convex cones, and separation lemmas.
       url: https://github.com/uw-math-ai/lean-polyhedral-geometry
       linkLabel: Code
-    - venue: Lean Project, 2024–2025
+    - venues:
+        - name: Lean Project, 2024-2025
       title: Zariski Spaces
       authors: Leo Mayer, Maria Berova
       abstract: Lean development of topology exercises from Hartshorne's Algebraic Geometry.
       url: https://github.com/leomayer1/zariski_spaces
       linkLabel: Code
-    - venue: Lean Tool, 2024
+    - venues:
+        - name: Lean Tool, 2024
       title: LatexInLean
       authors: Herman Chau
       abstract: A Lean infoview widget that renders LaTeX from module documentation.
       url: https://github.com/kcaze/LatexInLean
       linkLabel: Code
-    - venue: Lean Project, 2024
+    - venues:
+        - name: Lean Project, 2024
       title: Generating Functions
       authors: Herman Chau
       abstract: Lean development of generating functions for Fibonacci numbers, Catalan numbers,
         and powers of two.
       url: https://github.com/kcaze/generating-functions
       linkLabel: Code
-    - venue: Lean Project, 2024
+    - venues:
+        - name: Lean Project, 2024
       title: FRACTRAN in Lean
       authors: Vasily Ilin, Alexander Sanchez, Mitchell Levy
       abstract: An implementation of Conway's FRACTRAN language in Lean, with programs and proofs
         about their behavior.
       url: https://github.com/sanchace/FRACTRAN
       linkLabel: Code
-    - venue: Lean Project, 2023–2024
+    - venues:
+        - name: Lean Project, 2023-2024
       title: Continued Fractions
       authors: Xinyan Li, Leo Mayer, Christie Yang
       abstract: Lean development of continued fractions, focused on the expansion of e.
       url: https://github.com/leomayer1/cont_frac
       linkLabel: Code
-    - venue: Lean Project, 2023–2024
+    - venues:
+        - name: Lean Project, 2023-2024
       title: Formalizing Math 300
       authors: Yanzhe (Steven) Zhong, Anthony Xing, Zilu (Luca) Li, Chengyu (Kenneth) Gong,
         Rina Reimer, Tess Gerrard
@@ -355,25 +448,29 @@
         An Introduction to Mathematical Reasoning.
       url: https://github.com/StevennZZZ/FormalizingMATH300
       linkLabel: Code
-    - venue: Lean Project, 2023
-      title: Erdős–Rényi Random Graphs
+    - venues:
+        - name: Lean Project, 2023
+      title: Erdős-Rényi Random Graphs
       authors: Zhongrui An, Herman Chau, Vasily Ilin, George King, Benjamin Li, Yu He Zhang
-      abstract: Lean development of the Erdős–Rényi random graph model and its probability lemmas.
+      abstract: Lean development of the Erdős-Rényi random graph model and its probability lemmas.
       url: https://github.com/uw-math-ai/random_graphs
       linkLabel: Code
-    - venue: Lean Project, 2022
+    - venues:
+        - name: Lean Project, 2022
       title: Linear Algebra Done Right
       authors: Vasily Ilin, Leo Mayer
       abstract: Selected exercises from the third edition of Axler's Linear Algebra Done Right in Lean.
       url: https://github.com/Vilin97/linear-algebra-done-right
       linkLabel: Code
-    - venue: Lean Project, 2022
+    - venues:
+        - name: Lean Project, 2022
       title: Hopf Algebras
       authors: Leo Mayer, Vasily Ilin
       abstract: Lean development of Hopf algebras, comodules, and affine group schemes.
       url: https://github.com/leomayer1/Hopf
       linkLabel: Code
-    - venue: XLL Project, Spring 2022
+    - venues:
+        - name: XLL Project, Spring 2022
       title: Hilbert's Basis Theorem
       authors: Griffin Golias, Kevin Kuei, Brendan Murphy, Alex Scheffelin, Runchi Tan,
         Jarod Alper, Vasily Ilin, Leo Mayer
@@ -381,14 +478,48 @@
       url: https://github.com/leomayer1/WXML_Sp2022
       linkLabel: Code
 - id: other-publications
-  title: Other Publications
-  description: Essays and public-facing research perspectives connected to the lab.
+  title: Other
+  description: Essays and perspective pieces connected to the lab.
   countsAsPaper: true
   items:
-    - venue: Bulletin of the American Mathematical Society, 2025
+    - venues:
+        - name: arXiv Preprint, 2026
+      title: Leiden Declaration on Artificial Intelligence and Mathematics
+      authors: Jarod Alper, Michael Barany, Alain Chavarri Villarello, Sander Dahmen, Walter Dean,
+        Karthik Ganapathy, Michael Harris, David Holmes, Mateja Jamnik, Steven Kelk, Bryna Kra,
+        Ursula Martin, Bartosz Naskręcki, Rodrigo Ochigame, Jim Portegies, Johannes Schmitt
+      abstract: >-
+        This declaration calls for action to address the challenges posed by the use of artificial
+        intelligence within mathematics research. Technological developments have repeatedly transformed
+        the practice of mathematics. Recent artificial intelligence technologies, including symbolic and
+        neural methods for the generation and formalization of mathematics, may already have initiated a
+        significant chapter in this long history. Among researchers, artificial intelligence has
+        produced a wide range of reactions: enthusiasm for its potential to yield new discoveries;
+        intimidation by the pace of developments; indifference to these rapid changes; and concern for
+        the implications, both for mathematics and in wider society. Mathematicians have a choice about
+        whether and how to adopt artificial intelligence in the conduct of their research. They also
+        have a responsibility to ensure the continued flourishing of the discipline. This Declaration
+        calls upon mathematicians to exercise this responsibility, and provides recommendations for
+        individuals, institutions, government, and industry. Although we adopt the perspective of
+        mathematical research, much of what we write applies equally to other aspects of mathematics.
+        This includes work in the broader mathematical sciences, education, mentoring, publishing,
+        funding, science policy, and use of mathematics in the wider world.
+      url: https://arxiv.org/abs/2609.35334
+      linkLabel: arXiv:2609.35334
+    - venues:
+        - name: Bulletin of the American Mathematical Society, 2025
       title: "Embracing AI and Formalization: Experimenting with Tomorrow's Mathematical Tools"
       authors: Jarod Alper
-      abstract: A perspective piece on integrating large language models and formal proof assistants into
-        mathematical practice, drawing on experiences from the UW Math AI Lab.
+      abstract: >- 
+        You have heard the buzz: AI and formalization will revolutionize mathematics. Computers will soon 
+        surpass humans in solving olympiad-style problems. Humans will transition from proving research-level 
+        theorems on their own to guiding computers. And maybe you even believe the hype. Other than pulling 
+        out your hair waiting for the day when computers take your job, what can you do? If you are like most 
+        career mathematicians, you are already overwhelmed with too many academic responsibilities, reserving 
+        any precious spare work hours for research. Where are you going to find the time to learn Lean or 
+        machine learning techniques? While I do not have the answers, I can share how I have embraced the 
+        potential of AI and formalization in mathematics through the eXperimental Lean Lab (XLL) at the 
+        University of Washington. I hope to inspire you to also get involved and play an active role in guiding 
+        the transformation of our field.
       url: https://ww2.ams.org/journals/bull/2026-63-02/S0273-0979-2025-01879-0/viewer/?t=1780254358590
       linkLabel: AMS

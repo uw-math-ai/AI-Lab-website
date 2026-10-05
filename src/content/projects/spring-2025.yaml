@@ -6,6 +6,7 @@ term: Spring
 year: 2025
 status: archive
 lastmod: 2026-06-01
+returningProjects: 4
 summary: Undergraduate research projects, Math 480 final projects, and algebraic geometry
   formalization work.
 blocks:
@@ -144,7 +145,7 @@ blocks:
       - content: "Github repo: [here](https://github.com/dowlandaiello/coc-lean)"
       - content: "Book: [here](https://dowlandaiello.com/sk-lean/)"
   - type: project
-    title: Formalizing Vizing’s Theorem in Lean
+    title: Formalizing Vizing's Theorem in Lean
     id: formalizing-vizing-s-theorem-in-lean
     style: list
     details:
@@ -153,7 +154,7 @@ blocks:
       - label: "Mentors:"
         content: Jarod Alper and Vasily Ilin
       - label: "Description:"
-        content: "The goal is to formalize Vizing’s Theorem: every simple, undirected graph may be properly
+        content: "The goal is to formalize Vizing's Theorem: every simple, undirected graph may be properly
           edge colored using a number of colors that is at most one larger than the maximum degree
           of the graph."
       - content: "Github repo: [here](https://github.com/ManishSaiGatti/Math480GroupProject)"

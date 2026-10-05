@@ -6,13 +6,14 @@ term: Spring
 year: 2026
 status: recent
 lastmod: 2026-06-03
-venue: Odegaard 136
+returningProjects: 12
+venue: OUG 136
 summary: Current Math AI Lab projects, including autoformalization, Lean infrastructure, and AI for
   mathematics.
 blocks:
   - type: text
     content: |-
-      Project teams meet Mondays and Wednesdays from 4–5:30 pm in Odegaard 136.
+      Project teams meet Mondays and Wednesdays from 4-5:30 pm in OUG 136.
 
       The goal of projects is a **publication** or a **significant open-source contribution**, e.g. to [mathlib4](https://github.com/leanprover-community/mathlib4). Students are expected to commit at least 5 hours per week to their project outside of meeting times.
   - type: heading
@@ -21,7 +22,7 @@ blocks:
     level: 2
   - type: text
     content: The goal of autoformalization projects is to use Lean-specific AI assistants such as
-      Harmonic’s [Aristotle](https://aristotle.harmonic.fun/) to formalize large chunks of
+      Harmonic's [Aristotle](https://aristotle.harmonic.fun/) to formalize large chunks of
       mathematics, and contribute to [mathlib4](https://github.com/leanprover-community/mathlib4).
   - type: project
     title: "OpenMath: autoformalizing undergraduate textbooks"
@@ -35,8 +36,8 @@ blocks:
           [mathlib](https://leanprover-community.github.io/mathlib4_docs/), but several big gaps
           remain: differential geometry, partial differential equations, numerical analysis. We will
           autoformalize undergraduate textbooks on numerical analysis of differential equations,
-          starting with Iserles’s _A First Course in the Numerical Analysis of Differential
-          Equations_ and Butcher’s _Numerical Methods for Ordinary Differential Equations_. Since
+          starting with Iserles's _A First Course in the Numerical Analysis of Differential
+          Equations_ and Butcher's _Numerical Methods for Ordinary Differential Equations_. Since
           manual formalization is time-consuming, we will build a semi-autonomous AI agent along the
           way, automating more of the process as the project progresses. **Goal:** workshop paper at
           the [AI for Math workshop](https://ai4math2026.github.io/) at ICML 2026 (deadline May
@@ -57,7 +58,7 @@ blocks:
       - label: "Description:"
         content: "LeanGCD aims to improve Lean proof generation by frontier large language models using
           inference-time stabilization methods rather than retraining. The project adapts
-          [grammar-constrained decoding techniques](https://arxiv.org/abs/2305.13971) with Lean’s
+          [grammar-constrained decoding techniques](https://arxiv.org/abs/2305.13971) with Lean's
           [syntax
           extensions](https://lean-lang.org/doc/reference/latest/Notations-and-Macros/Defining-New-\
           Syntax/). Planned contributions: a Lean-specific GCD implementation that plugs into
@@ -251,7 +252,7 @@ blocks:
       - label: "Project Leader:"
         content: Ignacio Tejeda
       - label: "Formalization target:"
-        content: Theorem 4.2 in Falconer’s _Geometry of Fractal Sets_.
+        content: Theorem 4.2 in Falconer's _Geometry of Fractal Sets_.
       - label: "Code:"
         content: "[GitHub repo](https://github.com/uw-math-ai/FormalizingGMT)"
       - label: "Mathlib PRs:"
@@ -262,14 +263,14 @@ blocks:
       - label: "Prerequisites:"
         content: Lean
   - type: project
-    title: "Commutative Algebra: Auslander–Buchsbaum"
+    title: "Commutative Algebra: Auslander-Buchsbaum"
     id: commutative-algebra-auslander-buchsbaum
     style: heading
     details:
       - label: "Project Leaders:"
         content: Haoming Ning and Leo Mayer
       - label: "Formalization target:"
-        content: The theorem that a regular local ring is a UFD, referred by some as the Auslander–Buchsbaum
+        content: The theorem that a regular local ring is a UFD, referred by some as the Auslander-Buchsbaum
           theorem. See Stacks Project [0AG0](https://stacks.math.columbia.edu/tag/0AG0).
       - label: "Code:"
         content: "[GitHub repo](https://github.com/uw-math-ai/auslander-buchsbaum)"
@@ -300,7 +301,7 @@ blocks:
     style: heading
     details:
       - label: "Project Leaders:"
-        content: Eric Klavins and Alexandra Aiello
+        content: Eric Klavins and Lexi Aiello
       - label: "Description:"
         content: We would outline a framework for verifying mathematical theorems while keeping the
           respective proofs secret by leveraging dependent combinatory logic as a host language for
@@ -322,7 +323,7 @@ blocks:
         content: While Lean has seen extensive use as a theorem-proving assistant, its capabilities as a
           computational programming language have been underutilized. The goal of this project is to
           begin filling that gap. Along the way, we will learn the basics of functional programming,
-          monads, and Lean’s metaprogramming framework to implement algorithms that can both be run
+          monads, and Lean's metaprogramming framework to implement algorithms that can both be run
           efficiently and be reasoned about. Our main goal is to implement basic algorithms with
           applications to linear algebra while also proving (in Lean) correctness of said
           algorithms.

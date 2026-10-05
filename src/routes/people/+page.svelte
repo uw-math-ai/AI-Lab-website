@@ -45,11 +45,9 @@
 <Seo {title} {description} path="/people/" jsonLd={peopleJsonLd} />
 
 <section class="page-shell presenters-section">
-	<span class="eyebrow">People</span>
-	<h1 class="page-title">Math AI Lab People</h1>
+	<h1 class="page-title">People</h1>
 	<p class="people-intro lead">
-		The people of the UW Math AI Lab through Summer 2026. For the projects themselves, see the quarterly pages under
-		<a href={sitePath('/projects/summer-2026')}>Projects</a>.
+		All members as of Summer 2026.
 	</p>
 </section>
 
@@ -109,7 +107,7 @@
 	<Reveal>
 		<div class="section-header">
 			<h2>Members</h2>
-			<p class="section-note">Undergraduate and graduate researchers, with the project(s) they contribute to.</p>
+			<p class="section-note">Graduate and undergraduate researchers.</p>
 		</div>
 		<div class="presenters-grid member-grid">
 			{#each alphabeticalMembers as person, index}
@@ -129,16 +127,14 @@
 <section class="page-shell section people-section" id="lab-photos">
 	<Reveal>
 		<div class="section-header">
-			<span class="eyebrow">Community</span>
 			<h2>Lab Photos</h2>
 		</div>
 		<div class="lab-photos">
 			{#each labPhotos as photo, index}
 				<figure
-					class:lab-photo-featured={index === 0 || index === 5}
 					class="lab-photo interactive-surface"
 					data-reveal-item
-					style={`--reveal-delay: ${(index % 2) * 65}ms`}
+					style={`--reveal-delay: ${(index % 2) * 65}ms; --ar: ${(photo.width ?? 16) / (photo.height ?? 9)}`}
 				>
 					<img
 						src={sitePath(photo.src)}
@@ -156,24 +152,22 @@
 </section>
 
 <style>
+	/* Intro block: same top and bottom space as .hero on the other pages. */
 	.presenters-section {
-		padding-top: clamp(2rem, 5vw, 3.5rem);
-	}
-
-	.presenters-section .page-title {
-		margin: 0.8rem 0 1rem;
+		padding: var(--intro-padding);
 	}
 
 	.people-intro {
 		max-width: var(--measure);
 	}
 
-	.people-intro a {
-		color: var(--text);
-	}
-
 	.people-section {
 		scroll-margin-top: 6rem;
+	}
+
+	/* The first list sits close under the page title. */
+	#leadership {
+		padding-top: 1.5rem;
 	}
 
 	.section-note {
@@ -181,7 +175,7 @@
 		max-width: var(--measure);
 		margin: 0.35rem 0 0;
 		color: var(--muted);
-		font-size: 1rem;
+		font-size: var(--text-base);
 	}
 
 	.presenters-grid {
@@ -222,15 +216,15 @@
 		border: 1px solid var(--line);
 		background: var(--soft);
 		color: var(--muted);
-		font-family: var(--font-mono);
-		font-size: 1.3rem;
+		font-family: var(--font-serif);
+		font-size: var(--text-lg);
 	}
 
 	.presenter-name {
 		display: block;
 		color: var(--heading);
 		font-family: var(--font-serif);
-		font-size: 1rem;
+		font-size: var(--text-base);
 		font-weight: 500;
 		line-height: 1.2;
 		margin-bottom: 0.15rem;
@@ -244,14 +238,13 @@
 		display: block;
 		color: var(--muted);
 		font-family: var(--font-sans);
-		font-size: 0.78rem;
+		font-size: var(--text-xs);
 		line-height: 1.4;
 	}
 
 	.member-grid {
 		grid-template-columns: repeat(4, minmax(0, 1fr));
 		gap: 0;
-		border-top: 1px solid var(--line-strong);
 	}
 
 	.member-card {
@@ -259,13 +252,22 @@
 		border-bottom: 1px solid var(--line);
 	}
 
+	/* Justified rows: each photo's width is proportional to its aspect ratio (--ar), so every
+	   photo in a row has the same height, edges line up, and nothing is cropped. The ::after
+	   filler keeps a short last row at its natural size instead of stretching it. */
 	.lab-photos {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+		display: flex;
+		flex-wrap: wrap;
 		gap: 1.5rem 1.25rem;
 	}
 
+	.lab-photos::after {
+		content: '';
+		flex-grow: 999;
+	}
+
 	.lab-photo {
+		flex: var(--ar) 1 calc(var(--ar) * 13rem);
 		margin: 0;
 		min-width: 0;
 	}
@@ -277,14 +279,15 @@
 		border: 1px solid var(--line);
 	}
 
-	.lab-photo-featured {
-		grid-column: 1 / -1;
-	}
-
 	.lab-photo figcaption {
 		margin-top: 0.55rem;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
 		font-family: var(--font-sans);
-		font-size: 0.8rem;
+		font-size: var(--text-sm);
 		line-height: 1.45;
 		color: var(--muted);
 	}
@@ -307,13 +310,8 @@
 			gap: 1.25rem 0.75rem;
 		}
 
-		.member-grid,
-		.lab-photos {
+		.member-grid {
 			grid-template-columns: 1fr;
-		}
-
-		.lab-photo-featured {
-			grid-column: auto;
 		}
 	}
 </style>

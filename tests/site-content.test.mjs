@@ -38,6 +38,7 @@ test('prerendered canonical pages expose complete, unique search metadata', asyn
 		'projects',
 		'research',
 		'resources',
+		'news/icml-2026',
 		...projectEntries.filter((entry) => entry.isDirectory()).map((entry) => `projects/${entry.name}`)
 	];
 	const descriptions = [];
@@ -102,34 +103,24 @@ test('the default social image is a 1200 by 630 PNG', async () => {
 	assert.equal(image.readUInt32BE(20), 630);
 });
 
-test('the ICML feature precedes the hackathon and exposes animated paper and photo items', async () => {
-	const events = await renderedPage('events');
-	const icmlPosition = events.indexOf('id="icml-2026"');
-	const hackathonPosition = events.indexOf('id="hackathon-heading"');
+test('the ICML write-up is its own News page, linked from News, and no longer on Events', async () => {
+	const [icml, news, events] = await Promise.all([renderedPage('news/icml-2026'), renderedPage('news'), renderedPage('events')]);
 
-	assert.ok(icmlPosition >= 0, 'ICML feature is rendered');
-	assert.ok(hackathonPosition >= 0, 'hackathon feature is rendered');
-	assert.ok(icmlPosition < hackathonPosition, 'ICML feature comes before the hackathon');
-	assert.match(events, /class="icml-card interactive-surface/);
-	assert.match(events, /class="icml-copy[^>]*data-reveal-item/);
-	assert.match(events, /class="icml-photo interactive-surface[^>]*data-reveal-item/);
-	assert.match(events, /class="[^"]*interactive-surface[^"]*honored"[^>]*data-reveal-item/);
-	assert.doesNotMatch(events, /welcome gathering|welcome display/i);
+	assert.match(icml, /Congratulations to our ICML authors/);
+	assert.match(icml, /class="icml-photo interactive-surface[^>]*data-reveal-item/);
+	assert.match(icml, /class="[^"]*interactive-surface[^"]*honored"[^>]*data-reveal-item/);
+	assert.match(news, /href="[^"]*news\/icml-2026"/);
+	assert.doesNotMatch(events, /icml-card|icml-photo|Congratulations to our ICML authors/);
+	assert.doesNotMatch(icml, /welcome gathering|welcome display/i);
 });
 
-test('the homepage congratulates ICML authors, links once to the feature, and shows three lab moments', async () => {
-	const home = await renderedPage('');
-	const featureLinks = home.match(/href="[^"]*events#icml-2026"/g) ?? [];
+test('Events lists upcoming and past events separately, each cut short with a way to view all', async () => {
+	const events = await renderedPage('events');
 
-	assert.equal(featureLinks.length, 1, 'one homepage link points to the ICML feature');
-	assert.match(home, /We presented 8 papers at ICML 2026/);
-	assert.match(home, /Congratulations to our authors!/);
-	assert.match(home, /photos\/fall2025\.jpg/);
-	assert.match(home, /photos\/icml-2026-coex-2\.webp/);
-	assert.match(home, /ICML 2026 group photo/);
-	assert.doesNotMatch(home, /welcome gathering/i);
-	assert.match(home, /photos\/lean-hackathon\.jpg/);
-	assert.match(home, /class="home-photo-card[^>]*data-reveal-item/);
+	assert.ok(events.indexOf('id="upcoming-heading"') >= 0 && events.indexOf('id="past-heading"') > events.indexOf('id="upcoming-heading"'));
+	assert.match(events, /type="search"/);
+	assert.match(events, /View all \d+ past events/);
+	assert.doesNotMatch(events, /class="segmented"/);
 });
 
 test('the July 20 mid-summer social remains in the event calendar data', async () => {
@@ -152,13 +143,14 @@ test('Fall member applications link to the form and September 22 deadline while 
 	assert.ok(announcement.links.some((link) => link.url === '/projects/fall-2026'));
 
 	assert.match(home, /class="home-announcement interactive-surface[^"\n]*"/);
-	assert.match(home, /15 projects selected for September 30 – December 11/);
+	assert.match(home, /We are happy to announce 15 projects for Fall 2026!/);
 	const fall = await renderedPage('projects/fall-2026');
+	// The home page shows a disabled button now that applications have closed.
+	assert.match(home, /<button[^>]*disabled[^>]*>Applications closed<\/button>/);
 	for (const page of [home, fall]) {
-		assert.match(page, /<a[^>]*href="https:\/\/forms\.gle\/dRoo1jHayR95JHzm8"[^>]*>Project member application<\/a>/);
-		assert.match(page, /Tuesday, September 22, 2026/);
 		assert.doesNotMatch(page, /Project member application coming soon/);
 	}
+	assert.doesNotMatch(fall, /forms\.gle/);
 	assert.doesNotMatch(home, /Lead a Math AI Lab project this fall|Apply by Monday, September 7|1Bl1wNdIGdc8jHBaaXI/);
 	assert.match(home, /Fall 2026 Projects/);
 	assert.match(home, /projects\/fall-2026/);
@@ -183,8 +175,7 @@ test('one shared motion and glow system governs interactive surfaces', async () 
 	assert.match(styles, /--surface-border-hover:/);
 	assert.match(styles, /--motion-fast:/);
 	assert.match(styles, /--motion-reveal:/);
-	assert.match(styles, /:root body \.interactive-surface:hover/);
-	assert.match(styles, /\.interactive-surface:has\(\.interactive-surface:hover\)/);
+	// Cards no longer lift or change border on hover; only the shared tokens and reveal remain.
 	assert.match(reveal, /opacity var\(--motion-reveal\)/);
 	assert.match(reveal, /transform var\(--motion-fast\)/);
 });
@@ -200,19 +191,18 @@ test('all primary block families opt into the shared interactive surface', async
 		sourceFile('src/lib/components/CodePanel.svelte')
 	]);
 
-	assert.match(home, /class="stats"[\s\S]*?class="interactive-surface"/);
-	for (const block of ['paper-card', 'event-card', 'project-card', 'home-photo-card']) {
+	assert.match(home, /class="stats"/);
+	for (const block of ['paper-card', 'home-photo-card']) {
 		assert.match(home, new RegExp(`${block}[^"\\n]*interactive-surface|interactive-surface[^"\\n]*${block}`));
 	}
-	for (const block of ['icml-card', 'icml-photo', 'hackathon-card', 'date-block', 'event-body']) {
+	for (const block of ['date-block', 'event-body']) {
 		assert.match(events, new RegExp(`${block}[^"\\n]*interactive-surface`));
 	}
-	assert.match(events, /class="interactive-surface"[\s\S]*?class:honored/);
 	assert.match(people, /presenter-card[^"\n]*interactive-surface/);
 	assert.match(people, /lab-photo interactive-surface/);
 	assert.match(research, /research-index interactive-surface/);
 	assert.match(research, /research-card interactive-surface/);
 	assert.match(projects, /quarter-card interactive-surface/);
-	assert.match(resources, /featured-resource-card interactive-surface/);
+	assert.match(resources, /class="tool"[^>]*data-reveal-item/);
 	assert.match(codePanel, /code-panel interactive-surface/);
 });

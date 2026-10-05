@@ -601,7 +601,7 @@
 	.key i {
 		width: 8px;
 		height: 8px;
-		border-radius: 50%;
+		border-radius: 0;
 		box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.25);
 	}
 

@@ -41,10 +41,10 @@
     - id: abelian-moduli
       name: Moduli of principally polarized abelian varieties
       tex: '\mathcal A_g'
-      note: Central to Tsimerman's André–Oort work; not notation introduced by him.
+      note: Central to Tsimerman's André-Oort work; not notation introduced by him.
       source: https://www.mathunion.org/fileadmin/documents/2026-07/Jacob_Tsimerman_Citations.pdf
     - id: weil-petersson-volume
-      name: Weil–Petersson volume polynomial
+      name: Weil-Petersson volume polynomial
       tex: 'V_{g,n}(L_1,\ldots,L_n)'
       note: Mirzakhani's work on volumes of moduli spaces of bordered hyperbolic surfaces.
       source: https://www.mathunion.org/imu-awards/fields-medal/fields-medals-2014
@@ -63,7 +63,7 @@
     - id: prismatic-cohomology
       name: Prismatic cohomology
       tex: 'R\Gamma_{\Delta}(X/A)'
-      note: Bhatt–Scholze; introduced after Scholze's 2018 medal.
+      note: Bhatt-Scholze; introduced after Scholze's 2018 medal.
       source: https://arxiv.org/abs/1905.08229
     - { id: bundles, name: Moduli stack of G-bundles, tex: '\operatorname{Bun}_G' }
     - { id: local-systems, name: Langlands-dual local systems, tex: '\operatorname{LocSys}_{\check G}' }
@@ -111,7 +111,7 @@
     - { id: homotopy-group, name: Homotopy group, tex: '\pi_n(X)' }
     - { id: cohomology, name: Cohomology ring, tex: 'H^*(X;R)' }
     - { id: classifying-space, name: Classifying space, tex: 'BG' }
-    - { id: eilenberg-maclane, name: Eilenberg–MacLane space, tex: 'K(\mathbb Z,n)' }
+    - { id: eilenberg-maclane, name: Eilenberg-MacLane space, tex: 'K(\mathbb Z,n)' }
     - { id: sphere-spectrum, name: Sphere spectrum, tex: '\mathbb S' }
     - { id: suspension-spectrum, name: Suspension spectrum, tex: '\Sigma^\infty X_+' }
     - { id: motivic-k-theory, name: Motivic algebraic K-theory spectrum, tex: '\mathrm{KGL}' }
@@ -137,7 +137,7 @@
     - { id: ind-coherent, name: Ind-coherent sheaves, tex: '\operatorname{IndCoh}(X)' }
     - { id: cotangent-complex, name: Relative cotangent complex, tex: '\mathbb L_{X/S}' }
     - { id: hochschild-cohomology, name: Hochschild cohomology, tex: 'HH^*(A)' }
-    - { id: maurer-cartan, name: Maurer–Cartan equation, tex: 'd\alpha+\tfrac12[\alpha,\alpha]=0', kind: formula }
+    - { id: maurer-cartan, name: Maurer-Cartan equation, tex: 'd\alpha+\tfrac12[\alpha,\alpha]=0', kind: formula }
 - id: symplectic-geometry
   title: Symplectic and enumerative geometry
   items:
@@ -193,7 +193,7 @@
       name: Three-dimensional Kakeya theorem
       tex: '\dim_{\mathrm H}K=3\quad(K\subset\mathbb R^3\text{ Kakeya})'
       kind: formula
-      note: Wang–Zahl. The Kakeya condition is displayed, not silently omitted.
+      note: Wang-Zahl. The Kakeya condition is displayed, not silently omitted.
       source: https://arxiv.org/abs/2502.17655
 - id: probability-pde
   title: Probability and partial differential equations
@@ -219,7 +219,7 @@
   title: Combinatorics and Hodge theory
   items:
     - { id: binomial, name: Binomial coefficient, tex: '\binom nk' }
-    - { id: random-graph, name: Erdős–Rényi random graph, tex: 'G(n,p)' }
+    - { id: random-graph, name: Erdős-Rényi random graph, tex: 'G(n,p)' }
     - { id: chromatic-polynomial, name: Chromatic polynomial, tex: '\chi_G(q)' }
     - { id: tutte-polynomial, name: Tutte polynomial, tex: 'T_G(x,y)' }
     - { id: schur-function, name: Schur symmetric function, tex: 's_\lambda' }
@@ -232,7 +232,7 @@
       name: Hard Lefschetz for matroids
       tex: '\ell^{r-2k}:A^k(M)\xrightarrow{\sim}A^{r-k}(M)'
       kind: formula
-      note: Adiprasito–Huh–Katz; real Chow ring of a loopless rank-(r+1) matroid, ample ell, 0 ≤ k ≤ r/2.
+      note: Adiprasito-Huh-Katz; real Chow ring of a loopless rank-(r+1) matroid, ample ell, 0 ≤ k ≤ r/2.
       source: https://web.math.princeton.edu/~huh/MatroidHodge.pdf
 - id: optimization
   title: Optimization and numerical analysis
@@ -242,7 +242,7 @@
     - { id: proximal-operator, name: Proximal operator, tex: '\operatorname{prox}_{\lambda f}' }
     - { id: condition-number, name: Matrix condition number, tex: '\kappa(A)' }
     - { id: qr-factorization, name: QR factorization, tex: 'A=QR', kind: formula }
-    - { id: wasserstein, name: Quadratic Wasserstein distance, tex: 'W_2(\mu,\nu)', note: 'Optimal transport associated with Figalli’s 2018 citation; standard notation, not introduced by him.', source: 'https://www.mathunion.org/imu-awards/fields-medal/fields-medals-2018' }
+    - { id: wasserstein, name: Quadratic Wasserstein distance, tex: 'W_2(\mu,\nu)', note: 'Optimal transport associated with Figalli''s 2018 citation; standard notation, not introduced by him.', source: 'https://www.mathunion.org/imu-awards/fields-medal/fields-medals-2018' }
 - id: operator-algebras
   title: Operator algebras
   items:

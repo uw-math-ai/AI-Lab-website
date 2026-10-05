@@ -30,13 +30,23 @@
 		{ href: '/research', label: 'Research', match: (p: string) => p === '/research' },
 		{ href: '/people', label: 'People', match: (p: string) => p === '/people' },
 		{ href: '/events', label: 'Events', match: (p: string) => p === '/events' },
+		{ href: '/news', label: 'News', match: (p: string) => p === '/news' },
 		{ href: '/resources', label: 'Resources', match: (p: string) => p === '/resources' }
 	];
 
 	function closeMenus() {
 		menuOpen = false;
 	}
+
+	function onKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape' && menuOpen) {
+			menuOpen = false;
+			document.querySelector<HTMLElement>('.menu-button')?.focus();
+		}
+	}
 </script>
+
+<svelte:window onkeydown={onKeydown} />
 
 <header class="site-header">
 	<div class="header-inner">
@@ -51,14 +61,13 @@
 			{#each navItems as item}
 				<a class:active={item.match(pathname)} href={sitePath(item.href)} onclick={closeMenus}>{item.label}</a>
 			{/each}
-			<a class="external" href="https://www.theoremsearch.com" target="_blank" rel="noreferrer">TheoremSearch</a>
 			<a
 				class="support"
 				href="https://www.washington.edu/giving/make-a-gift/?source_typ=3&source=DSC-152346&code=DSC-152346&fastForward=yes&page=make"
 				target="_blank"
 				rel="noreferrer"
 			>
-				Support the lab
+				Support the lab<span class="sr-only"> (opens in new tab)</span>
 			</a>
 			</nav>
 
@@ -129,14 +138,14 @@
 	.wordmark {
 		font-family: var(--font-serif);
 		font-weight: 600;
-		font-size: 1.12rem;
+		font-size: var(--text-md);
 		letter-spacing: -0.01em;
 		white-space: nowrap;
 	}
 
 	.institution {
 		font-family: var(--font-sans);
-		font-size: 0.68rem;
+		font-size: var(--text-xs);
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
@@ -193,9 +202,10 @@
 		border-radius: var(--radius);
 		color: var(--muted);
 		font-family: var(--font-sans);
-		font-size: 0.84rem;
+		font-size: var(--text-sm);
 		font-weight: 600;
 		text-decoration: none;
+		white-space: nowrap;
 		padding: 0.45rem 0.7rem;
 		transition:
 			color var(--motion-fast),
@@ -222,17 +232,6 @@
 		border-radius: 0;
 	}
 
-	nav .external {
-		color: var(--purple);
-	}
-
-	nav .external::after {
-		content: '↗';
-		margin-left: 0.25rem;
-		font-family: var(--font-serif);
-		font-weight: 400;
-	}
-
 	nav .support {
 		display: inline-flex;
 		align-items: center;
@@ -255,7 +254,7 @@
 		background: transparent;
 		color: var(--text);
 		font-family: var(--font-sans);
-		font-size: 0.8rem;
+		font-size: var(--text-sm);
 		font-weight: 600;
 		padding: 0.45rem 0.8rem;
 		cursor: pointer;
@@ -273,6 +272,13 @@
 		background: currentColor;
 	}
 
+	/* The institution line only fits when the header has room to spare. */
+	@media (max-width: 1100px) {
+		.institution {
+			display: none;
+		}
+	}
+
 	@media (max-width: 960px) {
 		.institution {
 			display: none;
@@ -280,6 +286,12 @@
 
 		.menu-button {
 			display: inline-flex;
+			min-height: 2.75rem;
+		}
+
+		.theme-toggle {
+			width: 2.75rem;
+			height: 2.75rem;
 		}
 
 		nav {
@@ -290,29 +302,35 @@
 			display: grid;
 			align-items: stretch;
 			max-height: calc(100vh - 6rem);
+			max-height: calc(100dvh - 6rem);
 			overflow-y: auto;
 			padding: 0.5rem;
 			background: var(--surface-strong);
 			border: 1px solid var(--line);
 			border-radius: var(--radius-lg);
 			box-shadow: var(--shadow);
+			/* Closed menu must leave the tab order and the accessibility tree. */
+			visibility: hidden;
 			opacity: 0;
 			pointer-events: none;
 			transform: translateY(-0.4rem);
 			transition:
 				opacity var(--motion-fast),
-				transform var(--motion-fast);
+				transform var(--motion-fast),
+				visibility 0s linear 180ms;
 		}
 
 		nav.open {
+			visibility: visible;
 			opacity: 1;
 			pointer-events: auto;
 			transform: translateY(0);
+			transition-delay: 0s;
 		}
 
 		nav a {
-			padding: 0.75rem 0.9rem;
-			font-size: 0.95rem;
+			padding: 0.85rem 0.9rem;
+			font-size: var(--text-base);
 			border-radius: var(--radius);
 		}
 

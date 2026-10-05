@@ -6,13 +6,14 @@ term: Summer
 year: 2026
 status: recent
 lastmod: 2026-07-18
-projectsLaunched: 9
-summary: Nine new and six returning projects spanning autoformalization, AI and machine learning for
+projectsLaunched: 8
+returningProjects: 7
+summary: Eight new and seven returning projects spanning autoformalization, AI and machine learning for
   math, autoresearch, and math education.
 blocks:
   - type: text
     content: |-
-      Summer 2026 brings **nine new projects** alongside **six returning projects** from Spring. Together, the teams span autoformalization, AI and machine learning for math, autoresearch, and AI-supported mathematics learning.
+      Summer 2026 brings **eight new projects** alongside **seven returning projects** from Spring. Together, the teams span autoformalization, AI and machine learning for math, autoresearch, and AI-supported mathematics learning.
 
       The goal of projects is a **publication** or a **significant open-source contribution**, e.g. to [mathlib4](https://github.com/leanprover-community/mathlib4).
   - type: heading
@@ -20,8 +21,8 @@ blocks:
     id: new-projects
     level: 2
   - type: text
-    content: "These nine projects are launching in Summer 2026 across four areas: autoformalization, AI
-      and machine learning for math, autoresearch, and AI for math learning and education."
+    content: "These eight projects are launching in Summer 2026 across three areas: autoformalization, AI
+      and machine learning for math, and autoresearch."
   - type: project
     title: Autoformalizing Mathematical Benchmarks
     id: autoformalizing-mathematical-benchmarks
@@ -158,27 +159,12 @@ blocks:
           Grassmannian's essential minimum.
       - label: "Code:"
         content: "[GitHub repo](https://github.com/LinZihong/ShortestVector)"
-  - type: project
-    title: Learning and Formalizing Commutative Algebra
-    id: learning-and-formalizing-commutative-algebra
-    style: heading
-    details:
-      - label: "Area:"
-        content: AI for math learning and education
-      - label: "Project Leader:"
-        content: Tyson Klingner
-      - label: "Members:"
-        content: Drew Bladek, Escher Crawford
-      - label: "Description:"
-        content: Learn commutative algebra while formalizing a fundamental result in Lean. This summer
-          primer will prepare the team to begin a larger formalization in Autumn with the goal of
-          contributing it to mathlib.
   - type: heading
     title: Returning Projects
     id: returning-projects
     level: 2
   - type: text
-    content: These six teams are continuing projects from Spring 2026, carrying established
+    content: These seven teams are continuing projects from Spring 2026, carrying established
       formalization, evaluation, and machine-learning work into the summer.
   - type: project
     title: Geometric Measure Theory
@@ -293,3 +279,18 @@ blocks:
         content: Merav Frank, Sambhu Ganesan, Gaurang Pendharkar, Rithikesh Muddana, Danny Zhang
       - label: "Prerequisites:"
         content: solid Python, some group theory or combinatorics.
+  - type: project
+    title: Learning and Formalizing Commutative Algebra
+    id: learning-and-formalizing-commutative-algebra
+    style: heading
+    details:
+      - label: "Area:"
+        content: AI for math learning and education
+      - label: "Project Leader:"
+        content: Tyson Klingner
+      - label: "Members:"
+        content: Drew Bladek, Escher Crawford
+      - label: "Description:"
+        content: Learn commutative algebra while formalizing a fundamental result in Lean. This summer
+          primer will prepare the team to begin a larger formalization in Autumn with the goal of
+          contributing it to mathlib.

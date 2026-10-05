@@ -8,7 +8,7 @@ No HTML source pages or conversion scripts are needed.
 | --- | --- |
 | Project teams, descriptions, mentors, and quarter summaries | `src/content/projects/<quarter>.yaml` |
 | Seminar/event cards, dates, photos, and linked papers | `src/content/events.yaml` |
-| Dated news on the homepage and Events page | `src/content/news.yaml` |
+| Dated news on the News page (latest three also on the homepage) | `src/content/news.yaml` |
 | Leadership, mentors, members, headshots, and lab photos | `src/content/people.yaml` |
 | Publication cards, authors, abstracts, and featured work | `src/content/research.yaml` |
 | Homepage tool cards, statistics, and links | `src/content/tools.yaml` |
@@ -83,6 +83,10 @@ filename, `legacyFile` (for example `winter2027.html`), `label`, `term`, `year`,
 `summary`, and blocks. Dates are `YYYY-MM-DD`. The term is `Winter`, `Spring`, `Summer`, or `Fall`.
 The quarter index, static page generation, search, and sitemap discover the new file automatically.
 
+Set `returningProjects` to how many of a quarter's projects continue from the previous quarter; the
+Projects page then shows "N new · M returning" beside the count (new = total - returning). When both
+fields are set, `projectsLaunched` should equal the new count.
+
 Set `projectsLaunched` only to the number of **new** projects that quarter, excluding returning
 teams. The historical baseline is 59 projects through Spring 2026. Update the old current quarter's
 status to `recent`. If an old `.html` URL has been publicized, add a small redirect in `static/`,
@@ -96,13 +100,24 @@ Quote times such as `"09:00"`. Use the published abstract when available. Option
 For events outside Seattle, set `utcOffset` (for example `"-04:00"`) and `timeZoneLabel` (`EDT`)
 for the event date. Times are shown in the venue's local time.
 
+Each research entry lists its `venues`, and each venue has a `name` and an optional `badge`,
+so a paper accepted to several venues says which one earned which badge:
+
+```yaml
+venues:
+  - name: TAG-DS 2026
+    badge: Spotlight
+  - name: ICML 2026 Workshop
+    showOnHome: false # still shown on the Research page, hidden on homepage cards
+```
+
 News entries have a unique `id`, a `date`, a short `title` and `summary`, and `links`.
 Use the date of the news, not a future conference date. Keep retrospective news separate from
 calendar entries so past announcements do not appear as upcoming events. Cite any inferred
 backdating in a YAML comment and retain the source link.
 
 For publications, keep each item in the appropriate section. `featured: true` includes a work in
-the homepage's featured list; `countsAsPaper` controls whether a section contributes to the paper count.
+the homepage's featured list in file order, and `featured: 1`, `2`, ... pins it to that place at the top; `countsAsPaper` controls whether a section contributes to the paper count.
 
 For people, edit the appropriate roster and optional `image`/`url`. Participation totals use the
 historical baseline plus people with `counterStartQuarter` and `studentLevel` set. Do not tag

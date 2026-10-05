@@ -6,15 +6,15 @@ term: Fall
 year: 2026
 status: current
 lastmod: 2026-09-23
-summary: We are happy to announce 15 projects for Fall 2026 (September 30 – December 11). Project member applications are due Tuesday, September 22, 2026.
+projectsLaunched: 10
+returningProjects: 5
+summary: We are happy to announce 15 projects for Fall 2026 (September 30 - December 11).
 blocks:
   - type: text
     content: |-
-      Fall 2026 projects. (September 30 – December 11).
+      **Dates:** September 30 - December 11
 
-      Project meetings: Monday & **Wednesday**.
-
-      [Project member application](https://forms.gle/dRoo1jHayR95JHzm8) — **Deadline: Tuesday, September 22, 2026.**
+      **Project meetings:** Mondays & Wednesdays, 4:00 - 5:30 pm
   - type: heading
     title: Autoresearch
     id: autoresearch
@@ -35,7 +35,7 @@ blocks:
           to analyze existing proofs, identify obstacles, and propose new lemmas and proof strategies,
           with experts reviewing mathematical claims. The project aims to advance understanding of
           partial-data uniqueness and produce open-source tools and documented experiments assessing
-          AI’s contribution to research mathematics.
+          AI's contribution to research mathematics.
       - label: "Suggested references:"
         content: |-
           1. Sections 2.7 and 2.8 of the book ["The Calderón Problem: An Introduction"](https://bookstore.ams.org/GSM/253) by Feldman, Salo, and Uhlmann. Basic real analysis knowledge may be required to follow these sections directly.
@@ -197,7 +197,7 @@ blocks:
           https://arxiv.org/abs/2309.00806. The natural starting point is theorem 2.1 (proven as
           theorem 3.1 in https://arxiv.org/abs/2205.05267 by ~3 pages of natural language), which
           should on its own provide a challenging but achievable goal. Formalizing this proof will
-          involve formalizing the Desnanot–Jacobi identity, an important determinantal identity not
+          involve formalizing the Desnanot-Jacobi identity, an important determinantal identity not
           yet in Mathlib; this project would contribute classical as well as cutting edge results to
           Mathlib. Natural extensions would be formalizing so-called principal minor equivalence,
           treated in https://arxiv.org/abs/2410.01961, or Hermitian determinantal representations,
@@ -218,7 +218,7 @@ blocks:
         content: |-
           In 2012, Ronen Eldan introduced a remarkable new technique in probability theory, now broadly known as **stochastic localization**. Since its introduction, stochastic localization (and, more generally, the philosophy behind it) has become an extremely powerful tool, leading to major advances in probability, convex geometry, and theoretical computer science. The goal of this project is to formalize stochastic localization and related ideas from the literature in Lean/Mathlib.
 
-          We will begin by formalizing the techniques developed in Eldan’s foundational paper ([https://arxiv.org/pdf/1203.0893](https://arxiv.org/pdf/1203.0893)). In addition to contributing directly to the formalization, the project leader will serve as a mentor and help coordinate the mathematical direction of the project. This will include explaining the underlying probability theory, and helping participants navigate the mathematical literature. At the same time, the project is intended to be a collaborative learning experience. Participants will be encouraged to learn the theory together, propose directions, take ownership of individual components, and contribute to the broader development of stochastic localization in Mathlib. Motivated students with an interest in probability theory, convex geometry, theoretical computer science, or formalization of mathematics are encouraged to participate.
+          We will begin by formalizing the techniques developed in Eldan's foundational paper ([https://arxiv.org/pdf/1203.0893](https://arxiv.org/pdf/1203.0893)). In addition to contributing directly to the formalization, the project leader will serve as a mentor and help coordinate the mathematical direction of the project. This will include explaining the underlying probability theory, and helping participants navigate the mathematical literature. At the same time, the project is intended to be a collaborative learning experience. Participants will be encouraged to learn the theory together, propose directions, take ownership of individual components, and contribute to the broader development of stochastic localization in Mathlib. Motivated students with an interest in probability theory, convex geometry, theoretical computer science, or formalization of mathematics are encouraged to participate.
   - type: project
     title: Autoformalizing Mathematical Benchmarks
     id: autoformalizing-mathematical-benchmarks
@@ -227,7 +227,7 @@ blocks:
       - label: "Area:"
         content: Autoformalization
       - label: "Project Leader:"
-        content: Theodore Meek <theomeek@uw.edu>
+        content: Theodore Meek
       - label: "Members (continuing):"
         content: Michael R. Zeng <zengrf@uw.edu>, Pei Li <peilinli@uw.edu>
       - label: "Abstract:"

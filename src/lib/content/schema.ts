@@ -52,6 +52,8 @@ export const projectQuarterSchema = z.strictObject({
 	lastmod: date,
 	venue: text.optional(),
 	projectsLaunched: z.number().int().nonnegative().optional(),
+	// How many of the quarter's projects continue from the previous quarter (new = total - returning).
+	returningProjects: z.number().int().nonnegative().optional(),
 	summary: text,
 	blocks
 });
@@ -62,18 +64,23 @@ export const resourceSchema = z.strictObject({ blocks });
 
 export const eventSchema = z.strictObject({
 	title: text,
-	speaker: text,
+	// Only for an individual or individuals; events run by the lab itself leave it out.
+	speaker: text.optional(),
 	date,
 	startTime: time,
 	endTime: time,
 	utcOffset: z.string().regex(/^[+-](?:0\d|1[0-4]):[0-5]\d$/).optional(),
 	timeZoneLabel: text.optional(),
 	organizer: z.strictObject({ name: text, url }).optional(),
-	location: text,
-	type: z.enum(['Seminar', 'Workshop', 'Conference', 'Poster Session', 'Final Exam', 'Information Session', 'Colloquium', 'Social', 'Announcement']),
+	// Optional: an event with no room (for example an online sign-up announcement) just omits it.
+	location: text.optional(),
+	// Three non-overlapping kinds: someone presents (Talk), people work hands-on (Workshop),
+	// or it is a lab gathering (Lab event: socials, poster sessions, meetings, sign-up announcements).
+	type: z.enum(['Talk', 'Workshop', 'Lab event']),
 	sourceUrl: url.optional(),
 	sourceLabel: text.optional(),
-	links: z.array(link).optional(),
+	// closed: true greys the button out (for example an application form that has shut).
+	links: z.array(link.extend({ closed: z.boolean().optional() })).optional(),
 	abstract: text.optional(),
 	details: z.array(text).optional(),
 	papers: z.array(z.strictObject({ title: text, url, badge: z.enum(['Oral presentation', 'Spotlight']).optional() })).optional(),
@@ -86,6 +93,17 @@ export const newsSchema = z.array(z.strictObject({
 	date,
 	title: text,
 	summary: text,
+	image: z.strictObject({
+		src: url,
+		alt: text,
+		width: z.number().int().positive(),
+		height: z.number().int().positive()
+	}).optional(),
+	// Optional write-up page content (used by /news/icml-2026): long lead, facts, photos, papers.
+	body: text.optional(),
+	facts: z.array(text).optional(),
+	photos: z.array(photo).optional(),
+	papers: z.array(z.strictObject({ title: text, url, badge: z.enum(['Oral presentation', 'Spotlight']).optional() })).optional(),
 	links: z.array(link).min(1)
 })).superRefine((items, ctx) => {
 	const ids = new Set<string>();
@@ -114,15 +132,18 @@ export const peopleSchema = z.strictObject({
 export type PersonCard = z.infer<typeof person>;
 export type LabPhoto = z.infer<typeof photo>;
 
+// showOnHome: false keeps a venue on the Research page but off the homepage cards.
+const researchVenue = z.strictObject({ name: text, badge: text.optional(), showOnHome: z.boolean().optional() });
 const researchEntry = z.strictObject({
-	venue: text,
+	// Each venue carries its own badge, so multi-venue papers say which one earned what.
+	venues: z.array(researchVenue).min(1),
 	title: text,
 	authors: text,
 	abstract: text,
 	url,
 	linkLabel: text,
-	badge: text.optional(),
-	featured: z.boolean().optional()
+	// true features the entry in file order; a number pins it to that place at the top of the list.
+	featured: z.union([z.boolean(), z.number().int().positive()]).optional()
 });
 const researchSection = z.strictObject({ id, title: text, description: text, countsAsPaper: z.boolean(), items: z.array(researchEntry).min(1) });
 export type ResearchEntry = z.infer<typeof researchEntry>;
@@ -142,7 +163,7 @@ const tool = z.strictObject({
 export type LabTool = z.infer<typeof tool>;
 
 const page = z.strictObject({ title: text, description: text, path: url, lastmod: date });
-export const pagesSchema = z.strictObject({ home: page, projects: page, research: page, people: page, events: page, resources: page });
+export const pagesSchema = z.strictObject({ home: page, projects: page, research: page, people: page, events: page, news: page, resources: page });
 
 export const mathSymbolsSchema = z.array(z.strictObject({
 	id,

@@ -6,6 +6,7 @@ term: Winter
 year: 2025
 status: archive
 lastmod: 2026-06-01
+returningProjects: 3
 summary: Winter 2025 formalization, metaprogramming, reinforcement learning, and neural theorem
   proving projects.
 blocks:

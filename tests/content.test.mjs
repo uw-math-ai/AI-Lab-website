@@ -10,6 +10,7 @@ const { parseContent } = await server.ssrLoadModule('/scripts/yaml-content.ts');
 const { projectQuarters, getProjectQuarter, totalProjectCount } = await server.ssrLoadModule('/src/lib/data/projects.ts');
 const { labEvents, eventDate } = await server.ssrLoadModule('/src/lib/data/events.ts');
 const { labNews } = await server.ssrLoadModule('/src/lib/data/news.ts');
+const { googleCalendarUrl, outlookCalendarUrl, icsFile, hasHours, timeRange } = await server.ssrLoadModule('/src/lib/calendar.ts');
 const { researchSections, totalPaperCount, searchResearch } = await server.ssrLoadModule('/src/lib/data/research.ts');
 const { renderMarkdown, renderInline } = await server.ssrLoadModule('/src/lib/content/markdown.ts');
 const { compileMathSymbols } = await server.ssrLoadModule('/scripts/math-symbols.ts');
@@ -37,6 +38,12 @@ test('YAML quarters retain chronological routing and cumulative project counts',
 	assert.equal(new Set(projectQuarters.map((quarter) => quarter.slug)).size, projectQuarters.length);
 	assert.equal(totalProjectCount, 59 + projectQuarters.reduce((total, quarter) => total + (quarter.projectsLaunched ?? 0), 0));
 	for (const quarter of projectQuarters) assert.equal(getProjectQuarter(quarter.slug), quarter);
+	// New = total project blocks - returning; it must agree with projectsLaunched when both are set.
+	for (const quarter of projectQuarters) {
+		if (quarter.returningProjects === undefined || quarter.projectsLaunched === undefined) continue;
+		const total = quarter.blocks.filter((block) => block.type === 'project' && !/mentors|participants/i.test(block.title)).length;
+		assert.equal(total - quarter.returningProjects, quarter.projectsLaunched, quarter.slug);
+	}
 	assert.equal(getProjectQuarter('missing-quarter'), undefined);
 });
 
@@ -84,22 +91,17 @@ test('Markdown preserves math, nested lists, links, and blocks executable HTML',
 	assert.match(renderInline('[Slides](/slides/test.pdf)'), /href="\/slides\/test.pdf"/);
 });
 
-test('conference events retain verified dates, venue time zones, and source links', () => {
-	const tag = labEvents.find((event) => event.speaker === 'Samarth Rao');
-	assert.ok(tag);
-	assert.equal(tag.date, '2026-08-19');
-	assert.equal(tag.startTime, '10:20');
-	assert.equal(tag.endTime, '10:40');
-	assert.equal(eventDate(tag).toISOString(), '2026-08-19T14:20:00.000Z');
-	assert.ok(tag.links.some((link) => link.url === 'https://openreview.net/forum?id=kwzRA4f5zB'));
-	assert.ok(tag.links.some((link) => link.url.includes('13TMYcYC61R5DncvyIFGe_LLyjlJx0WloeLjd73mmaws')));
-	const ieee = labEvents.find((event) => event.title === 'StabilizerBench at IEEE QCE 2026');
-	assert.ok(ieee);
-	assert.equal(eventDate(ieee).toISOString(), '2026-09-13T17:00:00.000Z');
-	assert.equal(ieee.endTime, '14:30');
-	assert.match(ieee.abstract, /full session/);
-	assert.equal(ieee.timeZoneLabel, 'EDT');
-	assert.equal(ieee.organizer.name, 'IEEE Quantum Week');
+test('the calendar keeps talks and gatherings, not paper acceptances, with one spelling per UW room', () => {
+	// Paper acceptances and conference presentations are News items, not calendar events.
+	// Only three kinds, so no two categories overlap.
+	assert.deepEqual([...new Set(labEvents.map((event) => event.type))].sort(), ['Lab event', 'Talk', 'Workshop']);
+	assert.ok(!labEvents.some((event) => /icml 2026|ieee qce|tag-ds spotlight/i.test(event.title)));
+	// Odegaard is always OUG, whatever the source called it.
+	for (const event of labEvents) assert.doesNotMatch(event.location ?? '', /odegaard|\bode\b/i, event.title);
+	const hackathon = labEvents.find((event) => event.title.startsWith('UW 2026 Lean Hackathon'));
+	assert.ok(hackathon);
+	assert.equal(hackathon.date, '2026-05-08');
+	assert.equal(hackathon.sourceUrl, 'https://uw2026leanhackathon.github.io/');
 });
 
 test('news has independent historical dates, chronological ordering, and unique IDs', () => {
@@ -130,25 +132,29 @@ test('historical mathlib entries retain named credits, dates, and distinct PR st
 		const matches = artifacts.items.filter((item) => item.url === `https://github.com/leanprover-community/mathlib4/pull/${id}`);
 		assert.equal(matches.length, 1);
 		assert.equal(matches[0].authors, authors);
-		assert.equal(matches[0].venue, `Mathlib ${id === 29574 ? 'Pull Request' : 'Contribution'}, ${year}`);
-		assert.equal(matches[0].badge, id === 29574 ? 'Open PR' : 'Merged');
+		assert.equal(matches[0].venues[0].name, `Mathlib ${id === 29574 ? 'Pull Request' : 'Contribution'}, ${year}`);
+		assert.equal(matches[0].venues[0].badge, id === 29574 ? 'Open PR' : 'Merged');
 	}
 	assert.equal(new Set(artifacts.items.map((item) => item.url)).size, artifacts.items.length);
 	for (const item of artifacts.items) assert.doesNotMatch(item.authors, /UW Math AI Lab|group/i);
 	for (const year of [2022, 2023, 2024, 2025]) {
-		assert.ok(artifacts.items.some((item) => item.linkLabel === 'Code' && item.venue.includes(String(year))));
+		assert.ok(artifacts.items.some((item) => item.linkLabel === 'Code' && item.venues[0].name.includes(String(year))));
 	}
 });
 
 test('research search covers every section and card field, including links and badges', () => {
 	for (const section of researchSections) {
-		for (const query of [section.title, section.description]) {
-			assert.deepEqual(searchResearch(query).find((result) => result.id === section.id)?.items, section.items, query);
-		}
+		// Section titles and descriptions are not searched, so they never pull in a whole section.
+		const viaDescription = searchResearch(section.description).find((result) => result.id === section.id)?.items ?? [];
+		assert.ok(viaDescription.length < section.items.length, section.id);
 		for (const item of section.items) {
-			for (const field of ['title', 'authors', 'abstract', 'venue', 'badge', 'linkLabel', 'url']) {
-				if (!item[field]) continue;
-				assert.ok(searchResearch(item[field]).flatMap((result) => result.items).includes(item), `${item.title}: ${field}`);
+			const values = {
+				title: item.title, authors: item.authors, abstract: item.abstract, linkLabel: item.linkLabel, url: item.url,
+				...Object.fromEntries(item.venues.flatMap((venue, i) => [[`venue ${i}`, venue.name], [`badge ${i}`, venue.badge]]))
+			};
+			for (const [field, value] of Object.entries(values)) {
+				if (!value) continue;
+				assert.ok(searchResearch(value).flatMap((result) => result.items).includes(item), `${item.title}: ${field}`);
 			}
 		}
 	}
@@ -234,4 +240,26 @@ test('notation selection balances fields, avoids repeats, and preserves readable
 			assert.ok(Math.abs(size.width / size.height - symbol.width / symbol.height) < 0.001);
 		}
 	}
+});
+
+test('add-to-calendar links use the right instant for Seattle time, including daylight saving', () => {
+	const event = (date, startTime, endTime) => ({ title: 'Lab meeting', date, startTime, endTime, location: 'OUG 136', type: 'Lab event', abstract: 'Hello, world.' });
+	// October 5 is daylight time (UTC-7): 4:00 pm becomes 23:00 UTC.
+	const summer = event('2026-10-05', '16:00', '17:30');
+	assert.match(googleCalendarUrl(summer), /dates=20261005T230000Z%2F20261006T003000Z/);
+	assert.match(outlookCalendarUrl(summer), /startdt=2026-10-05T23%3A00%3A00Z/);
+	// December is standard time (UTC-8): 4:00 pm becomes 00:00 UTC the next day.
+	const winter = event('2026-12-07', '16:00', '17:30');
+	assert.match(googleCalendarUrl(winter), /dates=20261208T000000Z%2F20261208T013000Z/);
+	const ics = decodeURIComponent(icsFile(summer).href.split(',')[1]);
+	assert.match(ics, /DTSTART:20261005T230000Z/);
+	assert.match(ics, /LOCATION:OUG 136/);
+	assert.match(ics, /SUMMARY:Lab meeting/);
+	// An event with an explicit UTC offset keeps it.
+	assert.match(googleCalendarUrl({ ...summer, utcOffset: '-04:00' }), /dates=20261005T200000Z/);
+	// Date-only entries (start equals end) have no hours and no time to show.
+	const dateOnly = event('2026-05-08', '09:00', '09:00');
+	assert.equal(hasHours(dateOnly), false);
+	assert.equal(timeRange(dateOnly), null);
+	assert.equal(timeRange(summer), '4:00 PM-5:30 PM');
 });

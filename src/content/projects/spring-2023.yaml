@@ -6,6 +6,7 @@ term: Spring
 year: 2023
 status: archive
 lastmod: 2026-06-01
+returningProjects: 0
 summary: Spring 2023 Lean formalization projects and student participants.
 blocks:
   - type: text

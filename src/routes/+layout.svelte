@@ -9,11 +9,12 @@
 	let { children } = $props();
 </script>
 
+<a class="skip-link" href="#main">Skip to main content</a>
 <ThemeController />
 <Analytics />
 <MathBackground />
 <SiteHeader />
-<main>
+<main id="main" tabindex="-1">
 	{@render children()}
 </main>
 <SiteFooter />

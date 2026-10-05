@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
-	import OpenProblemsHero from '$lib/components/OpenProblemsHero.svelte';
 	import ProjectEmbed from '$lib/components/ProjectEmbed.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 	import NewsList from '$lib/components/NewsList.svelte';
@@ -11,30 +10,26 @@
 	import { labTools } from '$lib/data/tools';
 	import { pages } from '$lib/data/pages';
 	import { sitePath } from '$lib/paths';
+	import { timeRange } from '$lib/calendar';
 	import { graph, organization, website } from '$lib/structuredData';
 
 	const fallProjects = projectQuarters.find((quarter) => quarter.slug === 'fall-2026');
 
 	const upcoming = labEvents
-		.filter(
-			(event) =>
-				eventDate(event) >= new Date() &&
-				event.title !== 'ICML 2026' &&
-				event.type !== 'Announcement'
-		)
+		.filter((event) => eventDate(event) >= new Date())
 		.sort((a, b) => a.date.localeCompare(b.date) || a.startTime.localeCompare(b.startTime))
 		.slice(0, 2);
-
-	const latestProjects = projectQuarters.slice(0, 3);
-	const [openProblems, theoremSearch] = labTools;
 
 	let selected = $state(0);
 
 	function onTabKeydown(event: KeyboardEvent) {
-		const delta = event.key === 'ArrowRight' ? 1 : event.key === 'ArrowLeft' ? -1 : 0;
-		if (!delta) return;
+		const last = labTools.length - 1;
+		if (event.key === 'Home') selected = 0;
+		else if (event.key === 'End') selected = last;
+		else if (event.key === 'ArrowRight') selected = (selected + 1) % labTools.length;
+		else if (event.key === 'ArrowLeft') selected = (selected + last) % labTools.length;
+		else return;
 		event.preventDefault();
-		selected = (selected + delta + labTools.length) % labTools.length;
 		const next = document.getElementById(`tool-tab-${labTools[selected].id}`);
 		next?.focus();
 	}
@@ -59,18 +54,8 @@
 	jsonLd={graph(organization, website)}
 />
 
-<section class="home-hero">
-	<div class="hero-field" data-ambient-quiet aria-hidden="false">
-		<OpenProblemsHero
-			bleed
-			caption="Hover any point to read the problem"
-			work="The Growing Map of Open Problems"
-			author="Simon Kurgan"
-			href="https://open-problems-map.pages.dev/"
-		/>
-	</div>
-	<div class="page-shell hero-copy">
-		<span class="eyebrow">University of Washington</span>
+<section class="page-shell home-hero">
+	<div class="hero-copy">
 		<h1>Math AI Lab</h1>
 		<p class="dek">
 			The University of Washington Math AI Lab is a research and education organization focused on using AI
@@ -78,46 +63,118 @@
 			<a href="https://sites.math.washington.edu/~jarod/">Jarod Alper</a> and <a href="https://vilin97.github.io/">Vasily Ilin</a>.
 		</p>
 		<div class="actions">
-			<a class="button primary" href={sitePath('/projects/fall-2026')}>Fall 2026 Projects</a>
-			<a class="button" href={sitePath('/events')}>Event Calendar</a>
+			<a class="button primary" href={sitePath('/resources')}>Resources</a>
 			<a class="button" href="https://github.com/uw-math-ai" target="_blank" rel="noreferrer">GitHub</a>
 		</div>
-		<a class="hero-jump" href="#open-problems-map">Explore the full map ↓</a>
+	</div>
+	<div class="stats" role="group" aria-label="The lab at a glance">
+		<div><strong>{fmt(totalPaperCount)}</strong><span>papers</span></div>
+		<div><strong>{fmt(totalProjectCount)}</strong><span>projects</span></div>
+		<div><strong>{fmt(participantCounts.undergraduate)}</strong><span>undergraduate students</span></div>
+		<div><strong>{fmt(participantCounts.graduate)}</strong><span>graduate students</span></div>
+		<div><strong>{fmt(participantCounts.professor)}</strong><span>professors</span></div>
 	</div>
 </section>
 
 {#if fallProjects}
-	<section class="page-shell" aria-labelledby="fall-2026-applications-heading">
+	<section class="page-shell section" aria-labelledby="fall-2026-applications-heading">
+		<div class="section-header">
+			<h2 id="fall-2026-applications-heading">Fall 2026 Projects</h2>
+			<a class="section-link" href={sitePath('/projects')}>All {totalProjectCount} projects →</a>
+		</div>
 		<div class="home-announcement interactive-surface">
 			<div>
-				<span class="eyebrow">Fall 2026</span>
-				<h2 id="fall-2026-applications-heading">Explore this fall’s projects</h2>
-				<p>{fallProjects.blocks.filter((block) => block.type === 'project').length} projects selected for September 30 – December 11.</p>
-				<p>Member application deadline: Tuesday, September 22, 2026.</p>
+				<p>We are happy to announce {fallProjects.blocks.filter((block) => block.type === 'project').length} projects for Fall 2026!</p>
+				<p>We expect to reopen applications in December for Winter 2027.</p>
 			</div>
 			<div class="actions">
-				<a class="button primary" href="https://forms.gle/dRoo1jHayR95JHzm8" target="_blank" rel="noreferrer">Project member application</a>
-				<a class="button" href={sitePath('/projects/fall-2026')}>Fall 2026 Projects</a>
+				<button type="button" class="button" disabled>Applications closed</button>
+				<a class="button primary" href={sitePath('/projects/fall-2026')}>View projects</a>
 			</div>
 		</div>
 	</section>
 {/if}
 
-<section class="page-shell section home-stats-section">
-	<div class="stats">
-		<div class="interactive-surface"><strong>{fmt(totalPaperCount)}</strong><span>papers</span></div>
-		<div class="interactive-surface"><strong>{fmt(totalProjectCount)}</strong><span>projects</span></div>
-		<div class="interactive-surface"><strong>{fmt(participantCounts.undergraduate)}</strong><span>undergraduate students</span></div>
-		<div class="interactive-surface"><strong>{fmt(participantCounts.graduate)}</strong><span>graduate students</span></div>
-		<div class="interactive-surface"><strong>{fmt(participantCounts.professor)}</strong><span>professors</span></div>
-	</div>
+<NewsList limit={4} preview />
+
+<section class="page-shell section events-section">
+	<Reveal>
+		<div class="section-header">
+			<h2>Events</h2>
+			<a class="section-link" href={sitePath('/events')}>All events →</a>
+		</div>
+
+		{#if upcoming.length}
+			<ul class="row-list">
+				{#each upcoming as event}
+					<li data-reveal-item>
+						<span class="row-key num">{formatDate(event.date)}</span>
+						<a
+							class="row-body"
+							href={eventHref(event)}
+							target={event.sourceUrl ? '_blank' : undefined}
+							rel={event.sourceUrl ? 'noreferrer' : undefined}
+						>
+							<strong>{event.title}</strong>
+							{#if timeRange(event) || event.location}
+								<small>{[timeRange(event), event.location].filter(Boolean).join(' \u00b7 ')}</small>
+							{/if}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		{:else}
+			<p class="empty">No events are scheduled right now.</p>
+		{/if}
+	</Reveal>
+</section>
+
+<section class="page-shell section papers-section">
+	<Reveal>
+		<div class="section-header">
+			<h2>Research</h2>
+			<a class="section-link" href={sitePath('/research')}>All Research →</a>
+		</div>
+		<ol class="paper-list">
+			{#each featuredResearch as paper, index}
+				<li class="paper-card interactive-surface" data-reveal-item style={`--reveal-delay: ${(index % 4) * 45}ms`}>
+					<div class="paper-venue">
+						{#each paper.venues.filter((venue) => venue.showOnHome !== false) as venue}
+							<span class="venue">{venue.name}{#if venue.badge}<em>{venue.badge}</em>{/if}</span>
+						{/each}
+					</div>
+					<div class="paper-body">
+						<a href={paper.url} target="_blank" rel="noreferrer">{paper.title}</a>
+						<p>{paper.abstract}</p>
+					</div>
+				</li>
+			{/each}
+		</ol>
+	</Reveal>
+</section>
+
+<section class="page-shell section">
+	<Reveal>
+		<div class="section-header">
+			<h2>Community</h2>
+			<a class="section-link" href={sitePath('/people')}>People →</a>
+		</div>
+		<div class="home-photo-grid">
+			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 0ms">
+				<img src={sitePath('/photos/spring2026-demo-day-group.jpg')} width="2000" height="1126" alt="Math AI Lab members and project teams standing together at Spring 2026 demo day" loading="lazy" decoding="async" />
+				<figcaption>Spring 2026 demo day, June 8, 2026</figcaption>
+			</figure>
+			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 45ms">
+				<img src={sitePath('/photos/spring2026-demo-day-certificates.jpg')} width="2000" height="1126" alt="Seven Math AI Lab members each holding a certificate of recognition at Spring 2026 demo day" loading="lazy" decoding="async" />
+				<figcaption>Certificates of recognition, Spring 2026 demo day</figcaption>
+			</figure>
+		</div>
+	</Reveal>
 </section>
 
 <section class="page-shell section tools-section" id="tools">
 	<div class="section-header">
-		<span class="eyebrow">Tools</span>
-		<h2>Built in the lab</h2>
-		<p>Two public tools from Math AI Lab projects, running live below.</p>
+		<h2>Tools</h2>
 	</div>
 
 	<div class="gallery" id="open-problems-map">
@@ -174,197 +231,26 @@
 	</div>
 </section>
 
-<section class="page-shell section papers-section">
-	<Reveal>
-		<div class="section-header">
-			<span class="eyebrow">Research</span>
-			<h2>Publications & Preprints</h2>
-			<p>Selected recent Math AI Lab papers. The full research page collects the lab's current conference papers, workshop papers, preprints, and essays.</p>
-			<a class="section-link" href={sitePath('/research')}>Open Research Page →</a>
-		</div>
-		<ol class="paper-list">
-			{#each featuredResearch as paper, index}
-				<li class="paper-card interactive-surface" data-reveal-item style={`--reveal-delay: ${(index % 4) * 45}ms`}>
-					<div class="paper-venue">
-						<span>{paper.venue}</span>
-						{#if paper.badge}<em>{paper.badge}</em>{/if}
-					</div>
-					<div class="paper-body">
-						<a href={paper.url} target="_blank" rel="noreferrer">{paper.title}</a>
-						<p>{paper.abstract}</p>
-					</div>
-				</li>
-			{/each}
-		</ol>
-	</Reveal>
-</section>
-
-<NewsList />
-
-<section class="page-shell section split-section">
-	<Reveal>
-		<div class="split">
-			<div>
-				<div class="section-header">
-					<span class="eyebrow">Now</span>
-					<h2>Events</h2>
-					<p>Upcoming events, seminars, and hosted Math AI Lab gatherings.</p>
-					<a class="section-link" href={sitePath('/events')}>Event Calendar →</a>
-				</div>
-				<ul class="row-list">
-					<li class="event-card hackathon-home-card interactive-surface" data-reveal-item>
-						<span class="row-key">Hosted event</span>
-						<a class="row-body" href="https://uw2026leanhackathon.github.io/" target="_blank" rel="noreferrer">
-							<img
-								src={sitePath('/logos/uw-2026-lean-hackathon-banner.png')}
-								alt="UW 2026 Lean Hackathon banner"
-								loading="lazy"
-								decoding="async"
-							/>
-							<strong>UW 2026 Lean Hackathon</strong>
-							<small>We hosted a Lean hackathon bringing together formalization, math, and AI communities.</small>
-						</a>
-					</li>
-					<li class="event-card featured-event-card interactive-surface" data-reveal-item style="--reveal-delay: 45ms">
-						<span class="row-key">ICML 2026</span>
-						<a class="row-body" href={sitePath('/events#icml-2026')}>
-							<strong>We presented 8 papers at ICML 2026</strong>
-							<small>Congratulations to our authors! Our work included an oral presentation and a workshop Spotlight in Seoul.</small>
-						</a>
-					</li>
-					{#each upcoming as event, index}
-						<li class="event-card interactive-surface" data-reveal-item style={`--reveal-delay: ${(index + 2) * 45}ms`}>
-							<span class="row-key num">{formatDate(event.date)}</span>
-							<a
-								class="row-body"
-								href={eventHref(event)}
-								target={event.sourceUrl ? '_blank' : undefined}
-								rel={event.sourceUrl ? 'noreferrer' : undefined}
-							>
-								<strong>{event.title}</strong>
-								<small>{event.speaker}, {event.location}</small>
-							</a>
-						</li>
-					{:else}
-						<li class="event-card interactive-surface" data-reveal-item>
-							<span class="row-key">Archive</span>
-							<a class="row-body" href={sitePath('/events')}>
-								<strong>Browse past Math AI events</strong>
-								<small>The agenda archive is updated from the official UW Math source.</small>
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
-			<div>
-				<div class="section-header">
-					<span class="eyebrow">Projects</span>
-					<h2>Recent Quarters</h2>
-					<a class="section-link" href={sitePath('/projects')}>All {totalProjectCount} projects →</a>
-				</div>
-				<ul class="row-list">
-					{#each latestProjects as quarter, index}
-						<li class="project-card interactive-surface" data-reveal-item style={`--reveal-delay: ${index * 45}ms`}>
-							<span class="row-key">
-								{quarter.label}
-								{#if quarter.status === 'current'}<em>Current</em>{/if}
-							</span>
-							<a class="row-body" href={sitePath(`/projects/${quarter.slug}`)}>
-								<strong>{quarter.label} Projects</strong>
-								<small>{quarter.summary}</small>
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
-		</div>
-	</Reveal>
-</section>
-
-<section class="page-shell section">
-	<Reveal>
-		<div class="section-header">
-			<span class="eyebrow">Community</span>
-			<h2>Lab moments</h2>
-			<p>Recent gatherings from campus to conferences.</p>
-			<a class="section-link" href={sitePath('/people')}>People →</a>
-		</div>
-		<div class="home-photo-grid">
-			<figure class="home-photo-card home-photo-featured interactive-surface" data-reveal-item style="--reveal-delay: 0ms">
-				<img src={sitePath('/photos/fall2025.jpg')} width="3024" height="1702" alt="Fall 2025 Math AI Lab" loading="lazy" decoding="async" />
-				<figcaption>
-					<span>Fall 2025</span>
-					<strong>Math AI Lab</strong>
-					<p>Our lab community during Fall Quarter 2025 at the University of Washington.</p>
-				</figcaption>
-			</figure>
-			<figure class="home-photo-card interactive-surface" data-reveal-item style="--reveal-delay: 45ms">
-				<img
-					src={sitePath('/photos/icml-2026-coex-2.webp')}
-					alt="Math AI Lab group at ICML 2026 in COEX, Seoul"
-					width="2720"
-					height="1532"
-					loading="lazy"
-					decoding="async"
-				/>
-				<figcaption>
-					<span>ICML 2026, Seoul</span>
-					<strong>ICML 2026 group photo</strong>
-					<p>Math AI Lab members at COEX for eight papers presented across ICML and its workshops.</p>
-				</figcaption>
-			</figure>
-			<figure class="home-photo-card wide interactive-surface" data-reveal-item style="--reveal-delay: 90ms">
-				<img src={sitePath('/photos/lean-hackathon.jpg')} width="2000" height="584" alt="Participants at the UW 2026 Lean Hackathon" loading="lazy" decoding="async" />
-				<figcaption>
-					<span>UW 2026 Lean Hackathon</span>
-					<strong>Lean, mathematics, and AI together</strong>
-					<p>A focused gathering hosted by the Math AI Lab at the University of Washington.</p>
-				</figcaption>
-			</figure>
-		</div>
-	</Reveal>
-</section>
-
 <style>
 	/* ---------- Hero ---------- */
-	/* The map is the ground; the copy sits on the paper the mask leaves clear. */
 	.home-hero {
-		position: relative;
 		display: grid;
-		align-content: center;
-		min-height: min(calc(100vh - 3.6rem), 46rem);
-		padding: clamp(2rem, 5vw, 4rem) 0 3.5rem;
-		overflow: hidden;
-	}
-
-	.hero-field {
-		position: absolute;
-		inset: 0;
-		z-index: 0;
-	}
-
-	.hero-copy {
-		position: relative;
-		z-index: 1;
-		max-width: 100%;
-		pointer-events: none;
-	}
-
-	.hero-copy > * {
-		pointer-events: auto;
+		grid-template-columns: minmax(0, 1.25fr) minmax(15rem, 0.75fr);
+		gap: clamp(1.5rem, 5vw, 4rem);
+		align-items: end;
+		padding: var(--intro-padding);
 	}
 
 	.hero-copy h1 {
-		font-size: clamp(2.6rem, 5vw, 4.6rem);
+		font-size: var(--text-display);
 		line-height: 1;
 		letter-spacing: -0.02em;
-		margin: 0.7rem 0 1.1rem;
-		white-space: nowrap;
+		margin: 0 0 1.1rem;
 	}
 
 	.dek {
 		color: var(--muted);
-		font-size: clamp(1.02rem, 1.4vw, 1.15rem);
+		font-size: var(--text-lead);
 		line-height: 1.5;
 		max-width: 31rem;
 		margin: 0;
@@ -378,48 +264,19 @@
 		margin-top: 1.6rem;
 	}
 
-	.hero-jump {
-		display: inline-block;
-		margin-top: 1.5rem;
-		font-family: var(--font-sans);
-		font-size: 0.78rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: var(--muted);
-		text-decoration: none;
-		border-bottom: 1px solid var(--line-strong);
-		padding-bottom: 0.15rem;
-	}
-
-	.hero-jump:hover {
-		color: var(--text);
-		border-bottom-color: var(--text);
-	}
-
 	/* ---------- Announcement ---------- */
 	.home-announcement {
 		display: grid;
 		grid-template-columns: minmax(0, 1fr) auto;
 		align-items: center;
 		gap: 1rem 2.5rem;
-		padding: 1.25rem 0;
-		margin-top: 1.5rem;
-		border-top: 1px solid var(--line-strong);
-		border-bottom: 1px solid var(--line);
-	}
-
-	.home-announcement h2 {
-		font-size: 1.35rem;
-		line-height: 1.2;
-		margin: 0.3rem 0 0.25rem;
 	}
 
 	.home-announcement p {
 		max-width: var(--measure);
 		margin: 0;
 		color: var(--muted);
-		font-size: 0.98rem;
+		font-size: var(--text-base);
 	}
 
 	.home-announcement .actions {
@@ -428,44 +285,35 @@
 	}
 
 	/* ---------- Stats ---------- */
-	.home-stats-section {
-		padding-top: clamp(1.5rem, 3vw, 2.5rem);
-	}
-
+	/* Same vertical rule as the Research page's stats panel. */
 	.stats {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
-		border-top: 1px solid var(--line-strong);
-		border-bottom: 1px solid var(--line);
+		gap: 0.9rem;
+		padding-left: 1.25rem;
+		border-left: 1px solid var(--line);
 	}
 
 	.stats > div {
-		padding: 1.1rem 1rem 1.1rem 0;
-		margin-right: 1rem;
-		border-right: 1px solid var(--line);
-	}
-
-	.stats > div:last-child {
-		border-right: 0;
-		margin-right: 0;
+		display: grid;
+		grid-template-columns: 5rem minmax(0, 1fr);
+		align-items: baseline;
+		gap: 1rem;
 	}
 
 	.stats strong {
-		display: block;
-		font-family: var(--font-mono);
+		font-family: var(--font-serif);
 		font-variant-numeric: tabular-nums;
 		font-weight: 600;
-		font-size: clamp(1.7rem, 3vw, 2.4rem);
+		font-size: var(--text-title);
 		line-height: 1;
-		letter-spacing: -0.03em;
+		letter-spacing: -0.02em;
 		color: var(--heading);
+		text-align: right;
 	}
 
 	.stats span {
-		display: block;
-		margin-top: 0.45rem;
 		font-family: var(--font-sans);
-		font-size: 0.72rem;
+		font-size: var(--text-xs);
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
@@ -484,7 +332,6 @@
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0 1.75rem;
-		border-bottom: 1px solid var(--line);
 	}
 
 	.gallery-tabs button {
@@ -494,7 +341,7 @@
 		padding: 0 0 0.7rem;
 		margin-bottom: -1px;
 		font-family: var(--font-serif);
-		font-size: clamp(1.15rem, 1.9vw, 1.5rem);
+		font-size: var(--text-subtitle);
 		font-weight: 500;
 		letter-spacing: -0.01em;
 		color: var(--muted);
@@ -528,7 +375,7 @@
 	.tool-description {
 		margin: 0;
 		max-width: var(--measure);
-		font-size: 1.05rem;
+		font-size: var(--text-base);
 		line-height: 1.5;
 		color: var(--muted);
 	}
@@ -543,7 +390,7 @@
 
 	.text-link {
 		font-family: var(--font-sans);
-		font-size: 0.84rem;
+		font-size: var(--text-sm);
 		font-weight: 600;
 		color: var(--purple);
 		text-decoration: none;
@@ -557,12 +404,15 @@
 	.credit {
 		margin: 0;
 		font-family: var(--font-sans);
-		font-size: 0.78rem;
+		font-size: var(--text-xs);
 		color: var(--muted);
 	}
 
 	/* ---------- Papers ---------- */
 	.paper-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+		gap: 0 3rem;
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -570,23 +420,29 @@
 
 	.paper-card {
 		display: grid;
-		grid-template-columns: 13rem minmax(0, 1fr);
-		gap: 0.5rem 2rem;
+		gap: 0.5rem;
 		padding: 1.1rem 0;
 		border-bottom: 1px solid var(--line);
 	}
 
 	.paper-venue {
-		display: grid;
-		align-content: start;
-		gap: 0.3rem;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.3rem 0.8rem;
 		font-family: var(--font-sans);
-		font-size: 0.74rem;
+		font-size: var(--text-xs);
 		font-weight: 600;
-		letter-spacing: 0.04em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: var(--muted);
 		padding-top: 0.35rem;
+	}
+
+	.paper-venue .venue {
+		display: grid;
+		justify-items: start;
+		gap: 0.15rem;
 	}
 
 	.paper-venue em {
@@ -595,7 +451,7 @@
 	}
 
 	.paper-body a {
-		font-size: 1.2rem;
+		font-size: var(--text-lg);
 		line-height: 1.3;
 		font-weight: 500;
 		color: var(--heading);
@@ -609,7 +465,7 @@
 
 	.paper-body p {
 		margin: 0.4rem 0 0;
-		font-size: 0.95rem;
+		font-size: var(--text-base);
 		line-height: 1.5;
 		color: var(--muted);
 		max-width: var(--measure);
@@ -620,15 +476,17 @@
 		overflow: hidden;
 	}
 
-	/* ---------- Events + Projects ---------- */
-	.split {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 3rem;
-		align-items: start;
+	/* ---------- Events ---------- */
+	.empty {
+		margin: 0;
+		color: var(--muted);
 	}
 
+	/* ---------- Upcoming events list ---------- */
 	.row-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr));
+		gap: 0 3rem;
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -644,24 +502,17 @@
 
 	.row-key {
 		font-family: var(--font-sans);
-		font-size: 0.72rem;
+		font-size: var(--text-xs);
 		font-weight: 600;
-		letter-spacing: 0.04em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: var(--muted);
 		padding-top: 0.3rem;
 		line-height: 1.4;
 	}
 
-	.row-key em {
-		display: block;
-		margin-top: 0.2rem;
-		font-style: normal;
-		color: var(--text);
-	}
-
 	.row-key.num {
-		font-family: var(--font-mono);
+		font-family: var(--font-sans);
 		text-transform: none;
 		letter-spacing: 0;
 	}
@@ -673,16 +524,9 @@
 		color: var(--text);
 	}
 
-	.row-body img {
-		width: 100%;
-		max-width: 20rem;
-		margin-bottom: 0.5rem;
-		border: 1px solid var(--line);
-	}
-
 	.row-body strong {
 		font-weight: 500;
-		font-size: 1.08rem;
+		font-size: var(--text-md);
 		line-height: 1.3;
 	}
 
@@ -693,7 +537,7 @@
 
 	.row-body small {
 		font-family: var(--font-sans);
-		font-size: 0.84rem;
+		font-size: var(--text-sm);
 		color: var(--muted);
 		line-height: 1.45;
 	}
@@ -704,17 +548,12 @@
 	.home-photo-grid {
 		display: grid;
 		grid-template-columns: repeat(2, minmax(0, 1fr));
-		align-items: start;
 		gap: 1.5rem 1.25rem;
 	}
 
 	.home-photo-card {
 		margin: 0;
 		min-width: 0;
-	}
-
-	.home-photo-card.wide {
-		grid-column: 1 / -1;
 	}
 
 	.home-photo-card img {
@@ -727,72 +566,46 @@
 	.home-photo-card figcaption {
 		margin-top: 0.55rem;
 		font-family: var(--font-sans);
-		font-size: 0.8rem;
+		font-size: var(--text-sm);
 		line-height: 1.45;
 		color: var(--muted);
 	}
 
-	.home-photo-card figcaption span {
-		display: block;
-		font-size: 0.7rem;
-		font-weight: 600;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-	}
+	@media (max-width: 900px) {
+		.home-hero {
+			grid-template-columns: 1fr;
+			align-items: start;
+		}
 
-	.home-photo-card figcaption strong {
-		display: block;
-		margin-top: 0.15rem;
-		font-family: var(--font-serif);
-		font-size: 1.02rem;
-		font-weight: 500;
-		color: var(--text);
-	}
+		.stats {
+			padding-left: 0;
+			border-left: 0;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 1rem 1.5rem;
+		}
 
-	.home-photo-card figcaption p {
-		margin: 0.2rem 0 0;
+		.stats > div {
+			grid-template-columns: 1fr;
+			gap: 0.25rem;
+		}
+
+		.stats strong {
+			text-align: left;
+		}
 	}
 
 	@media (max-width: 1000px) {
-		.home-hero {
-			min-height: 0;
-			padding-bottom: 0;
-		}
-
-		.hero-copy {
-			order: -1;
-		}
-
-		.hero-field {
-			position: static;
-			height: 24rem;
-			margin-top: 2rem;
-			border-top: 1px solid var(--line-strong);
-			padding-top: 1rem;
-		}
-
-		.hero-copy h1 {
-			white-space: normal;
-		}
-
-		.split {
-			grid-template-columns: 1fr;
-		}
-
-		.home-photo-grid {
-			grid-template-columns: 1fr 1fr;
-		}
 	}
 
 	@media (max-width: 640px) {
 		/* Nothing smaller than 12px on a phone. */
-		.home-photo-card figcaption span {
-			font-size: 0.75rem;
+		.home-photo-grid {
+			grid-template-columns: 1fr;
 		}
 
 		.credit,
 		.home-photo-card figcaption {
-			font-size: 0.82rem;
+			font-size: var(--text-sm);
 		}
 
 		.home-announcement {
@@ -803,31 +616,9 @@
 			justify-content: flex-start;
 		}
 
-		.hero-copy h1 {
-			white-space: normal;
-		}
-
-		.paper-card {
-			grid-template-columns: 1fr;
-		}
-
 		.row-list li {
 			grid-template-columns: 1fr;
 			gap: 0.3rem;
-		}
-
-		.home-photo-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.stats > div {
-			border-right: 0;
-			border-bottom: 1px solid var(--line);
-			margin-right: 0;
-		}
-
-		.stats > div:last-child {
-			border-bottom: 0;
 		}
 	}
 </style>

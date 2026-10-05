@@ -6,6 +6,7 @@ term: Winter
 year: 2024
 status: archive
 lastmod: 2026-06-01
+returningProjects: 3
 summary: FRACTRAN, continued fractions, cancellation theorems, and Math 300 formalization work.
 blocks:
   - type: project

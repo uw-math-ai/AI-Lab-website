@@ -11,9 +11,6 @@
 		width: number;
 		height: number;
 		alpha: number;
-		vx: number;
-		vy: number;
-		phase: number;
 	};
 
 	let canvas: HTMLCanvasElement;
@@ -60,7 +57,6 @@
 		if (!maybeContext) return;
 		const context = maybeContext;
 
-		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 		const atlas = new Image();
 		const tintedAtlas = document.createElement('canvas');
 		const tint = tintedAtlas.getContext('2d');
@@ -68,8 +64,6 @@
 		const pickSymbol = createSymbolPicker(symbols);
 		let disposed = false;
 		let ready = false;
-		let frame = 0;
-		let previousTime = 0;
 		let haloColor = '';
 		let particles: Particle[] = [];
 
@@ -97,10 +91,7 @@
 				y: fromBottom ? window.innerHeight + 24 : 0,
 				symbol,
 				...size,
-				alpha: kind === 'formula' ? 0.045 + Math.random() * 0.025 : 0.04 + Math.random() * 0.065,
-				vx: (Math.random() - 0.5) * 0.18,
-				vy: -0.08 - Math.random() * 0.18,
-				phase: Math.random() * Math.PI * 2
+				alpha: kind === 'formula' ? 0.045 + Math.random() * 0.025 : 0.04 + Math.random() * 0.065
 			};
 			// Longer labels need room at spawn; don't lay a full formula over another object.
 			for (let attempt = 0; attempt < 30; attempt++) {
@@ -119,13 +110,10 @@
 			for (let i = 0; i < count; i++) particles.push(makeParticle(i % 14 === 0 ? 'formula' : i % 5 === 0 ? 'symbol' : 'object'));
 		}
 
-		function draw(time = performance.now()) {
-			const delta = previousTime ? Math.min((time - previousTime) / (1000 / 60), 2) : 0;
-			previousTime = time;
+		// Static texture: drawn once per resize/theme change and never animated (WCAG 2.2.2).
+		function draw() {
 			context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-			for (let index = 0; index < particles.length; index += 1) {
-				const particle = particles[index];
+			for (const particle of particles) {
 				context.save();
 				context.globalAlpha = particle.alpha;
 				context.shadowColor = haloColor;
@@ -133,33 +121,16 @@
 				context.drawImage(
 					tintedAtlas,
 					particle.symbol.x, particle.symbol.y, particle.symbol.width, particle.symbol.height,
-					particle.x + Math.sin(particle.phase) * 5,
-					particle.y, particle.width, particle.height
+					particle.x, particle.y, particle.width, particle.height
 				);
 				context.restore();
-
-				if (!reducedMotion.matches) {
-					particle.x += particle.vx * delta;
-					particle.y += particle.vy * delta;
-					particle.phase += 0.006 * delta;
-				}
-
-				if (particle.y + particle.height < -24 || particle.x + particle.width < -24 || particle.x > window.innerWidth + 24) {
-					particles[index] = makeParticle(particle.symbol.kind, true);
-				}
-			}
-
-			if (!reducedMotion.matches && !document.hidden && !disposed) {
-				frame = requestAnimationFrame(draw);
 			}
 		}
 
 		function start() {
-			cancelAnimationFrame(frame);
 			if (!ready || disposed) return;
 			resize();
 			resetParticles();
-			previousTime = 0;
 			draw();
 		}
 
@@ -172,14 +143,10 @@
 			tint.fillRect(0, 0, tintedAtlas.width, tintedAtlas.height);
 			tint.globalCompositeOperation = 'source-over';
 			haloColor = color('--ambient-halo', color('--purple', '#32006e'));
-			cancelAnimationFrame(frame);
-			previousTime = 0;
 			draw();
 		}
 
 		function resume() {
-			cancelAnimationFrame(frame);
-			previousTime = 0;
 			if (ready && !document.hidden) draw();
 		}
 
@@ -197,16 +164,13 @@
 		atlas.src = atlasUrl;
 
 		window.addEventListener('resize', start);
-		reducedMotion.addEventListener('change', start);
 		document.addEventListener('visibilitychange', resume);
 
 		return () => {
 			disposed = true;
 			atlas.onload = null;
-			cancelAnimationFrame(frame);
 			themeObserver.disconnect();
 			window.removeEventListener('resize', start);
-			reducedMotion.removeEventListener('change', start);
 			document.removeEventListener('visibilitychange', resume);
 		};
 	});
@@ -243,14 +207,14 @@
 				color-mix(in srgb, var(--purple) 10%, transparent) 0%,
 				transparent 64%
 			);
-		animation: mesh-drift 24s ease-in-out infinite alternate;
 	}
 
 	.math-canvas {
 		z-index: 0;
 		width: 100%;
 		height: 100%;
-		opacity: 0.78;
+		/* Kept faint everywhere: it sits behind page text, so it must not compete with it. */
+		opacity: 0.1;
 		transition: opacity 700ms ease;
 	}
 
@@ -280,7 +244,7 @@
 	}
 
 	:root[data-theme='dark'] .math-canvas {
-		opacity: 0.92;
+		opacity: 0.12;
 	}
 
 	:root[data-theme='dark'] .math-canvas.quiet,
@@ -293,21 +257,4 @@
 		mix-blend-mode: screen;
 	}
 
-	@keyframes mesh-drift {
-		0% {
-			transform: scale(1) rotate(0deg);
-		}
-		50% {
-			transform: scale(1.035) rotate(0.7deg);
-		}
-		100% {
-			transform: scale(1) rotate(-0.7deg);
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.ambient-field {
-			animation: none;
-		}
-	}
 </style>

@@ -22,7 +22,7 @@
 					name: item.title,
 					author: item.authors.split(', ').map((name) => ({ '@type': 'Person', name })),
 					description: item.abstract,
-					isPartOf: { '@type': 'CreativeWork', name: item.venue },
+					isPartOf: item.venues.map((venue) => ({ '@type': 'CreativeWork', name: venue.name })),
 					url: item.url,
 					sameAs: item.url
 				}
@@ -32,11 +32,25 @@
 
 	let query = $state('');
 	let expanded = $state(new Set<string>());
-	let previewing = $state(new Set<string>());
+	// Abstracts that fit in three lines show in full and get no toggle. Only entries whose
+	// text is actually cut off by the clamp are listed here, measured in the browser.
+	let clamped = $state(new Set<string>());
 
-	/** arXiv refuses to be framed at /abs, but serves /pdf without restriction. */
-	function arxivId(url: string) {
-		return url.match(/arxiv\.org\/(?:abs|pdf)\/(\d{4}\.\d{4,5})/)?.[1] ?? null;
+	function measureClamp(node: HTMLElement, key: string) {
+		const check = () => {
+			if (node.classList.contains('open')) return; // expanded: keep the last collapsed result
+			const cut = node.scrollHeight > node.clientHeight + 1;
+			if (cut !== clamped.has(key)) {
+				const next = new Set(clamped);
+				if (cut) next.add(key);
+				else next.delete(key);
+				clamped = next;
+			}
+		};
+		const observer = new ResizeObserver(check);
+		observer.observe(node);
+		check();
+		return { destroy: () => observer.disconnect() };
 	}
 
 	function toggle(set: Set<string>, key: string) {
@@ -52,6 +66,10 @@
 
 <Seo {title} {description} path="/research/" jsonLd={researchJsonLd} />
 
+<svelte:head>
+	<noscript><style>.abstract { display: block !important; }</style></noscript>
+</svelte:head>
+
 {#snippet counter(value: number, label: string)}
 	<span class="research-stat">
 		<strong>{value}</strong>
@@ -61,16 +79,18 @@
 
 <section class="page-shell hero research-hero">
 	<div>
-		<span class="eyebrow">Publications & Preprints</span>
-		<h1>UW Math AI Lab Research</h1>
+		<h1>Research</h1>
 		<p>
-			Papers published and in progress by UW Math AI Lab members, spanning AI for mathematics,
-			formal verification, plasma physics, and quantum error correction.
+			Publications, preprints, and Lean formalizations from the Math AI Lab.
 		</p>
 		<div class="actions">
-			<a class="button primary" href="#conference-workshop-papers">Conference Papers</a>
-			<a class="button" href="#preprints">Preprints</a>
+			<a class="button primary" href="#conference-workshop-papers">Publications</a>
+			<a class="button" href="#research-artifacts">Lean Projects</a>
 		</div>
+		<label class="research-search">
+			<span>Search</span>
+			<input type="search" bind:value={query} placeholder="Search project titles, descriptions, or authors" />
+		</label>
 	</div>
 	<Reveal class="research-index-reveal">
 		<nav class="research-index interactive-surface" aria-label="Research sections">
@@ -86,23 +106,12 @@
 	</Reveal>
 </section>
 
-<section class="page-shell section research-controls">
-	<label>
-		<span>Search research</span>
-		<input type="search" bind:value={query} placeholder="Search all research" />
-	</label>
-</section>
-
 {#each filteredSections as section}
 	<section class="page-shell section research-section" id={section.id}>
 		<Reveal>
 			<div class="section-header">
-				<span class="eyebrow">Research</span>
 				<h2>{section.title}</h2>
 				<p>{section.description}</p>
-				<div class="section-count">
-					{@render counter(section.items.length, query.trim() ? 'matching works' : 'listed works')}
-				</div>
 			</div>
 
 			<div class="research-grid">
@@ -113,55 +122,30 @@
 						style={`--reveal-delay: ${(index % 2) * 65}ms`}
 					>
 						<div class="paper-meta">
-							<span>{item.venue}</span>
-							{#if item.badge}<em>{item.badge}</em>{/if}
-							{#if previewing.has(item.url)}
-								<figure class="paper-preview">
-									<a
-										class="preview-open"
-										href={`https://arxiv.org/pdf/${arxivId(item.url)}`}
-										target="_blank"
-										rel="noreferrer"
-										aria-label={`Open ${item.title} on arXiv`}
-									>
-										<iframe
-											src={`https://arxiv.org/pdf/${arxivId(item.url)}#toolbar=0&navpanes=0&scrollbar=0&view=FitH&page=1`}
-											title={`First page of ${item.title}`}
-											loading="lazy"
-											tabindex="-1"
-										></iframe>
-									</a>
-									<figcaption>First page — open on arXiv ↗</figcaption>
-								</figure>
-							{/if}
+							{#each item.venues as venue}
+								<span class="venue">{venue.name}{#if venue.badge}<em>{venue.badge}</em>{/if}</span>
+							{/each}
 						</div>
 						<h3>{item.title}</h3>
 						<p class="authors">{item.authors}</p>
 						<div class="abstract-wrap">
-							<p class="abstract" class:open={expanded.has(item.url)}>{item.abstract}</p>
+							<p class="abstract" class:open={expanded.has(item.url)} use:measureClamp={item.url}>{item.abstract}</p>
 						</div>
 						<div class="paper-actions">
-							<button
-								type="button"
-								class="disclose"
-								aria-expanded={expanded.has(item.url)}
-								onclick={() => (expanded = toggle(expanded, item.url))}
-							>
-								{expanded.has(item.url) ? 'Less' : section.countsAsPaper ? 'Read the abstract' : 'Details'}
-							</button>
-							<a class="snippet-source" href={item.url} target="_blank" rel="noreferrer">
-								{item.linkLabel}
-							</a>
-							{#if arxivId(item.url)}
+							{#if clamped.has(item.url)}
 								<button
 									type="button"
 									class="disclose"
-									aria-expanded={previewing.has(item.url)}
-									onclick={() => (previewing = toggle(previewing, item.url))}
+									aria-expanded={expanded.has(item.url)}
+									onclick={() => (expanded = toggle(expanded, item.url))}
 								>
-									{previewing.has(item.url) ? 'Hide the paper' : 'Preview the paper'}
+									{expanded.has(item.url) ? 'Show less' : section.countsAsPaper ? 'Show full abstract' : 'Show full description'}
+									<span aria-hidden="true">{expanded.has(item.url) ? '▴' : '▾'}</span>
 								</button>
 							{/if}
+							<a class="snippet-source" href={item.url} target="_blank" rel="noreferrer">
+								{item.linkLabel}
+							</a>
 						</div>
 					</article>
 				{/each}
@@ -178,17 +162,14 @@
 {/each}
 
 <style>
-	.section-count {
-		grid-column: 2;
-		grid-row: 2 / span 2;
-		padding-left: 1.25rem;
-		border-left: 1px solid var(--line);
-		min-width: 8rem;
-	}
-
+	/* Top-aligned: the title and the stats start on the same line. */
 	.research-hero {
 		grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.32fr);
-		align-items: end;
+		align-items: start;
+	}
+
+	.research-hero .actions {
+		margin-top: 2rem;
 	}
 
 	.research-index {
@@ -206,18 +187,18 @@
 	}
 
 	.research-stat strong {
-		font-family: var(--font-mono);
+		font-family: var(--font-serif);
 		font-variant-numeric: tabular-nums;
 		font-weight: 600;
-		font-size: 2.2rem;
+		font-size: var(--text-title);
 		line-height: 1;
-		letter-spacing: -0.03em;
+		letter-spacing: -0.02em;
 		color: var(--heading);
 	}
 
 	.research-stat-label {
 		font-family: var(--font-sans);
-		font-size: 0.72rem;
+		font-size: var(--text-xs);
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
@@ -243,27 +224,25 @@
 		text-underline-offset: 0.2em;
 	}
 
-	.research-controls {
-		padding-top: 0;
-		padding-bottom: 0.5rem;
-	}
-
-	.research-controls label {
+	/* Search lives in the intro, under the buttons, so the title area is one block
+	   that is about as tall as the stats beside it. */
+	.research-search {
 		display: grid;
 		gap: 0.5rem;
-		max-width: 38rem;
+		max-width: 34rem;
+		margin-top: 2rem;
 	}
 
-	.research-controls label span {
+	.research-search span {
 		font-family: var(--font-sans);
-		font-size: 0.72rem;
+		font-size: var(--text-xs);
 		font-weight: 600;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: var(--muted);
 	}
 
-	.research-controls input {
+	.research-search input {
 		width: 100%;
 	}
 
@@ -304,10 +283,10 @@
 		margin-top: 0.6rem;
 	}
 
-	/* All three read as one row of controls. */
+	/* The disclosure toggle (when shown) and the source link read as one row. */
 	.paper-actions :global(.snippet-source) {
 		margin-top: 0;
-		font-size: 0.8rem;
+		font-size: var(--text-sm);
 		line-height: 1.2;
 		border-bottom: 1px solid color-mix(in srgb, var(--purple) 40%, transparent);
 	}
@@ -322,7 +301,7 @@
 		background: none;
 		padding: 0;
 		font-family: var(--font-sans);
-		font-size: 0.8rem;
+		font-size: var(--text-sm);
 		font-weight: 600;
 		line-height: 1.2;
 		color: var(--purple);
@@ -332,46 +311,6 @@
 
 	.disclose:hover {
 		border-bottom-color: var(--purple);
-	}
-
-	/* A small plate in the margin: the top of page one, cropped. The frame is
-	   inert, so the whole thumbnail is one link to the PDF. */
-	.paper-preview {
-		margin: 0.75rem 0 0;
-	}
-
-	.preview-open {
-		position: relative;
-		display: block;
-		aspect-ratio: 1 / 0.78;
-		overflow: hidden;
-		border: 1px solid var(--line-strong);
-		border-radius: 2px;
-		background: #fff;
-	}
-
-	.preview-open iframe {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		aspect-ratio: 1 / 1.414;
-		border: 0;
-		pointer-events: none;
-	}
-
-	.preview-open:hover {
-		border-color: var(--purple);
-	}
-
-	.paper-preview figcaption {
-		margin-top: 0.35rem;
-		font-family: var(--font-sans);
-		font-size: 0.68rem;
-		font-weight: 600;
-		letter-spacing: 0.04em;
-		text-transform: none;
-		color: var(--purple);
 	}
 
 	.research-card {
@@ -397,11 +336,17 @@
 		gap: 0.3rem;
 		padding-top: 0.35rem;
 		font-family: var(--font-sans);
-		font-size: 0.74rem;
+		font-size: var(--text-xs);
 		font-weight: 600;
-		letter-spacing: 0.04em;
+		letter-spacing: 0.08em;
 		text-transform: uppercase;
 		color: var(--muted);
+	}
+
+	.paper-meta .venue {
+		display: grid;
+		justify-items: start;
+		gap: 0.15rem;
 	}
 
 	.paper-meta em {
@@ -411,7 +356,7 @@
 
 	.research-card h3 {
 		margin: 0;
-		font-size: 1.22rem;
+		font-size: var(--text-lg);
 		line-height: 1.3;
 		font-weight: 500;
 		color: var(--heading);
@@ -420,13 +365,13 @@
 	.research-card p {
 		margin: 0.35rem 0 0;
 		color: var(--muted);
-		font-size: 0.98rem;
+		font-size: var(--text-base);
 		max-width: 72ch;
 	}
 
 	.research-card .authors {
 		font-family: var(--font-sans);
-		font-size: 0.84rem;
+		font-size: var(--text-sm);
 		color: var(--muted);
 	}
 
@@ -437,7 +382,6 @@
 	.empty-state {
 		max-width: 40rem;
 		border: 0;
-		border-top: 1px solid var(--line-strong);
 		border-radius: 0;
 		padding: 1.25rem 0 0;
 		background: transparent;
@@ -445,7 +389,7 @@
 
 	.empty-state h2 {
 		margin: 0 0 0.4rem;
-		font-size: 1.4rem;
+		font-size: var(--text-xl);
 	}
 
 	@media (max-width: 900px) {
@@ -463,12 +407,6 @@
 		.research-index-sections {
 			grid-template-columns: repeat(4, minmax(0, 1fr));
 		}
-
-		.section-count {
-			grid-column: 1;
-			grid-row: auto;
-			margin-top: 0.75rem;
-		}
 	}
 
 	@media (max-width: 640px) {
@@ -478,6 +416,15 @@
 
 		.research-card {
 			grid-template-columns: 1fr;
+		}
+
+		/* One column: the venue sits above the text, and nothing is pushed into an implicit second column. */
+		.research-card > :global(:not(.paper-meta)) {
+			grid-column: 1;
+		}
+
+		.paper-meta {
+			grid-row: auto;
 		}
 	}
 </style>

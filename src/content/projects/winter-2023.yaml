@@ -6,6 +6,7 @@ term: Winter
 year: 2023
 status: archive
 lastmod: 2026-06-01
+returningProjects: 0
 summary: Fibonacci identities, group theory, topology, and commutative algebra projects.
 blocks:
   - type: text

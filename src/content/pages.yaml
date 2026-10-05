@@ -9,7 +9,7 @@ home:
 projects:
   title: Research Projects by Quarter — UW Math AI Lab
   description: >-
-    All 68 UW Math AI Lab research projects since 2022, organized by academic quarter —
+    All Math AI research projects since 2022, organized by academic quarter —
     autoformalization, Lean, and machine learning for mathematics.
   path: /projects/
   lastmod: 2026-09-16
@@ -34,6 +34,12 @@ events:
     at the University of Washington.
   path: /events/
   lastmod: 2026-09-04
+news:
+  title: News — UW Math AI Lab
+  description: >-
+    Recent news from the UW Math AI Lab: accepted papers, talks, and awards from lab members.
+  path: /news/
+  lastmod: 2026-09-23
 resources:
   title: Lean & Math AI Resources — UW Math AI Lab
   description: >-
