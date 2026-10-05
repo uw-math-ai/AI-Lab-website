@@ -1,4 +1,24 @@
 # Edit this file to update the website. See docs/content-editing.md.
+- title: Fall 2026 final presentations
+  date: 2026-12-09
+  startTime: 16:00
+  endTime: 17:30
+  location: OUG 136
+  type: Lab event
+  abstract: Fall 2026 project teams present their work.
+  links:
+    - label: Fall 2026 projects
+      url: /projects/fall-2026
+- title: Fall 2026 social event
+  date: 2026-11-04
+  startTime: 16:00
+  endTime: 17:30
+  location: OUG 136
+  type: Lab event
+  abstract: The Fall 2026 social event for lab members.
+  links:
+    - label: Fall 2026 projects
+      url: /projects/fall-2026
 - title: Inaugural lab meeting
   date: 2026-10-05
   startTime: 16:00
