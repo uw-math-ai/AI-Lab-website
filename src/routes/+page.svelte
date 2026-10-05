@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Reveal from '$lib/components/Reveal.svelte';
+	import OpenProblemsHero from '$lib/components/OpenProblemsHero.svelte';
 	import ProjectEmbed from '$lib/components/ProjectEmbed.svelte';
 	import Seo from '$lib/components/Seo.svelte';
 	import NewsList from '$lib/components/NewsList.svelte';
@@ -54,8 +55,17 @@
 	jsonLd={graph(organization, website)}
 />
 
-<section class="page-shell home-hero">
-	<div class="hero-copy">
+<section class="home-hero">
+	<div class="hero-field" data-ambient-quiet>
+		<OpenProblemsHero
+			bleed
+			caption="Hover any point to read the problem"
+			work="The Growing Map of Open Problems"
+			author="Simon Kurgan"
+			href="https://open-problems-map.pages.dev/"
+		/>
+	</div>
+	<div class="page-shell hero-copy">
 		<h1>Math AI Lab</h1>
 		<p class="dek">
 			The University of Washington Math AI Lab is a research and education organization focused on using AI
@@ -67,6 +77,9 @@
 			<a class="button" href="https://github.com/uw-math-ai" target="_blank" rel="noreferrer">GitHub</a>
 		</div>
 	</div>
+</section>
+
+<section class="page-shell home-stats-section">
 	<div class="stats" role="group" aria-label="The lab at a glance">
 		<div><strong>{fmt(totalPaperCount)}</strong><span>papers</span></div>
 		<div><strong>{fmt(totalProjectCount)}</strong><span>projects</span></div>
@@ -233,12 +246,19 @@
 <style>
 	/* ---------- Hero ---------- */
 	.home-hero {
+		position: relative;
 		display: grid;
-		grid-template-columns: minmax(0, 1.25fr) minmax(15rem, 0.75fr);
-		gap: clamp(1.5rem, 5vw, 4rem);
-		align-items: end;
-		padding: var(--intro-padding);
+		align-content: center;
+		min-height: min(calc(100vh - 4rem), 42rem);
+		padding: clamp(2rem, 5vw, 4rem) 0 3.5rem;
+		overflow: hidden;
 	}
+
+	.hero-field { position: absolute; inset: 0; z-index: 0; }
+	.hero-copy { position: relative; z-index: 1; pointer-events: none; }
+	.hero-copy > * { pointer-events: auto; }
+	.hero-copy h1, .hero-copy .actions { width: fit-content; }
+	.home-stats-section { padding-top: 2rem; }
 
 	.hero-copy h1 {
 		font-size: var(--text-display);
@@ -287,16 +307,16 @@
 	/* Same vertical rule as the Research page's stats panel. */
 	.stats {
 		display: grid;
-		gap: 0.9rem;
-		padding-left: 1.25rem;
-		border-left: 1px solid var(--line);
+		grid-template-columns: repeat(5, minmax(0, 1fr));
+		gap: 1.5rem;
 	}
 
 	.stats > div {
 		display: grid;
-		grid-template-columns: 5rem minmax(0, 1fr);
-		align-items: baseline;
-		gap: 1rem;
+		align-content: start;
+		gap: .5rem;
+		padding-left: 1rem;
+		border-left: 1px solid var(--line);
 	}
 
 	.stats strong {
@@ -307,7 +327,7 @@
 		line-height: 1;
 		letter-spacing: -0.02em;
 		color: var(--heading);
-		text-align: right;
+		text-align: left;
 	}
 
 	.stats span {
@@ -571,10 +591,6 @@
 	}
 
 	@media (max-width: 900px) {
-		.home-hero {
-			grid-template-columns: 1fr;
-			align-items: start;
-		}
 
 		.stats {
 			padding-left: 0;
@@ -594,6 +610,14 @@
 	}
 
 	@media (max-width: 1000px) {
+		.home-hero { min-height: 0; padding-bottom: 0; }
+		.hero-copy { order: -1; }
+		.hero-field {
+			position: relative;
+			height: 26rem;
+			margin-top: 2rem;
+			border-top: 1px solid var(--line);
+		}
 	}
 
 	@media (max-width: 640px) {

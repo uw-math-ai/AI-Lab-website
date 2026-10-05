@@ -79,7 +79,9 @@
 		if (!browser || !canvas) return;
 		let raf = 0;
 		let disposed = false;
-		const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+		let reduced = motionPreference.matches || document.documentElement.dataset.motion === 'paused';
+		let visible = true;
 		const context = canvas.getContext('2d');
 		if (!context) return;
 		const ctx: CanvasRenderingContext2D = context;
@@ -293,7 +295,7 @@
 			}
 
 			// Gold beacons on Lean-linked problems.
-			const pulse = 0.5 + 0.5 * Math.sin(now / 900);
+			const pulse = reduced ? 0.5 : 0.5 + 0.5 * Math.sin(now / 900);
 			for (const n of nodes) {
 				if (!n.decl || n.yr > cur || !n.shown) continue;
 				ctx.beginPath();
@@ -319,7 +321,18 @@
 			shown = done ? total : Math.round((count / nodes.length) * total);
 
 			// Keep animating while growing, while a beacon pulses in view, or while hovering.
-			raf = requestAnimationFrame(frame);
+			if (!reduced && visible && !document.hidden) raf = requestAnimationFrame(frame);
+		}
+
+		function redraw() {
+			cancelAnimationFrame(raf);
+			if (ready && !disposed) frame(performance.now());
+		}
+
+		function motionChanged() {
+			reduced = motionPreference.matches || document.documentElement.dataset.motion === 'paused';
+			if (reduced) { done = true; year = 2026; }
+			redraw();
 		}
 
 		function nearest(px: number, py: number) {
@@ -370,16 +383,18 @@
 			} else {
 				tip = null;
 			}
+			if (reduced) redraw();
 		}
 
 		function onLeave() {
 			hovered = null;
 			tip = null;
+			if (reduced) redraw();
 		}
 
 		const ro = new ResizeObserver(() => {
 			dpr = Math.min(window.devicePixelRatio || 1, 2);
-			if (nodes.length) layout();
+			if (nodes.length) { layout(); redraw(); }
 		});
 		ro.observe(wrap);
 
@@ -389,8 +404,16 @@
 				const [h, s, l] = HUES[c] ?? [220, 10, 46];
 				return `hsl(${h} ${s}% ${dark ? Math.min(l + 18, 72) : l}%)`;
 			});
+			motionChanged();
 		});
-		themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+		themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme', 'data-motion'] });
+		const visibilityObserver = new IntersectionObserver(([entry]) => {
+			visible = entry.isIntersecting;
+			redraw();
+		});
+		visibilityObserver.observe(wrap);
+		motionPreference.addEventListener('change', motionChanged);
+		document.addEventListener('visibilitychange', redraw);
 
 		canvas.addEventListener('pointermove', onMove);
 		canvas.addEventListener('pointerleave', onLeave);
@@ -403,6 +426,9 @@
 			cancelAnimationFrame(raf);
 			ro.disconnect();
 			themeObserver.disconnect();
+			visibilityObserver.disconnect();
+			motionPreference.removeEventListener('change', motionChanged);
+			document.removeEventListener('visibilitychange', redraw);
 			canvas.removeEventListener('pointermove', onMove);
 			canvas.removeEventListener('pointerleave', onLeave);
 		};

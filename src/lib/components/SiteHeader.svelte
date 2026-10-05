@@ -6,7 +6,20 @@
 
 	let menuOpen = $state(false);
 	let theme = $state('light');
+	let motionPaused = $state(false);
 	let pathname = $derived(routePath($page.url.pathname));
+
+	$effect(() => {
+		if (!browser) return;
+		motionPaused = localStorage.getItem('math-ai-motion') === 'paused';
+		document.documentElement.dataset.motion = motionPaused ? 'paused' : 'playing';
+	});
+
+	function toggleMotion() {
+		motionPaused = !motionPaused;
+		localStorage.setItem('math-ai-motion', motionPaused ? 'paused' : 'playing');
+		document.documentElement.dataset.motion = motionPaused ? 'paused' : 'playing';
+	}
 
 	// ThemeController owns the theme; the header mirrors it and asks for changes
 	// through the same event, so the footer's Auto/Light/Dark stays in sync.
@@ -70,6 +83,20 @@
 				Support the lab<span class="sr-only"> (opens in new tab)</span>
 			</a>
 			</nav>
+
+			<button
+				class="theme-toggle motion-toggle"
+				type="button"
+				onclick={toggleMotion}
+				aria-pressed={motionPaused}
+				aria-label={motionPaused ? 'Resume background animation' : 'Pause background animation'}
+				title={motionPaused ? 'Resume background animation' : 'Pause background animation'}
+			>
+				<svg viewBox="0 0 16 16" aria-hidden="true">
+					{#if motionPaused}<path d="M5 3l8 5-8 5z" fill="currentColor" />
+					{:else}<path d="M4 3h3v10H4zM10 3h3v10h-3z" fill="currentColor" />{/if}
+				</svg>
+			</button>
 
 			<button
 				class="theme-toggle"
