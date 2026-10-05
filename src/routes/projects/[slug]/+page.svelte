@@ -42,6 +42,9 @@
 		<h1>{quarter.label} Projects</h1>
 		<div class="actions">
 			<a class="button" href={sitePath('/projects')}>All projects</a>
+			{#if quarter.slug === 'fall-2026'}
+				<a class="button primary" href={sitePath('/slides/fall-2026/')}>Inaugural meeting slides</a>
+			{/if}
 		</div>
 	</div>
 	<div class="hero-aside"><AsciiMap cols={44} rows={20} /></div>

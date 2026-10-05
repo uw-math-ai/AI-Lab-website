@@ -1,6 +1,6 @@
 {
   "as_of": "2026-10-04",
-  "source": "Rosters supplied by Michael in this conversation, October 4, 2026.",
+  "source": "Saved Fall 2026 inaugural-meeting slides, October 4, 2026; Pei Li retains the confirmed student placement.",
   "student_count": 61,
   "student_placements": 62,
   "projects": [
@@ -56,15 +56,16 @@
     {
       "key": "albilich",
       "id": "albilich",
-      "title": "Albilich v2 + Internal Tools",
+      "title": "Albilich v2: Math Metaharness",
       "leads": [
         "Ting Gong",
         "Michael R. Zeng",
         "Dean Light",
-        "Michael Theologitis"
+        "Michael Theologitis",
+        "Evan Wang"
       ],
       "students": [],
-      "schedule": "Metaharness meets Mondays, 3–4 p.m."
+      "schedule": "Metaharness meets Mondays, 3\u20134 p.m."
     },
     {
       "key": "returns",
@@ -141,8 +142,11 @@
         "Pei Li"
       ],
       "continuing_members": [
-        "Michael R. Zeng"
-      ]
+        "Michael R. Zeng",
+        "Pei Li",
+        "Simon Kurgan"
+      ],
+      "roster_label": "Continuing members:"
     },
     {
       "key": "certification",
@@ -164,11 +168,11 @@
       "id": "permuformer-2",
       "title": "PermuFormer 2",
       "leads": [
-        "Henry Kvinge",
-        "Michael R. Zeng",
-        "Junaid Hasan"
+        "Henry Kvinge"
       ],
       "graduate_mentors": [
+        "Michael R. Zeng",
+        "Junaid Hasan",
         "Treanungkur Mal",
         "Ron Cherny"
       ],
@@ -184,7 +188,7 @@
         "Xuanyu Yang",
         "Billy (Yinqi) Zhao"
       ],
-      "schedule": "First meeting: Wednesday, October 7, 4–5:30 p.m.",
+      "schedule": "First meeting: Wednesday, October 7, 4 p.m.",
       "paper": "https://arxiv.org/abs/2609.25438",
       "paper_title": "PermuFormer: Multi-Task Pretraining for Permutation Representation in Algebraic Combinatorics"
     },

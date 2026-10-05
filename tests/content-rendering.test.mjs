@@ -74,7 +74,7 @@ test('Fall 2026 highlights Wednesday meetings and credits both co-mentorships', 
 	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
 	const meeting = all(page, (node) => node.tagName === 'p' && text(node).startsWith('Project meetings:'))[0];
 	assert.ok(meeting);
-	assert.equal(text(meeting), 'Project meetings: Monday & Wednesday, 4–5:30 p.m., OUG 136. Project-specific exceptions are listed below.');
+	assert.equal(text(meeting), 'Project meetings: Monday & Wednesday, 4–5:30 p.m., OUG 136. Teams may use different meeting times, but must meet in person at least once a week. Project-specific schedules are listed below.');
 	assert.deepEqual(all(meeting, (node) => node.tagName === 'strong').map(text), ['Wednesday', '4–5:30 p.m., OUG 136']);
 	for (const id of ['mathematical-taste-recognizing-progress-beyond-generation', 'formalizing-the-kls-conjecture-and-stochastic-localization']) {
 		const project = quarter.blocks.find((block) => block.id === id);
@@ -95,15 +95,35 @@ test('Fall rosters include all 61 students and distinguish student placements fr
 	for (const expected of roster.projects) {
 		const project = quarter.blocks.find((block) => block.id === expected.id);
 		assert.ok(project, expected.title);
-		const members = project.details.find((detail) => detail.label === `Student members (${expected.students.length}):`);
-		assert.equal(members?.content, expected.students.length ? expected.students.join(', ') : 'No student members.');
+		const members = project.details.find((detail) => detail.label === (expected.roster_label ?? `Student members (${expected.students.length}):`));
+		assert.equal(members?.content, expected.roster_label ? expected.continuing_members.join(', ') : expected.students.length ? expected.students.join(', ') : 'No student members.');
+		const names = (content) => content.replace(/<[^>]+>/g, '').split(',').map((name) => name.trim());
+		assert.deepEqual(names(project.details.find((detail) => /^Project Leaders?:$/.test(detail.label)).content), expected.leads);
+		if (expected.graduate_mentors) assert.deepEqual(names(project.details.find((detail) => detail.label === 'Graduate mentors:').content), expected.graduate_mentors);
 		for (const name of [...expected.leads, ...expected.students, ...(expected.co_mentors ?? []), ...(expected.graduate_mentors ?? []), ...(expected.continuing_members ?? [])]) {
 			assert.ok(text(page).includes(name), `${expected.title}: ${name} is visible`);
 		}
 	}
 	const benchmarks = quarter.blocks.find((block) => block.id === 'autoformalizing-mathematical-benchmarks');
-	assert.equal(benchmarks.details.find((detail) => detail.label === 'Continuing member:').content, 'Michael R. Zeng');
+	assert.equal(benchmarks.details.find((detail) => detail.label === 'Continuing members:').content, 'Michael R. Zeng, Pei Li, Simon Kurgan');
 	assert.doesNotMatch(text(page), /ProofMem|Naomi Morato|Donovan Falls|Ben Eng|Ruoke Zhang|Junye Ji|not confirmed|rejection email/i);
+});
+
+test('Fall meeting slides are linked in three places and dates match the saved deck', async () => {
+	const home = parseHtml(await readFile('build/index.html', 'utf8'));
+	const fall = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
+	const buttons = (page) => all(page, (node) => node.tagName === 'a' && attr(node, 'class')?.split(' ').includes('button') && attr(node, 'href')?.endsWith('/slides/fall-2026/'));
+	assert.equal(buttons(home).length, 2);
+	assert.equal(buttons(fall).length, 1);
+	assert.match(text(fall), /Social event: Wednesday, November 4/);
+	assert.match(text(fall), /Final presentations: Wednesday, December 9/);
+	assert.doesNotMatch(text(fall), /Final presentations: Thursday, December 10/);
+	assert.match(text(fall), /must meet in person at least once a week/);
+	const audience = parseHtml(await readFile('build/slides/fall-2026/index.html', 'utf8'));
+	const data = JSON.parse(all(audience, (node) => attr(node, 'id') === 'audience-data')[0].childNodes[0].value);
+	assert.equal(data.slides.length, 24);
+	assert.equal(data.slides.at(-1).id, 'slide-1791162535932');
+	assert.ok(!all(audience, (node) => attr(node, 'id') === 'editor').length);
 });
 
 test('research totals, section headings, and index share number-and-label counters', async () => {

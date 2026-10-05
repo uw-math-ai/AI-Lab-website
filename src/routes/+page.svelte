@@ -79,6 +79,7 @@
 		</p>
 		<div class="actions">
 			<a class="button primary" href={sitePath('/projects/fall-2026')}>Fall 2026 Projects</a>
+			<a class="button" href={sitePath('/slides/fall-2026/')}>Inaugural meeting slides</a>
 			<a class="button" href={sitePath('/events')}>Event Calendar</a>
 			<a class="button" href="https://github.com/uw-math-ai" target="_blank" rel="noreferrer">GitHub</a>
 		</div>
@@ -98,6 +99,7 @@
 			</div>
 			<div class="actions">
 				<a class="button primary" href={sitePath('/projects/fall-2026')}>Fall 2026 team rosters</a>
+				<a class="button" href={sitePath('/slides/fall-2026/')}>Inaugural meeting slides</a>
 			</div>
 		</div>
 	</section>

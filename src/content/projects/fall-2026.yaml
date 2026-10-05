@@ -1,4 +1,4 @@
-# Fall 2026 confirmed rosters supplied by Michael, October 4, 2026.
+# Fall 2026 rosters and dates from the saved inaugural-meeting slides, October 4, 2026.
 slug: fall-2026
 legacyFile: fall2026.html
 label: Fall 2026
@@ -15,9 +15,11 @@ blocks:
 
       **14 projects · 61 students** — rosters as of October 4, 2026.
 
-      Project meetings: Monday & **Wednesday**, **4–5:30 p.m., OUG 136**. Project-specific exceptions are listed below.
+      Project meetings: Monday & **Wednesday**, **4–5:30 p.m., OUG 136**. Teams may use different meeting times, but must meet in person at least once a week. Project-specific schedules are listed below.
 
-      **Final presentations: Thursday, December 10.**
+      **Social event: Wednesday, November 4.**
+
+      **Final presentations: Wednesday, December 9.**
 
       Fall 2026 applications are closed. Thank you to everyone who applied!
 
@@ -103,7 +105,7 @@ blocks:
       - label: 'Links:'
         content: '[Workshop](https://vericodegen.github.io/) · [Competition](https://huggingface.co/spaces/delta-lab-ai/lean-refactor-arena)'
   - type: project
-    title: Albilich v2 + Internal Tools
+    title: 'Albilich v2: Math Metaharness'
     id: albilich
     style: heading
     details:
@@ -111,7 +113,7 @@ blocks:
         content: Autoresearch and autoformalization infrastructure
       - label: 'Project Leaders:'
         content: Ting Gong <tgong2@uw.edu>, Michael R. Zeng <zengrf@uw.edu>, Dean Light <deanlcs@cs.washington.edu>,
-          Michael Theologitis <mthe@cs.washington.edu>
+          Michael Theologitis <mthe@cs.washington.edu>, Evan Wang <aurasoph@uw.edu>
       - label: 'Student members (0):'
         content: No student members.
       - label: 'Schedule:'
@@ -225,10 +227,8 @@ blocks:
         content: Autoformalization
       - label: 'Project Leader:'
         content: Theodore Meek <theomeek@uw.edu>
-      - label: 'Student members (1):'
-        content: Pei Li
-      - label: 'Continuing member:'
-        content: Michael R. Zeng
+      - label: 'Continuing members:'
+        content: Michael R. Zeng, Pei Li, Simon Kurgan
       - label: 'Abstract:'
         content: Formalize two natural-language, research-level benchmarks, LemmaBench and OpenConjecture, using
           an agentic workflow in which AI agents check and refine one another's work. Every resulting statement
@@ -261,15 +261,15 @@ blocks:
     details:
       - label: 'Area:'
         content: AI and machine learning for math
-      - label: 'Project Leaders:'
-        content: Henry Kvinge <hjk3@uw.edu>, Michael R. Zeng <zengrf@uw.edu>, Junaid Hasan <junaid01@uw.edu>
+      - label: 'Project Leader:'
+        content: Henry Kvinge <hjk3@uw.edu>
       - label: 'Graduate mentors:'
-        content: Treanungkur Mal, Ron Cherny
+        content: Michael R. Zeng <zengrf@uw.edu>, Junaid Hasan <junaid01@uw.edu>, Treanungkur Mal, Ron Cherny
       - label: 'Student members (10):'
         content: James Kwong, Emily Meng, Bhargava Perumalla, Onkit Samanta, Allen (Ailun) Shen, Yash Pratik Solanki,
           Mayee Sun, William Tran, Xuanyu Yang, Billy (Yinqi) Zhao
       - label: 'Schedule:'
-        content: 'First meeting: Wednesday, October 7, 4–5:30 p.m.'
+        content: 'First meeting: Wednesday, October 7, 4 p.m.'
       - label: 'Start here:'
         content: '[PermuFormer: Multi-Task Pretraining for Permutation Representation in Algebraic Combinatorics](https://arxiv.org/abs/2609.25438)'
       - label: 'Abstract:'
