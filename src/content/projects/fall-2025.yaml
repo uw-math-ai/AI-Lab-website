@@ -139,7 +139,7 @@ blocks:
       - label: "Lead mentors:"
         content: Vasily Ilin and Giovanni Inchiostro
       - label: "Members:"
-        content: Sophie Szeto, Eric Leonen, Ted Guan, Artemii Remizov
+        content: Sophie Szeto, Eric Leonen, Ted Guan, Artemii Remizov, Luke Alexander
       - label: "Description:"
         content: The broad vision is to apply modern machine learning techniques to facilitate mathematical
           research. As a first step in this direction, this project seeks to design search

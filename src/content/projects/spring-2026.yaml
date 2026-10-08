@@ -80,11 +80,11 @@ blocks:
       - label: "Description:"
         content: "We help research mathematicians find relevant theorems quickly. We collected the dataset
           of all theorems on ArXiv, Stacks Project and other sources, and built vectorized search
-          over it. Goal: submit to ICML 2026 in January."
+          over it. Goal: submit to NeurIPS 2026 in May."
       - label: "Demo:"
         content: "[HF link](https://huggingface.co/spaces/uw-math-ai/theorem-search)"
       - label: "Members:"
-        content: Eric Leonen, Sophie Szeto, Artemii Remizov, Luke Alexander
+        content: Eric Leonen, Sophie Szeto, Artemii Remizov, Luke Alexander, Simon Kurgan, Evan Wang
       - label: "Code:"
         content: "[GitHub repo](https://github.com/uw-math-ai/TheoremSearch)"
   - type: project
