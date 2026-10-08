@@ -8,7 +8,7 @@ status: current
 lastmod: '2026-10-04'
 projectsLaunched: 9
 returningProjects: 5
-summary: 14 projects and 61 students for Fall 2026 (September 30 – December 11). Team rosters updated October 4.
+summary: 14 projects and 60 students for Fall 2026 (September 30 – December 11). Team rosters updated October 4.
 blocks:
   - type: text
     content: |-
@@ -20,7 +20,7 @@ blocks:
 
       **Final presentations:** Wednesday, December 9
 
-      **Rosters:** 14 projects · 61 students
+      **Rosters:** 14 projects · 60 students
   - type: heading
     title: Autoresearch
     id: autoresearch

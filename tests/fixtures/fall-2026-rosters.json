@@ -1,8 +1,8 @@
 {
   "as_of": "2026-10-04",
   "source": "Saved Fall 2026 inaugural-meeting slides, October 4, 2026; Pei Li retains the confirmed student placement.",
-  "student_count": 61,
-  "student_placements": 62,
+  "student_count": 60,
+  "student_placements": 61,
   "projects": [
     {
       "key": "inverse",
@@ -48,8 +48,7 @@
       "students": [
         "Kedar Chintalapati",
         "David Javnozon",
-        "Chuhan Li",
-        "Evan Gubarev"
+        "Chuhan Li"
       ],
       "schedule": "Competition ends November 8."
     },

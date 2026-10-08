@@ -85,13 +85,13 @@ test('Fall 2026 labels its dates and meetings and credits both co-mentorships', 
 	assert.equal(mentors.filter((label) => text(label.parentNode).includes('Will Dudarov')).length, 2);
 });
 
-test('Fall rosters include all 61 students and distinguish student placements from other roles', async () => {
+test('Fall rosters include all 60 students and distinguish student placements from other roles', async () => {
 	const roster = JSON.parse(await readFile('tests/fixtures/fall-2026-rosters.json', 'utf8'));
 	const quarter = parseYaml(await readFile('src/content/projects/fall-2026.yaml', 'utf8'));
 	const page = parseHtml(await readFile('build/projects/fall-2026/index.html', 'utf8'));
 	const students = roster.projects.flatMap((project) => project.students);
-	assert.equal(students.length, 62);
-	assert.equal(new Set(students).size, 61);
+	assert.equal(students.length, 61);
+	assert.equal(new Set(students).size, 60);
 	assert.deepEqual([...new Set(students.filter((name, i) => students.indexOf(name) !== i))], ['David Javnozon']);
 	for (const expected of roster.projects) {
 		const project = quarter.blocks.find((block) => block.id === expected.id);

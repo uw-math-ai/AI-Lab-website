@@ -143,7 +143,7 @@ test('Fall rosters replace the closed member application while the lead announce
 	assert.ok(announcement.links.some((link) => link.url === '/projects/fall-2026'));
 
 	assert.match(home, /class="home-announcement interactive-surface[^"\n]*"/);
-	assert.match(home, /We are excited to run 14 projects involving 61 students!/);
+	assert.match(home, /We are excited to run 14 projects involving 60 students!/);
 	const fall = await renderedPage('projects/fall-2026');
 	// The home page no longer carries an application button at all.
 	assert.doesNotMatch(home, /Applications closed<\/button>/);
