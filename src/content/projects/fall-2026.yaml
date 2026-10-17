@@ -1,14 +1,15 @@
 # Fall 2026 rosters and dates from the saved inaugural-meeting slides, October 4, 2026.
+# Roster updated October 16, 2026: Ziye Zhu joined Mathematical Taste.
 slug: fall-2026
 legacyFile: fall2026.html
 label: Fall 2026
 term: Fall
 year: 2026
 status: current
-lastmod: '2026-10-04'
+lastmod: '2026-10-16'
 projectsLaunched: 9
 returningProjects: 5
-summary: 14 projects and 60 students for Fall 2026 (September 30 – December 11). Team rosters updated October 4.
+summary: 14 projects and 61 students for Fall 2026 (September 30 – December 11). Team rosters updated October 16.
 blocks:
   - type: text
     content: |-
@@ -20,7 +21,7 @@ blocks:
 
       **Final presentations:** Wednesday, December 9
 
-      **Rosters:** 14 projects · 60 students
+      **Rosters:** 14 projects · 61 students
   - type: heading
     title: Autoresearch
     id: autoresearch
@@ -58,7 +59,7 @@ blocks:
       - label: 'Co-mentor:'
         content: Will Dudarov
       - label: 'Student members:'
-        content: Ganesh Ravichandran, David An, Annie Cao, Duc Huy Nguyen, Bhuvan Gundela, Armen Agalyan
+        content: Ganesh Ravichandran, David An, Annie Cao, Duc Huy Nguyen, Bhuvan Gundela, Armen Agalyan, Ziye Zhu
       - label: 'Abstract:'
         content: |-
           Can a language model recognize a breakthrough it cannot discover on its own? Mathematical research requires judging which incomplete arguments are worth pursuing before a full proof is available.
