@@ -5,7 +5,7 @@ label: Winter 2026
 term: Winter
 year: 2026
 status: recent
-lastmod: 2026-06-01
+lastmod: 2026-10-21
 returningProjects: 8
 venue: Denny Hall 303 / CMU B-006
 summary: Formalization projects, AI projects, and Lean Together meetings from Winter 2026.
@@ -196,7 +196,7 @@ blocks:
         content: The theorem that a regular local ring is a UFD, referred by some as the Auslander-Buchsbaum
           theorem. See Stacks Project [0AG0](https://stacks.math.columbia.edu/tag/0AG0).
       - label: "Members:"
-        content: Nailin Guan, Dora Kassabova
+        content: Dora Kassabova
       - label: "Prerequisites:"
         content: Lean
   - type: project

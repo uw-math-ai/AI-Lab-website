@@ -5,7 +5,7 @@ label: Spring 2026
 term: Spring
 year: 2026
 status: recent
-lastmod: 2026-06-03
+lastmod: 2026-10-21
 returningProjects: 12
 venue: OUG 136
 summary: Current Math AI Lab projects, including autoformalization, Lean infrastructure, and AI for
@@ -275,7 +275,7 @@ blocks:
       - label: "Code:"
         content: "[GitHub repo](https://github.com/uw-math-ai/auslander-buchsbaum)"
       - label: "Members:"
-        content: Nailin Guan, Dora Kassabova
+        content: Dora Kassabova
       - label: "Prerequisites:"
         content: Lean
   - type: project

@@ -253,8 +253,6 @@ members:
     role: CayleyPy
   - name: Michael
     role: Math2Vec
-  - name: Nailin Guan
-    role: Commutative Algebra
   - name: Naomi Morato
     role: RL for Polynomials
   - name: Naren P Ramakrishnan
