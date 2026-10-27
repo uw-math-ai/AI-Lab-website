@@ -40,6 +40,9 @@ jobs:
       - name: Check Svelte project
         run: npm run check
 
+      - name: Verify blog permissions and publishing
+        run: npm --prefix services/blog test
+
       - name: Detect Pages custom domain
         id: pages
         env:

@@ -75,3 +75,9 @@ CC BY 4.0.
 ## Static Redirects
 
 Public quarter URLs such as `spring2026.html` are lightweight redirect shims in `static/` so existing links keep working after the SvelteKit migration.
+
+## Blog
+
+The lab blog supports GitHub sign-in, approved authors, private drafts, and
+browser publishing. See [the blog guide](docs/blog.md) for writing, approval,
+local development, and service deployment.

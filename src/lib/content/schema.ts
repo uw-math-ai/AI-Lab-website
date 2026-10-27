@@ -163,7 +163,7 @@ const tool = z.strictObject({
 export type LabTool = z.infer<typeof tool>;
 
 const page = z.strictObject({ title: text, description: text, path: url, lastmod: date });
-export const pagesSchema = z.strictObject({ home: page, projects: page, research: page, people: page, events: page, news: page, resources: page });
+export const pagesSchema = z.strictObject({ home: page, projects: page, research: page, people: page, events: page, news: page, blog: page, resources: page });
 
 export const mathSymbolsSchema = z.array(z.strictObject({
 	id,

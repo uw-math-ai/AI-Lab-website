@@ -263,3 +263,21 @@ test('add-to-calendar links use the right instant for Seattle time, including da
 	assert.equal(timeRange(dateOnly), null);
 	assert.equal(timeRange(summer), '4:00 PM-5:30 PM');
 });
+
+test('blog Markdown preserves TeX and rejects executable markup and unsafe links', async () => {
+	const { renderBlogMarkdown } = await server.ssrLoadModule('/src/lib/blog/markdown.ts');
+	const html = renderBlogMarkdown(String.raw`$\mathbb{P}^n$ and $c_1(\mathcal{O}(1))$
+
+<script>alert(1)</script>
+[unsafe](javascript:alert(1))
+![unsafe](data:image/svg+xml;base64,PHN2Zz4=)
+![chart](https://example.com/chart.png)
+
+\`code_with_underscores\`
+`);
+	assert.ok(html.includes('\\mathbb{P}^n'));
+	assert.ok(html.includes('c_1(\\mathcal{O}(1))'));
+	assert.doesNotMatch(html, /<script|href="javascript:|src="data:/);
+	assert.match(html, /src="https:\/\/example.com\/chart.png"/);
+	assert.doesNotMatch(html, /<figure>/);
+});

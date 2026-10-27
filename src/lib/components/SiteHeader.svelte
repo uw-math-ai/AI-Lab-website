@@ -44,6 +44,7 @@
 		{ href: '/people', label: 'People', match: (p: string) => p === '/people' },
 		{ href: '/events', label: 'Events', match: (p: string) => p === '/events' },
 		{ href: '/news', label: 'News', match: (p: string) => p === '/news' },
+		{ href: '/blog', label: 'Blog', match: (p: string) => p.startsWith('/blog') },
 		{ href: '/resources', label: 'Resources', match: (p: string) => p === '/resources' }
 	];
 

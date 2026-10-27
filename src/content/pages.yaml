@@ -1,4 +1,9 @@
 # Page titles, search descriptions, and content modification dates.
+blog:
+  title: Blog — UW Math AI Lab
+  description: Research notes, experiments, and work in progress from the University of Washington Math AI Lab.
+  path: /blog/
+  lastmod: 2026-10-26
 home:
   title: UW Math AI Lab — AI for Mathematics at the University of Washington
   description: >-
