@@ -213,7 +213,7 @@ test('dated news and its links render on the News page', async () => {
 				const href = attr(node, 'href');
 				return href === link.url || (link.url.startsWith('/') && href?.endsWith(link.url.slice(1)));
 			});
-			assert.equal(matches.length, 1);
+			assert.ok(matches.length >= 1, `${item.title}: ${link.label} remains linked`);
 		}
 	}
 });

@@ -33,7 +33,7 @@ test('prerendered canonical pages expose complete, unique search metadata', asyn
 	});
 	const routes = [
 		'',
-		'events',
+		'news',
 		'people',
 		'projects',
 		'research',
@@ -183,7 +183,7 @@ test('one shared motion and glow system governs interactive surfaces', async () 
 test('all primary block families opt into the shared interactive surface', async () => {
 	const [home, events, people, research, projects, resources, codePanel] = await Promise.all([
 		sourceFile('src/routes/+page.svelte'),
-		sourceFile('src/routes/events/+page.svelte'),
+		sourceFile('src/lib/components/updates/UpdateCard.svelte'),
 		sourceFile('src/routes/people/+page.svelte'),
 		sourceFile('src/routes/research/+page.svelte'),
 		sourceFile('src/routes/projects/+page.svelte'),
@@ -195,7 +195,7 @@ test('all primary block families opt into the shared interactive surface', async
 	for (const block of ['paper-card', 'home-photo-card']) {
 		assert.match(home, new RegExp(`${block}[^"\\n]*interactive-surface|interactive-surface[^"\\n]*${block}`));
 	}
-	for (const block of ['date-block', 'event-body']) {
+	for (const block of ['update-card']) {
 		assert.match(events, new RegExp(`${block}[^"\\n]*interactive-surface`));
 	}
 	assert.match(people, /presenter-card[^"\n]*interactive-surface/);
@@ -205,4 +205,22 @@ test('all primary block families opt into the shared interactive surface', async
 	assert.match(projects, /quarter-card interactive-surface/);
 	assert.match(resources, /class="tool"[^>]*data-reveal-item/);
 	assert.match(codePanel, /code-panel interactive-surface/);
+});
+
+
+test('News, Events, and Blog share one hub and one navigation item', async () => {
+  for (const route of ['news', 'events', 'blog']) {
+    const html = await renderedPage(route);
+    assert.match(html, /<h1[^>]*>News &amp; Events<\/h1>/);
+    assert.match(html, /<link rel="canonical" href="https:\/\/ai\.math\.uw\.edu\/news\/"/);
+    assert.match(html, /aria-label="Filter updates"/);
+    assert.match(html, /href="[^"]*blog\/write\/"/);
+    const nav = html.match(/<nav[^>]*id="primary-navigation"[\s\S]*?<\/nav>/)?.[0];
+    assert.ok(nav);
+    assert.equal(countMatches(nav, />News &amp; Events<\/a>/g), 1);
+    assert.doesNotMatch(nav, />(?:News|Events|Blog)<\/a>/);
+  }
+  const sitemap = await readFile(new URL('../build/sitemap.xml', import.meta.url), 'utf8');
+  assert.match(sitemap, /<loc>https:\/\/ai\.math\.uw\.edu\/news\/<\/loc>/);
+  assert.doesNotMatch(sitemap, /<loc>https:\/\/ai\.math\.uw\.edu\/(?:blog|events)\/<\/loc>/);
 });

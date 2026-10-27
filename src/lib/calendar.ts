@@ -30,7 +30,7 @@ export function hasHours(event: LabEvent): boolean {
 	return event.startTime !== event.endTime;
 }
 
-function range(event: LabEvent) {
+export function eventRange(event: LabEvent) {
 	return {
 		start: instant(event.date, event.startTime, event.utcOffset),
 		end: instant(event.date, event.endTime, event.utcOffset)
@@ -46,7 +46,7 @@ function details(event: LabEvent): string {
 }
 
 export function googleCalendarUrl(event: LabEvent): string {
-	const { start, end } = range(event);
+	const { start, end } = eventRange(event);
 	const params = new URLSearchParams({
 		action: 'TEMPLATE',
 		text: event.title,
@@ -58,7 +58,7 @@ export function googleCalendarUrl(event: LabEvent): string {
 }
 
 export function outlookCalendarUrl(event: LabEvent): string {
-	const { start, end } = range(event);
+	const { start, end } = eventRange(event);
 	const params = new URLSearchParams({
 		path: '/calendar/action/compose',
 		rru: 'addevent',
@@ -75,7 +75,7 @@ const icsText = (value: string) => value.replace(/\\/g, '\\\\').replace(/;/g, '\
 
 /** A one-event .ics file (Apple Calendar, desktop Outlook, and anything else), as a data URL. */
 export function icsFile(event: LabEvent): { href: string; filename: string } {
-	const { start, end } = range(event);
+	const { start, end } = eventRange(event);
 	const slug = `${event.date}-${event.title}`.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 	const lines = [
 		'BEGIN:VCALENDAR',

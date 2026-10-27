@@ -40,7 +40,7 @@
 		{#if heading}
 			<div class="section-header">
 				<h2 id="news-heading">News</h2>
-				<a class="section-link" href={sitePath('/news')}>All news →</a>
+				<a class="section-link" href={sitePath('/news/?view=news')}>All news →</a>
 			</div>
 		{/if}
 

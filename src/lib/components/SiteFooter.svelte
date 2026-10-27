@@ -16,9 +16,7 @@
 			<a href={sitePath('/projects')}>Projects</a>
 			<a href={sitePath('/research')}>Research</a>
 			<a href={sitePath('/people')}>People</a>
-			<a href={sitePath('/events')}>Events</a>
-			<a href={sitePath('/news')}>News</a>
-			<a href={sitePath('/blog')}>Blog</a>
+			<a href={sitePath('/news/')}>News &amp; Events</a>
 			<a href={sitePath('/resources')}>Resources</a>
 		</div>
 

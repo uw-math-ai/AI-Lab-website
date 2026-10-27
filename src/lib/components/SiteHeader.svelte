@@ -42,9 +42,7 @@
 		{ href: '/projects', label: 'Projects', match: (p: string) => p.startsWith('/projects') },
 		{ href: '/research', label: 'Research', match: (p: string) => p === '/research' },
 		{ href: '/people', label: 'People', match: (p: string) => p === '/people' },
-		{ href: '/events', label: 'Events', match: (p: string) => p === '/events' },
-		{ href: '/news', label: 'News', match: (p: string) => p === '/news' },
-		{ href: '/blog', label: 'Blog', match: (p: string) => p.startsWith('/blog') },
+		{ href: '/news', label: 'News & Events', match: (p: string) => ['/news', '/events', '/blog'].some(path => p === path || p.startsWith(path + '/')) },
 		{ href: '/resources', label: 'Resources', match: (p: string) => p === '/resources' }
 	];
 

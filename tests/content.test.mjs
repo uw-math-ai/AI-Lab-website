@@ -10,7 +10,7 @@ const { parseContent } = await server.ssrLoadModule('/scripts/yaml-content.ts');
 const { projectQuarters, getProjectQuarter, totalProjectCount } = await server.ssrLoadModule('/src/lib/data/projects.ts');
 const { labEvents, eventDate } = await server.ssrLoadModule('/src/lib/data/events.ts');
 const { labNews } = await server.ssrLoadModule('/src/lib/data/news.ts');
-const { googleCalendarUrl, outlookCalendarUrl, icsFile, hasHours, timeRange } = await server.ssrLoadModule('/src/lib/calendar.ts');
+const { googleCalendarUrl, outlookCalendarUrl, icsFile, hasHours, timeRange, eventRange } = await server.ssrLoadModule('/src/lib/calendar.ts');
 const { researchSections, totalPaperCount, searchResearch } = await server.ssrLoadModule('/src/lib/data/research.ts');
 const { renderMarkdown, renderInline } = await server.ssrLoadModule('/src/lib/content/markdown.ts');
 const { compileMathSymbols } = await server.ssrLoadModule('/scripts/math-symbols.ts');
@@ -280,4 +280,31 @@ test('blog Markdown preserves TeX and rejects executable markup and unsafe links
 	assert.doesNotMatch(html, /<script|href="javascript:|src="data:/);
 	assert.match(html, /src="https:\/\/example.com\/chart.png"/);
 	assert.doesNotMatch(html, /<figure>/);
+});
+
+
+test('the combined feed orders news, posts, and completed events without losing content', async () => {
+  const { timeline, matchesUpdate } = await server.ssrLoadModule('/src/lib/updates.ts');
+  const now = Date.parse('2026-10-27T20:00:00Z');
+  const post = { id: 'test', title: 'A research note', summary: 'Exact computations', tags: ['Algebra'], author: { name: 'Author' }, published_at: now - 1 };
+  const items = timeline(labNews, labEvents, [post], now);
+  assert.equal(items[0].kind, 'blog');
+  assert.equal(items.filter(item => item.kind === 'news').length, labNews.length);
+  assert.equal(items.filter(item => item.kind === 'events').length, labEvents.filter(event => eventRange(event).end < now).length);
+  assert.equal(new Set(items.map(item => item.id)).size, items.length);
+  assert.deepEqual(items.map(item => item.timestamp), items.map(item => item.timestamp).toSorted((a,b) => b-a));
+  assert.ok(matchesUpdate(items[0], ' algebra '));
+  assert.ok(matchesUpdate(items[0], 'COMPUTATIONS'));
+  assert.ok(!matchesUpdate(items[0], 'nonexistent'));
+  assert.ok(!items.some(item => item.title === 'Fall 2026 social event'));
+});
+
+test('ongoing events stay upcoming through their end, across Seattle daylight saving', async () => {
+  const { timeline } = await server.ssrLoadModule('/src/lib/updates.ts');
+  const event = { title: 'Test gathering', type: 'Lab event', date: '2026-11-04', startTime: '16:00', endTime: '17:30' };
+  const { start, end } = eventRange(event);
+  assert.equal(new Date(start).toISOString(), '2026-11-05T00:00:00.000Z');
+  assert.equal(new Date(end).toISOString(), '2026-11-05T01:30:00.000Z');
+  assert.equal(timeline([], [event], [], start + 60000).length, 0);
+  assert.equal(timeline([], [event], [], end + 1).length, 1);
 });

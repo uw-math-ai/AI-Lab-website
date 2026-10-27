@@ -36,7 +36,7 @@
 	}
 
 	function eventHref(event: { sourceUrl?: string }) {
-		return event.sourceUrl ?? sitePath('/events');
+		return event.sourceUrl ?? sitePath('/news/?view=events');
 	}
 
 	function formatDate(value: string) {
@@ -113,7 +113,7 @@
 	<Reveal>
 		<div class="section-header">
 			<h2>Events</h2>
-			<a class="section-link" href={sitePath('/events')}>All events →</a>
+			<a class="section-link" href={sitePath('/news/?view=events')}>All events →</a>
 		</div>
 
 		{#if upcoming.length}

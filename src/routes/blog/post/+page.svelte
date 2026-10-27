@@ -10,9 +10,9 @@
 </script>
 <Seo title={post ? `${post.title} — UW Math AI Lab` : 'Blog post — UW Math AI Lab'} description={post?.summary || 'Writing from the UW Math AI Lab.'} path={post ? postPath(post.slug) : '/blog/post/'} type="article" />
 <section class="page-shell reader">
-  <a class="back" href={sitePath('/blog/')}>← All posts</a>
-  {#if post}<header><div class="tags">{post.tags.join(' · ')}</div><h1>{post.title}</h1><p class="summary">{post.summary}</p><div class="byline"><a href={'https://github.com/' + post.author.login}>{post.author.name}</a><span>{formatDate(post.published_at)} · {readingTime(post.body)} min read</span></div></header>{#if post.cover}<figure><img src={post.cover} alt={post.cover_alt} /></figure>{/if}<div class="reading"><BlogProse body={post.body} /></div><footer><a href={sitePath('/blog/')}>← Back to the blog</a><button onclick={copy}>{copied ? 'Link copied' : 'Copy link ↗'}</button></footer>
-  {:else if error}<div class="notice" role="alert"><h1>Post unavailable</h1><p>{error}</p><a href={sitePath('/blog/')}>Browse the blog →</a></div>
+  <a class="back" href={sitePath('/news/?view=blog')}>← All posts</a>
+  {#if post}<header><div class="tags">{post.tags.join(' · ')}</div><h1>{post.title}</h1><p class="summary">{post.summary}</p><div class="byline"><a href={'https://github.com/' + post.author.login}>{post.author.name}</a><span>{formatDate(post.published_at)} · {readingTime(post.body)} min read</span></div></header>{#if post.cover}<figure><img src={post.cover} alt={post.cover_alt} /></figure>{/if}<div class="reading"><BlogProse body={post.body} /></div><footer><a href={sitePath('/news/?view=blog')}>← Back to the blog</a><button onclick={copy}>{copied ? 'Link copied' : 'Copy link ↗'}</button></footer>
+  {:else if error}<div class="notice" role="alert"><h1>Post unavailable</h1><p>{error}</p><a href={sitePath('/news/?view=blog')}>Browse the blog →</a></div>
   {:else}<p class="notice" aria-live="polite">Loading post…</p>{/if}
 </section>
 <style>

@@ -4,7 +4,8 @@ import { pages } from '$lib/data/pages';
 
 export const prerender = true;
 
-const staticRoutes = Object.values(pages);
+// Events and Blog remain working entry points to the canonical News & Events hub.
+const staticRoutes = Object.values(pages).filter(page => !['/events/', '/blog/'].includes(page.path));
 
 function escapeXml(value: string) {
 	return value

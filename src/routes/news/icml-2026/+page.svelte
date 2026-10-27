@@ -17,7 +17,7 @@
 {#if icml}
 	<section class="page-shell hero compact-hero single" id="icml-2026">
 		<div>
-			<a class="back-link" href={sitePath('/news')}><span aria-hidden="true">←</span> All news</a>
+			<a class="back-link" href={sitePath('/news/?view=news')}><span aria-hidden="true">←</span> All news</a>
 			<h1>Congratulations to our ICML authors</h1>
 			<p>{icml.body}</p>
 			<div class="meta icml-meta">
