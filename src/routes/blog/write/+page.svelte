@@ -3,7 +3,7 @@
   import { beforeNavigate } from '$app/navigation';
   import Seo from '$lib/components/Seo.svelte';
   import BlogProse from '$lib/components/BlogProse.svelte';
-  import { api, signIn, completeSignIn, signOut, uploadImage, postPath, formatDate, download, type BlogUser, type Draft, type Author } from '$lib/blog/client';
+  import { api, signIn, completeSignIn, signOut, uploadImage, postPath, formatDate, download, BlogError, type BlogUser, type Draft, type Author } from '$lib/blog/client';
   import { sitePath } from '$lib/paths';
   let user = $state<BlogUser | null>(null);
   let loading = $state(true), ready = $state(false), error = $state(''), notice = $state('');
@@ -18,12 +18,22 @@
   const allowed = $derived.by(() => user !== null && user.role !== 'reader');
   const visible = $derived(posts.filter(p => (filter === 'all' || (filter === 'published' ? p.published : !p.published)) && (p.title + p.author_name).toLowerCase().includes(search.toLowerCase())));
   const backupKey = (id: string) => `math-ai-blog-draft-${user?.id}-${id}`;
+  const pendingApprovalKey = 'math-ai-blog-pending-approval';
   async function refresh() { posts = (await api<{ posts: Draft[] }>('/editor/posts')).posts; }
   async function boot() {
     loading = true; error = '';
-    try { await completeSignIn(); const data = await api<{ user: BlogUser | null; githubReady: boolean }>('/auth/session'); user = data.user; ready = data.githubReady;
+    try { const returning = new URLSearchParams(location.hash.slice(1)).has('code'); await completeSignIn(); const data = await api<{ user: BlogUser | null; githubReady: boolean }>('/auth/session'); user = data.user; ready = data.githubReady;
       if (user && user.role !== 'reader') { await refresh(); const id = new URL(location.href).searchParams.get('post'); if (id) await openPost(id); }
-      if (new URL(location.href).searchParams.get('signin') === 'cancelled') notice = 'Sign-in was cancelled. You can try again below.';
+      if (new URL(location.href).searchParams.get('signin') === 'cancelled') { sessionStorage.removeItem(pendingApprovalKey); notice = 'Sign-in was cancelled. No author access was changed.'; }
+      if (returning) {
+        const pending = JSON.parse(sessionStorage.getItem(pendingApprovalKey) || 'null'); sessionStorage.removeItem(pendingApprovalKey);
+        if (pending) {
+          if (!user || user.id !== pending.administrator || user.role !== 'admin' || Date.now() - pending.createdAt > 600000) throw new Error('Please approve the author again using the administrator account you started with.');
+          await showAuthors(); authorLogin = pending.login; authorRole = pending.role;
+          await api('/admin/authors','POST',{login:pending.login,role:pending.role});
+          authorLogin = ''; await showAuthors(); notice = `@${pending.login} is approved to post.`;
+        }
+      }
     } catch (e) { error = (e as Error).message; } finally { loading = false; }
   }
   onMount(() => { void boot(); return () => clearTimeout(timer); });
@@ -53,7 +63,7 @@
   }
   async function createPost() { busy = true; error = ''; try { await save(); const data = await api<{ post: Draft }>('/editor/posts', 'POST', {}); await openPost(data.post.id); } catch(e) { error = (e as Error).message; } finally { busy = false; } }
   async function back() { try { await save(); post = null; recovery = null; history.replaceState(null, '', sitePath('/blog/write/')); await refresh(); } catch { /* retain unsaved editor */ } }
-  async function logout() { try { await save(); await signOut(); user = null; post = null; posts = []; history.replaceState(null, '', sitePath('/blog/write/')); } catch(e) { error = (e as Error).message; } }
+  async function logout() { try { await save(); sessionStorage.removeItem(pendingApprovalKey); await signOut(); user = null; post = null; posts = []; history.replaceState(null, '', sitePath('/blog/write/')); } catch(e) { error = (e as Error).message; } }
   async function login() { try { await signIn(); } catch(e) { error = (e as Error).message; } }
   function restore() { if (!post || !recovery) return; const { title, summary, body, tags, cover, cover_alt } = recovery; post = { ...post, title, summary, body, tags, cover, cover_alt, slug: post.published_at ? post.slug : recovery.slug }; tagText = post.tags.join(', '); recovery = null; changed(); }
   function discardRecovery() { if (post) sessionStorage.removeItem(backupKey(post.id)); recovery = null; }
@@ -81,7 +91,17 @@
   }
   function keydown(event: KeyboardEvent) { if (!(event.metaKey || event.ctrlKey)) return; if (event.key.toLowerCase() === 's') { event.preventDefault(); void save().catch(() => {}); } if (event.target === textarea && event.key.toLowerCase() === 'b') { event.preventDefault(); void insert('**','**'); } if (event.target === textarea && event.key.toLowerCase() === 'i') { event.preventDefault(); void insert('*','*'); } }
   async function showAuthors() { error = ''; try { authors = (await api<{ authors: Author[] }>('/admin/authors')).authors; section = 'authors'; } catch(e) { error = (e as Error).message; } }
-  async function approve() { busy = true; error = ''; try { await api('/admin/authors','POST',{login:authorLogin.replace(/^@/,'').trim(),role:authorRole}); authorLogin = ''; await showAuthors(); notice = 'Author access updated.'; } catch(e) { error = (e as Error).message; } finally { busy = false; } }
+  async function approve() {
+    busy = true; error = ''; const login = authorLogin.trim().replace(/^@/,''), role = authorRole;
+    try { await api('/admin/authors','POST',{login,role}); authorLogin = ''; await showAuthors(); notice = `@${login} is approved to post.`; }
+    catch(e) {
+      if (e instanceof BlogError && e.status === 428 && user) {
+        sessionStorage.setItem(pendingApprovalKey, JSON.stringify({login,role,administrator:user.id,createdAt:Date.now()}));
+        notice = 'Refreshing your GitHub sign-in. This approval will finish when you return.';
+        try { await signIn(); } catch (loginError) { sessionStorage.removeItem(pendingApprovalKey); error = (loginError as Error).message; }
+      } else error = (e as Error).message;
+    } finally { busy = false; }
+  }
   function revoke(author: Author) { ask(`Remove @${author.login}?`, 'They will no longer be able to write or publish. Existing published posts will stay on the blog.', async () => { await api('/admin/authors/'+author.github_id,'DELETE',{}); await showAuthors(); }); }
   async function exportAll() { try { download('math-ai-blog-backup.json',JSON.stringify(await api('/admin/export'),null,2),'application/json'); } catch(e) { error = (e as Error).message; } }
 </script>

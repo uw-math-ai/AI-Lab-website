@@ -44,7 +44,11 @@ For an existing GitHub OAuth/App registration, secret environment variables
 `SERVICE_URL/auth/github/callback` as its callback URL.
 
 OAuth uses a state cookie, server PKCE, and a one-use browser handoff bound to a
-second verifier. GitHub access tokens are discarded after the identity lookup.
+second verifier. Ordinary authors’ GitHub access tokens are discarded after the identity lookup.
+Administrators’ tokens are encrypted in D1 for at most eight hours to authenticate
+public account lookups. They are never sent to the frontend or included in exports,
+and are removed on logout, revocation, and expiration. When one expires, an approval
+refreshes GitHub sign-in and resumes the original request for the same administrator.
 Only hashes of seven-day blog session tokens are stored. Every editor request
 checks the current approval. CORS allows the lab and service origins only.
 
@@ -84,7 +88,9 @@ The lab repository also includes a source mirror in `services/blog/` for review
 and recovery. Keep it synchronized when deploying the service.
 
 `GET /health` reports service health and whether GitHub is connected. It never
-returns credentials. **Export backup** in the administrator dashboard downloads
+returns credentials. `/health?check=github` also checks the account-lookup path
+using the owner’s current GitHub authorization; a missing authorization means the
+next approval will refresh sign-in. **Export backup** in the administrator dashboard downloads
 all posts, their published snapshots, and approvals. Store that export privately.
 Image URLs remain stable; images are public by URL, including images uploaded
 while drafting. Image binary files are stored separately in R2 and are not part

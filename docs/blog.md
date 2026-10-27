@@ -7,6 +7,9 @@ Sign in with GitHub. `zengrf` is the owner and can approve authors in the
 **Authors** tab. Other accounts can sign in but cannot write until approved.
 Authors manage their own posts; administrators manage all posts and approvals.
 Removing an approval immediately blocks further editing by that account.
+If GitHub authorization has expired, approving an author briefly refreshes your
+GitHub sign-in and completes the original approval when the same administrator
+returns. Your blog session and drafts are preserved.
 
 The Markdown editor has formatting controls, live math preview, image uploads,
 autosave, local recovery, and a draft download. Title, summary, post URL, topics,

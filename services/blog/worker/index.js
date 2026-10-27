@@ -1,6 +1,7 @@
 /* GitHub identity and publishing API for ai.math.uw.edu. */
 const enc = new TextEncoder(), DAY = 86400000, MAX_BODY = 150000;
 let nextCleanup = 0;
+let githubProbe;
 class HttpError extends Error { constructor(status, message) { super(message); this.status = status; } }
 const fail = (status, message) => { throw new HttpError(status, message); };
 const json = (value, status = 200, headers = {}) => new Response(JSON.stringify(value), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...headers } });
@@ -18,7 +19,13 @@ const setCookie = (name, value, age) => `${name}=${value}; Path=/; HttpOnly; Sec
 const redirect = (url, headers = {}) => new Response(null, { status: 303, headers: { Location: url, 'Cache-Control': 'no-store', ...headers } });
 async function fetchGH(env, url, options = {}) {
   const response = await (env.FETCH || fetch)(url, { ...options, headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'UW-Math-AI-Blog', 'X-GitHub-Api-Version': '2022-11-28', ...options.headers }, signal: AbortSignal.timeout(15000) });
-  if (!response.ok) fail(502, 'GitHub could not complete this request. Please try again.');
+  if (!response.ok) {
+    // Log response metadata only: OAuth headers, secrets, and bodies must stay private.
+    console.warn('GitHub request failed', JSON.stringify({ path: new URL(url).pathname.replace(/\/app-manifests\/[^/]+\/conversions$/, '/app-manifests/[redacted]/conversions'), status: response.status, remaining: response.headers.get('x-ratelimit-remaining'), reset: response.headers.get('x-ratelimit-reset'), requestId: response.headers.get('x-github-request-id') }));
+    if (response.status === 404 && new URL(url).pathname.startsWith('/users/')) fail(400, 'That GitHub username was not found. Check the spelling and try again.');
+    if (response.status === 429 || (response.status === 403 && response.headers.get('x-ratelimit-remaining') === '0')) fail(503, 'GitHub has temporarily rate-limited account lookup. Please try again later; no author access was changed.');
+    const error = new HttpError(502, 'GitHub could not complete this request. Please try again.'); error.githubStatus = response.status; throw error;
+  }
   return response.json();
 }
 async function encrypt(env, value) {
@@ -35,6 +42,16 @@ async function appConfig(env) {
   if (env.GITHUB_CLIENT_ID && env.GITHUB_CLIENT_SECRET) return { client_id: env.GITHUB_CLIENT_ID, client_secret: env.GITHUB_CLIENT_SECRET };
   const row = await query(env, 'SELECT value FROM settings WHERE key=?', 'github_app').first();
   return row ? decrypt(env, row.value) : null;
+}
+async function githubProfile(env, login, administrator) {
+  const access = await query(env, 'SELECT token FROM github_access WHERE github_id=? AND expires_at>?', administrator.id, Date.now() + 30000).first();
+  if (!access) fail(428, 'Refresh your GitHub sign-in to approve authors. Your blog drafts and approvals are saved.');
+  const credential = await decrypt(env, access.token);
+  let person;
+  try { person = await fetchGH(env, 'https://api.github.com/users/' + encodeURIComponent(login), { headers: { Authorization: 'Bearer ' + credential.access_token } }); }
+  catch (error) { if (error.githubStatus === 401) { await query(env, 'DELETE FROM github_access WHERE github_id=?', administrator.id).run(); fail(428, 'Refresh your GitHub sign-in to approve authors.'); } throw error; }
+  if (!Number.isSafeInteger(person.id) || person.id <= 0 || typeof person.login !== 'string' || person.login.toLowerCase() !== login.toLowerCase()) fail(502, 'GitHub returned an unexpected account. No author access was changed.');
+  return person;
 }
 async function readBytes(req, max) {
   if (Number(req.headers.get('content-length')) > max) fail(413, 'This file or post is too large.');
@@ -88,7 +105,13 @@ function htmlPage(title, body, status = 200, headers = {}) {
 }
 async function route(req, env) {
   const url = new URL(req.url), path = url.pathname.replace(/\/$/, '') || '/', method = req.method, now = Date.now();
-  if (path === '/health' && method === 'GET') return json({ ok: true, githubReady: !!await appConfig(env) });
+  if (path === '/health' && method === 'GET') {
+    const githubReady = !!await appConfig(env);
+    if (url.searchParams.get('check') !== 'github' || !githubReady) return json({ ok: true, githubReady });
+    // Bounded public dependency probe: no session or application credentials in its output.
+    if (!githubProbe || githubProbe.expires < now) githubProbe = { expires: now + 300000, result: githubProfile(env, 'zengrf', { id: rootId(env) }).then(() => ({ githubLookupReady: true })).catch(error => ({ githubLookupReady: false, error: error.message })) };
+    return json({ ok: true, githubReady, ...await githubProbe.result });
+  }
   if (path === '/' && method === 'GET') return redirect(origin(env) + '/blog/');
   if (path === '/setup' && method === 'GET') {
     if (await appConfig(env)) return htmlPage('GitHub sign-in is connected', `<p>You can sign in and manage authors from the blog.</p><a href="${origin(env)}/blog/write/">Open the editor →</a>`);
@@ -135,7 +158,14 @@ async function route(req, env) {
     if (!token.access_token) fail(401, 'GitHub did not authorize sign-in. Please try again.');
     const user = await fetchGH(env, 'https://api.github.com/user', { headers: { Authorization: 'Bearer ' + token.access_token } });
     if (!Number.isSafeInteger(user.id) || !user.login || user.type !== 'User') fail(401, 'A personal GitHub account is required.');
-    // The GitHub token is used for identity only and discarded, never sent to the browser.
+    // Only administrators retain a short-lived, encrypted token for public account
+    // lookup. It is never returned to a browser or included in content exports.
+    const approval = await query(env, 'SELECT role FROM authors WHERE github_id=?', user.id).first();
+    if (user.id === rootId(env) || approval?.role === 'admin') {
+      const duration = Math.min(Number(token.expires_in) || 28800, 28800);
+      await query(env, 'INSERT INTO github_access(github_id,token,expires_at) VALUES(?,?,?) ON CONFLICT(github_id) DO UPDATE SET token=excluded.token,expires_at=excluded.expires_at', user.id, await encrypt(env, { access_token: token.access_token }), now + duration * 1000).run();
+      githubProbe = undefined;
+    }
     const handoff = random();
     await query(env, 'INSERT INTO handoffs VALUES(?,?,?,?,?,?,?)', await hash(handoff), user.id, user.login, user.name || user.login, user.avatar_url || '', flow.challenge, now + 60000).run();
     return redirect(flow.return_to + '#code=' + handoff + '&state=' + flow.client_state, { 'Set-Cookie': setCookie('blog_oauth', '', 0) });
@@ -152,7 +182,11 @@ async function route(req, env) {
   if (path === '/auth/session' && method === 'GET') return json({ user: await currentUser(req, env, false), githubReady: !!await appConfig(env) });
   if (path === '/auth/logout' && method === 'POST') {
     const token = req.headers.get('authorization')?.replace(/^Bearer /, '');
-    if (token) await query(env, 'DELETE FROM sessions WHERE token_hash=?', await hash(token)).run();
+    if (token) {
+      const session = await query(env, 'DELETE FROM sessions WHERE token_hash=? RETURNING github_id', await hash(token)).first();
+      if (session) await query(env, 'DELETE FROM github_access WHERE github_id=?', session.github_id).run();
+      githubProbe = undefined;
+    }
     return json({ ok: true });
   }
   if (path === '/posts' && method === 'GET') {
@@ -238,7 +272,7 @@ async function route(req, env) {
     if (path === '/admin/authors' && method === 'POST') {
       const data = await readJson(req, 1000);
       if (typeof data.login !== 'string' || !/^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,37}[a-zA-Z0-9])?$/.test(data.login) || !['author','admin'].includes(data.role)) fail(400, 'Enter a GitHub username and role.');
-      const person = await fetchGH(env, 'https://api.github.com/users/' + encodeURIComponent(data.login));
+      const person = await githubProfile(env, data.login, user);
       if (person.type !== 'User') fail(400, 'Approve a person’s GitHub account, not an organization.');
       if (person.id === rootId(env)) fail(400, 'The lab owner is already an administrator.');
       if (person.id === user.id && data.role !== 'admin') fail(400, 'You cannot remove your own administrator access.');
@@ -248,7 +282,8 @@ async function route(req, env) {
     const who = /^\/admin\/authors\/(\d+)$/.exec(path);
     if (who && method === 'DELETE') {
       const id = Number(who[1]); if (id === rootId(env) || id === user.id) fail(400, 'You cannot remove this administrator.');
-      await query(env, 'DELETE FROM authors WHERE github_id=?', id).run(); return json({ ok: true });
+      await query(env, 'DELETE FROM authors WHERE github_id=?', id).run();
+      await query(env, 'DELETE FROM github_access WHERE github_id=?', id).run(); return json({ ok: true });
     }
     if (path === '/admin/export' && method === 'GET') return json({ exportedAt: new Date().toISOString(), posts: (await query(env, 'SELECT * FROM posts ORDER BY created_at').all()).results, authors: (await query(env, 'SELECT * FROM authors ORDER BY login').all()).results });
   }
@@ -258,7 +293,7 @@ export default {
   async fetch(req, env, ctx) {
     if (ctx?.waitUntil && Date.now() > nextCleanup) {
       const now = Date.now(); nextCleanup = now + 3600000;
-      ctx.waitUntil(Promise.all(['sessions','auth_flows','handoffs'].map(table => query(env, `DELETE FROM ${table} WHERE expires_at<?`, now).run()).concat(query(env, 'DELETE FROM rate_limits WHERE reset_at<?', now - DAY).run())).catch(() => { nextCleanup = 0; }));
+      ctx.waitUntil(Promise.all(['sessions','auth_flows','handoffs','github_access'].map(table => query(env, `DELETE FROM ${table} WHERE expires_at<?`, now).run()).concat(query(env, 'DELETE FROM rate_limits WHERE reset_at<?', now - DAY).run())).catch(() => { nextCleanup = 0; }));
     }
     const requestOrigin = req.headers.get('origin');
     const allowed = !requestOrigin || requestOrigin === origin(env) || requestOrigin === apiOrigin(env) || (env.LOCAL_PREVIEW === 'true' && /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(requestOrigin));
