@@ -330,7 +330,7 @@ blocks:
       - label: 'Project Leaders:'
         content: Giovanni Inchiostro, Dhruv Bhatia <dbhatia1@uw.edu>
       - label: 'Student members:'
-        content: Ethan Wang, Aarnith Netrawali, Saksham Singh, Nicole Ham, Abel Mesfin
+        content: Ethan Wang, Aarnith Netrawali, Saksham Singh, Nicole Ham, Abel Mesfin, Arkamouli Debnath
       - label: 'Abstract:'
         content: 'Turn an existing wall-of-text PDF into an interactive, HTML-based learning experience. Every piece
           of terminology becomes clickable, opening a hovering window with the full definition, and every cross-reference
