@@ -147,6 +147,23 @@ test('blog access, publishing, and GitHub sign-in', async t => {
       assert.equal(DB.execute({sql:'SELECT * FROM github_access WHERE github_id=?',args:[134547794]}).length,0);
     } finally { env.FETCH=original; }
   });
+  await t.test('the owner-approved account can write, and revocation survives a cold start',async()=>{
+    const token='r'.repeat(43);
+    const row=DB.execute({sql:'SELECT * FROM authors WHERE github_id=?',args:[116385789]})[0];
+    assert.equal(row.login,'Rohan-Pandey1729'); assert.equal(row.role,'author');
+    assert.ok(DB.execute({sql:'SELECT * FROM authors WHERE github_id=?',args:[179036840]}).length);
+    DB.execute({sql:'INSERT INTO sessions VALUES(?,?,?,?,?,?)',args:[await hash(token),116385789,'Rohan-Pandey1729','Rohan','',Date.now()+86400000]});
+    assert.equal((await call('/auth/session','GET',undefined,token)).data.user.role,'author');
+    const created=await call('/editor/posts','POST',{},token);assert.equal(created.status,201);
+    assert.equal((await call('/admin/authors','GET',undefined,token)).status,403);
+    assert.equal((await call('/admin/authors/116385789','DELETE',{},admin)).status,200);
+    // A fresh binding instance exercises the persistent receipt, not the warm cache.
+    const coldEnv={...env,DB:new SqliteDB(DB.file)};
+    const resumed=await worker.fetch(new Request(service+'/auth/session',{headers:{Origin:site,Authorization:'Bearer '+token}}),coldEnv,{});
+    assert.equal((await resumed.json()).user.role,'reader');
+    assert.equal((await call('/editor/posts/'+created.data.post.id,'GET',undefined,token)).status,403);
+    assert.equal(DB.execute({sql:'SELECT * FROM authors WHERE github_id=?',args:[116385789]}).length,0);
+  });
   await t.test('setup converts a GitHub manifest, stores encrypted credentials, then closes itself',async()=>{
     const setupEnv={...env,GITHUB_CLIENT_ID:null,GITHUB_CLIENT_SECRET:null,SETUP_TOKEN:'test-setup-token',FETCH:async()=>new Response(JSON.stringify({owner:{id:134547794},client_id:'created-app',client_secret:'created-secret'}),{headers:{'Content-Type':'application/json'}})};
     const start=await worker.fetch(new Request(service+'/setup?token=test-setup-token'),setupEnv,{});

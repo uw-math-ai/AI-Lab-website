@@ -17,6 +17,24 @@ const apiOrigin = env => new URL(env.SERVICE_URL).origin;
 const cookie = (req, name) => req.headers.get('cookie')?.split(';').map(x => x.trim()).find(x => x.startsWith(name + '='))?.slice(name.length + 1) || '';
 const setCookie = (name, value, age) => `${name}=${value}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${age}`;
 const redirect = (url, headers = {}) => new Response(null, { status: 303, headers: { Location: url, 'Cache-Control': 'no-store', ...headers } });
+// Owner-requested data maintenance, separate from schema migrations.
+// This grant was requested by zengrf on 2026-11-04; GitHub verified the immutable ID.
+// The durable receipt is atomic with the grant, so revocation remains effective
+// across cold starts and later deployments. No request can choose a user or role.
+const initializedOwnerGrants = new WeakSet();
+async function applyOwnerAuthorGrants(env) {
+  if (rootId(env) !== 134547794 || origin(env) !== 'https://ai.math.uw.edu' || initializedOwnerGrants.has(env.DB)) return;
+  const key = 'owner-author-grant:2026-11-04:116385789';
+  if (!await query(env, 'SELECT value FROM settings WHERE key=?', key).first()) {
+    await env.DB.batch([
+      query(env, `INSERT INTO authors (github_id,login,name,avatar,role,added_at)
+        SELECT ?,?,?,?,'author',? WHERE NOT EXISTS (SELECT 1 FROM settings WHERE key=?)
+        ON CONFLICT(github_id) DO NOTHING`, 116385789, 'Rohan-Pandey1729', 'Rohan', 'https://avatars.githubusercontent.com/u/116385789?v=4', Date.now(), key),
+      query(env, 'INSERT INTO settings (key,value) VALUES (?,?) ON CONFLICT(key) DO NOTHING', key, 'completed')
+    ]);
+  }
+  initializedOwnerGrants.add(env.DB);
+}
 async function fetchGH(env, url, options = {}) {
   const response = await (env.FETCH || fetch)(url, { ...options, headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'UW-Math-AI-Blog', 'X-GitHub-Api-Version': '2022-11-28', ...options.headers }, signal: AbortSignal.timeout(15000) });
   if (!response.ok) {
@@ -301,7 +319,7 @@ export default {
     try {
       if (!allowed) fail(403, 'This origin is not allowed.');
       if (req.method === 'OPTIONS') response = new Response(null, { status: 204 });
-      else { if (!['GET','HEAD','OPTIONS'].includes(req.method) && !requestOrigin) fail(403, 'Missing request origin.'); response = await route(req, env); }
+      else { if (!['GET','HEAD','OPTIONS'].includes(req.method) && !requestOrigin) fail(403, 'Missing request origin.'); await applyOwnerAuthorGrants(env); response = await route(req, env); }
     } catch (error) {
       if (!(error instanceof HttpError)) console.error('Blog request failed:', error?.message || 'unknown error');
       response = json({ error: error instanceof HttpError ? error.message : 'The blog service is temporarily unavailable. Please try again.' }, error.status || 500);

@@ -99,3 +99,7 @@ of the JSON export. Deleting a post does not delete its image objects.
 The editor supports Markdown, tables, code, and `$...$` / `$$...$$` math. Raw
 HTML and unsafe link protocols are disabled, and KaTeX renders with `trust:false`.
 Uploads accept JPEG, PNG, or WebP signatures, up to 5 MB. SVG/HTML is rejected.
+
+Owner-requested approvals applied through a release are recorded by the Worker
+as atomic data changes with durable receipts in `settings`, outside schema
+migrations. They run once and never restore access revoked in **Authors**.
