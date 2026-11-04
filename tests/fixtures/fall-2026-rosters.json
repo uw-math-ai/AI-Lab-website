@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-10-16",
-  "source": "Saved Fall 2026 inaugural-meeting slides, October 4, 2026, with subsequent roster updates; Pei Li retains the confirmed student placement. Ziye Zhu added to Mathematical Taste on October 16, 2026.",
-  "student_count": 61,
-  "student_placements": 62,
+  "as_of": "2026-10-31",
+  "source": "Saved Fall 2026 inaugural-meeting slides, October 4, 2026, with subsequent roster updates; Pei Li retains the confirmed student placement. Ziye Zhu added to Mathematical Taste on October 16, 2026. Arkamouli Debnath added to AI Math Textbook by Dhruv Bhatia on October 31, 2026 (c6c28ad).",
+  "student_count": 62,
+  "student_placements": 63,
   "projects": [
     {
       "key": "inverse",
@@ -243,7 +243,8 @@
         "Aarnith Netrawali",
         "Saksham Singh",
         "Nicole Ham",
-        "Abel Mesfin"
+        "Abel Mesfin",
+        "Arkamouli Debnath"
       ]
     }
   ]
