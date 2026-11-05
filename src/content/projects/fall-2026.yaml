@@ -149,7 +149,7 @@ blocks:
       - label: 'Project Leaders:'
         content: Eric Klavins <klavins@uw.edu>, Bryan Boehnke <boehnkeb@uw.edu>
       - label: 'Student members:'
-        content: Kavi Mahajan, Rohith Kala, Aiden Hoang
+        content: Kavi Mahajan, Rohith Kala, Aiden Hoang, Yihan Huang
       - label: 'Abstract:'
         content: 'The goal of this project is to formalize the scientific method in Lean and LLMs in an attempt
           to answer the question: Can the experiments done in a given scientific paper refute hypotheses derived
