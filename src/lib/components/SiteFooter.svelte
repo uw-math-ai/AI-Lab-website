@@ -1,4 +1,5 @@
 <script lang="ts">
+	import VisitorMap from './VisitorMap.svelte';
 	import { sitePath } from '$lib/paths';
 </script>
 
@@ -33,6 +34,7 @@
 			<a href="https://uw2026leanhackathon.github.io/" target="_blank" rel="noreferrer">Lean Hackathon 2026<span class="sr-only"> (opens in new tab)</span></a>
 			<a href="https://math.washington.edu" target="_blank" rel="noreferrer">UW Mathematics<span class="sr-only"> (opens in new tab)</span></a>
 		</div>
+		<VisitorMap />
 	</div>
 </footer>
 
@@ -46,7 +48,7 @@
 
 	.footer-inner {
 		display: grid;
-		grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr));
+		grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)) auto;
 		column-gap: clamp(1.5rem, 4vw, 3rem);
 		row-gap: 2.5rem;
 		width: min(var(--shell), calc(100vw - 3rem));
