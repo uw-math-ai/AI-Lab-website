@@ -1,8 +1,8 @@
 {
-  "as_of": "2026-10-31",
-  "source": "Saved Fall 2026 inaugural-meeting slides, October 4, 2026, with subsequent roster updates; Pei Li retains the confirmed student placement. Ziye Zhu added to Mathematical Taste on October 16, 2026. Arkamouli Debnath added to AI Math Textbook by Dhruv Bhatia on October 31, 2026 (c6c28ad).",
-  "student_count": 62,
-  "student_placements": 63,
+  "as_of": "2026-11-06",
+  "source": "Saved Fall 2026 inaugural-meeting slides, October 4, 2026, with subsequent roster updates; Pei Li retains the confirmed student placement. Ziye Zhu added to Mathematical Taste on October 16, 2026. Arkamouli Debnath added to AI Math Textbook by Dhruv Bhatia on October 31, 2026 (c6c28ad). Yihan Huang was added to Formalizing the Scientific Method on November 6, 2026 (7c0095a).",
+  "student_count": 63,
+  "student_placements": 64,
   "projects": [
     {
       "key": "inverse",
@@ -94,7 +94,8 @@
       "students": [
         "Kavi Mahajan",
         "Rohith Kala",
-        "Aiden Hoang"
+        "Aiden Hoang",
+        "Yihan Huang"
       ]
     },
     {
