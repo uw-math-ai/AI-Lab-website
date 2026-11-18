@@ -68,7 +68,7 @@
 	<div class="page-shell hero-copy">
 		<h1>Math AI Lab</h1>
 		<p class="dek">
-			The University of Washington Math AI Lab is a research and education organization focused on using AI
+			The University of Washington Math AI Lab is a research and education institute focused on using AI
 			for math, founded by
 			<a href="https://sites.math.washington.edu/~jarod/">Jarod Alper</a> and <a href="https://vilin97.github.io/">Vasily Ilin</a>.
 		</p>
